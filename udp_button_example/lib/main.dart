@@ -8,8 +8,8 @@ class MyButton extends StatefulWidget {
 }
 
 class _MyButtonState extends State<MyButton> {
-  final String ip = 'localhost'; // IP address of the UDP server
-  final int port = 12345; // Port number of the UDP server
+  final String ip = '192.168.1.101'; // IP address of the UDP server
+  final int port = 9999; // Port number of the UDP server
   final String message = 'Hello, UDP!'; // Message to send
 
   void _sendUDP() async {
