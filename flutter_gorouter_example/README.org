@@ -1,0 +1,26 @@
+* flutter_gorouter_example
+:PROPERTIES:
+:CUSTOM_ID: flutter_gorouter_example
+:END:
+A new Flutter project.
+
+** Getting Started
+:PROPERTIES:
+:CUSTOM_ID: getting-started
+:END:
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter
+project:
+
+- [[https://docs.flutter.dev/get-started/codelab][Lab: Write your first Flutter app]]
+- [[https://docs.flutter.dev/cookbook][Cookbook: Useful Flutter samples]]
+
+For help getting started with Flutter development, view the
+[[https://docs.flutter.dev/][online documentation]], which offers
+tutorials, samples, guidance on mobile development, and a full API
+reference.
+
+copy from [[https://github.com/hrishiksh/flutter-gorouter][A demo app for flutter go router]]
+
+also see [[https://blog.codemagic.io/flutter-go-router-guide/][A beginner’s guide to go_router in Flutter]]
