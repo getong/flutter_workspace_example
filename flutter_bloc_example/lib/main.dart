@@ -97,6 +97,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Bloc Example',
       home: BlocProvider(
         create: (context) => CounterBloc(),

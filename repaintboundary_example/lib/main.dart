@@ -15,6 +15,7 @@ class _Myapp extends State<MyApp> {
   Widget build(BuildContext context) {
     print("object");
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Dict',
       home: Scaffold(
         body: SafeArea(

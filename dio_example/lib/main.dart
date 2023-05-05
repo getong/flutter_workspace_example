@@ -49,6 +49,7 @@ class _MyDioWidgetState extends State<MyDioWidget> {
 
 void main() {
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     title: 'My Dio App',
     home: MyDioWidget(),
   ));

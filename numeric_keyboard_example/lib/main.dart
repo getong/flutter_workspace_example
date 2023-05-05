@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:numeric_keyboard/numeric_keyboard.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+
 void main() {
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -20,6 +23,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class NumericKeyboardDemo extends StatelessWidget {
   const NumericKeyboardDemo({Key? key}) : super(key: key);
   @override
@@ -70,8 +74,8 @@ class NumericKeyboardDemo extends StatelessWidget {
             TextField(
               decoration: InputDecoration(labelText: 'Enter Number'),
               keyboardType: defaultTargetPlatform == TargetPlatform.iOS
-              ? TextInputType.numberWithOptions(decimal: true, signed: true)
-              : TextInputType.number,
+                  ? TextInputType.numberWithOptions(decimal: true, signed: true)
+                  : TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             )
           ],

@@ -12,7 +12,8 @@ class _MyHttpWidgetState extends State<MyHttpWidget> {
   List<dynamic> _data = [];
 
   void fetchData() async {
-    final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
+    final response =
+        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
     final List<dynamic> responseData = jsonDecode(response.body);
 
     setState(() {
@@ -47,6 +48,7 @@ class _MyHttpWidgetState extends State<MyHttpWidget> {
 
 void main() {
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     title: 'My Http App',
     home: MyHttpWidget(),
   ));

@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -112,9 +113,9 @@ class _MyHomePageState extends State<MyHomePage> {
   //     ), // This trailing comma makes auto-formatting nicer for build methods.
   //   );
   // }
-var msg = "Hello World"; //msg默认文字
-@override
-Widget build(BuildContext context) {
+  var msg = "Hello World"; //msg默认文字
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text("我是Title"),
@@ -129,7 +130,7 @@ Widget build(BuildContext context) {
             onPressed: () {
               setState(() {
                 msg = "You Click ME";
-            });
+              });
             },
             child: const Text(
               "Click ME",

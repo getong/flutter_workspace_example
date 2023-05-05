@@ -3,6 +3,7 @@ import 'package:rive/rive.dart';
 
 void main() {
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     home: MyRiveAnimation(),
   ));
 }
