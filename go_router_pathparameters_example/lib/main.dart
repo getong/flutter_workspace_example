@@ -50,6 +50,7 @@ class HomePage extends StatelessWidget {
           onPressed: () {
             // Navigate to the product page with the ID 123.
             context.goNamed('product', pathParameters: {'id': '123'});
+            // GoRouter.of(context).goNamed('product', pathParameters: {'id': '123'});
           },
           child: Text('Go to Product Page'),
         ),
