@@ -13,11 +13,15 @@ final goRouter = GoRouter(
   routes: <RouteBase>[
     GoRoute(
       path: '/',
+      name: '/',
       builder: (context, state) => const HomePage(),
-    ),
-    GoRoute(
-      path: '/login',
-      builder: (context, state) => const LoginPage(),
+      routes: [
+        GoRoute(
+          path: 'login',
+          name: 'login',
+          builder: (context, state) => const LoginPage(),
+        ),
+      ],
     ),
   ],
 );
@@ -65,9 +69,9 @@ class LoginButton extends ConsumerWidget {
     final goRouter = GoRouter.of(context);
     return ElevatedButton(
       onPressed: () {
-        goRouter.goNamed('/login');
+        goRouter.goNamed('/');
       },
-      child: Text('Login'),
+      child: Text('not implemented, go to homepage'),
     );
   }
 }
