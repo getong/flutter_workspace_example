@@ -22,3 +22,40 @@
 **/.DS_Store
 *.swp
 *.bak
+*.class
+*.log
+*.pyc
+**/.atom/
+**/.buildlog/
+**/.history
+**/.svn/
+
+
+**/.vscode/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.pub-cache/
+**/.pub/
+
+
+# Web related
+**/lib/generated_plugin_registrant.dart
+
+# Symbolication related
+**/app.*.symbols
+
+# Obfuscation related
+**/app.*.map.json
+
+# Android Studio will place build artifacts here
+**/android/app/debug
+**/android/app/profile
+**/android/app/release
+**/.vscode/launch.json
+**/ios/Flutter/Release.xcconfig
+**/ios/Flutter/Debug.xcconfig
+**/macos/Flutter/Flutter-Debug.xcconfig
+**/macos/Flutter/Flutter-Release.xcconfig
+
+# copy from https://stackoverflow.com/questions/53786475/flutter-large-project-size-on-github
+# cd project_name; flutter create . && flutter run
