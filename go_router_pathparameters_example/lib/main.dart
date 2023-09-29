@@ -46,13 +46,25 @@ class HomePage extends StatelessWidget {
         title: Text('Home'),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            // Navigate to the product page with the ID 123.
-            context.goNamed('product', pathParameters: {'id': '123'});
-            // GoRouter.of(context).goNamed('product', pathParameters: {'id': '123'});
-          },
-          child: Text('Go to Product Page'),
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                // Navigate to the product page with the ID 123.
+                context.goNamed('product', pathParameters: {'id': '1'});
+                // GoRouter.of(context).goNamed('product', pathParameters: {'id': '123'});
+              },
+              child: Text('Go to Product Page'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Navigate to the product page with the ID 123.
+                context.pushNamed('product', pathParameters: {'id': '12'});
+                // GoRouter.of(context).goNamed('product', pathParameters: {'id': '123'});
+              },
+              child: Text('push to Product Page'),
+            ),
+          ],
         ),
       ),
     );
@@ -71,8 +83,27 @@ class ProductPage extends StatelessWidget {
         title: Text('Product Page'),
       ),
       body: Center(
-        child: Text('Product ID: $id'),
-      ),
+          child: Column(
+        children: <Widget>[
+          Text('Product ID: $id'),
+          ElevatedButton(
+            onPressed: () {
+              // Navigate to the product page with the ID 123.
+              context.goNamed('product', pathParameters: {'id': '4'});
+              // GoRouter.of(context).goNamed('product', pathParameters: {'id': '123'});
+            },
+            child: Text('Go to Product Page'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Navigate to the product page with the ID 123.
+              context.pushNamed('product', pathParameters: {'id': '5'});
+              // GoRouter.of(context).goNamed('product', pathParameters: {'id': '123'});
+            },
+            child: Text('push to Product Page'),
+          ),
+        ],
+      )),
     );
   }
 }
