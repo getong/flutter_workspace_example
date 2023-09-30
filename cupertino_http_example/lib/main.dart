@@ -25,11 +25,11 @@ class BookSearchApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => const MaterialApp(
-    // Remove the debug banner.
-    debugShowCheckedModeBanner: false,
-    title: 'Book Search',
-    home: HomePage(),
-  );
+        // Remove the debug banner.
+        debugShowCheckedModeBanner: false,
+        title: 'Book Search',
+        home: HomePage(),
+      );
 }
 
 class HomePage extends StatefulWidget {
@@ -65,24 +65,24 @@ class _HomePageState extends State<HomePage> {
   void _runSearch(String query) async {
     if (query.isEmpty) {
       setState(() {
-          _books = null;
+        _books = null;
       });
       return;
     }
 
     final books = await _findMatchingBooks(query);
     setState(() {
-        _books = books;
+      _books = books;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final searchResult = _books == null
-    ? const Text('Please enter a query', style: TextStyle(fontSize: 24))
-    : _books!.isNotEmpty
-    ? BookList(_books!)
-    : const Text('No results found', style: TextStyle(fontSize: 24));
+        ? const Text('Please enter a query', style: TextStyle(fontSize: 24))
+        : _books!.isNotEmpty
+            ? BookList(_books!)
+            : const Text('No results found', style: TextStyle(fontSize: 24));
 
     return Scaffold(
       appBar: AppBar(title: const Text('Book Search')),
@@ -118,18 +118,18 @@ class BookList extends StatefulWidget {
 class _BookListState extends State<BookList> {
   @override
   Widget build(BuildContext context) => ListView.builder(
-    itemCount: widget.books.length,
-    itemBuilder: (context, index) => Card(
-      key: ValueKey(widget.books[index].title),
-      child: ListTile(
-        leading: CachedNetworkImage(
-          placeholder: (context, url) =>
-          const CircularProgressIndicator(),
-          imageUrl:
-          widget.books[index].imageUrl.replaceFirst('http', 'https')),
-        title: Text(widget.books[index].title),
-        subtitle: Text(widget.books[index].description),
-      ),
-    ),
-  );
+        itemCount: widget.books.length,
+        itemBuilder: (context, index) => Card(
+          key: ValueKey(widget.books[index].title),
+          child: ListTile(
+            leading: CachedNetworkImage(
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+                imageUrl:
+                    widget.books[index].imageUrl.replaceFirst('http', 'https')),
+            title: Text(widget.books[index].title),
+            subtitle: Text(widget.books[index].description),
+          ),
+        ),
+      );
 }

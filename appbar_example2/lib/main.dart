@@ -86,7 +86,7 @@ class _AppBarExampleState extends State<AppBarExample> {
               ElevatedButton.icon(
                 onPressed: () {
                   setState(() {
-                      shadowColor = !shadowColor;
+                    shadowColor = !shadowColor;
                   });
                 },
                 icon: Icon(
@@ -99,12 +99,12 @@ class _AppBarExampleState extends State<AppBarExample> {
                 onPressed: () {
                   if (scrolledUnderElevation == null) {
                     setState(() {
-                        // Default elevation is 3.0, increment by 1.0.
-                        scrolledUnderElevation = 4.0;
+                      // Default elevation is 3.0, increment by 1.0.
+                      scrolledUnderElevation = 4.0;
                     });
                   } else {
                     setState(() {
-                        scrolledUnderElevation = scrolledUnderElevation! + 1.0;
+                      scrolledUnderElevation = scrolledUnderElevation! + 1.0;
                     });
                   }
                 },

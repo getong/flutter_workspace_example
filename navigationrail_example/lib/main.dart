@@ -10,11 +10,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // Remove the debug banner
-      debugShowCheckedModeBanner: false,
-      title: '大前端之旅',
-      theme: ThemeData(primarySwatch: Colors.indigo),
-      home: const HomeScreen());
+        // Remove the debug banner
+        debugShowCheckedModeBanner: false,
+        title: '大前端之旅',
+        theme: ThemeData(primarySwatch: Colors.indigo),
+        home: const HomeScreen());
   }
 }
 
@@ -79,70 +79,70 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       // Show the bottom tab bar if screen width < 640
       bottomNavigationBar: MediaQuery.of(context).size.width < 640
-      ? BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        unselectedItemColor: Colors.grey,
-        selectedItemColor: Colors.indigoAccent,
-        // called when one tab is selected
-        onTap: (int index) {
-          setState(() {
-              _selectedIndex = index;
-          });
-        },
-        // bottom tab items
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.feed), label: 'Feed'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite), label: 'Favorites'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings), label: 'Settings')
-      ])
-      : null,
+          ? BottomNavigationBar(
+              currentIndex: _selectedIndex,
+              unselectedItemColor: Colors.grey,
+              selectedItemColor: Colors.indigoAccent,
+              // called when one tab is selected
+              onTap: (int index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
+              // bottom tab items
+              items: const [
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.home), label: 'Home'),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.feed), label: 'Feed'),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.favorite), label: 'Favorites'),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.settings), label: 'Settings')
+                ])
+          : null,
       body: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
           // Show the navigaiton rail if screen width >= 640
           if (MediaQuery.of(context).size.width >= 640)
-          NavigationRail(
-            minWidth: 55.0,
-            selectedIndex: _selectedIndex,
-            // Called when one tab is selected
-            onDestinationSelected: (int index) {
-              setState(() {
+            NavigationRail(
+              minWidth: 55.0,
+              selectedIndex: _selectedIndex,
+              // Called when one tab is selected
+              onDestinationSelected: (int index) {
+                setState(() {
                   _selectedIndex = index;
-              });
-            },
-            labelType: NavigationRailLabelType.all,
-            selectedLabelTextStyle: const TextStyle(
-              color: Colors.amber,
-            ),
-            leading: Column(
-              children: const [
-                SizedBox(
-                  height: 8,
-                ),
-                CircleAvatar(
-                  radius: 20,
-                  child: Icon(Icons.person),
-                ),
+                });
+              },
+              labelType: NavigationRailLabelType.all,
+              selectedLabelTextStyle: const TextStyle(
+                color: Colors.amber,
+              ),
+              leading: Column(
+                children: const [
+                  SizedBox(
+                    height: 8,
+                  ),
+                  CircleAvatar(
+                    radius: 20,
+                    child: Icon(Icons.person),
+                  ),
+                ],
+              ),
+              unselectedLabelTextStyle: const TextStyle(),
+              // navigation rail items
+              destinations: const [
+                NavigationRailDestination(
+                    icon: Icon(Icons.home), label: Text('Home')),
+                NavigationRailDestination(
+                    icon: Icon(Icons.feed), label: Text('Feed')),
+                NavigationRailDestination(
+                    icon: Icon(Icons.favorite), label: Text('Favorites')),
+                NavigationRailDestination(
+                    icon: Icon(Icons.settings), label: Text('Settings')),
               ],
             ),
-            unselectedLabelTextStyle: const TextStyle(),
-            // navigation rail items
-            destinations: const [
-              NavigationRailDestination(
-                icon: Icon(Icons.home), label: Text('Home')),
-              NavigationRailDestination(
-                icon: Icon(Icons.feed), label: Text('Feed')),
-              NavigationRailDestination(
-                icon: Icon(Icons.favorite), label: Text('Favorites')),
-              NavigationRailDestination(
-                icon: Icon(Icons.settings), label: Text('Settings')),
-            ],
-          ),
 
           // Main content
           // This part is always shown

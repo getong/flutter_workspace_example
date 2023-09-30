@@ -25,8 +25,7 @@ class HomeScreen extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => const DetailScreen(
-                    message: 'This is a message from the home screen'
-                ),
+                    message: 'This is a message from the home screen'),
               ),
             );
             print(message);
@@ -55,7 +54,8 @@ class DetailScreen extends StatelessWidget {
             Text(message),
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(context, 'This is a message from the Detail screen');
+                Navigator.pop(
+                    context, 'This is a message from the Detail screen');
               },
               child: const Text('Go back!'),
             ),

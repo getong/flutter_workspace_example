@@ -58,21 +58,18 @@ class _MyHomePageState extends State<MyHomePage> {
   bool rememberMe = false;
 
   void _onRememberMeChanged(bool? newValue) => setState(() {
-      rememberMe = newValue!;
+        rememberMe = newValue!;
 
-      if (rememberMe) {
-        // TODO: Here goes your functionality that remembers the user.
-      } else {
-        // TODO: Forget the user
-      }
-  });
+        if (rememberMe) {
+          // TODO: Here goes your functionality that remembers the user.
+        } else {
+          // TODO: Forget the user
+        }
+      });
 
   @override
   Widget build(BuildContext context) {
-    return Checkbox(
-      value: rememberMe,
-      onChanged: _onRememberMeChanged
-    );
+    return Checkbox(value: rememberMe, onChanged: _onRememberMeChanged);
   }
   // int _counter = 0;
 
@@ -140,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
   //                 print(input);
   //               },
   //             ),
-            // ),//
+  // ),//
   //           CheckboxListTile(
   //             title: Text("title text"),
   //             value: checkedValue,

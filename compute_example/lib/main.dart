@@ -121,25 +121,24 @@ void main() {
 }
 
 void heavyTask(IsolateModel model) {
-int total = 0;
+  int total = 0;
 
-/// Performs an iteration of the specified count
-for (int i = 1; i < model.iteration; i++) {
-
-  /// Multiplies each index by the multiplier and computes the total
-  total += (i * model.multiplier);
-}
+  /// Performs an iteration of the specified count
+  for (int i = 1; i < model.iteration; i++) {
+    /// Multiplies each index by the multiplier and computes the total
+    total += (i * model.multiplier);
+  }
 
 // log("FINAL TOTAL: $total");
-print("FINAL TOTAL:");
-print(total);
+  print("FINAL TOTAL:");
+  print(total);
 }
 
 class IsolateModel {
-IsolateModel(this.iteration, this.multiplier);
+  IsolateModel(this.iteration, this.multiplier);
 
-final int iteration;
-final int multiplier;
+  final int iteration;
+  final int multiplier;
 }
 
 // copy from [Flutter isolates – everything you need to know](https://blog.codemagic.io/understanding-flutter-isolates/)
