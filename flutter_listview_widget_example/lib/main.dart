@@ -85,8 +85,14 @@ class _MyHomePageState extends State<MyHomePage> {
           itemCount: list.length,
           itemBuilder: (BuildContext context, int index) {
             return Dismissible(
-              key: Key(index.toString()),
+              // key: Key(index.toString()),
+              key: UniqueKey(),
               child: ListTile(title: Text(list[index])),
+              onDismissed: (direction) {
+                setState(() {
+                  list.removeAt(index);
+                });
+              },
             );
           }),
       floatingActionButton: FloatingActionButton(
@@ -107,6 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: () {
                         setState(() {
                           list.add(input);
+                          input = "";
                         });
                         Navigator.of(context).pop();
                       },
