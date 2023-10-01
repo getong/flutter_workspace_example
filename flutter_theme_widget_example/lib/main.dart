@@ -33,8 +33,21 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.red,
         // accentColor: Colors.lime
         brightness: Brightness.light,
+        primarySwatch: Colors.grey,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.black87,
+          foregroundColor: Colors.white,
+          elevation: 8,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.black,
+            onPrimary: Colors.white,
+          ),
+        ),
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      onGenerateTitle: (BuildContext context) => 'My app title',
     );
   }
 }
