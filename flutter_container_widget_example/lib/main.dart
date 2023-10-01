@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_container_widget_example/app-in-page/sign_in_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,9 +32,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Container(
-        color: Colors.white,
-      ),
+      home: SignInPage(),
     );
   }
 }
