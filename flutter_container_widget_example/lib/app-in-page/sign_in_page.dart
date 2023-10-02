@@ -8,6 +8,7 @@ class SignInPage extends StatelessWidget {
         title: Text('Time Tracker'),
       ),
       body: _buildContent(),
+      backgroundColor: Colors.grey,
     );
   }
 }
@@ -30,7 +31,13 @@ Widget _buildContent() {
         ),
         SizedBox(height: 8.0),
         ElevatedButton(
-          child: Text('Sign in with Google'),
+          child: Text(
+            'Sign in with Google',
+            style: TextStyle(
+              color: Colors.black87,
+              fontSize: 15.0,
+            ),
+          ),
           onPressed: () {
             print('button pressed');
           },
