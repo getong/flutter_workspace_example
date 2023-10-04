@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:uuid/uuid.dart';
 import 'dart:async';
+import 'dart:math';
 
 class User {
   String name;
@@ -43,15 +45,32 @@ class SomeScreenState extends ConsumerState<SomeScreen> {
           data: (data) {
             return ListView.builder(
               itemCount: data.length,
-              itemBuilder: (context, index) {
-                return TextButton(
-                  child: Text(data[index].name),
-                  onPressed: () {
-                    User user = User(name: 'hyuil', age: 30);
-                    ref.read(someAsyncNotifierProvider.notifier).addUser(user);
+              itemBuilder: (BuildContext context, int index) {
+                return Dismissible(
+                  key: UniqueKey(),
+                  child: Row(
+                    children: <Widget>[
+                      Text(data[index].name),
+                      SizedBox(width: 10.0),
+                      Text(data[index].age.toString())
+                    ],
+                  ),
+                  onDismissed: (direction) {
+                    setState(() {
+                      data.removeAt(index);
+                    });
                   },
                 );
               },
+              // itemBuilder: (context, index) {
+              //   return TextButton(
+              //     child: Text(data[index].name),
+              //     onPressed: () {
+              //       User user = User(name: 'hyuil', age: 30);
+              //       ref.read(someAsyncNotifierProvider.notifier).addUser(user);
+              //     },
+              //   );
+              // },
             );
           },
         );
@@ -79,7 +98,9 @@ class MyApp extends ConsumerWidget {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             // Access the CounterNotifier and call its increment method
-            User user = User(name: 'hyuil', age: 30);
+            var uuid = Uuid();
+            var rng = Random();
+            User user = User(name: uuid.v1(), age: rng.nextInt(100));
             ref.read(someAsyncNotifierProvider.notifier).addUser(user);
           },
           child: Icon(Icons.add),
