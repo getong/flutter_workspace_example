@@ -30,10 +30,29 @@ class MyWidget extends ConsumerWidget {
     // var out_prev;
     // var out_next;
     ref.listen(counterProvider, (prev, next) {
-        // Text('The counter changed is now: $next');
-        print("prev is $prev, next $next");
-        // out_prev = prev;
-        // out_next = next;
+      // Text('The counter changed is now: $next');
+      // print("prev is $prev, next $next");
+      // out_prev = prev;
+      // out_next = next;
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('monitor the change of value'),
+            content: Text('the prev value is $prev, the next value is $next'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  // Close the dialog
+                  Navigator.of(context).pop();
+                },
+                child: Text('Close'),
+              ),
+            ],
+          );
+        },
+      );
     });
     return Scaffold(
       appBar: AppBar(
