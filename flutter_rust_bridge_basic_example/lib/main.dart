@@ -53,8 +53,8 @@ class MyHomePage extends StatefulWidget {
 extension<L, R, R2> on (FutureOr<L>, FutureOr<R>, FutureOr<R2>) {
   // A convenience method enabled by Dart 3, which will be useful later.
   Future<(L, R, R2)> join() async {
-    final fut =
-    await Future.wait([Future.value(this.$1), Future.value(this.$2), Future.value(this.$3)]);
+    final fut = await Future.wait(
+        [Future.value(this.$1), Future.value(this.$2), Future.value(this.$3)]);
     return (fut[0] as L, fut[1] as R, fut[2] as R2);
   }
 }
@@ -151,7 +151,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   Platform.Wasm => 'the Web',
                   Platform.Unknown => 'Unknown OS',
                 };
-                return Text('$text ($releaseText), plus tow factor: ($plusTwoFactor)', style: style);
+                return Text(
+                    '$text ($releaseText), plus tow factor: ($plusTwoFactor)',
+                    style: style);
               },
             )
           ],
