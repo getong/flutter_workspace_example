@@ -11,6 +11,11 @@ pub extern "C" fn wire_rust_release_mode(port_: i64) {
     wire_rust_release_mode_impl(port_)
 }
 
+#[no_mangle]
+pub extern "C" fn wire_plus_two_factor(port_: i64, a: u8, b: u8) {
+    wire_plus_two_factor_impl(port_, a, b)
+}
+
 // Section: allocate functions
 
 // Section: related functions

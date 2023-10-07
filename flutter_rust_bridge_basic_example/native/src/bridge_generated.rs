@@ -42,6 +42,24 @@ fn wire_rust_release_mode_impl(port_: MessagePort) {
         move || move |task_callback| Result::<_, ()>::Ok(rust_release_mode()),
     )
 }
+fn wire_plus_two_factor_impl(
+    port_: MessagePort,
+    a: impl Wire2Api<u8> + UnwindSafe,
+    b: impl Wire2Api<u8> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, u8, _>(
+        WrapInfo {
+            debug_name: "plus_two_factor",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_a = a.wire2api();
+            let api_b = b.wire2api();
+            move |task_callback| Result::<_, ()>::Ok(plus_two_factor(api_a, api_b))
+        },
+    )
+}
 // Section: wrapper structs
 
 // Section: static checks
@@ -62,6 +80,11 @@ where
 {
     fn wire2api(self) -> Option<T> {
         (!self.is_null()).then(|| self.wire2api())
+    }
+}
+impl Wire2Api<u8> for u8 {
+    fn wire2api(self) -> u8 {
+        self
     }
 }
 // Section: impl IntoDart
@@ -93,13 +116,6 @@ impl rust2dart::IntoIntoDart<Platform> for Platform {
 support::lazy_static! {
     pub static ref FLUTTER_RUST_BRIDGE_HANDLER: support::DefaultHandler = Default::default();
 }
-
-/// cbindgen:ignore
-#[cfg(target_family = "wasm")]
-#[path = "bridge_generated.web.rs"]
-mod web;
-#[cfg(target_family = "wasm")]
-pub use web::*;
 
 #[cfg(not(target_family = "wasm"))]
 #[path = "bridge_generated.io.rs"]

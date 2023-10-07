@@ -57,3 +57,8 @@ pub fn platform() -> Platform {
 pub fn rust_release_mode() -> bool {
     cfg!(not(debug_assertions))
 }
+
+
+pub fn plus_two_factor(a: u8 ,  b: u8) -> u8 {
+    a + b
+}

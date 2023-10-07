@@ -50,12 +50,12 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-extension<L, R> on (FutureOr<L>, FutureOr<R>) {
+extension<L, R, R2> on (FutureOr<L>, FutureOr<R>, FutureOr<R2>) {
   // A convenience method enabled by Dart 3, which will be useful later.
-  Future<(L, R)> join() async {
+  Future<(L, R, R2)> join() async {
     final fut =
-        await Future.wait([Future.value(this.$1), Future.value(this.$2)]);
-    return (fut[0] as L, fut[1] as R);
+    await Future.wait([Future.value(this.$1), Future.value(this.$2), Future.value(this.$3)]);
+    return (fut[0] as L, fut[1] as R, fut[2] as R2);
   }
 }
 
@@ -64,12 +64,14 @@ class _MyHomePageState extends State<MyHomePage> {
   // in the initState method.
   late Future<Platform> platform;
   late Future<bool> isRelease;
+  late Future<int> plusTwoFactor;
 
   @override
   void initState() {
     super.initState();
     platform = api.platform();
     isRelease = api.rustReleaseMode();
+    plusTwoFactor = api.plusTwoFactor(a: 1, b: 2);
   }
 
   @override
@@ -114,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
               // Recent versions of Dart allow the type of the snapshot to be correctly inferred.
               // Since Future.wait predates Dart 3 and does not understand tuples, we use the join method
               // declared earlier to concurrently await two futures while preserving type safety.
-              future: (platform, isRelease).join(),
+              future: (platform, isRelease, plusTwoFactor).join(),
               builder: (context, snap) {
                 final style = Theme.of(context).textTheme.headlineMedium;
                 if (snap.error != null) {
@@ -131,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 final data = snap.data;
                 if (data == null) return const CircularProgressIndicator();
 
-                final (platform, release) = data;
+                final (platform, release, plusTwoFactor) = data;
                 final releaseText = release ? 'Release' : 'Debug';
 
                 // Another feature introduced in Dart 3 is switch expressions,
@@ -149,7 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Platform.Wasm => 'the Web',
                   Platform.Unknown => 'Unknown OS',
                 };
-                return Text('$text ($releaseText)', style: style);
+                return Text('$text ($releaseText), plus tow factor: ($plusTwoFactor)', style: style);
               },
             )
           ],
