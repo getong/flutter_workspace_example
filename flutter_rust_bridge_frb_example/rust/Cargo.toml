@@ -1,0 +1,16 @@
+[package]
+name = "rust"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.75"
+crossbeam = "0.8.2"
+flutter_rust_bridge = "1.82.1"
+image = "0.24.7"
+num = "0.4.1"
+
+[lib]
+crate-type = ["cdylib"]
