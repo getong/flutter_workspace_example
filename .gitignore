@@ -57,5 +57,8 @@
 **/macos/Flutter/Flutter-Debug.xcconfig
 **/macos/Flutter/Flutter-Release.xcconfig
 
+**/Cargo.lock
+**/target
+
 # copy from https://stackoverflow.com/questions/53786475/flutter-large-project-size-on-github
 # cd project_name; flutter create . && flutter run
