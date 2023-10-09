@@ -60,5 +60,7 @@
 **/Cargo.lock
 **/target
 
+**/Podfile.lock
+
 # copy from https://stackoverflow.com/questions/53786475/flutter-large-project-size-on-github
 # cd project_name; flutter create . && flutter run
