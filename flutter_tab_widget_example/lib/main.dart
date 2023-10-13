@@ -13,9 +13,9 @@ class MyApp extends StatelessWidget {
             title: Text('Tab Example'),
             bottom: TabBar(
               tabs: [
-                Tab(text: 'Tab 1'),
-                Tab(text: 'Tab 2'),
-                Tab(text: 'Tab 3'),
+                Tab(text: 'Tab 1', icon: Icon(Icons.directions_car)),
+                Tab(text: 'Tab 2',icon: Icon(Icons.directions_transit)),
+                Tab(text: 'Tab 3',icon: Icon(Icons.directions_bike)),
               ],
             ),
           ),
