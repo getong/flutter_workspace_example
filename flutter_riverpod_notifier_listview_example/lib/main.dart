@@ -84,9 +84,10 @@ class MyApp extends ConsumerWidget {
                 return ListView.builder(
                   itemCount: list.length,
                   itemBuilder: (context, index) {
-                    return Row(
+                    return Column(
                       children: <Widget>[
                         Text(index.toString()),
+                        SizedBox(),
                         Text(list[index]),
                       ],
                     );
