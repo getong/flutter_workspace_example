@@ -37,11 +37,11 @@ class MyApp extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      supportedLocales: [
-        const Locale('zh', 'CH'),
-        const Locale('en', 'US'),
+      supportedLocales: const [
+        Locale('zh', 'CH'),
+        Locale('en', 'US'),
       ],
-      locale: Locale('zh'),
+      locale: const Locale('zh'),
     );
   }
 }
@@ -133,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   applicationName: '应用程序',
                   applicationVersion: '1.0.0',
-                  applicationLegalese: 'copyright',
+                  applicationLegalese: '许可例子',
                   children: <Widget>[
                     Container(
                       height: 30,
