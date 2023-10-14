@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 /// This Widget is the main application widget.
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: MyStackWidget(),
     );
@@ -14,13 +16,15 @@ class MyApp extends StatelessWidget {
 }
 
 class MyStackWidget extends StatelessWidget {
+  const MyStackWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           appBar: AppBar(
-            title: Text("Flutter Stack Widget Example"),
+            title: const Text("Flutter Stack Widget Example"),
           ),
           body: Center(
             child: Stack(
@@ -32,7 +36,7 @@ class MyStackWidget extends StatelessWidget {
                   height: 300,
                   width: 400,
                   color: Colors.green,
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       'Top Widget: Green',
                       style: TextStyle(color: Colors.white, fontSize: 20),
@@ -46,7 +50,7 @@ class MyStackWidget extends StatelessWidget {
                     height: 100,
                     width: 150,
                     color: Colors.blue,
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         'Middle Widget',
                         style: TextStyle(color: Colors.white, fontSize: 20),
@@ -61,7 +65,7 @@ class MyStackWidget extends StatelessWidget {
                       height: 100,
                       width: 150,
                       color: Colors.orange,
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           'Bottom Widget',
                           style: TextStyle(color: Colors.white, fontSize: 20),
