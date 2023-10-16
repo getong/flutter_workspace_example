@@ -21,17 +21,18 @@ class MyApp extends StatelessWidget {
   }
 }
 
-final serverAddressProvider = Provider<String>((ref) => '127.0.0.1');
-final serverPortProvider = Provider<int>((ref) => 64123);
+final serverAddressProvider =
+    Provider<String>((ProviderRef<String> ref) => '127.0.0.1');
+final serverPortProvider = Provider<int>((ProviderRef<int> ref) => 64123);
 final tcpClientProvider = ChangeNotifierProvider<TCPClient>(
-  (ref) => TCPClient(
+  (ChangeNotifierProviderRef<TCPClient> ref) => TCPClient(
     serverAddress: ref.read(serverAddressProvider),
     serverPort: ref.read(serverPortProvider),
   ),
 );
 
 final streamProvider = StreamProvider.autoDispose(
-  (ref) async* {
+  (AutoDisposeStreamProviderRef<Object?> ref) async* {
     await for (final value
         in ref.watch(tcpClientProvider).streamController.stream) {
       yield value;
@@ -44,7 +45,7 @@ class MyHomePage extends ConsumerWidget {
   MyHomePage({required this.title});
 
   @override
-  Widget build(BuildContext context, ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: Text('$title'),
@@ -70,7 +71,7 @@ class MyHomePage extends ConsumerWidget {
 
 class ReceivedData extends ConsumerWidget {
   @override
-  Widget build(BuildContext context, ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final receivedData = ref.watch(tcpClientProvider).receivedData;
     return Text('Received data: $receivedData');
   }
@@ -78,7 +79,7 @@ class ReceivedData extends ConsumerWidget {
 
 class ReceivedDataWithProvider extends ConsumerWidget {
   @override
-  Widget build(BuildContext context, ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     AsyncValue receivedData = ref.watch(streamProvider);
 
     return receivedData.when(
@@ -91,7 +92,7 @@ class ReceivedDataWithProvider extends ConsumerWidget {
 
 class ConnectButton extends ConsumerWidget {
   @override
-  Widget build(BuildContext context, ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isConnected = ref.watch(tcpClientProvider).connectionState;
     return FloatingActionButton(
       onPressed: isConnected
@@ -107,7 +108,7 @@ class ConnectButton extends ConsumerWidget {
 
 class ConnectionIndicator extends ConsumerWidget {
   @override
-  Widget build(BuildContext context, ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isConnected = ref.watch(tcpClientProvider).connectionState;
     return ListTile(
       leading: Container(
@@ -126,7 +127,7 @@ class ConnectionIndicator extends ConsumerWidget {
 
 class DataSendButton extends ConsumerWidget {
   @override
-  Widget build(BuildContext context, ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isConnected = ref.watch(tcpClientProvider).connectionState;
     return ElevatedButton(
       onPressed: !isConnected
@@ -143,7 +144,7 @@ class DataSendButton extends ConsumerWidget {
 
 class DataSendIndicator extends ConsumerWidget {
   @override
-  Widget build(BuildContext context, ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isDataSent = ref.watch(tcpClientProvider).dataSentState;
     return ListTile(
       leading: Container(
@@ -162,7 +163,7 @@ class DataSendIndicator extends ConsumerWidget {
 
 class DataReceiveIndicator extends ConsumerWidget {
   @override
-  Widget build(BuildContext context, ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isDataReceived = ref.watch(tcpClientProvider).dataReceivedState;
     return ListTile(
       leading: Container(
@@ -292,7 +293,6 @@ class TCPClient with ChangeNotifier {
       );
   }
 }
-
 
 // modify from https://gist.github.com/sphinxlikee/3cbfa47817a5187c7b67905028674041
 // also see https://stackoverflow.com/questions/67229798/streamprovider-and-tcp-socket
