@@ -5,26 +5,31 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // nc -l 12345
 
-final tcpClientProvider =
-    AsyncNotifierProvider<TcpClientNotifier, TcpClient>(() => TcpClientNotifier());
+final tcpClientProvider = AsyncNotifierProvider<TcpClientNotifier, TcpClient>(
+    () => TcpClientNotifier());
 
 class TcpClientNotifier extends AsyncNotifier<TcpClient> {
   late TcpClient _tcpClient;
 
+  TcpClientNotifier() {
+    _initializeTcpClient();
+  }
+
+  Future<void> _initializeTcpClient() async {
+    _tcpClient = await TcpClient.connect(host: '127.0.0.1', port: 12345);
+  }
+
   @override
   FutureOr<TcpClient> build() async {
-    // Connect to the TCP server and create a TcpClient object.
-    final tcpClient = await TcpClient.connect(host: '127.0.0.1', port: 12345);
-
-    // Return the TcpClient object.
-    return tcpClient;
+    return _tcpClient;
   }
 
   Future<void> connectToServer(String host, int port) async {
     state = AsyncLoading();
     try {
-      await _tcpClient.connectToServer(host, port);
-      state = AsyncData(_tcpClient);
+      // await _tcpClient.connectToServer(host, port);
+      var tcpClient = await TcpClient.connect(host: '127.0.0.1', port: 12345);
+      state = AsyncData(tcpClient);
     } catch (error, stackTrace) {
       state = AsyncError(error, stackTrace);
     }
@@ -36,7 +41,11 @@ class TcpClientNotifier extends AsyncNotifier<TcpClient> {
   }
 
   Future<void> sendData(String data) async {
-    await _tcpClient.sendData(data);
+    if (_tcpClient != null) {
+      await _tcpClient.sendData(data);
+    } else {
+      print('Error: TcpClient is not properly initialized.');
+    }
   }
 }
 
