@@ -63,7 +63,21 @@ class TcpClient {
   late Socket socket;
   late StringBuffer buffer = StringBuffer();
 
-  TcpClient(this.socket);
+  TcpClient(this.socket) {
+    socket.listen(
+      (List<int> data) {
+        print("data: ${data}\n");
+        final receivedString = String.fromCharCodes(data);
+        buffer.write(receivedString);
+      },
+      onDone: () {
+        socket.destroy();
+      },
+      onError: (error) {
+        print('Error: $error');
+      },
+    );
+  }
 
   static Future<TcpClient> connect(
       {required String host, required int port}) async {
@@ -142,16 +156,10 @@ class MyApp extends StatelessWidget {
                           },
                           child: Text('Disconnect from Server'),
                         ),
-                        asyncValue.when(
-                          loading: () => CircularProgressIndicator(),
-                          error: (error, stackTrace) => Text('Error: $error'),
-                          data: (tcpClient) {
-                            final bufferData = tcpClient.buffer.toString();
-                            return Padding(
-                              padding: EdgeInsets.all(16),
-                              child: Text('Buffered Data: $bufferData'),
-                            );
-                          },
+                        Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Text(
+                              'Buffered Data: ${ref.read(tcpClientProvider.notifier)._tcpClient.buffer.toString()}'),
                         ),
                         SizedBox.shrink(),
                         TextField(
