@@ -17,6 +17,8 @@ class TcpClientNotifier extends AsyncNotifier<TcpClient> {
 
   Future<void> _initializeTcpClient() async {
     _tcpClient = await TcpClient.connect(host: '127.0.0.1', port: 12345);
+    state =
+        AsyncData(_tcpClient); // Update the state with the connected TcpClient.
   }
 
   @override
@@ -24,20 +26,22 @@ class TcpClientNotifier extends AsyncNotifier<TcpClient> {
     return _tcpClient;
   }
 
-  Future<void> connectToServer(String host, int port) async {
-    state = AsyncLoading();
-    try {
-      // await _tcpClient.connectToServer(host, port);
-      var tcpClient = await TcpClient.connect(host: '127.0.0.1', port: 12345);
-      state = AsyncData(tcpClient);
-    } catch (error, stackTrace) {
-      state = AsyncError(error, stackTrace);
-    }
-  }
+  // Future<void> connectToServer(String host, int port) async {
+  //   state = AsyncLoading();
+  //   try {
+  //     // await _tcpClient.connectToServer(host, port);
+  //     var tcpClient = await TcpClient.connect(host: '127.0.0.1', port: 12345);
+  //     state = AsyncData(tcpClient);
+  //   } catch (error, stackTrace) {
+  //     state = AsyncError(error, stackTrace);
+  //   }
+  // }
 
   Future<void> disconnectFromServer() async {
-    await _tcpClient.disconnectFromServer();
-    state = AsyncData(_tcpClient);
+    if (_tcpClient != null) {
+      await _tcpClient.disconnectFromServer();
+      state = AsyncData(_tcpClient);
+    }
   }
 
   Future<void> sendData(String data) async {
@@ -105,17 +109,17 @@ class MyApp extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Consumer(builder:
-                  (BuildContext context, WidgetRef ref, Widget? child) {
-                return ElevatedButton(
-                  onPressed: () {
-                    ref
-                        .read(tcpClientProvider.notifier)
-                        .connectToServer('127.0.0.1', 12345);
-                  },
-                  child: Text('Connect to Server'),
-                );
-              }),
+              // Consumer(builder:
+              //     (BuildContext context, WidgetRef ref, Widget? child) {
+              //   return ElevatedButton(
+              //     onPressed: () {
+              //       ref
+              //           .read(tcpClientProvider.notifier)
+              //           .connectToServer('127.0.0.1', 12345);
+              //     },
+              //     child: Text('Connect to Server'),
+              //   );
+              // }),
               Consumer(builder:
                   (BuildContext context, WidgetRef ref, Widget? child) {
                 return ElevatedButton(
