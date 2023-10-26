@@ -66,7 +66,6 @@ class TcpClient {
   TcpClient(this.socket) {
     socket.listen(
       (List<int> data) {
-        print("data: ${data}\n");
         final receivedString = String.fromCharCodes(data);
         buffer.write(receivedString);
       },
@@ -108,6 +107,10 @@ class TcpClient {
 
   Future<void> sendData(String data) async {
     socket.write(data);
+  }
+
+  String getBufferedData() {
+    return buffer.toString();
   }
 }
 
@@ -159,7 +162,7 @@ class MyApp extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.all(16),
                           child: Text(
-                              'Buffered Data: ${ref.read(tcpClientProvider.notifier)._tcpClient.buffer.toString()}'),
+                              'Buffered Data: ${asyncValue.value?.getBufferedData() ?? 'Loading...'}'),
                         ),
                         SizedBox.shrink(),
                         TextField(
