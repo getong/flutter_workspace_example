@@ -154,33 +154,34 @@ class MyApp extends StatelessWidget {
                           },
                         ),
                         SizedBox.shrink(),
+                        TextField(
+                          controller: _dataController,
+                          decoration: InputDecoration(labelText: 'Enter Data'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            final String data = _dataController.text;
+                            if (data.isNotEmpty) {
+                              ref
+                                  .read(tcpClientProvider.notifier)
+                                  .sendData(data);
+                              _dataController.clear();
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text('Please enter data to send.'),
+                              ));
+                            }
+                          },
+                          child: Text('Send Data'),
+                        ),
                       ]);
                     }
                   } else {
-                    return Text("not asyncvalue<tcpclient>");
+                    return Text("not AsyncValue<TcpClient>");
                   }
                 },
               ),
-              TextField(
-                controller: _dataController,
-                decoration: InputDecoration(labelText: 'Enter Data'),
-              ),
-              Consumer(builder: (context, ref, child) {
-                return ElevatedButton(
-                  onPressed: () {
-                    final String data = _dataController.text;
-                    if (data.isNotEmpty) {
-                      ref.read(tcpClientProvider.notifier).sendData(data);
-                      _dataController.clear();
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text('Please enter data to send.'),
-                      ));
-                    }
-                  },
-                  child: Text('Send Data'),
-                );
-              }),
             ],
           ),
         ),
