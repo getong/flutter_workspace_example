@@ -10,6 +10,7 @@ final tcpClientProvider = AsyncNotifierProvider<TcpClientNotifier, TcpClient>(
 
 class TcpClientNotifier extends AsyncNotifier<TcpClient> {
   late TcpClient _tcpClient;
+  bool connected = false;
 
   TcpClientNotifier() {
     _initializeTcpClient();
@@ -17,8 +18,9 @@ class TcpClientNotifier extends AsyncNotifier<TcpClient> {
 
   Future<void> _initializeTcpClient() async {
     _tcpClient = await TcpClient.connect(host: '127.0.0.1', port: 12345);
-    state =
-        AsyncData(_tcpClient); // Update the state with the connected TcpClient.
+    // Update the state with the connected TcpClient.
+    state = AsyncData(_tcpClient);
+    connected = true;
   }
 
   @override
@@ -26,26 +28,30 @@ class TcpClientNotifier extends AsyncNotifier<TcpClient> {
     return _tcpClient;
   }
 
-  // Future<void> connectToServer(String host, int port) async {
-  //   state = AsyncLoading();
-  //   try {
-  //     // await _tcpClient.connectToServer(host, port);
-  //     var tcpClient = await TcpClient.connect(host: '127.0.0.1', port: 12345);
-  //     state = AsyncData(tcpClient);
-  //   } catch (error, stackTrace) {
-  //     state = AsyncError(error, stackTrace);
-  //   }
-  // }
+  Future<void> connectToServer(String host, int port) async {
+    if (!connected) {
+      state = AsyncLoading();
+      try {
+        var tcpClient = await TcpClient.connect(host: '127.0.0.1', port: 12345);
+        _tcpClient = tcpClient;
+        state = AsyncData(tcpClient);
+        connected = true; // Update the connected status
+      } catch (error, stackTrace) {
+        state = AsyncError(error, stackTrace);
+      }
+    }
+  }
 
   Future<void> disconnectFromServer() async {
-    if (_tcpClient != null) {
+    if (connected) {
       await _tcpClient.disconnectFromServer();
       state = AsyncData(_tcpClient);
+      connected = false;
     }
   }
 
   Future<void> sendData(String data) async {
-    if (_tcpClient != null) {
+    if (connected) {
       await _tcpClient.sendData(data);
     } else {
       print('Error: TcpClient is not properly initialized.');
@@ -109,41 +115,64 @@ class MyApp extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              // Consumer(builder:
-              //     (BuildContext context, WidgetRef ref, Widget? child) {
-              //   return ElevatedButton(
-              //     onPressed: () {
-              //       ref
-              //           .read(tcpClientProvider.notifier)
-              //           .connectToServer('127.0.0.1', 12345);
-              //     },
-              //     child: Text('Connect to Server'),
-              //   );
-              // }),
-              Consumer(builder:
-                  (BuildContext context, WidgetRef ref, Widget? child) {
-                return ElevatedButton(
-                  onPressed: () {
-                    ref.read(tcpClientProvider.notifier).disconnectFromServer();
-                  },
-                  child: Text('Disconnect from Server'),
-                );
-              }),
               Consumer(
                 builder: (context, ref, child) {
-                  final bufferData = ref.watch(tcpClientProvider);
+                  final asyncValue = ref.watch(tcpClientProvider);
 
-                  return bufferData.when(
-                    loading: () => CircularProgressIndicator(),
-                    error: (error, stackTrace) => Text('Error: $error'),
-                    data: (tcpClient) {
-                      final bufferData = tcpClient.buffer.toString();
-                      return Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Text('Buffered Data: $bufferData'),
+                  if (asyncValue is AsyncValue<TcpClient>) {
+                    final isConnected =
+                        ref.read(tcpClientProvider.notifier).connected;
+
+                    if (!isConnected) {
+                      return ElevatedButton(
+                        onPressed: () {
+                          ref
+                              .read(tcpClientProvider.notifier)
+                              .connectToServer('127.0.0.1', 12345);
+                        },
+                        child: Text('Connect to Server'),
                       );
-                    },
-                  );
+                    } else {
+                      return ElevatedButton(
+                        onPressed: () {
+                          ref
+                              .read(tcpClientProvider.notifier)
+                              .disconnectFromServer();
+                        },
+                        child: Text('Disconnect from Server'),
+                      );
+                    }
+                  }
+
+                  return SizedBox
+                      .shrink(); // Return an empty widget if already connected.
+                },
+              ),
+              Consumer(
+                builder: (context, ref, child) {
+                  final asyncValue = ref.watch(tcpClientProvider);
+
+                  if (asyncValue is AsyncValue<TcpClient>) {
+                    final isConnected =
+                        ref.read(tcpClientProvider.notifier).connected;
+
+                    if (isConnected) {
+                      return asyncValue.when(
+                        loading: () => CircularProgressIndicator(),
+                        error: (error, stackTrace) => Text('Error: $error'),
+                        data: (tcpClient) {
+                          final bufferData = tcpClient.buffer.toString();
+                          return Padding(
+                            padding: EdgeInsets.all(16),
+                            child: Text('Buffered Data: $bufferData'),
+                          );
+                        },
+                      );
+                    }
+                  }
+
+                  return SizedBox
+                      .shrink(); // Return an empty widget if already connected.
                 },
               ),
               TextField(
