@@ -133,46 +133,32 @@ class MyApp extends StatelessWidget {
                         child: Text('Connect to Server'),
                       );
                     } else {
-                      return ElevatedButton(
-                        onPressed: () {
-                          ref
-                              .read(tcpClientProvider.notifier)
-                              .disconnectFromServer();
-                        },
-                        child: Text('Disconnect from Server'),
-                      );
+                      return Column(children: <Widget>[
+                        ElevatedButton(
+                          onPressed: () {
+                            ref
+                                .read(tcpClientProvider.notifier)
+                                .disconnectFromServer();
+                          },
+                          child: Text('Disconnect from Server'),
+                        ),
+                        asyncValue.when(
+                          loading: () => CircularProgressIndicator(),
+                          error: (error, stackTrace) => Text('Error: $error'),
+                          data: (tcpClient) {
+                            final bufferData = tcpClient.buffer.toString();
+                            return Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Text('Buffered Data: $bufferData'),
+                            );
+                          },
+                        ),
+                        SizedBox.shrink(),
+                      ]);
                     }
+                  } else {
+                    return Text("not asyncvalue<tcpclient>");
                   }
-
-                  return SizedBox
-                      .shrink(); // Return an empty widget if already connected.
-                },
-              ),
-              Consumer(
-                builder: (context, ref, child) {
-                  final asyncValue = ref.watch(tcpClientProvider);
-
-                  if (asyncValue is AsyncValue<TcpClient>) {
-                    final isConnected =
-                        ref.read(tcpClientProvider.notifier).connected;
-
-                    if (isConnected) {
-                      return asyncValue.when(
-                        loading: () => CircularProgressIndicator(),
-                        error: (error, stackTrace) => Text('Error: $error'),
-                        data: (tcpClient) {
-                          final bufferData = tcpClient.buffer.toString();
-                          return Padding(
-                            padding: EdgeInsets.all(16),
-                            child: Text('Buffered Data: $bufferData'),
-                          );
-                        },
-                      );
-                    }
-                  }
-
-                  return SizedBox
-                      .shrink(); // Return an empty widget if already connected.
                 },
               ),
               TextField(
