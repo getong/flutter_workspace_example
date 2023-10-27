@@ -162,7 +162,7 @@ class MyApp extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.all(16),
                           child: Text(
-                              'Buffered Data: ${asyncValue.value?.getBufferedData() ?? 'Loading...'}'),
+                              'Buffered Data: ${ref.read(tcpClientProvider.notifier)._tcpClient.getBufferedData()}'),
                         ),
                         SizedBox.shrink(),
                         TextField(
