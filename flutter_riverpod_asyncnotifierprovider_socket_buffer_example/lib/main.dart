@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// nc -l 12345
+// ncat -l 12345 --keep-open --exec "/bin/cat"
 
 final tcpClientProvider = AsyncNotifierProvider<TcpClientNotifier, TcpClient>(
     () => TcpClientNotifier());
@@ -11,10 +11,6 @@ final tcpClientProvider = AsyncNotifierProvider<TcpClientNotifier, TcpClient>(
 class TcpClientNotifier extends AsyncNotifier<TcpClient> {
   late TcpClient _tcpClient;
   bool connected = false;
-
-  TcpClientNotifier() {
-    _initializeTcpClient();
-  }
 
   Future<void> _initializeTcpClient() async {
     _tcpClient = await TcpClient.connect(host: '127.0.0.1', port: 12345);
@@ -25,6 +21,7 @@ class TcpClientNotifier extends AsyncNotifier<TcpClient> {
 
   @override
   FutureOr<TcpClient> build() async {
+    await _initializeTcpClient();
     return _tcpClient;
   }
 
@@ -61,13 +58,14 @@ class TcpClientNotifier extends AsyncNotifier<TcpClient> {
 
 class TcpClient {
   late Socket socket;
-  late StringBuffer buffer = StringBuffer();
+  StringBuffer buffer = StringBuffer();
 
   TcpClient(this.socket) {
     socket.listen(
       (List<int> data) {
         final receivedString = String.fromCharCodes(data);
         buffer.write(receivedString);
+        print("buffer： ${buffer.toString()}");
       },
       onDone: () {
         socket.destroy();
