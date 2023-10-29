@@ -115,10 +115,6 @@ class TcpClient {
     }
   }
 
-  Future<void> connectToServer(String host, int port) async {
-    socket = await Socket.connect(host, port);
-  }
-
   Future<void> disconnectFromServer() async {
     await socket.close();
   }
