@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:async';
-import 'dart:convert';
 
 final socketProvider = FutureProvider<Socket>((ref) async {
   final socket = await Socket.connect('localhost', 12345);
