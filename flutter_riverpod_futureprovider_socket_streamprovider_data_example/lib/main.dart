@@ -16,8 +16,7 @@ class SocketPage extends ConsumerWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Expanded(
-          child:
-              Text(utf8.decode(ref.watch(dataProvider).value ?? Uint8List(0))),
+          child: Text(utf8.decode(ref.watch(dataProvider).value ?? [])),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),

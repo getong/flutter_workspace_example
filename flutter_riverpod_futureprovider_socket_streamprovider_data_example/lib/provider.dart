@@ -9,9 +9,9 @@ final socketProvider = FutureProvider<Socket>((ref) async {
   return socket;
 });
 
-final dataProvider = StreamProvider<Uint8List>((ref) {
+final dataProvider = StreamProvider<List<int>>((ref) {
   final socket = ref.watch(socketProvider);
-  final controller = StreamController<Uint8List>();
+  final controller = StreamController<List<int>>();
 
   socket.when(
     data: (socket) {
@@ -19,24 +19,24 @@ final dataProvider = StreamProvider<Uint8List>((ref) {
         (List<int> data) {
           // print("data: ${data}");
           // Handle the received data and add it to the stream
-          controller.add(Uint8List.fromList(data));
+          controller.add(data);
         },
         onDone: () {
           // Handle when the socket is closed
-          controller.add(Uint8List(0));
+          controller.add([]);
         },
         onError: (error) {
           // Handle socket errors if necessary
-          controller.add(Uint8List(0));
+          controller.add([]);
         },
         cancelOnError: true,
       );
     },
     loading: () {
-      controller.add(Uint8List(0));
+      controller.add([]);
     },
     error: (error, stackTrace) {
-      controller.add(Uint8List(0));
+      controller.add([]);
     },
   );
 
