@@ -17,57 +17,89 @@ final dataProvider = StreamNotifierProvider<ListNotifier, List<int>>(() {
   return ListNotifier();
 });
 
+// class ListNotifier extends StreamNotifier<List<int>> {
+//   final List<int> buffer = [];
+//   final StreamController<List<int>> _dataController =
+//       StreamController.broadcast();
+
+//   ListNotifier() {
+//     // Subscribe to _dataController's stream and push its values to the StreamNotifier's stream
+//     _dataController.stream.listen((data) {
+//       if (data.length > 3) {
+//         buffer.addAll(data);
+//         final buffer2 = [...buffer];
+//         buffer.clear();
+//         state = AsyncValue.data(buffer2);
+//       } else {
+//         buffer.addAll(data);
+//         if (buffer.length > 3) {
+//           final buffer2 = [...buffer];
+//           buffer.clear();
+//           state = AsyncValue.data(buffer2);
+//         } else {
+//           state = AsyncValue.data([]);
+//         }
+//       }
+//     });
+//   }
+
+//   @override
+//   Stream<List<int>> build() async* {
+//     final socket = ref.watch(tcpClientProvider);
+//     socket.when(
+//       data: (tcpClient) {
+//         tcpClient.socket.listen(
+//           (List<int> data) {
+//             // print("data: ${data}");
+//             _dataController
+//                 .add(data); // Add data to _dataController instead of yielding
+//           },
+//           onDone: () {},
+//           onError: (error) {},
+//           cancelOnError: true,
+//         );
+//       },
+//       loading: () {},
+//       error: (error, stackTrace) {},
+//     );
+//   }
+
+//   @override
+//   void dispose() {
+//     _dataController.close();
+//     // super.dispose();
+//   }
+// }
+
 class ListNotifier extends StreamNotifier<List<int>> {
   final List<int> buffer = [];
-  final StreamController<List<int>> _dataController =
-      StreamController.broadcast();
 
-  ListNotifier() {
-    // Subscribe to _dataController's stream and push its values to the StreamNotifier's stream
-    _dataController.stream.listen((data) {
-      if (data.length > 3) {
-        buffer.addAll(data);
-        final buffer2 = [...buffer];
-        buffer.clear();
-        state = AsyncValue.data(buffer2);
-      } else {
-        buffer.addAll(data);
-        if (buffer.length > 3) {
+  Stream<List<int>> build() async* {
+    final socket = ref.read(tcpClientProvider.notifier)._tcpClient.socket;
+
+    try {
+      await for (final data in socket) {
+        if (data.length > 3) {
+          // Yield each incoming data from the socket.
+          buffer.addAll(data);
           final buffer2 = [...buffer];
           buffer.clear();
-          state = AsyncValue.data(buffer2);
+          yield buffer2;
         } else {
-          state = AsyncValue.data([]);
+          buffer.addAll(data);
+          if (buffer.length > 3) {
+            final buffer2 = [...buffer];
+            buffer.clear();
+            yield buffer2;
+          } else {
+            yield [];
+          }
         }
       }
-    });
-  }
-
-  @override
-  Stream<List<int>> build() async* {
-    final socket = ref.watch(tcpClientProvider);
-    socket.when(
-      data: (tcpClient) {
-        tcpClient.socket.listen(
-          (List<int> data) {
-            // print("data: ${data}");
-            _dataController
-                .add(data); // Add data to _dataController instead of yielding
-          },
-          onDone: () {},
-          onError: (error) {},
-          cancelOnError: true,
-        );
-      },
-      loading: () {},
-      error: (error, stackTrace) {},
-    );
-  }
-
-  @override
-  void dispose() {
-    _dataController.close();
-    // super.dispose();
+    } catch (error) {
+      // Handle any error that occurs during stream iteration
+      print("An error occurred: $error");
+    }
   }
 }
 
