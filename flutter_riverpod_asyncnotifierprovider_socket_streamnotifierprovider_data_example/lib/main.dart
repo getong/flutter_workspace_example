@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'provider.dart';
+import 'counter_number.pb.dart';
+import 'package:binarize/binarize.dart';
 
 void main() {
   runApp(ProviderScope(child: MyApp()));
@@ -47,11 +49,7 @@ class MyApp extends StatelessWidget {
                           },
                           child: Text('Disconnect from Server'),
                         ),
-                        Padding(
-                          padding: EdgeInsets.all(16),
-                          child: Text(
-                              'Buffered Data: ${utf8.decode(ref.watch(dataProvider).value ?? [])}'),
-                        ),
+                        RecvPage(),
                         SizedBox.shrink(),
                         TextField(
                           controller: _dataController,
@@ -61,9 +59,24 @@ class MyApp extends StatelessWidget {
                           onPressed: () {
                             final String data = _dataController.text;
                             if (data.isNotEmpty) {
+                              final readRequest = ReadRequest(
+                                letter: data,
+                                beforeNumber: 1,
+                                dummyOne: 1,
+                                dummyTwo: SampleSchema(
+                                  sampleFieldOne: true,
+                                  sampleFieldTwo: false,
+                                ),
+                                dummyThree: [3, 4, 5],
+                              );
+                              List<int> sendData = readRequest.writeToBuffer();
+                              final writer = Payload.write()
+                                ..set(uint32, sendData.length)
+                                ..set(Bytes(sendData.length), sendData);
+                              final bytes = binarize(writer);
                               ref
                                   .read(tcpClientProvider.notifier)
-                                  .sendData(data);
+                                  .sendByteData(bytes.toList());
                               _dataController.clear();
                             } else {
                               ScaffoldMessenger.of(context)
@@ -86,5 +99,30 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+
+
+class RecvPage extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final dataBytes = ref.watch(dataProvider).value;
+    if (dataBytes == null) {
+      return  Padding(
+        padding: EdgeInsets.all(16),
+        child: Text('Buffered Data:'),
+      );
+    } else {
+      final reader = Payload.read(dataBytes);
+      final aUint32 = reader.get(uint32);
+      final aList = reader.get(Bytes(aUint32));
+      return Padding(
+        padding: EdgeInsets.all(16),
+        child: Text(
+          'Buffered Data: ${ReadRequest.fromBuffer(aList)}'),
+      );
+    }
+
   }
 }

@@ -83,22 +83,23 @@ class ListNotifier extends StreamNotifier<List<int>> {
         final socket = tcpClient.value?.socket;
         if (socket != null) {
           await for (final data in socket) {
-            if (data.length > 3) {
-              // Yield each incoming data from the socket.
-              buffer.addAll(data);
-              final buffer2 = [...buffer];
-              buffer.clear();
-              yield buffer2;
-            } else {
-              buffer.addAll(data);
-              if (buffer.length > 3) {
-                final buffer2 = [...buffer];
-                buffer.clear();
-                yield buffer2;
-              } else {
-                yield [];
-              }
-            }
+            // if (data.length > 3) {
+            //   // Yield each incoming data from the socket.
+            //   buffer.addAll(data);
+            //   final buffer2 = [...buffer];
+            //   buffer.clear();
+            //   yield buffer2;
+            // } else {
+            //   buffer.addAll(data);
+            //   if (buffer.length > 3) {
+            //     final buffer2 = [...buffer];
+            //     buffer.clear();
+            //     yield buffer2;
+            //   } else {
+            //     yield [];
+            //   }
+            // }
+            yield data;
           }
         } else {
           print("socket is null");
@@ -161,6 +162,14 @@ class TcpClientNotifier extends AsyncNotifier<TcpClient> {
       print('Error: TcpClient is not properly initialized.');
     }
   }
+
+  Future<void> sendByteData(List<int> data) async {
+    if (connected) {
+      await _tcpClient.sendByteData(data);
+    } else {
+      print('Error: TcpClient is not properly initialized.');
+    }
+  }
 }
 
 class TcpClient {
@@ -186,5 +195,9 @@ class TcpClient {
 
   Future<void> sendData(String data) async {
     socket.write(data);
+  }
+
+  Future<void> sendByteData(List<int> data) async {
+    socket.add(data);
   }
 }
