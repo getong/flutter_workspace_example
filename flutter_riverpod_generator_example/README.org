@@ -17,6 +17,11 @@ samples, guidance on mobile development, and a full API reference.
 
 ** run command
 #+begin_src shell
+flutter create .
 dart run build_runner build -d
 flutter run
 #+end_src
+
+** reference doc
+[[https://codewithandrea.com/articles/flutter-riverpod-generator/][How to Auto-Generate your Providers with Flutter Riverpod Generator]]
+[[https://codewithandrea.com/articles/flutter-riverpod-async-notifier/][How to use Notifier and AsyncNotifier with the new Flutter Riverpod Generator]]
