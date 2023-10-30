@@ -75,26 +75,36 @@ class ListNotifier extends StreamNotifier<List<int>> {
   final List<int> buffer = [];
 
   Stream<List<int>> build() async* {
-    final socket = ref.read(tcpClientProvider.notifier)._tcpClient.socket;
+    // final socket = ref.read(tcpClientProvider.notifier)._tcpClient.socket;
+    final tcpClient = ref.watch(tcpClientProvider);
 
     try {
-      await for (final data in socket) {
-        if (data.length > 3) {
-          // Yield each incoming data from the socket.
-          buffer.addAll(data);
-          final buffer2 = [...buffer];
-          buffer.clear();
-          yield buffer2;
-        } else {
-          buffer.addAll(data);
-          if (buffer.length > 3) {
-            final buffer2 = [...buffer];
-            buffer.clear();
-            yield buffer2;
-          } else {
-            yield [];
+      if (tcpClient.value != null && tcpClient.value?.socket != null) {
+        final socket = tcpClient.value?.socket;
+        if (socket != null) {
+          await for (final data in socket) {
+            if (data.length > 3) {
+              // Yield each incoming data from the socket.
+              buffer.addAll(data);
+              final buffer2 = [...buffer];
+              buffer.clear();
+              yield buffer2;
+            } else {
+              buffer.addAll(data);
+              if (buffer.length > 3) {
+                final buffer2 = [...buffer];
+                buffer.clear();
+                yield buffer2;
+              } else {
+                yield [];
+              }
+            }
           }
+        } else {
+          print("socket is null");
         }
+      } else {
+        print("tcpclient is null");
       }
     } catch (error) {
       // Handle any error that occurs during stream iteration
