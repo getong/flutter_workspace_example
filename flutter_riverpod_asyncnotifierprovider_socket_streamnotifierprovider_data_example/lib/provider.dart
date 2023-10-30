@@ -18,6 +18,7 @@ final dataProvider = StreamNotifierProvider<ListNotifier, List<int>>(() {
 });
 
 class ListNotifier extends StreamNotifier<List<int>> {
+  final List<int> buffer = [];
   final StreamController<List<int>> _dataController =
       StreamController.broadcast();
 
@@ -25,7 +26,19 @@ class ListNotifier extends StreamNotifier<List<int>> {
     // Subscribe to _dataController's stream and push its values to the StreamNotifier's stream
     _dataController.stream.listen((data) {
       if (data.length > 3) {
-        state = AsyncValue.data(data);
+        buffer.addAll(data);
+        final buffer2 = [...buffer];
+        buffer.clear();
+        state = AsyncValue.data(buffer2);
+      } else {
+        buffer.addAll(data);
+        if (buffer.length > 3) {
+          final buffer2 = [...buffer];
+          buffer.clear();
+          state = AsyncValue.data(buffer2);
+        } else {
+          state = AsyncValue.data([]);
+        }
       }
     });
   }
