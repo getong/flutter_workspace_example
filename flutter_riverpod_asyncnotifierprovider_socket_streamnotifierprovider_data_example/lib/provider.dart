@@ -1,21 +1,32 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'provider.g.dart';
 
 // ncat -l 12345 --keep-open --exec "/bin/cat"
 
-final serverAddressProvider =
-    Provider<String>((ProviderRef<String> ref) => '127.0.0.1');
+// final serverAddressProvider =
+//     Provider<String>((ProviderRef<String> ref) => '127.0.0.1');
+@riverpod
+String serverAddress(ref) {
+  return '127.0.0.1';
+}
 
-final serverPortProvider = Provider<int>((ProviderRef<int> ref) => 12345);
+// final serverPortProvider = Provider<int>((ProviderRef<int> ref) => 12345);
+@riverpod
+int serverPort(ref) {
+  return 12345;
+}
 
-final tcpClientProvider = AsyncNotifierProvider<TcpClientNotifier, TcpClient>(
-    () => TcpClientNotifier());
+// final tcpClientProvider = AsyncNotifierProvider<TcpClientNotifier, TcpClient>(
+//     () => TcpClientNotifier());
 
-final dataProvider = StreamNotifierProvider<ListNotifier, List<int>>(() {
-  return ListNotifier();
-});
+// final dataProvider = StreamNotifierProvider<ListNotifier, List<int>>(() {
+//   return ListNotifier();
+// });
 
 // class ListNotifier extends StreamNotifier<List<int>> {
 //   final List<int> buffer = [];
@@ -71,12 +82,14 @@ final dataProvider = StreamNotifierProvider<ListNotifier, List<int>>(() {
 //   }
 // }
 
-class ListNotifier extends StreamNotifier<List<int>> {
+@riverpod
+class ListNotifier extends _$ListNotifier {
   final List<int> buffer = [];
 
+  @override
   Stream<List<int>> build() async* {
     // final socket = ref.read(tcpClientProvider.notifier)._tcpClient.socket;
-    final tcpClient = ref.watch(tcpClientProvider);
+    final tcpClient = ref.watch(tcpClientNotifierProvider);
 
     try {
       if (tcpClient.value != null && tcpClient.value?.socket != null) {
@@ -114,7 +127,8 @@ class ListNotifier extends StreamNotifier<List<int>> {
   }
 }
 
-class TcpClientNotifier extends AsyncNotifier<TcpClient> {
+@riverpod
+class TcpClientNotifier extends _$TcpClientNotifier {
   late TcpClient _tcpClient;
   bool connected = false;
 

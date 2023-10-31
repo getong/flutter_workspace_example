@@ -25,17 +25,18 @@ class MyApp extends StatelessWidget {
             children: <Widget>[
               Consumer(
                 builder: (context, ref, child) {
-                  final asyncValue = ref.watch(tcpClientProvider);
+                  final asyncValue = ref.watch(tcpClientNotifierProvider);
 
                   if (asyncValue is AsyncValue<TcpClient>) {
                     final isConnected =
-                        ref.read(tcpClientProvider.notifier).connected;
+                        ref.read(tcpClientNotifierProvider.notifier).connected;
                     if (!isConnected) {
                       return ElevatedButton(
                         onPressed: () {
-                          ref.read(tcpClientProvider.notifier).connectToServer(
-                              ref.watch(serverAddressProvider),
-                              ref.watch(serverPortProvider));
+                          ref
+                              .read(tcpClientNotifierProvider.notifier)
+                              .connectToServer(ref.watch(serverAddressProvider),
+                                  ref.watch(serverPortProvider));
                         },
                         child: Text('Connect to Server'),
                       );
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
                         ElevatedButton(
                           onPressed: () {
                             ref
-                                .read(tcpClientProvider.notifier)
+                                .read(tcpClientNotifierProvider.notifier)
                                 .disconnectFromServer();
                           },
                           child: Text('Disconnect from Server'),
@@ -75,7 +76,7 @@ class MyApp extends StatelessWidget {
                                 ..set(Bytes(sendData.length), sendData);
                               final bytes = binarize(writer);
                               ref
-                                  .read(tcpClientProvider.notifier)
+                                  .read(tcpClientNotifierProvider.notifier)
                                   .sendByteData(bytes.toList());
                               _dataController.clear();
                             } else {
@@ -102,14 +103,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
-
 class RecvPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dataBytes = ref.watch(dataProvider).value;
+    final dataBytes = ref.watch(listNotifierProvider).value;
     if (dataBytes == null) {
-      return  Padding(
+      return Padding(
         padding: EdgeInsets.all(16),
         child: Text('Buffered Data:'),
       );
@@ -119,10 +118,8 @@ class RecvPage extends ConsumerWidget {
       final aList = reader.get(Bytes(aUint32));
       return Padding(
         padding: EdgeInsets.all(16),
-        child: Text(
-          'Buffered Data: ${ReadRequest.fromBuffer(aList)}'),
+        child: Text('Buffered Data: ${ReadRequest.fromBuffer(aList)}'),
       );
     }
-
   }
 }
