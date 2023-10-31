@@ -5,7 +5,7 @@ part 'asyncnotifier_provider_variable.g.dart';
 @riverpod
 class AsyncNotifierCounter extends _$AsyncCounter {
   @override
-  Async<int> build() {
+  Future<int> build() {
     return 0;
   }
 
