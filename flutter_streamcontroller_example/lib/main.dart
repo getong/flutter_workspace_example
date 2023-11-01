@@ -32,12 +32,12 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: PageA(),
+      home: SingleStreamPage(),
     );
   }
 }
 
-class PageA extends StatelessWidget {
+class PageB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +54,7 @@ class PageA extends StatelessWidget {
                   return PageC();
                 }));
               },
-              child: Text('To Page B'),
+              child: Text('To Page C'),
             ),
             StreamBuilder<int>(
               builder: (context, snapshot) {
@@ -109,5 +109,50 @@ class StateSubject {
 
   void update(int num) {
     streamController.sink.add(num);
+  }
+}
+
+class SingleStreamPage extends StatelessWidget {
+  StreamController<String> stream = StreamController();
+
+  @override
+  Widget build(BuildContext context) {
+    doNetWork();
+
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('单Stream'),
+        ),
+        body: Center(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                StreamBuilder<String>(
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData && snapshot.data != null) {
+                      return Text(snapshot.data!);
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  },
+                  stream: stream.stream,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return PageB();
+                    }));
+                  },
+                  child: Text('To Page B'),
+                ),
+              ]),
+        ));
+  }
+
+  void doNetWork() {
+    Future.delayed(Duration(seconds: 2), () {
+      stream.add('hello world');
+    });
   }
 }
