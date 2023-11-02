@@ -133,11 +133,13 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressed: _incrementCounter,
           tooltip: 'Increment',
           child: const Icon(Icons.add),
+          foregroundColor: Colors.deepOrange,
         ),
         FloatingActionButton(
           onPressed: _decreaseCounter,
           tooltip: 'Decrease',
           child: const Icon(Icons.remove),
+          foregroundColor: Colors.deepOrange,
         )
       ]),
     );
