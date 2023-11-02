@@ -32,7 +32,7 @@ final GoRouter _router = GoRouter(
           path: "settings/:name",
           builder: (context, state) {
             return SettingsPage(
-              name: state.params["name"]!,
+              name: state.pathParameters["name"]!,
             );
           },
         ),
@@ -53,9 +53,9 @@ class HomePage extends StatelessWidget {
       ),
       body: Center(
         child: ElevatedButton(
-          onPressed: () => context.goNamed("settings", params: {
+          onPressed: () => context.goNamed("settings", pathParameters: {
             "name": "codemagic"
-          }, queryParams: {
+          }, queryParameters: {
             "email": "example@gmail.com",
             "age": "25",
             "place": "India"
