@@ -3,7 +3,7 @@ import 'app_events.dart';
 import 'app_states.dart';
 
 class AppBlocs extends Bloc<AppEvents, AppStates> {
-  AppBlocs() : super(InitStates()) {
+  AppBlocs() : super(AppStates(counter: 0)) {
     on<Increment>((event, serve) {
       serve(AppStates(counter: state.counter + 1));
     });
