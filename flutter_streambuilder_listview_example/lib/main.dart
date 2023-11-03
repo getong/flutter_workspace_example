@@ -28,17 +28,21 @@ class DynamicList extends StatefulWidget {
 
 class _DynamicListState extends State<DynamicList> {
   final StreamController<String> _streamController = StreamController<String>();
+  final TextEditingController _textEditingController = TextEditingController();
   final List<String> _items = [];
 
   @override
   void dispose() {
     _streamController.close();
+    _textEditingController.dispose();
     super.dispose();
   }
 
   void _addItem(String item) {
     // Add the new item to the stream
     _streamController.add(item);
+    // Clear the text field after item is added
+    _textEditingController.clear();
   }
 
   @override
@@ -78,6 +82,8 @@ class _DynamicListState extends State<DynamicList> {
         Padding(
           padding: EdgeInsets.all(8.0),
           child: TextField(
+            // Set the TextEditingController
+            controller: _textEditingController,
             onSubmitted: (String value) {
               if (value.isNotEmpty) {
                 // Add the new item to the stream
