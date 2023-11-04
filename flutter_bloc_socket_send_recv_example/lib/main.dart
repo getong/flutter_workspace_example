@@ -71,7 +71,8 @@ class _SocketPageState extends State<SocketPage> {
           builder: (context, state) {
             if ((state is SocketDisconnected || state is SocketInitial)) {
               // Show a message when disconnected
-              return ConnectionButtion();
+              // return ConnectionButtion();
+              return Container();
             } else {
               // By default, show an empty container
               return Column(
