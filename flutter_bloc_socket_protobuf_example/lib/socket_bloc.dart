@@ -55,10 +55,14 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
       dummyThree: [3, 4, 5],
     );
     List<int> sendData = readRequest.writeToBuffer();
-    print(
-        "protobuf message type name length: ${readRequest.info_.qualifiedMessageName.length}");
+    // print(
+    // "protobuf message type name length: ${readRequest.info_.qualifiedMessageName.length}");
+    final headerLen = encode_header_len(
+        readRequest.info_.qualifiedMessageName.length, sendData.length);
     final writer = Payload.write()
-      ..set(uint32, sendData.length)
+      ..set(uint32, headerLen)
+      ..set(Bytes(readRequest.info_.qualifiedMessageName.length),
+          readRequest.info_.qualifiedMessageName.codeUnits)
       ..set(Bytes(sendData.length), sendData);
     final bytes = binarize(writer);
     _socket.add(bytes.toList());
@@ -67,8 +71,21 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
   void _onReceiveMessage(ReceiveMessage event, Emitter<SocketState> emit) {
     final reader = Payload.read(event.message);
     final aUint32 = reader.get(uint32);
-    final aList = reader.get(Bytes(aUint32));
-    final appendMsg = ReadRequest.fromBuffer(aList).toString();
+    final bodyLen = body_len(aUint32);
+    final messageIdLen = message_id_len(aUint32);
+    final messageId = utf8.decode(reader.get(Bytes(messageIdLen)));
+    final aList = reader.get(Bytes(bodyLen));
+    String appendMsg;
+    switch (messageId) {
+      case 'counter_number.ReadRequest':
+        appendMsg = ReadRequest.fromBuffer(aList).toString();
+        break;
+      default:
+        print("messageId:${messageId}");
+        appendMsg = "unknown message";
+        break;
+    }
+
     emit(MessageReceived(state.messages, appendMsg));
   }
 
@@ -78,6 +95,18 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
     await _socket.close();
     // Emit the correct state to indicate the socket has been disconnected
     emit(SocketDisconnected());
+  }
+
+  int encode_header_len(int message_id_len, int body_len) {
+    return (0 << 31) | (message_id_len << 20) | body_len;
+  }
+
+  int body_len(int size) {
+    return size & 0xFFFFF;
+  }
+
+  int message_id_len(int size) {
+    return (size >> 20) & 0x3f;
   }
 
   @override
