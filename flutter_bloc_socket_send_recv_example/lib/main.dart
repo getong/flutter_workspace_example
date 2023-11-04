@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'socket_bloc.dart';
+import 'socket_event.dart';
+import 'socket_state.dart';
 
 // ncat -l 12345 --keep-open --exec "/bin/cat"
 

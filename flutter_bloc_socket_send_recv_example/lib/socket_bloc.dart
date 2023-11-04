@@ -1,53 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-// Socket Events
-abstract class SocketEvent {}
-
-class SocketConnect extends SocketEvent {
-  final String address;
-  final int port;
-
-  SocketConnect(this.address, this.port);
-}
-
-class SendMessage extends SocketEvent {
-  final String message;
-
-  SendMessage(this.message);
-}
-
-// Socket States
-abstract class SocketState {
-  final List<String> messages;
-
-  SocketState(this.messages);
-}
-
-class SocketInitial extends SocketState {
-  SocketInitial() : super([]);
-}
-
-class SocketConnected extends SocketState {
-  SocketConnected(List<String> messages) : super(messages);
-}
-
-class MessageReceived extends SocketState {
-  MessageReceived(List<String> messages) : super(messages);
-}
-
-class ReceiveMessage extends SocketEvent {
-  final String message;
-
-  ReceiveMessage(this.message);
-}
-
-class SocketDisconnect extends SocketEvent {}
-
-class SocketDisconnected extends SocketState {
-  SocketDisconnected() : super([]);
-}
+import 'socket_event.dart';
+import 'socket_state.dart';
 
 class SocketBloc extends Bloc<SocketEvent, SocketState> {
   late Socket _socket;
