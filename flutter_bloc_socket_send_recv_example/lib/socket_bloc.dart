@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'socket_event.dart';
 import 'socket_state.dart';
+import 'dart:convert';
 
 class SocketBloc extends Bloc<SocketEvent, SocketState> {
   late Socket _socket;
@@ -21,7 +22,7 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
       _socket = await Socket.connect(event.address, event.port);
       _socketSubscription = _socket.listen(
         (List<int> data) {
-          final message = String.fromCharCodes(data).trim();
+          final message = utf8.decode(data);
           // Dispatch a ReceiveMessage event instead of adding a state directly
           add(ReceiveMessage(message));
         },
