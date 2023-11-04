@@ -83,7 +83,6 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
           sampleFieldOne: true,
           sampleFieldTwo: true,
         );
-        break;
     }
 
     List<int> sendData = readRequest.writeToBuffer();
