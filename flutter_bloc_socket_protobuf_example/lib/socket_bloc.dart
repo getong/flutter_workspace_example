@@ -25,8 +25,6 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
       _socket = await Socket.connect(event.address, event.port);
       _socketSubscription = _socket.listen(
         (List<int> data) {
-          // final message = utf8.decode(data);
-          // Dispatch a ReceiveMessage event instead of adding a state directly
           add(ReceiveMessage(data));
         },
         onError: (error) {
@@ -46,7 +44,6 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
   }
 
   void _onSendMessage(SendMessage event, Emitter<SocketState> emit) {
-    // _socket.write(event.message);
     final readRequest = ReadRequest(
       letter: event.message,
       beforeNumber: 1,
@@ -58,6 +55,8 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
       dummyThree: [3, 4, 5],
     );
     List<int> sendData = readRequest.writeToBuffer();
+    print(
+        "protobuf message type name length: ${readRequest.info_.qualifiedMessageName.length}");
     final writer = Payload.write()
       ..set(uint32, sendData.length)
       ..set(Bytes(sendData.length), sendData);
@@ -66,15 +65,11 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
   }
 
   void _onReceiveMessage(ReceiveMessage event, Emitter<SocketState> emit) {
-    // Update the list of messages and emit a new state
-    // final updatedMessages = List<String>.from(state.messages)
-    //   ..add(event.message);
-    // emit(MessageReceived(updatedMessages));
     final reader = Payload.read(event.message);
     final aUint32 = reader.get(uint32);
     final aList = reader.get(Bytes(aUint32));
-    emit(MessageReceived(
-        state.messages, ReadRequest.fromBuffer(aList).toString()));
+    final appendMsg = ReadRequest.fromBuffer(aList).toString();
+    emit(MessageReceived(state.messages, appendMsg));
   }
 
   void _onSocketDisconnect(
