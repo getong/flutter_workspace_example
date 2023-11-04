@@ -86,8 +86,6 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
     }
 
     List<int> sendData = readRequest.writeToBuffer();
-    // print(
-    // "protobuf message type name length: ${readRequest.info_.qualifiedMessageName.length}");
     final messageId = readRequest.info_.qualifiedMessageName.codeUnits;
     final headerLen = encode_header_len(messageId.length, sendData.length);
     final writer = Payload.write()
@@ -122,7 +120,6 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
       default:
         print("messageId:${messageId}");
         appendMsg = "unknown message";
-        break;
     }
 
     emit(MessageReceived(state.messages, appendMsg));
