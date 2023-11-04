@@ -26,11 +26,26 @@ class SocketPage extends StatefulWidget {
 
 class _SocketPageState extends State<SocketPage> {
   final TextEditingController _textController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
+  final List<Widget> _messageWidgets = [];
 
   @override
   void dispose() {
     _textController.dispose();
+    _scrollController.dispose();
     super.dispose();
+  }
+
+  // A method to handle automatic scrolling
+  void _scrollToBottom() {
+    if (_scrollController.hasClients) {
+      final position = _scrollController.position.maxScrollExtent;
+      _scrollController.animateTo(
+        position,
+        duration: Duration(milliseconds: 200),
+        curve: Curves.easeOut,
+      );
+    }
   }
 
   @override
@@ -50,12 +65,33 @@ class _SocketPageState extends State<SocketPage> {
               return Column(
                 children: [
                   DisConnectionButtion(),
+                  // Expanded(
+                  //   child: ListView.builder(
+                  //     // Use the scroll controller here
+                  //     controller: _scrollController,
+                  //     itemCount: state.messages.length,
+                  //     itemBuilder: (context, index) {
+                  //       return ListTile(
+                  //         title: Text(state.messages[index]),
+                  //       );
+                  //     },
+                  //   ),
+                  // ),
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: state.messages.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(state.messages[index]),
+                    child: BlocConsumer<SocketBloc, SocketState>(
+                      listener: (context, state) {
+                        if (state is MessageReceived) {
+                          WidgetsBinding.instance
+                              .addPostFrameCallback((_) => _scrollToBottom());
+                        }
+                      },
+                      builder: (context, state) {
+                        List<String> messages = state.messages;
+                        return ListView(
+                          controller: _scrollController,
+                          children: messages
+                              .map((message) => ListTile(title: Text(message)))
+                              .toList(),
                         );
                       },
                     ),
