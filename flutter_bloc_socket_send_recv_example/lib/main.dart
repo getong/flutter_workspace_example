@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'socket_bloc.dart'; // Import the SocketBloc
+import 'socket_bloc.dart';
+
+// ncat -l 12345 --keep-open --exec "/bin/cat"
 
 void main() {
   runApp(MyApp());
@@ -54,29 +56,26 @@ class _SocketPageState extends State<SocketPage> {
 
     return Scaffold(
       appBar: AppBar(title: Text('Socket BLoC Example')),
+      drawer: Drawer(
+          width: 50.0,
+          child:
+              BlocBuilder<SocketBloc, SocketState>(builder: (context, state) {
+            if (state is SocketDisconnected || state is SocketInitial) {
+              return ConnectionButtion();
+            } else {
+              return DisConnectionButtion();
+            }
+          })),
       body: Center(
         child: BlocBuilder<SocketBloc, SocketState>(
           builder: (context, state) {
-            if (state is SocketDisconnected || state is SocketInitial) {
+            if ((state is SocketDisconnected || state is SocketInitial)) {
               // Show a message when disconnected
               return ConnectionButtion();
             } else {
               // By default, show an empty container
               return Column(
                 children: [
-                  DisConnectionButtion(),
-                  // Expanded(
-                  //   child: ListView.builder(
-                  //     // Use the scroll controller here
-                  //     controller: _scrollController,
-                  //     itemCount: state.messages.length,
-                  //     itemBuilder: (context, index) {
-                  //       return ListTile(
-                  //         title: Text(state.messages[index]),
-                  //       );
-                  //     },
-                  //   ),
-                  // ),
                   Expanded(
                     child: BlocConsumer<SocketBloc, SocketState>(
                       listener: (context, state) {
@@ -115,6 +114,7 @@ class _SocketPageState extends State<SocketPage> {
                       ),
                       IconButton(
                         icon: Icon(Icons.send),
+                        tooltip: 'send msg',
                         onPressed: () {
                           if (_textController.text.isNotEmpty) {
                             socketBloc.add(SendMessage(_textController.text));
