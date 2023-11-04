@@ -14,8 +14,12 @@ class SocketConnected extends SocketState {
 }
 
 class MessageReceived extends SocketState {
-  MessageReceived(String messages) : super([messages]);
+  MessageReceived(List<String> previousMessages, String newMessage)
+      : super(List.from(previousMessages)..add(newMessage));
 }
+// class MessageReceived extends SocketState {
+//   MessageReceived(String messages) : super([messages]);
+// }
 
 class SocketDisconnected extends SocketState {
   SocketDisconnected() : super([]);

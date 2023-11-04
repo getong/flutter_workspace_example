@@ -73,7 +73,8 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
     final reader = Payload.read(event.message);
     final aUint32 = reader.get(uint32);
     final aList = reader.get(Bytes(aUint32));
-    emit(MessageReceived(ReadRequest.fromBuffer(aList).toString()));
+    emit(MessageReceived(
+        state.messages, ReadRequest.fromBuffer(aList).toString()));
   }
 
   void _onSocketDisconnect(
