@@ -5,8 +5,10 @@ import 'socket_event.dart';
 import 'socket_state.dart';
 import 'dart:convert';
 import 'messages/counter_number.pb.dart';
+import 'messages/mandelbrot.pb.dart';
 import 'dart:typed_data';
 import 'package:binarize/binarize.dart';
+import 'dart:math';
 
 class SocketBloc extends Bloc<SocketEvent, SocketState> {
   late Socket _socket;
@@ -44,25 +46,54 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
   }
 
   void _onSendMessage(SendMessage event, Emitter<SocketState> emit) {
-    final readRequest = ReadRequest(
-      letter: event.message,
-      beforeNumber: 1,
-      dummyOne: 1,
-      dummyTwo: SampleSchema(
-        sampleFieldOne: true,
-        sampleFieldTwo: false,
-      ),
-      dummyThree: [3, 4, 5],
-    );
+    var readRequest;
+    var rng = Random();
+    switch (rng.nextInt(5)) {
+      case 0:
+        readRequest = ReadRequest(
+          letter: event.message,
+          beforeNumber: 1,
+          dummyOne: 1,
+          dummyTwo: SampleSchema(
+            sampleFieldOne: true,
+            sampleFieldTwo: false,
+          ),
+          dummyThree: [3, 4, 5],
+        );
+        break;
+      case 1:
+        readRequest = StateSignal(
+          id: 1,
+          currentScale: 2.0,
+        );
+        break;
+      case 2:
+        readRequest = ReadResponse(
+          afterNumber: 1,
+          dummyOne: 2,
+          dummyTwo: SampleSchema(
+            sampleFieldOne: true,
+            sampleFieldTwo: true,
+          ),
+          dummyThree: [4],
+        );
+        break;
+      default:
+        readRequest = SampleSchema(
+          sampleFieldOne: true,
+          sampleFieldTwo: true,
+        );
+        break;
+    }
+
     List<int> sendData = readRequest.writeToBuffer();
     // print(
     // "protobuf message type name length: ${readRequest.info_.qualifiedMessageName.length}");
-    final headerLen = encode_header_len(
-        readRequest.info_.qualifiedMessageName.length, sendData.length);
+    final messageId = readRequest.info_.qualifiedMessageName.codeUnits;
+    final headerLen = encode_header_len(messageId.length, sendData.length);
     final writer = Payload.write()
       ..set(uint32, headerLen)
-      ..set(Bytes(readRequest.info_.qualifiedMessageName.length),
-          readRequest.info_.qualifiedMessageName.codeUnits)
+      ..set(Bytes(messageId.length), messageId)
       ..set(Bytes(sendData.length), sendData);
     final bytes = binarize(writer);
     _socket.add(bytes.toList());
@@ -79,6 +110,15 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
     switch (messageId) {
       case 'counter_number.ReadRequest':
         appendMsg = ReadRequest.fromBuffer(aList).toString();
+        break;
+      case 'counter_number.ReadResponse':
+        appendMsg = ReadResponse.fromBuffer(aList).toString();
+        break;
+      case 'counter_number.SampleSchema':
+        appendMsg = SampleSchema.fromBuffer(aList).toString();
+        break;
+      case 'mandelbrot.StateSignal':
+        appendMsg = StateSignal.fromBuffer(aList).toString();
         break;
       default:
         print("messageId:${messageId}");
