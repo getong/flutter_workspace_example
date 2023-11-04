@@ -106,16 +106,24 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
     String appendMsg;
     switch (messageId) {
       case 'counter_number.ReadRequest':
-        appendMsg = ReadRequest.fromBuffer(aList).toString();
+        appendMsg = ReadRequest().info_.qualifiedMessageName +
+            ' ' +
+            ReadRequest.fromBuffer(aList).toString();
         break;
       case 'counter_number.ReadResponse':
-        appendMsg = ReadResponse.fromBuffer(aList).toString();
+        appendMsg = ReadResponse().info_.qualifiedMessageName +
+            ' ' +
+            ReadResponse.fromBuffer(aList).toString();
         break;
       case 'counter_number.SampleSchema':
-        appendMsg = SampleSchema.fromBuffer(aList).toString();
+        appendMsg = SampleSchema().info_.qualifiedMessageName +
+            ' ' +
+            SampleSchema.fromBuffer(aList).toString();
         break;
       case 'mandelbrot.StateSignal':
-        appendMsg = StateSignal.fromBuffer(aList).toString();
+        appendMsg = StateSignal().info_.qualifiedMessageName +
+            ' ' +
+            StateSignal.fromBuffer(aList).toString();
         break;
       default:
         print("messageId:${messageId}");
