@@ -5,6 +5,54 @@ void main() {
   runApp(const MyApp());
 }
 
+final router = GoRouter(
+  navigatorKey: _rootNavigatorKey,
+  initialLocation: '/feed',
+  routes: <RouteBase>[
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) {
+        // Return the widget that implements the custom shell (e.g a BottomNavigationBar).
+        // The [StatefulNavigationShell] is passed to be able to navigate to other branches in a stateful way.
+        return ScaffoldWithNavbar(navigationShell);
+      },
+      branches: [
+        // The route branch for the 1º Tab
+        StatefulShellBranch(
+          navigatorKey: _sectionNavigatorKey,
+          // Add this branch routes
+          // each routes with its sub routes if available e.g feed/uuid/details
+          routes: <RouteBase>[
+            GoRoute(
+              path: '/feed',
+              builder: (context, state) => const FeedPage(),
+              routes: <RouteBase>[
+                GoRoute(
+                  path: 'details',
+                  builder: (context, state) {
+                    return const DetailsPage(label: 'FeedDetails');
+                  },
+                )
+              ],
+            ),
+          ],
+        ),
+
+        // The route branch for 2º Tab
+        StatefulShellBranch(routes: <RouteBase>[
+          // Add this branch routes
+          // each routes with its sub routes if available e.g shope/uuid/details
+          GoRoute(
+            path: '/shope',
+            builder: (context, state) {
+              return const DetailsPage(label: 'Shope');
+            },
+          ),
+        ])
+      ],
+    ),
+  ],
+);
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -17,53 +65,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      routerConfig: GoRouter(
-        navigatorKey: _rootNavigatorKey,
-        initialLocation: '/feed',
-        routes: <RouteBase>[
-          StatefulShellRoute.indexedStack(
-            builder: (context, state, navigationShell) {
-              // Return the widget that implements the custom shell (e.g a BottomNavigationBar).
-              // The [StatefulNavigationShell] is passed to be able to navigate to other branches in a stateful way.
-              return ScaffoldWithNavbar(navigationShell);
-            },
-            branches: [
-              // The route branch for the 1º Tab
-              StatefulShellBranch(
-                navigatorKey: _sectionNavigatorKey,
-                // Add this branch routes
-                // each routes with its sub routes if available e.g feed/uuid/details
-                routes: <RouteBase>[
-                  GoRoute(
-                    path: '/feed',
-                    builder: (context, state) => const FeedPage(),
-                    routes: <RouteBase>[
-                      GoRoute(
-                        path: 'details',
-                        builder: (context, state) {
-                          return const DetailsPage(label: 'FeedDetails');
-                        },
-                      )
-                    ],
-                  ),
-                ],
-              ),
-
-              // The route branch for 2º Tab
-              StatefulShellBranch(routes: <RouteBase>[
-                // Add this branch routes
-                // each routes with its sub routes if available e.g shope/uuid/details
-                GoRoute(
-                  path: '/shope',
-                  builder: (context, state) {
-                    return const DetailsPage(label: 'Shope');
-                  },
-                ),
-              ])
-            ],
-          ),
-        ],
-      ),
+      routerConfig: router,
     );
   }
 }
