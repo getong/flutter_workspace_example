@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:rinf/rinf.dart';
 import 'router.dart';
 
-void main() {
+// ncat -l 12345 --keep-open --exec "/bin/cat"
+
+void main() async {
+  await Rinf.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -21,6 +25,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// copy from https://github.com/antonio-nicolau/flutter-go_router-with-nested-tab-navigation
-// also see https://juejin.cn/post/7270343009790853172

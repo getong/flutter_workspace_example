@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'detail_page.dart';
 import 'bloc_detail.dart';
+import 'chat_page.dart';
 
 // Create keys for `root` & `section` navigator avoiding unnecessary rebuilds
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -56,6 +57,17 @@ final router = GoRouter(
           ],
         ),
 
+        StatefulShellBranch(routes: <RouteBase>[
+          // Add this branch routes
+          // each routes with its sub routes if available e.g shope/uuid/details
+          GoRoute(
+            path: '/chat_page',
+            builder: (context, state) {
+              return ChatPage();
+            },
+          ),
+        ]),
+
         // The route branch for 2º Tab
         StatefulShellBranch(routes: <RouteBase>[
           // Add this branch routes
@@ -66,7 +78,7 @@ final router = GoRouter(
               return const DetailsPage(label: 'Shope');
             },
           ),
-        ])
+        ]),
       ],
     ),
   ],
