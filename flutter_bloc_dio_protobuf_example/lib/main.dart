@@ -1,249 +1,120 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
-import 'message.pb.dart'; // Import the generated protobuf classes
+import 'message.pb.dart'; // The generated file from your .proto
 
-// Events
-abstract class ProtobufEvent {}
+// Event
+abstract class MessageEvent {}
 
-class SendProtobufDataEvent extends ProtobufEvent {}
-
-// States
-abstract class ProtobufState {}
-
-class ProtobufInitialState extends ProtobufState {}
-
-class ProtobufSuccessState extends ProtobufState {
-  final String response;
-
-  ProtobufSuccessState(this.response);
+class SendMessageEvent extends MessageEvent {
+  final MyMessage message;
+  SendMessageEvent(this.message);
 }
 
-class ProtobufErrorState extends ProtobufState {
-  final String error;
+// State
+abstract class MessageState {}
 
-  ProtobufErrorState(this.error);
+class MessageInitialState extends MessageState {}
+
+class MessageSendingState extends MessageState {}
+
+class MessageSentState extends MessageState {}
+
+class MessageErrorState extends MessageState {}
+
+class MessageResponseState extends MessageState {
+  final String responseContent;
+  MessageResponseState(this.responseContent);
 }
 
 // BLoC
-class ProtobufBloc extends Bloc<ProtobufEvent, ProtobufState> {
-  ProtobufBloc() : super(ProtobufInitialState()) {
-    on<SendProtobufDataEvent>(_mapSendProtobufDataEventToState);
+class MessageBloc extends Bloc<MessageEvent, MessageState> {
+  final Dio dio;
+
+  MessageBloc({required this.dio}) : super(MessageInitialState()) {
+    on<SendMessageEvent>(_onSendMessageEvent);
   }
 
-  Stream<ProtobufState> _mapSendProtobufDataEventToState(
-    SendProtobufDataEvent event, Emitter<ProtobufState> emit) async* {
-    emit(ProtobufInitialState()); // Optional: emit loading state
-
+  Future<void> _onSendMessageEvent(
+      SendMessageEvent event, Emitter<MessageState> emit) async {
+    emit(MessageSendingState());
     try {
-      Dio dio = Dio();
-      MyMessage message = MyMessage()
-      ..name = 'John Doe'
-      ..age = 30;
-
-      // Serialize the protobuf message to a list of bytes
-      List<int> messageBytes = message.writeToBuffer();
-
-      // Send the protobuf data using Dio
-      FormData formData = FormData.fromMap({
-          'protobuf_data': MultipartFile.fromBytes(
-            messageBytes,
-            filename: 'message.bin',
-          ),
-      });
-
-      Response response = await dio.post(
-        'http://localhost:8080', // Replace with your server endpoint
-        data: formData,
+      final response = await dio.post(
+        'http://localhost:8080',
+        data: event.message.writeToBuffer(),
         options: Options(
+          responseType: ResponseType.bytes,
           headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'application/x-protobuf',
           },
         ),
       );
 
-      emit(ProtobufSuccessState(response.data.toString()));
-    } catch (error) {
-      // Handle errors here
-      emit(ProtobufErrorState(error.toString()));
+      // Assume the server response is also a Protobuf binary that can be decoded into MyMessage
+      final responseMessage = MyMessage.fromBuffer(response.data);
+
+      emit(MessageResponseState(responseMessage.content));
+    } catch (error, stacktrace) {
+      // print("error: ${error}, stack: ${stacktrace}");
+      emit(MessageErrorState());
     }
   }
 }
 
-void main() => runApp(MyApp());
+void main() {
+  final dio = Dio(); // Create a Dio instance
+  runApp(MyApp(dio: dio));
+}
 
 class MyApp extends StatelessWidget {
+  final Dio dio;
+
+  MyApp({required this.dio});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Dio Protobuf BLoC Example',
+      title: 'Flutter BLoC Dio Protobuf Example',
       home: BlocProvider(
-        create: (context) => ProtobufBloc(),
-        child: MyHomePage(),
+        create: (_) => MessageBloc(dio: dio),
+        child: MessageWidget(),
       ),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MessageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Dio Protobuf BLoC Example'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                BlocProvider.of<ProtobufBloc>(context).add(SendProtobufDataEvent());
-              },
-              child: Text('Send Protobuf Data'),
-            ),
-            SizedBox(height: 20),
-            BlocBuilder<ProtobufBloc, ProtobufState>(
-              builder: (context, state) {
-                if (state is ProtobufInitialState) {
-                  return Text('Press the button to send Protobuf data.');
-                } else if (state is ProtobufSuccessState) {
-                  return Text('Response: ${state.response}');
-                } else if (state is ProtobufErrorState) {
-                  return Text('Error: ${state.error}');
-                }
-                return Container();
-              },
-            ),
-          ],
-        ),
+      appBar: AppBar(title: Text('Send Protobuf Message')),
+      body: BlocConsumer<MessageBloc, MessageState>(
+        listener: (context, state) {
+          print("state is ${state}");
+          if (state is MessageErrorState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Failed to send message')),
+            );
+          }
+        },
+        builder: (context, state) {
+          if (state is MessageResponseState) {
+            return Center(child: Text('Response: ${state.responseContent}'));
+          } else if (state is MessageSendingState) {
+            return Center(child: CircularProgressIndicator());
+          } else {
+            return Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  final message = MyMessage()..content = 'Hello, Protobuf!';
+                  context.read<MessageBloc>().add(SendMessageEvent(message));
+                },
+                child: Text('Send Message'),
+              ),
+            );
+          }
+        },
       ),
     );
   }
 }
-
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:dio/dio.dart';
-// import 'message.pb.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart'; // Import the generated protobuf classes
-
-
-// // Events
-// abstract class ProtobufEvent {}
-
-// class SendProtobufDataEvent extends ProtobufEvent {}
-
-// // States
-// abstract class ProtobufState {}
-
-// class ProtobufInitialState extends ProtobufState {}
-
-// class ProtobufSuccessState extends ProtobufState {
-//   final String response;
-
-//   ProtobufSuccessState(this.response);
-// }
-
-// class ProtobufErrorState extends ProtobufState {
-//   final String error;
-
-//   ProtobufErrorState(this.error);
-// }
-
-// // BLoC
-// class ProtobufBloc extends Bloc<ProtobufEvent, ProtobufState> {
-//   ProtobufBloc() : super(ProtobufInitialState());
-
-//   @override
-//   Stream<ProtobufState> mapEventToState(ProtobufEvent event) async* {
-//     if (event is SendProtobufDataEvent) {
-//       try {
-//         Dio dio = Dio();
-//         MyMessage message = MyMessage()
-//         ..name = 'John Doe'
-//         ..age = 30;
-
-//         // Serialize the protobuf message to a list of bytes
-//         List<int> messageBytes = message.writeToBuffer();
-
-//         // Send the protobuf data using Dio
-//         FormData formData = FormData.fromMap({
-//             'protobuf_data': MultipartFile.fromBytes(
-//               messageBytes,
-//               filename: 'message.bin',
-//             ),
-//         });
-
-//         Response response = await dio.post(
-//           'http://localhost:8080', // Replace with your server endpoint
-//           data: formData,
-//           options: Options(
-//             headers: {
-//               'Content-Type': 'multipart/form-data',
-//             },
-//           ),
-//         );
-
-//         yield ProtobufSuccessState(response.data.toString());
-//       } catch (error) {
-//         // Handle errors here
-//         yield ProtobufErrorState(error.toString());
-//       }
-//     }
-//   }
-// }
-
-// // Widget
-// class MyHomePage extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Dio Protobuf BLoC Example'),
-//       ),
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             ElevatedButton(
-//               onPressed: () {
-//                 BlocProvider.of<ProtobufBloc>(context).add(SendProtobufDataEvent());
-//               },
-//               child: Text('Send Protobuf Data'),
-//             ),
-//             SizedBox(height: 20),
-//             BlocBuilder<ProtobufBloc, ProtobufState>(
-//               builder: (context, state) {
-//                 if (state is ProtobufInitialState) {
-//                   return Text('Press the button to send Protobuf data.');
-//                 } else if (state is ProtobufSuccessState) {
-//                   return Text('Response: ${state.response}');
-//                 } else if (state is ProtobufErrorState) {
-//                   return Text('Error: ${state.error}');
-//                 }
-//                 return Container();
-//               },
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-// void main() => runApp(MyApp());
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Dio Protobuf BLoC Example',
-//       home: BlocProvider(
-//         create: (context) => ProtobufBloc(),
-//         child: MyHomePage(),
-//       ),
-//     );
-//   }
-// }

@@ -17,12 +17,11 @@ import 'dart:typed_data' as $typed_data;
 const MyMessage$json = {
   '1': 'MyMessage',
   '2': [
-    {'1': 'name', '3': 1, '4': 1, '5': 9, '10': 'name'},
-    {'1': 'age', '3': 2, '4': 1, '5': 5, '10': 'age'},
+    {'1': 'content', '3': 1, '4': 1, '5': 9, '10': 'content'},
   ],
 };
 
 /// Descriptor for `MyMessage`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List myMessageDescriptor = $convert.base64Decode(
-    'CglNeU1lc3NhZ2USEgoEbmFtZRgBIAEoCVIEbmFtZRIQCgNhZ2UYAiABKAVSA2FnZQ==');
+    'CglNeU1lc3NhZ2USGAoHY29udGVudBgBIAEoCVIHY29udGVudA==');
 

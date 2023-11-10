@@ -15,15 +15,11 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 class MyMessage extends $pb.GeneratedMessage {
   factory MyMessage({
-    $core.String? name,
-    $core.int? age,
+    $core.String? content,
   }) {
     final $result = create();
-    if (name != null) {
-      $result.name = name;
-    }
-    if (age != null) {
-      $result.age = age;
+    if (content != null) {
+      $result.content = content;
     }
     return $result;
   }
@@ -32,8 +28,7 @@ class MyMessage extends $pb.GeneratedMessage {
   factory MyMessage.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'MyMessage', createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'name')
-    ..a<$core.int>(2, _omitFieldNames ? '' : 'age', $pb.PbFieldType.O3)
+    ..aOS(1, _omitFieldNames ? '' : 'content')
     ..hasRequiredFields = false
   ;
 
@@ -59,22 +54,13 @@ class MyMessage extends $pb.GeneratedMessage {
   static MyMessage? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get name => $_getSZ(0);
+  $core.String get content => $_getSZ(0);
   @$pb.TagNumber(1)
-  set name($core.String v) { $_setString(0, v); }
+  set content($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasName() => $_has(0);
+  $core.bool hasContent() => $_has(0);
   @$pb.TagNumber(1)
-  void clearName() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.int get age => $_getIZ(1);
-  @$pb.TagNumber(2)
-  set age($core.int v) { $_setSignedInt32(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasAge() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearAge() => clearField(2);
+  void clearContent() => clearField(1);
 }
 
 
