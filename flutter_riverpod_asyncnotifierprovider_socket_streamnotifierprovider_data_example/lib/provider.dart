@@ -89,36 +89,33 @@ class ListNotifier extends _$ListNotifier {
   @override
   Stream<List<int>> build() async* {
     // final socket = ref.read(tcpClientProvider.notifier)._tcpClient.socket;
-    final tcpClient = ref.watch(tcpClientNotifierProvider);
+    // final tcpClient = ref.watch(tcpClientNotifierProvider);
+    final socket = ref.watch(
+        tcpClientNotifierProvider.select((client) => client.value?.socket));
 
     try {
-      if (tcpClient.value != null && tcpClient.value?.socket != null) {
-        final socket = tcpClient.value?.socket;
-        if (socket != null) {
-          await for (final data in socket) {
-            // if (data.length > 3) {
-            //   // Yield each incoming data from the socket.
-            //   buffer.addAll(data);
-            //   final buffer2 = [...buffer];
-            //   buffer.clear();
-            //   yield buffer2;
-            // } else {
-            //   buffer.addAll(data);
-            //   if (buffer.length > 3) {
-            //     final buffer2 = [...buffer];
-            //     buffer.clear();
-            //     yield buffer2;
-            //   } else {
-            //     yield [];
-            //   }
-            // }
-            yield data;
-          }
-        } else {
-          print("socket is null");
+      if (socket != null) {
+        await for (final data in socket) {
+          // if (data.length > 3) {
+          //   // Yield each incoming data from the socket.
+          //   buffer.addAll(data);
+          //   final buffer2 = [...buffer];
+          //   buffer.clear();
+          //   yield buffer2;
+          // } else {
+          //   buffer.addAll(data);
+          //   if (buffer.length > 3) {
+          //     final buffer2 = [...buffer];
+          //     buffer.clear();
+          //     yield buffer2;
+          //   } else {
+          //     yield [];
+          //   }
+          // }
+          yield data;
         }
       } else {
-        print("tcpclient is null");
+        print("socket is null");
       }
     } catch (error) {
       // Handle any error that occurs during stream iteration
