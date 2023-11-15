@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
 import 'message.pb.dart'; // The generated file from your .proto
+import 'dart:async';
+import 'dart:io';
+import 'dart:typed_data';
 
 // Event
 abstract class MessageEvent {}
@@ -27,9 +30,11 @@ class MessageResponseState extends MessageState {
   MessageResponseState(this.responseContent);
 }
 
-// BLoC
 class MessageBloc extends Bloc<MessageEvent, MessageState> {
   final Dio dio;
+  Socket? socket; // Class-level variable for the socket
+  StreamSubscription<Uint8List>?
+      subscription; // Add this line for the subscription
 
   MessageBloc({required this.dio}) : super(MessageInitialState()) {
     on<SendMessageEvent>(_onSendMessageEvent);
@@ -38,26 +43,40 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
   Future<void> _onSendMessageEvent(
       SendMessageEvent event, Emitter<MessageState> emit) async {
     emit(MessageSendingState());
+
     try {
-      final response = await dio.post(
-        'http://localhost:8080',
-        data: event.message.writeToBuffer(),
-        options: Options(
-          responseType: ResponseType.bytes,
-          headers: {
-            'Content-Type': 'application/x-protobuf',
-          },
-        ),
+      if (socket == null) {
+        socket = await Socket.connect('localhost', 8080);
+      }
+
+      final messageBytes = event.message.writeToBuffer();
+      socket!.add(messageBytes); // Send message bytes
+
+      List<int> responseBytes = [];
+
+      // Cancel any existing subscription
+      await subscription?.cancel();
+      subscription = socket!.listen(
+        (data) {
+          responseBytes.addAll(data);
+        },
+        onDone: () {
+          final responseString = String.fromCharCodes(responseBytes);
+          emit(MessageResponseState(responseString));
+          // Consider closing the socket here if no more communication is expected
+        },
+        onError: (error) {
+          print("Socket error: $error");
+          emit(MessageErrorState());
+        },
       );
-
-      // Assume the server response is also a Protobuf binary that can be decoded into MyMessage
-      final responseMessage = MyMessage.fromBuffer(response.data);
-
-      emit(MessageResponseState(responseMessage.content));
+      final responseString = String.fromCharCodes(responseBytes);
+      emit(MessageResponseState(responseString));
     } catch (error, stacktrace) {
-      // print("error: ${error}, stack: ${stacktrace}");
+      print("error: ${error}, stack: ${stacktrace}");
       emit(MessageErrorState());
     }
+    // Do not close the socket immediately here; it should be managed based on your app's logic
   }
 }
 
