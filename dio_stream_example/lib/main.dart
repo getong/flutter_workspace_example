@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:dio/dio.dart';
 
 class ApiService {
@@ -26,16 +25,23 @@ class DataStreamWidget extends StatelessWidget {
       'http://localhost:8080/protobuf-stream'; // Replace with your URL
   final Duration interval = Duration(seconds: 1); // Fetch data every 5 seconds
 
-  Stream<dynamic> fetchDataAsStream(String url, Duration interval) async* {
+  Stream<List<dynamic>> fetchDataAsStream(
+      String url, Duration interval) async* {
     var apiService = ApiService();
+    List<dynamic> accumulatedData = []; // List to accumulate data over time
 
-    // Emit data at regular intervals
     await for (var _ in Stream.periodic(interval)) {
       try {
-        var data = await apiService.fetchData(url);
-        yield data;
+        var newData = await apiService.fetchData(url);
+        if (newData is List) {
+          accumulatedData
+              .addAll(newData); // Append new data to the accumulated list
+          yield List.from(accumulatedData); // Emit the updated list
+        } else {
+          print("Fetched data is not a List");
+        }
       } catch (e) {
-        yield e; // Handle or emit errors
+        print('Error fetching data: $e');
       }
     }
   }
@@ -44,19 +50,24 @@ class DataStreamWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Dio Keep-Alive Data Stream')),
-      body: StreamBuilder<dynamic>(
+      body: StreamBuilder<List<dynamic>>(
         stream: fetchDataAsStream(url, interval),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData) {
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(child: Text('No Data Available'));
           } else {
-            var data = snapshot.data;
-            return Center(
-              child: Text('Data: $data'),
+            var data = snapshot.data!;
+            return ListView.builder(
+              itemCount: data.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(data[index].toString()),
+                );
+              },
             );
           }
         },
