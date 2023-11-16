@@ -6,69 +6,73 @@ class ApiService {
 
   ApiService() {
     _dio = Dio();
-    _dio.options.headers['Connection'] = 'keep-alive';
+    _dio.options.headers['Accept'] = 'text/event-stream';
   }
 
-  Future<dynamic> fetchData(String url) async {
+  Stream<String> connectToSse(String url) async* {
     try {
-      Response response = await _dio.get(url);
-      return response.data;
+      Response response = await _dio.get(
+        url,
+        options: Options(
+          responseType: ResponseType.stream,
+          followRedirects: false,
+          receiveTimeout: Duration(milliseconds: 150), // Corrected here
+        ),
+      );
+
+      await for (var data in response.data.stream) {
+        yield data.toString();
+      }
     } catch (e) {
       print(e.toString());
-      throw e;
+      // Handle errors or rethrow
+      yield e.toString();
     }
   }
 }
 
-class DataStreamWidget extends StatelessWidget {
+class DataStreamWidget extends StatefulWidget {
   final String url =
-      'http://localhost:8080/protobuf-stream'; // Replace with your URL
-  final Duration interval = Duration(seconds: 1); // Fetch data every 5 seconds
+      'http://localhost:8080/protobuf-stream'; // Replace with your SSE URL
 
-  Stream<List<dynamic>> fetchDataAsStream(
-      String url, Duration interval) async* {
+  @override
+  _DataStreamWidgetState createState() => _DataStreamWidgetState();
+}
+
+class _DataStreamWidgetState extends State<DataStreamWidget> {
+  final List<String> _data = []; // List to accumulate data
+  late Stream<String> _dataStream;
+
+  @override
+  void initState() {
+    super.initState();
     var apiService = ApiService();
-    List<dynamic> accumulatedData = []; // List to accumulate data over time
-
-    await for (var _ in Stream.periodic(interval)) {
-      try {
-        var newData = await apiService.fetchData(url);
-        if (newData is List) {
-          accumulatedData
-              .addAll(newData); // Append new data to the accumulated list
-          yield List.from(accumulatedData); // Emit the updated list
-        } else {
-          print("Fetched data is not a List");
-        }
-      } catch (e) {
-        print('Error fetching data: $e');
-      }
-    }
+    _dataStream = apiService.connectToSse(widget.url);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Dio Keep-Alive Data Stream')),
-      body: StreamBuilder<List<dynamic>>(
-        stream: fetchDataAsStream(url, interval),
+      appBar: AppBar(title: Text('SSE Data Stream')),
+      body: StreamBuilder<String>(
+        stream: _dataStream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No Data Available'));
-          } else {
-            var data = snapshot.data!;
+          } else if (snapshot.hasData) {
+            _data.add(snapshot.data!); // Append new data to the list
             return ListView.builder(
-              itemCount: data.length,
+              itemCount: _data.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(data[index].toString()),
+                  title: Text(_data[index]),
                 );
               },
             );
+          } else {
+            return Center(child: Text('No Data Available'));
           }
         },
       ),
