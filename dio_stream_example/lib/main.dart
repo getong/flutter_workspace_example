@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'dart:convert';
 
 class ApiService {
   late Dio _dio;
@@ -9,7 +10,7 @@ class ApiService {
     _dio.options.headers['Accept'] = 'text/event-stream';
   }
 
-  Stream<String> connectToSse(String url) async* {
+  Stream<List<int>> connectToSse(String url) async* {
     try {
       Response response = await _dio.get(
         url,
@@ -21,12 +22,13 @@ class ApiService {
       );
 
       await for (var data in response.data.stream) {
-        yield data.toString();
+        yield data;
       }
     } catch (e) {
       print(e.toString());
       // Handle errors or rethrow
-      yield e.toString();
+      // yield e.toList();
+      yield [];
     }
   }
 }
@@ -40,8 +42,8 @@ class DataStreamWidget extends StatefulWidget {
 }
 
 class _DataStreamWidgetState extends State<DataStreamWidget> {
-  final List<String> _data = []; // List to accumulate data
-  late Stream<String> _dataStream;
+  final List<String> _data = []; // List to accumulate string data
+  late Stream<List<int>> _dataStream;
 
   @override
   void initState() {
@@ -54,7 +56,7 @@ class _DataStreamWidgetState extends State<DataStreamWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('SSE Data Stream')),
-      body: StreamBuilder<String>(
+      body: StreamBuilder<List<int>>(
         stream: _dataStream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -62,7 +64,8 @@ class _DataStreamWidgetState extends State<DataStreamWidget> {
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (snapshot.hasData) {
-            _data.add(snapshot.data!); // Append new data to the list
+            var stringData = utf8.decode(snapshot.data!);
+            _data.add(stringData);
             return ListView.builder(
               itemCount: _data.length,
               itemBuilder: (context, index) {
