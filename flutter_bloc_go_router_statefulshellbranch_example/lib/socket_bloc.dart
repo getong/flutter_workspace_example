@@ -96,13 +96,25 @@ class SocketBloc extends Bloc<SocketEvent, SocketState> {
     _socket.add(bytes.toList());
   }
 
-  void _onReceiveMessage(ReceiveMessage event, Emitter<SocketState> emit) {
-    final reader = Payload.read(event.message);
-    final aUint32 = reader.get(uint32);
+  void _onReceiveMessage(
+      ReceiveMessage event, Emitter<SocketState> emit) async {
+    // final reader = Payload.read(event.message);
+    // final aUint32 = reader.get(uint32);
+    // final bodyLen = body_len(aUint32);
+    // final messageIdLen = message_id_len(aUint32);
+    // final messageId = utf8.decode(reader.get(Bytes(messageIdLen)));
+    // final aList = reader.get(Bytes(bodyLen));
+    final stream = Stream.fromIterable(event.message);
+    final firstuint32 = await stream.take(4).toList();
+    ByteData byteData = ByteData.sublistView(Uint8List.fromList(firstuint32));
+    int aUint32 = byteData.getInt32(0);
     final bodyLen = body_len(aUint32);
     final messageIdLen = message_id_len(aUint32);
-    final messageId = utf8.decode(reader.get(Bytes(messageIdLen)));
-    final aList = reader.get(Bytes(bodyLen));
+    final stream2 = stream.skip(4);
+    final messageId = utf8
+        .decode(Uint8List.fromList(await stream2.take(messageIdLen).toList()));
+    final stream3 = stream2.skip(messageIdLen);
+    final aList = Uint8List.fromList(await stream3.take(bodyLen).toList());
     String appendMsg;
     switch (messageId) {
       case 'counter_number.ReadRequest':
