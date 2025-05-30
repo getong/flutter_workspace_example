@@ -16,8 +16,28 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(title: const Text('flutter_rust_bridge quickstart')),
         body: Center(
-          child: Text(
-            'Action: Call Rust `greet("Tom")`\nResult: `${greet(name: "Tom")}`',
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Action: Call Rust `greet("Tom")`\nResult: `${greet(name: "Tom")}`',
+              ),
+              const SizedBox(height: 20),
+              FutureBuilder<String>(
+                future: hello(a: "World"),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Text(
+                      'Action: Call Rust `hello("World")`\nResult: `${snapshot.data}`',
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    return const Text('Loading hello result...');
+                  }
+                },
+              ),
+            ],
           ),
         ),
       ),
