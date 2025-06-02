@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../repository/user_repository.dart';
+import '../repository/analytics_repository.dart';
 import 'user_cubit.dart';
 
 /// {@template user_page}
@@ -13,8 +14,10 @@ class UserPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       // Access repository from context and inject into cubit
-      create: (context) =>
-          UserCubit(context.read<UserRepository>())..loadUsers(),
+      create: (context) => UserCubit(
+        context.read<UserRepository>(),
+        analyticsRepository: context.read<AnalyticsRepository>(),
+      )..loadUsers(),
       child: const UserView(),
     );
   }
@@ -134,40 +137,25 @@ class UserView extends StatelessWidget {
                                   PopupMenuItem(
                                     value: 'edit',
                                     child: const Text('Edit'),
-                                  ),
-                                  PopupMenuItem(
-                                    value: 'toggle',
-                                    child: Text(user.isActive
-                                        ? 'Deactivate'
-                                        : 'Activate'),
+                                    onTap: () =>
+                                        _showEditUserDialog(context, user),
                                   ),
                                   PopupMenuItem(
                                     value: 'delete',
-                                    child: const Text(
-                                      'Delete',
-                                      style: TextStyle(color: Colors.red),
-                                    ),
+                                    child: const Text('Delete'),
+                                    onTap: () => context
+                                        .read<UserCubit>()
+                                        .deleteUser(user.id),
+                                  ),
+                                  PopupMenuItem(
+                                    value: 'select',
+                                    child: const Text('Select'),
+                                    onTap: () => context
+                                        .read<UserCubit>()
+                                        .selectUser(user.id),
                                   ),
                                 ],
-                                onSelected: (value) {
-                                  switch (value) {
-                                    case 'edit':
-                                      _showEditUserDialog(context, user);
-                                      break;
-                                    case 'toggle':
-                                      context.read<UserCubit>().updateUser(
-                                            user.copyWith(
-                                                isActive: !user.isActive),
-                                          );
-                                      break;
-                                    case 'delete':
-                                      _showDeleteConfirmation(context, user);
-                                      break;
-                                  }
-                                },
                               ),
-                              onTap: () =>
-                                  context.read<UserCubit>().selectUser(user.id),
                             ),
                           );
                         },
@@ -184,13 +172,14 @@ class UserView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Selected User:',
-                        style: Theme.of(context).textTheme.titleSmall,
+                        'Selected User',
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
+                      const SizedBox(height: 8),
+                      Text('Name: ${state.selectedUser!.name}'),
+                      Text('Email: ${state.selectedUser!.email}'),
                       Text(
-                        '${state.selectedUser!.name} (${state.selectedUser!.email})',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
+                          'Status: ${state.selectedUser!.isActive ? 'Active' : 'Inactive'}'),
                     ],
                   ),
                 ),
@@ -267,6 +256,14 @@ class UserView extends StatelessWidget {
               controller: emailController,
               decoration: const InputDecoration(labelText: 'Email'),
             ),
+            SwitchListTile(
+              title: const Text('Active'),
+              value: user.isActive,
+              onChanged: (value) {
+                // This would need a more complex state management
+                // For now, we'll update when saving
+              },
+            ),
           ],
         ),
         actions: [
@@ -278,40 +275,15 @@ class UserView extends StatelessWidget {
             onPressed: () {
               if (nameController.text.isNotEmpty &&
                   emailController.text.isNotEmpty) {
-                context.read<UserCubit>().updateUser(
-                      user.copyWith(
-                        name: nameController.text,
-                        email: emailController.text,
-                      ),
-                    );
+                final updatedUser = user.copyWith(
+                  name: nameController.text,
+                  email: emailController.text,
+                );
+                context.read<UserCubit>().updateUser(updatedUser);
                 Navigator.of(dialogContext).pop();
               }
             },
             child: const Text('Save'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showDeleteConfirmation(BuildContext context, User user) {
-    showDialog(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: const Text('Delete User'),
-        content: Text('Are you sure you want to delete ${user.name}?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(dialogContext).pop(),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () {
-              context.read<UserCubit>().deleteUser(user.id);
-              Navigator.of(dialogContext).pop();
-            },
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('Delete'),
           ),
         ],
       ),

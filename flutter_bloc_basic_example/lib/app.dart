@@ -5,6 +5,7 @@ import 'counter/counter_page.dart';
 import 'settings/settings_page.dart';
 import 'user/user_page.dart';
 import 'analytics/analytics_page.dart';
+import 'analytics/analytics_widget.dart';
 import 'repository/user_repository.dart';
 import 'repository/analytics_repository.dart';
 import 'repository/cache_repository.dart';
@@ -160,6 +161,14 @@ class CounterPageWithSelector extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            // Compact Analytics Widget
+            Container(
+              constraints:
+                  const BoxConstraints(maxHeight: 70), // Reduced from 80
+              child: const AnalyticsWidget(),
+            ),
+            const SizedBox(height: 8),
+
             // Repository composition info display
             BlocBuilder<ThemeCubit, ThemeState>(
               builder: (context, themeState) {
@@ -200,58 +209,63 @@ class CounterPageWithSelector extends StatelessWidget {
               },
             ),
             const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                // BlocSelector example: Toggle count
-                BlocSelector<ThemeCubit, ThemeState, int>(
-                  selector: (state) => state.toggleCount,
-                  builder: (context, toggleCount) {
-                    // Track theme toggles in analytics
-                    if (toggleCount > 0) {
-                      context.read<AnalyticsRepository>().trackEvent(
-                        'theme_toggled',
-                        {'toggle_count': toggleCount},
-                      );
-                    }
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  // BlocSelector example: Toggle count
+                  BlocSelector<ThemeCubit, ThemeState, int>(
+                    selector: (state) => state.toggleCount,
+                    builder: (context, toggleCount) {
+                      // Track theme toggles in analytics
+                      if (toggleCount > 0) {
+                        context.read<AnalyticsRepository>().trackEvent(
+                          'theme_toggled',
+                          {'toggle_count': toggleCount},
+                        );
+                      }
 
-                    return Text(
-                      'Theme toggles: $toggleCount',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    );
-                  },
-                ),
-                // BlocSelector example: Dark mode status
-                BlocSelector<ThemeCubit, ThemeState, bool>(
-                  selector: (state) => state.isDark,
-                  builder: (context, isDark) {
-                    return Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          isDark ? Icons.dark_mode : Icons.light_mode,
-                          size: 16,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          isDark ? 'Dark' : 'Light',
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      ],
-                    );
-                  },
-                ),
-                // Additional BlocSelector: Font size from SettingsCubit
-                BlocSelector<SettingsCubit, SettingsState, double>(
-                  selector: (state) => state.fontSize,
-                  builder: (context, fontSize) {
-                    return Text(
-                      'Font: ${fontSize.toInt()}px',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    );
-                  },
-                ),
-              ],
+                      return Text(
+                        'Theme toggles: $toggleCount',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      );
+                    },
+                  ),
+                  const SizedBox(width: 16),
+                  // BlocSelector example: Dark mode status
+                  BlocSelector<ThemeCubit, ThemeState, bool>(
+                    selector: (state) => state.isDark,
+                    builder: (context, isDark) {
+                      return Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            isDark ? Icons.dark_mode : Icons.light_mode,
+                            size: 16,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            isDark ? 'Dark' : 'Light',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                  const SizedBox(width: 16),
+                  // Additional BlocSelector: Font size from SettingsCubit
+                  BlocSelector<SettingsCubit, SettingsState, double>(
+                    selector: (state) => state.fontSize,
+                    builder: (context, fontSize) {
+                      return Text(
+                        'Font: ${fontSize.toInt()}px',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ],
         ),

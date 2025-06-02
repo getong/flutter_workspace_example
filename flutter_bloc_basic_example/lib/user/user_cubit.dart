@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../repository/user_repository.dart';
+import '../repository/analytics_repository.dart';
 
 /// {@template user_state}
 /// State for user management
@@ -36,15 +37,24 @@ class UserState {
 /// Cubit that demonstrates RepositoryProvider usage
 /// {@endtemplate}
 class UserCubit extends Cubit<UserState> {
-  UserCubit(this._userRepository) : super(const UserState());
+  UserCubit(this._userRepository, {AnalyticsRepository? analyticsRepository})
+      : _analyticsRepository = analyticsRepository,
+        super(const UserState());
 
   final UserRepository _userRepository;
+  final AnalyticsRepository? _analyticsRepository;
 
   Future<void> loadUsers() async {
     emit(state.copyWith(isLoading: true, error: null));
     try {
       final users = await _userRepository.getUsers();
       emit(state.copyWith(users: users, isLoading: false));
+
+      // Track analytics
+      _analyticsRepository?.trackEvent('users_loaded', {
+        'user_count': users.length,
+        'timestamp': DateTime.now().toIso8601String(),
+      });
     } catch (e) {
       emit(state.copyWith(error: e.toString(), isLoading: false));
     }
@@ -55,6 +65,13 @@ class UserCubit extends Cubit<UserState> {
     try {
       final user = await _userRepository.getUserById(userId);
       emit(state.copyWith(selectedUser: user, isLoading: false));
+
+      // Track analytics
+      _analyticsRepository?.trackEvent('user_selected', {
+        'user_id': userId,
+        'user_name': user?.name ?? 'unknown',
+        'timestamp': DateTime.now().toIso8601String(),
+      });
     } catch (e) {
       emit(state.copyWith(error: e.toString(), isLoading: false));
     }
@@ -66,6 +83,13 @@ class UserCubit extends Cubit<UserState> {
       final newUser = await _userRepository.createUser(name, email);
       final updatedUsers = [...state.users, newUser];
       emit(state.copyWith(users: updatedUsers, isLoading: false));
+
+      // Track analytics
+      _analyticsRepository?.trackEvent('user_created', {
+        'user_id': newUser.id,
+        'user_name': newUser.name,
+        'timestamp': DateTime.now().toIso8601String(),
+      });
     } catch (e) {
       emit(state.copyWith(error: e.toString(), isLoading: false));
     }
