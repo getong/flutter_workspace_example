@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'theme/theme_cubit.dart';
 import 'counter/counter_page.dart';
+import 'settings/settings_page.dart';
 
 /// {@template app}
 /// A [StatelessWidget] that:
 /// * uses [bloc](https://pub.dev/packages/bloc) and
 /// [flutter_bloc](https://pub.dev/packages/flutter_bloc)
 /// to manage the state of a counter and the app theme.
+/// * demonstrates MultiBlocProvider usage.
 /// {@endtemplate}
 class App extends StatelessWidget {
   /// {@macro app}
@@ -15,8 +17,15 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => ThemeCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ThemeCubit>(
+          create: (_) => ThemeCubit(),
+        ),
+        BlocProvider<SettingsCubit>(
+          create: (_) => SettingsCubit(),
+        ),
+      ],
       child: const AppView(),
     );
   }
@@ -57,6 +66,19 @@ class CounterPageWithSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Counter with BlocSelector'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const SettingsPage()),
+              );
+            },
+          ),
+        ],
+      ),
       body: const CounterPage(),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(16),
@@ -91,6 +113,16 @@ class CounterPageWithSelector extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],
+                );
+              },
+            ),
+            // Additional BlocSelector: Font size from SettingsCubit
+            BlocSelector<SettingsCubit, SettingsState, double>(
+              selector: (state) => state.fontSize,
+              builder: (context, fontSize) {
+                return Text(
+                  'Font: ${fontSize.toInt()}px',
+                  style: Theme.of(context).textTheme.bodyMedium,
                 );
               },
             ),

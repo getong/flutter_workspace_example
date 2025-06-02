@@ -54,3 +54,55 @@ class ThemeCubit extends Cubit<ThemeState> {
     ));
   }
 }
+
+/// {@template settings_state}
+/// State class for app settings.
+/// {@endtemplate}
+class SettingsState {
+  const SettingsState({
+    required this.fontSize,
+    required this.enableAnimations,
+    required this.language,
+  });
+
+  final double fontSize;
+  final bool enableAnimations;
+  final String language;
+
+  SettingsState copyWith({
+    double? fontSize,
+    bool? enableAnimations,
+    String? language,
+  }) {
+    return SettingsState(
+      fontSize: fontSize ?? this.fontSize,
+      enableAnimations: enableAnimations ?? this.enableAnimations,
+      language: language ?? this.language,
+    );
+  }
+}
+
+/// {@template settings_cubit}
+/// A cubit that manages app settings for MultiBlocProvider example.
+/// {@endtemplate}
+class SettingsCubit extends Cubit<SettingsState> {
+  /// {@macro settings_cubit}
+  SettingsCubit()
+      : super(const SettingsState(
+          fontSize: 16.0,
+          enableAnimations: true,
+          language: 'English',
+        ));
+
+  void updateFontSize(double size) {
+    emit(state.copyWith(fontSize: size));
+  }
+
+  void toggleAnimations() {
+    emit(state.copyWith(enableAnimations: !state.enableAnimations));
+  }
+
+  void changeLanguage(String language) {
+    emit(state.copyWith(language: language));
+  }
+}
