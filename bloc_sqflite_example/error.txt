@@ -1,0 +1,68 @@
+Checking for wireless devices...
+
+Connected devices:
+macOS (desktop) • macos  • darwin-x64     • macOS 15.5 24F74 darwin-x64
+Chrome (web)    • chrome • web-javascript • Google Chrome 136.0.7103.114
+[1]: macOS (macos)
+[2]: Chrome (chrome)
+Please choose one (or "q" to quit): 1
+Launching lib/main.dart on macOS in debug mode...
+Building macOS application...                                   
+Checking for wireless devices...
+
+Connected devices:
+macOS (desktop) • macos  • darwin-x64     • macOS 15.5 24F74 darwin-x64
+Chrome (web)    • chrome • web-javascript • Google Chrome 136.0.7103.114
+[1]: macOS (macos)
+[2]: Chrome (chrome)
+Please choose one (or "q" to quit): 1
+Launching lib/main.dart on macOS in debug mode...
+Building macOS application...                                   
+✓ Built build/macos/Build/Products/Debug/bloc_sqflite_example.app
+2025-06-02 13:27:38.002 bloc_sqflite_example[43727:383138] TISFileInterrogator updateSystemInputSources false but old data invalid: currentCacheHeaderPtr nonNULL? 0, ->cacheFormatVersion 0, ->magicCookie 00000000, inputSourceTableCountSys 0
+Keyboard Layouts: duplicate keyboard layout identifier -17410.
+Keyboard Layouts: keyboard layout identifier -17410 has been replaced with -28673.
+Keyboard Layouts: duplicate keyboard layout identifier -30769.
+Keyboard Layouts: keyboard layout identifier -30769 has been replaced with -28674.
+Keyboard Layouts: duplicate keyboard layout identifier -14934.
+Keyboard Layouts: keyboard layout identifier -14934 has been replaced with -28675.
+Syncing files to device macOS...                                    96ms
+
+Flutter run key commands.
+r Hot reload. 🔥🔥🔥
+R Hot restart.
+h List all available interactive commands.
+d Detach (terminate "flutter run" but leave application running).
+c Clear the screen
+q Quit (terminate the application on the device).
+
+A Dart VM Service on macOS is available at: http://127.0.0.1:50250/uE44JjmLJHI=/
+The Flutter DevTools debugger and profiler on macOS is available at: http://127.0.0.1:9103?uri=http://127.0.0.1:50250/uE44JjmLJHI=/
+2025-06-02 13:27:57.998 bloc_sqflite_example[43727:383138] error messaging the mach port for IMKCFRunLoopWakeUpReliable
+
+Performing hot reload...                                        
+Reloaded 0 libraries in 132ms (compile: 9 ms, reload: 0 ms, reassemble: 77 ms).
+Checking for wireless devices...
+
+Connected devices:
+macOS (desktop) • macos  • darwin-x64     • macOS 15.5 24F74 darwin-x64
+Chrome (web)    • chrome • web-javascript • Google Chrome 136.0.7103.114
+[1]: macOS (macos)
+[2]: Chrome (chrome)
+Please choose one (or "q" to quit): 1
+Launching lib/main.dart on macOS in debug mode...
+Building macOS application...                                   
+✓ Built build/macos/Build/Products/Debug/bloc_sqflite_example.app
+Syncing files to device macOS...                                    59ms
+
+Flutter run key commands.
+r Hot reload. 🔥🔥🔥
+R Hot restart.
+h List all available interactive commands.
+d Detach (terminate "flutter run" but leave application running).
+c Clear the screen
+q Quit (terminate the application on the device).
+
+A Dart VM Service on macOS is available at: http://127.0.0.1:50555/zXvW5lZWtPM=/
+The Flutter DevTools debugger and profiler on macOS is available at: http://127.0.0.1:9103?uri=http://127.0.0.1:50555/zXvW5lZWtPM=/
+2025-06-02 13:30:10.860 bloc_sqflite_example[44416:388651] error messaging the mach port for IMKCFRunLoopWakeUpReliable
