@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:stream_chat_imessage/bloc/message_bloc.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart'
     show Attachment, AttachmentFile, Message, StreamChannel;
 
 class MessageInput extends StatefulWidget {
-  const MessageInput({
-    Key? key,
-  }) : super(key: key);
+  const MessageInput({Key? key}) : super(key: key);
 
   @override
   _MessageInputState createState() => _MessageInputState();
@@ -37,27 +37,30 @@ class _MessageInputState extends State<MessageInput> {
           children: [
             GestureDetector(
               onTap: () async {
-                final pickedFile =
-                    await (picker.pickImage(source: ImageSource.gallery));
+                final pickedFile = await (picker.pickImage(
+                  source: ImageSource.gallery,
+                ));
                 if (pickedFile == null) {
                   return;
                 }
                 final bytes = await File(pickedFile.path).readAsBytes();
-                final channel = StreamChannel.of(context).channel;
-                final message = Message(
-                  text: textController.value.text,
-                  attachments: [
-                    Attachment(
-                      type: 'image',
-                      file: AttachmentFile(
-                        bytes: bytes,
-                        path: pickedFile.path,
-                        size: bytes.length,
-                      ),
-                    ),
-                  ],
+
+                final attachment = Attachment(
+                  type: 'image',
+                  file: AttachmentFile(
+                    bytes: bytes,
+                    path: pickedFile.path,
+                    size: bytes.length,
+                  ),
                 );
-                await channel.sendMessage(message);
+
+                context.read<MessageBloc>().add(
+                  SendMessage(
+                    textController.value.text,
+                    attachments: [attachment],
+                  ),
+                );
+                textController.clear();
               },
               child: const Padding(
                 padding: EdgeInsets.all(8.0),
@@ -77,8 +80,10 @@ class _MessageInputState extends State<MessageInput> {
                   await sendMessage(context, input);
                 },
                 placeholder: 'iMessage',
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 12,
+                ),
                 suffixMode: OverlayVisibilityMode.editing,
                 suffix: GestureDetector(
                   onTap: () async {
@@ -106,7 +111,8 @@ class _MessageInputState extends State<MessageInput> {
   }
 
   Future<void> sendMessage(BuildContext context, String input) async {
-    final streamChannel = StreamChannel.of(context);
-    await streamChannel.channel.sendMessage(Message(text: input.trim()));
+    if (input.trim().isNotEmpty) {
+      context.read<MessageBloc>().add(SendMessage(input.trim()));
+    }
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stream_chat_imessage/bloc/message_bloc.dart';
 import 'package:stream_chat_imessage/message_list_view.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart'
     show
@@ -18,49 +20,49 @@ class MessagePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final streamChannel = StreamChannel.of(context);
 
-    var messageListController = MessageListController();
-    return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Column(
-          children: [
-            ChannelImage(
-              size: 32,
-              channel: streamChannel.channel,
-            ),
-            ChannelNameText(
-              channel: streamChannel.channel,
-              size: 10,
-              fontWeight: FontWeight.w300,
-            ),
-          ],
+    return BlocProvider(
+      create: (context) =>
+          MessageBloc()..add(LoadMessages(streamChannel.channel)),
+      child: CupertinoPageScaffold(
+        navigationBar: CupertinoNavigationBar(
+          middle: Column(
+            children: [
+              ChannelImage(size: 32, channel: streamChannel.channel),
+              ChannelNameText(
+                channel: streamChannel.channel,
+                size: 10,
+                fontWeight: FontWeight.w300,
+              ),
+            ],
+          ),
         ),
-      ),
-      child: StreamChatCore(
-        client: streamChannel.channel.client,
-        child: MessageListCore(
-          messageListController: messageListController,
-          loadingBuilder: (context) {
-            return const Center(
-              child: CupertinoActivityIndicator(),
-            );
-          },
-          errorBuilder: (context, err) {
-            return const Center(
-              child: Text('Error'),
-            );
-          },
-          emptyBuilder: (context) {
-            return const Center(
-              child: Text('Nothing here...'),
-            );
-          },
-          messageListBuilder: (context, messages) => LazyLoadScrollView(
-            onStartOfPage: () async {
-              await messageListController.paginateData!();
+        child: StreamChatCore(
+          client: streamChannel.channel.client,
+          child: BlocBuilder<MessageBloc, MessageState>(
+            builder: (context, state) {
+              if (state is MessageLoading) {
+                return const Center(child: CupertinoActivityIndicator());
+              }
+
+              if (state is MessageError) {
+                return const Center(child: Text('Error loading messages'));
+              }
+
+              if (state is MessageLoaded || state is MessageSending) {
+                final messages = state is MessageLoaded
+                    ? state.messages
+                    : (state as MessageSending).messages;
+
+                return LazyLoadScrollView(
+                  onStartOfPage: () async {
+                    context.read<MessageBloc>().add(LoadMoreMessages());
+                  },
+                  child: MessageListView(messages: messages),
+                );
+              }
+
+              return const Center(child: Text('Nothing here...'));
             },
-            child: MessageListView(
-              messages: messages,
-            ),
           ),
         ),
       ),

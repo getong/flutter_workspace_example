@@ -15,13 +15,7 @@ class MessageHeader extends StatelessWidget {
       fontSize: 11,
     );
     return isSameWeek(receivedAt)
-        ? Text(
-            formatDateSameWeek(receivedAt),
-            style: textStyle,
-          )
-        : Text(
-            formatDate(receivedAt),
-            style: textStyle,
-          );
+        ? Text(formatDateSameWeek(receivedAt), style: textStyle)
+        : Text(formatDate(receivedAt), style: textStyle);
   }
 }

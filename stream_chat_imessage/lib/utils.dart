@@ -18,7 +18,11 @@ String formatDateSameWeek(DateTime date) {
 }
 
 String formatDateMessage(DateTime date) {
-  final dateFormat = DateFormat('EEE. MMM. d ' 'yy' '  hh:mm a');
+  final dateFormat = DateFormat(
+    'EEE. MMM. d '
+    'yy'
+    '  hh:mm a',
+  );
   return dateFormat.format(date);
 }
 
@@ -29,42 +33,38 @@ class CupertinoCircleAvatar extends StatelessWidget {
   final String? url;
   final double? size;
   const CupertinoCircleAvatar({Key? key, this.url, this.size})
-      : super(key: key);
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(size! / 2),
       child: CachedNetworkImage(
-          imageUrl: url!,
-          height: size,
-          width: size,
-          fit: BoxFit.cover,
-          errorWidget: (context, url, error) {
-            //TODO: this crash the app when getting 404 and in debug mode, see :https://github.com/Baseflow/flutter_cached_network_image/issues/504
-            return CachedNetworkImage(
-              imageUrl:
-                  'https://4.bp.blogspot.com/-Jx21kNqFSTU/UXemtqPhZCI/AAAAAAAAh74/BMGSzpU6F48/s1600/funny-cat-pictures-047-001.jp',
-            );
-          }),
+        imageUrl: url!,
+        height: size,
+        width: size,
+        fit: BoxFit.cover,
+        errorWidget: (context, url, error) {
+          //TODO: this crash the app when getting 404 and in debug mode, see :https://github.com/Baseflow/flutter_cached_network_image/issues/504
+          return CachedNetworkImage(
+            imageUrl:
+                'https://4.bp.blogspot.com/-Jx21kNqFSTU/UXemtqPhZCI/AAAAAAAAh74/BMGSzpU6F48/s1600/funny-cat-pictures-047-001.jp',
+          );
+        },
+      ),
     );
   }
 }
 
 class Divider extends StatelessWidget {
-  const Divider({
-    Key? key,
-  }) : super(key: key);
+  const Divider({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Align(
         alignment: Alignment.bottomCenter,
-        child: Container(
-          height: 1,
-          color: CupertinoColors.systemGrey5,
-        ),
+        child: Container(height: 1, color: CupertinoColors.systemGrey5),
       ),
     );
   }

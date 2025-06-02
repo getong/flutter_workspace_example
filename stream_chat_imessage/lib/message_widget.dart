@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:stream_chat_imessage/cutom_painter.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart'
     show Message;
@@ -27,7 +28,10 @@ class MessageWidget extends StatelessWidget {
     if (message.attachments.isNotEmpty == true &&
         message.attachments.first.type == 'image') {
       return MessageImage(
-          color: color, message: message, messageColor: messageColor);
+        color: color,
+        message: message,
+        messageColor: messageColor,
+      );
     } else {
       return MessageText(
         alignment: alignment,
@@ -73,23 +77,26 @@ class MessageImage extends StatelessWidget {
                       )
                     else
                       CachedNetworkImage(
-                        imageUrl: message.attachments.first.thumbUrl ??
+                        imageUrl:
+                            message.attachments.first.thumbUrl ??
                             message.attachments.first.imageUrl ??
                             message.attachments.first.assetUrl!,
                       ),
                     if (message.attachments.first.title != null)
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(message.attachments.first.title!,
-                            style: TextStyle(color: messageColor)),
+                        child: Text(
+                          message.attachments.first.title!,
+                          style: TextStyle(color: messageColor),
+                        ),
                       ),
                     message.attachments.first.pretext != null
                         ? Text(message.attachments.first.pretext!)
-                        : Container()
+                        : Container(),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       );
@@ -97,10 +104,11 @@ class MessageImage extends StatelessWidget {
       return ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: Container(
-            color: color,
-            child: CachedNetworkImage(
-              imageUrl: message.attachments.first.thumbUrl!,
-            )),
+          color: color,
+          child: CachedNetworkImage(
+            imageUrl: message.attachments.first.thumbUrl!,
+          ),
+        ),
       );
     }
   }
@@ -135,8 +143,11 @@ class MessageText extends StatelessWidget {
         alignment:
             alignment, //Change this to Alignment.topRight or Alignment.topLeft
         child: CustomPaint(
-          painter:
-              ChatBubble(color: color, alignment: alignment, hasTail: hasTail),
+          painter: ChatBubble(
+            color: color,
+            alignment: alignment,
+            hasTail: hasTail,
+          ),
           child: Container(
             margin: margin,
             child: Row(
@@ -148,7 +159,9 @@ class MessageText extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 6.0, vertical: 4),
+                      horizontal: 6.0,
+                      vertical: 4,
+                    ),
                     child: Text(
                       message.text!,
                       style: TextStyle(color: messageColor),

@@ -9,11 +9,8 @@ class ChannelPreview extends StatelessWidget {
   final VoidCallback onTap;
   final Channel channel;
 
-  const ChannelPreview({
-    Key? key,
-    required this.onTap,
-    required this.channel,
-  }) : super(key: key);
+  const ChannelPreview({Key? key, required this.onTap, required this.channel})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +20,16 @@ class ChannelPreview extends StatelessWidget {
 
     final prefix = lastMessage?.attachments != null
         ? lastMessage?.attachments
-            .map((e) {
-              if (e.type == 'image') {
-                return '📷 ';
-              } else if (e.type == 'video') {
-                return '🎬 ';
-              }
-              return null;
-            })
-            .where((e) => e != null)
-            .join(' ')
+              .map((e) {
+                if (e.type == 'image') {
+                  return '📷 ';
+                } else if (e.type == 'video') {
+                  return '🎬 ';
+                }
+                return null;
+              })
+              .where((e) => e != null)
+              .join(' ')
         : '';
 
     return GestureDetector(
@@ -41,18 +38,13 @@ class ChannelPreview extends StatelessWidget {
       child: SizedBox(
         height: 70,
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 8.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 16.0, right: 8.0),
-                child: ChannelImage(
-                  channel: channel,
-                  size: 46,
-                ),
+                child: ChannelImage(channel: channel, size: 46),
               ),
               Expanded(
                 child: Column(
@@ -90,7 +82,7 @@ class ChannelPreview extends StatelessWidget {
                               ),
                             ],
                           ),
-                        )
+                        ),
                       ],
                     ),
                     Padding(
@@ -109,7 +101,7 @@ class ChannelPreview extends StatelessWidget {
                     const Divider(),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
