@@ -15,7 +15,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        // BlocListener for ThemeCubit
+        // BlocListener for ThemeCubit - listen to theme changes
         BlocListener<ThemeCubit, ThemeState>(
           listenWhen: (previous, current) => previous.isDark != current.isDark,
           listener: (context, state) {
@@ -29,35 +29,118 @@ class SettingsPage extends StatelessWidget {
             );
           },
         ),
-        // BlocListener for SettingsCubit
+        // BlocListener for SettingsCubit - general settings changes
         BlocListener<SettingsCubit, SettingsState>(
           listener: (context, state) {
-            // Log settings changes (in real app, this might be analytics)
+            // Log all settings changes (in real app, this might be analytics)
             debugPrint('Settings updated: fontSize=${state.fontSize}, '
-                'animations=${state.enableAnimations}, language=${state.language}');
+                'animations=${state.enableAnimations}, language=${state.language}, '
+                'notifications=${state.notificationsEnabled}, sound=${state.soundEnabled}');
+          },
+        ),
+        // BlocListener for SettingsCubit - specific notification changes
+        BlocListener<SettingsCubit, SettingsState>(
+          listenWhen: (previous, current) =>
+              previous.notificationsEnabled != current.notificationsEnabled,
+          listener: (context, state) {
+            final message = state.notificationsEnabled
+                ? 'Notifications enabled - You will receive app updates'
+                : 'Notifications disabled - You will not receive updates';
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(message),
+                backgroundColor:
+                    state.notificationsEnabled ? Colors.green : Colors.orange,
+                action: SnackBarAction(
+                  label: 'UNDO',
+                  onPressed: () =>
+                      context.read<SettingsCubit>().toggleNotifications(),
+                ),
+              ),
+            );
+          },
+        ),
+        // BlocListener for SettingsCubit - sound settings
+        BlocListener<SettingsCubit, SettingsState>(
+          listenWhen: (previous, current) =>
+              previous.soundEnabled != current.soundEnabled,
+          listener: (context, state) {
+            if (state.soundEnabled && !state.notificationsEnabled) {
+              // Show warning if sound is enabled but notifications are disabled
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Sound Settings'),
+                  content: const Text(
+                    'Sound is enabled but notifications are disabled. '
+                    'Enable notifications to hear sound alerts.',
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        context.read<SettingsCubit>().toggleNotifications();
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Enable Notifications'),
+                    ),
+                  ],
+                ),
+              );
+            }
           },
         ),
       ],
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Settings - MultiBlocProvider Demo'),
+          title: const Text('Settings - MultiBlocListener Demo'),
         ),
-        body: BlocListener<SettingsCubit, SettingsState>(
-          // Additional BlocListener for specific font size changes
-          listenWhen: (previous, current) =>
-              previous.fontSize != current.fontSize,
-          listener: (context, state) {
-            if (state.fontSize > 20) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text(
-                      'Large font size selected - Great for accessibility!'),
-                  backgroundColor: Colors.blue,
-                ),
-              );
-            }
-          },
-          child: Padding(
+        body: MultiBlocListener(
+          listeners: [
+            // Additional MultiBlocListener for complex state combinations
+            BlocListener<ThemeCubit, ThemeState>(
+              listenWhen: (previous, current) =>
+                  current.toggleCount > 0 && current.toggleCount % 3 == 0,
+              listener: (context, themeState) {
+                // Listen for theme toggle patterns
+                final settingsState = context.read<SettingsCubit>().state;
+                if (settingsState.enableAnimations) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Theme Toggle Achievement!'),
+                      content: Text(
+                          'You\'ve toggled the theme ${themeState.toggleCount} times!'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text('Cool!'),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+              },
+            ),
+            BlocListener<SettingsCubit, SettingsState>(
+              listenWhen: (previous, current) =>
+                  previous.fontSize != current.fontSize &&
+                  current.fontSize > 20,
+              listener: (context, state) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                        'Large font size selected - Great for accessibility!'),
+                    backgroundColor: Colors.blue,
+                  ),
+                );
+              },
+            ),
+          ],
+          child: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -219,6 +302,61 @@ class SettingsPage extends StatelessWidget {
                           ),
                         ],
                       ),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                // New Notification Settings Section
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Notification Settings',
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                        const SizedBox(height: 16),
+
+                        // Notifications toggle
+                        BlocBuilder<SettingsCubit, SettingsState>(
+                          builder: (context, state) {
+                            return SwitchListTile(
+                              title: const Text('Enable Notifications'),
+                              subtitle: Text(state.notificationsEnabled
+                                  ? 'You will receive updates'
+                                  : 'Updates are disabled'),
+                              value: state.notificationsEnabled,
+                              onChanged: (_) {
+                                context
+                                    .read<SettingsCubit>()
+                                    .toggleNotifications();
+                              },
+                            );
+                          },
+                        ),
+
+                        // Sound toggle with dependency on notifications
+                        BlocBuilder<SettingsCubit, SettingsState>(
+                          builder: (context, state) {
+                            return SwitchListTile(
+                              title: const Text('Sound Alerts'),
+                              subtitle: Text(state.soundEnabled
+                                  ? 'Sound enabled'
+                                  : 'Silent mode'),
+                              value: state.soundEnabled,
+                              onChanged: state.notificationsEnabled
+                                  ? (_) => context
+                                      .read<SettingsCubit>()
+                                      .toggleSound()
+                                  : null, // Disabled if notifications are off
+                            );
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 ),

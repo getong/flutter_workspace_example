@@ -63,21 +63,29 @@ class SettingsState {
     required this.fontSize,
     required this.enableAnimations,
     required this.language,
+    required this.notificationsEnabled,
+    required this.soundEnabled,
   });
 
   final double fontSize;
   final bool enableAnimations;
   final String language;
+  final bool notificationsEnabled;
+  final bool soundEnabled;
 
   SettingsState copyWith({
     double? fontSize,
     bool? enableAnimations,
     String? language,
+    bool? notificationsEnabled,
+    bool? soundEnabled,
   }) {
     return SettingsState(
       fontSize: fontSize ?? this.fontSize,
       enableAnimations: enableAnimations ?? this.enableAnimations,
       language: language ?? this.language,
+      notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
+      soundEnabled: soundEnabled ?? this.soundEnabled,
     );
   }
 }
@@ -92,6 +100,8 @@ class SettingsCubit extends Cubit<SettingsState> {
           fontSize: 16.0,
           enableAnimations: true,
           language: 'English',
+          notificationsEnabled: true,
+          soundEnabled: false,
         ));
 
   void updateFontSize(double size) {
@@ -104,5 +114,13 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   void changeLanguage(String language) {
     emit(state.copyWith(language: language));
+  }
+
+  void toggleNotifications() {
+    emit(state.copyWith(notificationsEnabled: !state.notificationsEnabled));
+  }
+
+  void toggleSound() {
+    emit(state.copyWith(soundEnabled: !state.soundEnabled));
   }
 }
