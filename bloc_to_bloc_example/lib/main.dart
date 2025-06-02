@@ -75,7 +75,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     const Text(
                       'Authentication',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 16),
                     BlocBuilder<AuthenticationBloc, AuthenticationState>(
@@ -88,15 +89,15 @@ class _MyHomePageState extends State<MyHomePage> {
                               ElevatedButton(
                                 onPressed: () {
                                   context.read<AuthenticationBloc>().add(
-                                    const AuthenticationLogoutRequested(),
-                                  );
+                                        const AuthenticationLogoutRequested(),
+                                      );
                                 },
                                 child: const Text('Logout'),
                               ),
                             ],
                           );
                         }
-                        
+
                         return Column(
                           children: [
                             TextField(
@@ -111,10 +112,10 @@ class _MyHomePageState extends State<MyHomePage> {
                               onPressed: () {
                                 if (_usernameController.text.isNotEmpty) {
                                   context.read<AuthenticationBloc>().add(
-                                    AuthenticationLoginRequested(
-                                      username: _usernameController.text,
-                                    ),
-                                  );
+                                        AuthenticationLoginRequested(
+                                          username: _usernameController.text,
+                                        ),
+                                      );
                                 }
                               },
                               child: const Text('Login'),
@@ -128,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Profile Section
             Expanded(
               child: Card(
@@ -139,7 +140,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [
                       const Text(
                         'Profile (Reacts to Authentication)',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 16),
                       Expanded(
@@ -157,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                               );
                             }
-                            
+
                             if (state is ProfileLoaded) {
                               return Center(
                                 child: Column(
@@ -165,7 +167,45 @@ class _MyHomePageState extends State<MyHomePage> {
                                   children: [
                                     CircleAvatar(
                                       radius: 40,
-                                      backgroundImage: NetworkImage(state.avatar),
+                                      backgroundColor: Colors.grey[300],
+                                      child: ClipOval(
+                                        child: Image.network(
+                                          state.avatar,
+                                          width: 80,
+                                          height: 80,
+                                          fit: BoxFit.cover,
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                            return Icon(
+                                              Icons.person,
+                                              size: 40,
+                                              color: Colors.grey[600],
+                                            );
+                                          },
+                                          loadingBuilder: (context, child,
+                                              loadingProgress) {
+                                            if (loadingProgress == null)
+                                              return child;
+                                            return SizedBox(
+                                              width: 80,
+                                              height: 80,
+                                              child: Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  value: loadingProgress
+                                                              .expectedTotalBytes !=
+                                                          null
+                                                      ? loadingProgress
+                                                              .cumulativeBytesLoaded /
+                                                          loadingProgress
+                                                              .expectedTotalBytes!
+                                                      : null,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
                                     ),
                                     const SizedBox(height: 16),
                                     Text(
@@ -183,7 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                               );
                             }
-                            
+
                             return const Center(
                               child: Text(
                                 'No profile loaded.\nLogin to see profile information.',

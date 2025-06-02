@@ -9,9 +9,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc({required AuthenticationBloc authenticationBloc})
       : _authenticationBloc = authenticationBloc,
         super(const ProfileInitial()) {
-    
     // Listen to authentication state changes
-    _authenticationSubscription = _authenticationBloc.stream.listen((authState) {
+    _authenticationSubscription =
+        _authenticationBloc.stream.listen((authState) {
       if (authState is AuthenticationAuthenticated) {
         add(ProfileLoadRequested(username: authState.username));
       } else if (authState is AuthenticationUnauthenticated) {
@@ -31,14 +31,17 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     Emitter<ProfileState> emit,
   ) async {
     emit(const ProfileLoading());
-    
+
     // Simulate API call delay
     await Future.delayed(const Duration(seconds: 2));
-    
+
+    // Use a more reliable avatar service with proper URL encoding
+    final encodedName = Uri.encodeComponent(event.username);
+
     emit(ProfileLoaded(
       username: event.username,
       email: '${event.username}@example.com',
-      avatar: 'https://ui-avatars.com/api/?name=${event.username}',
+      avatar: 'https://robohash.org/$encodedName?set=set1&size=200x200',
     ));
   }
 
