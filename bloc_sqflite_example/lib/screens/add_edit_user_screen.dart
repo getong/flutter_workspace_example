@@ -19,6 +19,10 @@ class _AddEditUserScreenState extends State<AddEditUserScreen> {
   late TextEditingController _emailController;
   late TextEditingController _ageController;
 
+  final _nameFocusNode = FocusNode();
+  final _emailFocusNode = FocusNode();
+  final _ageFocusNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
@@ -34,6 +38,9 @@ class _AddEditUserScreenState extends State<AddEditUserScreen> {
     _nameController.dispose();
     _emailController.dispose();
     _ageController.dispose();
+    _nameFocusNode.dispose();
+    _emailFocusNode.dispose();
+    _ageFocusNode.dispose();
     super.dispose();
   }
 
@@ -54,10 +61,13 @@ class _AddEditUserScreenState extends State<AddEditUserScreen> {
             children: [
               TextFormField(
                 controller: _nameController,
+                focusNode: _nameFocusNode,
                 decoration: const InputDecoration(
                   labelText: 'Name',
                   border: OutlineInputBorder(),
                 ),
+                textInputAction: TextInputAction.next,
+                onFieldSubmitted: (_) => _emailFocusNode.requestFocus(),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a name';
@@ -68,10 +78,13 @@ class _AddEditUserScreenState extends State<AddEditUserScreen> {
               const SizedBox(height: 16),
               TextFormField(
                 controller: _emailController,
+                focusNode: _emailFocusNode,
                 decoration: const InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(),
                 ),
+                textInputAction: TextInputAction.next,
+                onFieldSubmitted: (_) => _ageFocusNode.requestFocus(),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter an email';
@@ -85,11 +98,14 @@ class _AddEditUserScreenState extends State<AddEditUserScreen> {
               const SizedBox(height: 16),
               TextFormField(
                 controller: _ageController,
+                focusNode: _ageFocusNode,
                 decoration: const InputDecoration(
                   labelText: 'Age',
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.done,
+                onFieldSubmitted: (_) => _saveUser(),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter an age';
