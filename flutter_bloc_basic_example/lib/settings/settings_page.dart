@@ -340,7 +340,24 @@ class SettingsPage extends StatelessWidget {
                         ),
 
                         // Sound toggle with dependency on notifications
-                        BlocBuilder<SettingsCubit, SettingsState>(
+                        BlocConsumer<SettingsCubit, SettingsState>(
+                          listenWhen: (previous, current) =>
+                              previous.soundEnabled != current.soundEnabled,
+                          listener: (context, state) {
+                            if (state.soundEnabled) {
+                              // Simulate playing a test sound
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('🔊 Test sound played!'),
+                                  duration: Duration(milliseconds: 500),
+                                ),
+                              );
+                            }
+                          },
+                          buildWhen: (previous, current) =>
+                              previous.soundEnabled != current.soundEnabled ||
+                              previous.notificationsEnabled !=
+                                  current.notificationsEnabled,
                           builder: (context, state) {
                             return SwitchListTile(
                               title: const Text('Sound Alerts'),
@@ -353,6 +370,83 @@ class SettingsPage extends StatelessWidget {
                                       .read<SettingsCubit>()
                                       .toggleSound()
                                   : null, // Disabled if notifications are off
+                              secondary: Icon(
+                                state.soundEnabled
+                                    ? Icons.volume_up
+                                    : Icons.volume_off,
+                                color: state.notificationsEnabled
+                                    ? (state.soundEnabled
+                                        ? Colors.blue
+                                        : Colors.grey)
+                                    : Colors.grey[400],
+                              ),
+                            );
+                          },
+                        ),
+
+                        // BlocConsumer for font size with live preview
+                        const SizedBox(height: 16),
+                        BlocConsumer<SettingsCubit, SettingsState>(
+                          listenWhen: (previous, current) =>
+                              previous.fontSize != current.fontSize,
+                          listener: (context, state) {
+                            // Provide haptic feedback for font size changes
+                            if (state.fontSize >= 20) {
+                              // Show accessibility tip
+                              if (state.fontSize == 20) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                        '💡 Large fonts improve readability!'),
+                                    backgroundColor: Colors.blue,
+                                  ),
+                                );
+                              }
+                            }
+                          },
+                          builder: (context, state) {
+                            return Card(
+                              elevation: 2,
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        const Icon(Icons.format_size),
+                                        const SizedBox(width: 8),
+                                        Text(
+                                          'Font Size Preview',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      'This is how your text will look',
+                                      style:
+                                          TextStyle(fontSize: state.fontSize),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                        'Current size: ${state.fontSize.toInt()}px'),
+                                    Slider(
+                                      value: state.fontSize,
+                                      min: 12.0,
+                                      max: 24.0,
+                                      divisions: 12,
+                                      onChanged: (value) {
+                                        context
+                                            .read<SettingsCubit>()
+                                            .updateFontSize(value);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
                             );
                           },
                         ),
@@ -414,6 +508,135 @@ class SettingsPage extends StatelessWidget {
                                       ),
                                     );
                                   },
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // Multi-BlocConsumer example - combining theme and settings
+                const SizedBox(height: 16),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Multi-BlocConsumer Demo',
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                        const SizedBox(height: 16),
+
+                        // BlocConsumer combining theme and settings state
+                        BlocConsumer<ThemeCubit, ThemeState>(
+                          listener: (context, themeState) {
+                            // Listen to theme changes and check settings compatibility
+                            final settingsState =
+                                context.read<SettingsCubit>().state;
+                            if (themeState.isDark &&
+                                settingsState.fontSize < 16) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: const Text(
+                                      '💡 Consider larger fonts in dark mode for better readability'),
+                                  action: SnackBarAction(
+                                    label: 'Increase',
+                                    onPressed: () {
+                                      context
+                                          .read<SettingsCubit>()
+                                          .updateFontSize(18.0);
+                                    },
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+                          builder: (context, themeState) {
+                            return BlocConsumer<SettingsCubit, SettingsState>(
+                              listenWhen: (previous, current) =>
+                                  previous.language != current.language,
+                              listener: (context, settingsState) {
+                                // Announce language changes with current theme context
+                                final themeMode =
+                                    themeState.isDark ? 'dark' : 'light';
+                                debugPrint(
+                                    'Language changed to ${settingsState.language} in $themeMode mode');
+                              },
+                              builder: (context, settingsState) {
+                                return Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.all(16),
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: themeState.isDark
+                                          ? [
+                                              Colors.grey[800]!,
+                                              Colors.grey[700]!
+                                            ]
+                                          : [
+                                              Colors.blue[50]!,
+                                              Colors.blue[100]!
+                                            ],
+                                    ),
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                      color: themeState.isDark
+                                          ? Colors.grey[600]!
+                                          : Colors.blue[200]!,
+                                    ),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Combined State Display',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge
+                                            ?.copyWith(
+                                              fontSize:
+                                                  settingsState.fontSize + 2,
+                                            ),
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        '🎨 Theme: ${themeState.isDark ? 'Dark' : 'Light'} (${themeState.toggleCount} toggles)',
+                                        style: TextStyle(
+                                            fontSize: settingsState.fontSize),
+                                      ),
+                                      Text(
+                                        '🌍 Language: ${settingsState.language}',
+                                        style: TextStyle(
+                                            fontSize: settingsState.fontSize),
+                                      ),
+                                      Text(
+                                        '🔤 Font Size: ${settingsState.fontSize.toInt()}px',
+                                        style: TextStyle(
+                                            fontSize: settingsState.fontSize),
+                                      ),
+                                      Text(
+                                        '${settingsState.enableAnimations ? '✨' : '⚡'} Animations: ${settingsState.enableAnimations ? 'Enabled' : 'Disabled'}',
+                                        style: TextStyle(
+                                            fontSize: settingsState.fontSize),
+                                      ),
+                                      Text(
+                                        '${settingsState.notificationsEnabled ? '🔔' : '🔕'} Notifications: ${settingsState.notificationsEnabled ? 'On' : 'Off'}',
+                                        style: TextStyle(
+                                            fontSize: settingsState.fontSize),
+                                      ),
+                                      Text(
+                                        '${settingsState.soundEnabled ? '🔊' : '🔇'} Sound: ${settingsState.soundEnabled ? 'On' : 'Off'}',
+                                        style: TextStyle(
+                                            fontSize: settingsState.fontSize),
+                                      ),
+                                    ],
+                                  ),
                                 );
                               },
                             );
