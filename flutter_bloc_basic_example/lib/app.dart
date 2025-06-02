@@ -4,14 +4,18 @@ import 'theme/theme_cubit.dart';
 import 'counter/counter_page.dart';
 import 'settings/settings_page.dart';
 import 'user/user_page.dart';
+import 'analytics/analytics_page.dart';
 import 'repository/user_repository.dart';
+import 'repository/analytics_repository.dart';
+import 'repository/cache_repository.dart';
+import 'repository/composite_user_repository.dart';
 
 /// {@template app}
 /// A [StatelessWidget] that:
 /// * uses [bloc](https://pub.dev/packages/bloc) and
 /// [flutter_bloc](https://pub.dev/packages/flutter_bloc)
 /// to manage the state of a counter and the app theme.
-/// * demonstrates MultiBlocProvider and RepositoryProvider usage.
+/// * demonstrates MultiBlocProvider and advanced RepositoryProvider usage.
 /// {@endtemplate}
 class App extends StatelessWidget {
   /// {@macro app}
@@ -21,14 +25,25 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        // RepositoryProvider example
-        RepositoryProvider<UserRepository>(
-          create: (context) => MockUserRepository(),
+        // Base repositories
+        RepositoryProvider<CacheRepository>(
+          create: (context) => MockCacheRepository(),
         ),
-        // You can add more repositories here:
-        // RepositoryProvider<AnotherRepository>(
-        //   create: (context) => AnotherRepositoryImpl(),
-        // ),
+        RepositoryProvider<AnalyticsRepository>(
+          create: (context) => MockAnalyticsRepository(),
+        ),
+
+        // Base user repository
+        RepositoryProvider<UserRepository>(
+          create: (context) {
+            // Create composite repository that uses other repositories
+            return CompositeUserRepository(
+              userRepository: MockUserRepository(),
+              cacheRepository: context.read<CacheRepository>(),
+              analyticsRepository: context.read<AnalyticsRepository>(),
+            );
+          },
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -83,21 +98,58 @@ class CounterPageWithSelector extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Counter with BlocSelector'),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.people),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const UserPage()),
-              );
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              switch (value) {
+                case 'users':
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const UserPage()),
+                  );
+                  break;
+                case 'analytics':
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const AnalyticsPage()),
+                  );
+                  break;
+                case 'settings':
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const SettingsPage()),
+                  );
+                  break;
+              }
             },
-          ),
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const SettingsPage()),
-              );
-            },
+            itemBuilder: (context) => [
+              const PopupMenuItem(
+                value: 'users',
+                child: Row(
+                  children: [
+                    Icon(Icons.people),
+                    SizedBox(width: 8),
+                    Text('Users'),
+                  ],
+                ),
+              ),
+              const PopupMenuItem(
+                value: 'analytics',
+                child: Row(
+                  children: [
+                    Icon(Icons.analytics),
+                    SizedBox(width: 8),
+                    Text('Analytics'),
+                  ],
+                ),
+              ),
+              const PopupMenuItem(
+                value: 'settings',
+                child: Row(
+                  children: [
+                    Icon(Icons.settings),
+                    SizedBox(width: 8),
+                    Text('Settings'),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -108,23 +160,38 @@ class CounterPageWithSelector extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Repository info display
+            // Repository composition info display
             BlocBuilder<ThemeCubit, ThemeState>(
               builder: (context, themeState) {
                 final userRepository = context.read<UserRepository>();
+                final analyticsRepository = context.read<AnalyticsRepository>();
+                final cacheRepository = context.read<CacheRepository>();
+
                 return Container(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color:
                         themeState.isDark ? Colors.grey[700] : Colors.grey[100],
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Row(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(Icons.storage, size: 16),
-                      const SizedBox(width: 4),
                       Text(
-                        'Repository: ${userRepository.runtimeType}',
+                        'Repository Composition',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        '📊 Analytics: ${analyticsRepository.runtimeType}',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      Text(
+                        '💾 Cache: ${cacheRepository.runtimeType}',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      Text(
+                        '👥 Users: ${userRepository.runtimeType}',
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ],
@@ -140,6 +207,14 @@ class CounterPageWithSelector extends StatelessWidget {
                 BlocSelector<ThemeCubit, ThemeState, int>(
                   selector: (state) => state.toggleCount,
                   builder: (context, toggleCount) {
+                    // Track theme toggles in analytics
+                    if (toggleCount > 0) {
+                      context.read<AnalyticsRepository>().trackEvent(
+                        'theme_toggled',
+                        {'toggle_count': toggleCount},
+                      );
+                    }
+
                     return Text(
                       'Theme toggles: $toggleCount',
                       style: Theme.of(context).textTheme.bodyMedium,
