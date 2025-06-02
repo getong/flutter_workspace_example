@@ -27,6 +27,7 @@ class App extends StatelessWidget {
 /// * reacts to state changes in the [ThemeCubit]
 /// and updates the theme of the [MaterialApp].
 /// * renders the [CounterPage].
+/// * demonstrates BlocSelector usage.
 /// {@endtemplate}
 class AppView extends StatelessWidget {
   /// {@macro app_view}
@@ -34,13 +35,68 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeCubit, ThemeData>(
-      builder: (_, theme) {
+    return BlocSelector<ThemeCubit, ThemeState, ThemeData>(
+      selector: (state) => state.themeData,
+      builder: (context, themeData) {
         return MaterialApp(
-          theme: theme,
-          home: const CounterPage(),
+          theme: themeData,
+          home: const CounterPageWithSelector(),
         );
       },
+    );
+  }
+}
+
+/// {@template counter_page_with_selector}
+/// A wrapper that adds BlocSelector examples to the CounterPage.
+/// {@endtemplate}
+class CounterPageWithSelector extends StatelessWidget {
+  /// {@macro counter_page_with_selector}
+  const CounterPageWithSelector({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: const CounterPage(),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.all(16),
+        color: Theme.of(context).colorScheme.surfaceVariant,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            // BlocSelector example: Toggle count
+            BlocSelector<ThemeCubit, ThemeState, int>(
+              selector: (state) => state.toggleCount,
+              builder: (context, toggleCount) {
+                return Text(
+                  'Theme toggles: $toggleCount',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                );
+              },
+            ),
+            // BlocSelector example: Dark mode status
+            BlocSelector<ThemeCubit, ThemeState, bool>(
+              selector: (state) => state.isDark,
+              builder: (context, isDark) {
+                return Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      isDark ? Icons.dark_mode : Icons.light_mode,
+                      size: 16,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      isDark ? 'Dark' : 'Light',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ],
+                );
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
