@@ -3,11 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:stream_chat_imessage/coordinator/app_coordinator.dart';
 import 'package:stream_chat_imessage/bloc/channel_list_bloc.dart';
-
 import 'package:stream_chat_imessage/channel_list_view.dart';
-
 import 'package:stream_chat_imessage/channel_page_appbar.dart';
-import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
 Future<void> main() async {
