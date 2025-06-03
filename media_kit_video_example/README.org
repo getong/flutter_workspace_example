@@ -1,0 +1,48 @@
+* media_kit_video_example
+:PROPERTIES:
+:CUSTOM_ID: media_kit_video_example
+:END:
+A new Flutter project.
+
+** Getting Started
+:PROPERTIES:
+:CUSTOM_ID: getting-started
+:END:
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter
+project:
+
+- [[https://docs.flutter.dev/get-started/codelab][Lab: Write your first
+  Flutter app]]
+- [[https://docs.flutter.dev/cookbook][Cookbook: Useful Flutter
+  samples]]
+
+For help getting started with Flutter development, view the
+[[https://docs.flutter.dev/][online documentation]], which offers
+tutorials, samples, guidance on mobile development, and a full API
+reference.
+
+** add media_kit packages
+
+#+begin_src shell
+flutter pub add media_kit media_kit_video media_kit_libs_video
+#+end_src
+
+** macos permissions
+Edit _macos/Runner/Release.entitlements_ & _macos/Runner/DebugProfile.entitlements_:
+
+Enable internet access
+#+begin_src
+<key>com.apple.security.network.client</key>
+<true/>
+#+end_src
+
+Disable sand-box to access files
+
+#+begin_src shell
+<key>com.apple.security.app-sandbox</key>
+<false/>
+#+end_src
+
+copy from [[https://pub.dev/packages/media_kit#permissions][media_kit macos permissions]]
