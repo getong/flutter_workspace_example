@@ -323,6 +323,97 @@ class CounterView extends StatelessWidget {
                 ),
               ),
 
+              // Example: Sink usage demonstration
+              const SizedBox(height: 16),
+              SizedBox(
+                height: 200,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Sink Usage Examples:'),
+                      const SizedBox(height: 8),
+                      BlocBuilder<CounterBloc, int>(
+                        builder: (context, count) {
+                          return Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Colors.purple.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: Colors.purple),
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Sink Demo: $count',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall
+                                      ?.copyWith(color: Colors.purple),
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        // Using sink directly
+                                        final bloc =
+                                            context.read<CounterBloc>();
+                                        bloc.eventSink.add(CounterSetValue(10));
+                                      },
+                                      child: const Text('Set 10'),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        // Batch events using sink
+                                        final bloc =
+                                            context.read<CounterBloc>();
+                                        bloc.addEventsBatch([
+                                          CounterIncrementPressed(),
+                                          CounterIncrementPressed(),
+                                          CounterIncrementPressed(),
+                                        ]);
+                                      },
+                                      child: const Text('+3 Batch'),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 4),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        context
+                                            .read<CounterBloc>()
+                                            .startAutoIncrement();
+                                      },
+                                      child: const Text('Auto +'),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        context
+                                            .read<CounterBloc>()
+                                            .stopAutoIncrement();
+                                      },
+                                      child: const Text('Stop'),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
               const SizedBox(
                   height: 100), // Extra space for floating action buttons
             ],

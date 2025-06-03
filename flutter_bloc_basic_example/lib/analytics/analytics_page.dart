@@ -40,6 +40,11 @@ class AnalyticsView extends StatelessWidget {
             icon: const Icon(Icons.clear_all),
             onPressed: () => context.read<AnalyticsCubit>().clearEvents(),
           ),
+          // New: Sink demo button
+          IconButton(
+            icon: const Icon(Icons.stream),
+            onPressed: () => _showSinkDemo(context),
+          ),
         ],
       ),
       body: BlocConsumer<AnalyticsCubit, AnalyticsState>(
@@ -204,6 +209,7 @@ class AnalyticsView extends StatelessWidget {
         children: [
           ElevatedButton(
             onPressed: () {
+              // Using regular method
               context.read<AnalyticsCubit>().trackEvent('button_clicked', {
                 'button': 'test_button_1',
                 'timestamp': DateTime.now().toIso8601String(),
@@ -213,21 +219,84 @@ class AnalyticsView extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              context.read<AnalyticsCubit>().trackEvent('page_viewed', {
+              // Using sink
+              context.read<AnalyticsCubit>().queueEvent('page_viewed', {
                 'page': 'analytics_page',
                 'timestamp': DateTime.now().toIso8601String(),
               });
             },
-            child: const Text('Track Page View'),
+            child: const Text('Queue Page View (Sink)'),
           ),
           ElevatedButton(
             onPressed: () {
-              context.read<AnalyticsCubit>().trackEvent('user_action', {
-                'action': 'custom_event',
-                'value': DateTime.now().millisecondsSinceEpoch,
-              });
+              // Batch events via sink
+              context.read<AnalyticsCubit>().queueBatchEvents([
+                {'name': 'batch_event_1', 'data': 'test_data_1'},
+                {'name': 'batch_event_2', 'data': 'test_data_2'},
+                {'name': 'batch_event_3', 'data': 'test_data_3'},
+              ]);
             },
-            child: const Text('Track Custom Event'),
+            child: const Text('Queue Batch Events (Sink)'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showSinkDemo(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Analytics Sink Demo'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('Demonstrate analytics event queuing via Sink:'),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                final cubit = context.read<AnalyticsCubit>();
+                // Queue critical event (processes immediately)
+                cubit.queueEvent('error_occurred', {
+                  'error_type': 'demo_error',
+                  'severity': 'high',
+                  'timestamp': DateTime.now().toIso8601String(),
+                });
+                Navigator.of(dialogContext).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                      content: Text(
+                          'Critical event queued (immediate processing)!')),
+                );
+              },
+              child: const Text('Queue Critical Event'),
+            ),
+            const SizedBox(height: 8),
+            ElevatedButton(
+              onPressed: () {
+                final cubit = context.read<AnalyticsCubit>();
+                // Queue regular events (batched processing)
+                for (int i = 0; i < 5; i++) {
+                  cubit.queueEvent('user_interaction_$i', {
+                    'interaction_type': 'demo_click',
+                    'sequence': i,
+                    'timestamp': DateTime.now().toIso8601String(),
+                  });
+                }
+                Navigator.of(dialogContext).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                      content: Text('5 events queued for batch processing!')),
+                );
+              },
+              child: const Text('Queue 5 Regular Events'),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: const Text('Cancel'),
           ),
         ],
       ),

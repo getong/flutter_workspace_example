@@ -37,11 +37,17 @@ class UserView extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
-            onPressed: () => context.read<UserCubit>().loadUsers(),
+            onPressed: () =>
+                context.read<UserCubit>().eventSink.add(LoadUsersSinkEvent()),
           ),
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () => _showAddUserDialog(context),
+          ),
+          // New: Sink demo button
+          IconButton(
+            icon: const Icon(Icons.batch_prediction),
+            onPressed: () => _showBatchOperationsDialog(context),
           ),
         ],
       ),
@@ -284,6 +290,59 @@ class UserView extends StatelessWidget {
               }
             },
             child: const Text('Save'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showBatchOperationsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Batch Operations (Sink Demo)'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('Demonstrate batch operations using Sink:'),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                // Queue multiple operations via sink
+                final cubit = context.read<UserCubit>();
+                cubit.processBatchOperations([
+                  CreateUserSinkEvent('Batch User 1', 'batch1@example.com'),
+                  CreateUserSinkEvent('Batch User 2', 'batch2@example.com'),
+                  LoadUsersSinkEvent(),
+                ]);
+                Navigator.of(dialogContext).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                      content: Text('Batch operations queued via Sink!')),
+                );
+              },
+              child: const Text('Create 2 Users + Reload'),
+            ),
+            const SizedBox(height: 8),
+            ElevatedButton(
+              onPressed: () {
+                // Single operation via sink
+                context
+                    .read<UserCubit>()
+                    .queueUserOperation(LoadUsersSinkEvent());
+                Navigator.of(dialogContext).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Reload queued via Sink!')),
+                );
+              },
+              child: const Text('Queue Reload Only'),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: const Text('Cancel'),
           ),
         ],
       ),
