@@ -33,7 +33,8 @@ abstract class AnalyticsRepository {
 /// {@endtemplate}
 class MockAnalyticsRepository implements AnalyticsRepository {
   MockAnalyticsRepository()
-      : _eventController = Stream<AnalyticsEvent>.empty().asBroadcastStream() {
+      : _eventController =
+            const Stream<AnalyticsEvent>.empty().asBroadcastStream() {
     _events.add(AnalyticsEvent(
       id: '1',
       name: 'app_started',

@@ -157,7 +157,7 @@ class CounterPageWithSelector extends StatelessWidget {
       body: const CounterPage(),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(16),
-        color: Theme.of(context).colorScheme.surfaceVariant,
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
