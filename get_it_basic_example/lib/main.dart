@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'package:get_it_basic_example/service_locator.dart';
 import 'package:get_it_basic_example/app_model.dart';
-
-// This is our global ServiceLocator
-GetIt getIt = GetIt.instance;
+import 'package:get_it_basic_example/services/data_repository.dart';
+import 'package:get_it_basic_example/services/logger_service.dart';
+import 'package:get_it_basic_example/pages/settings_page.dart';
 
 void main() {
-  /// I use signalReady here only to show how to use it. In 99% of the cases
-  /// you don't need it. Just use registerSingletonAsync
-  getIt.registerSingleton<AppModel>(
-    AppModelImplementation(),
-    signalsReady: true,
-  );
-
+  setupServiceLocator();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -31,7 +25,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({super.key, required this.title});
 
   final String title;
 
@@ -44,13 +38,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     // Access the instance of the registered AppModel
-    // As we don't know for sure if AppModel is already ready we use isReady
     getIt.isReady<AppModel>().then(
       (_) => getIt<AppModel>().addListener(update),
     );
-    // Alternative
-    // getIt.getAsync<AppModel>().addListener(update);
-
     super.initState();
   }
 
@@ -70,7 +60,22 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Scaffold(
-              appBar: AppBar(title: Text(widget.title)),
+              appBar: AppBar(
+                title: Text(widget.title),
+                actions: [
+                  IconButton(
+                    icon: const Icon(Icons.settings),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SettingsPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
               body: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -79,6 +84,27 @@ class _MyHomePageState extends State<MyHomePage> {
                     Text(
                       getIt<AppModel>().counter.toString(),
                       style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Demonstrate factory pattern - new instance each time
+                        final logger = getIt<LoggerService>();
+                        logger.log(
+                          'Button pressed! Counter: ${getIt<AppModel>().counter}',
+                        );
+                      },
+                      child: const Text('Log Current State'),
+                    ),
+                    const SizedBox(height: 10),
+                    FutureBuilder<List<String>>(
+                      future: getIt<DataRepository>().getData(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Text('Data items: ${snapshot.data!.length}');
+                        }
+                        return const Text('Loading data...');
+                      },
                     ),
                   ],
                 ),
