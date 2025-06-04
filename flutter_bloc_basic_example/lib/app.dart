@@ -154,7 +154,69 @@ class CounterPageWithSelector extends StatelessWidget {
           ),
         ],
       ),
-      body: const CounterPage(),
+      body: Column(
+        children: [
+          // Add prominent navigation buttons at the top
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(16),
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Flutter BLoC Demo Pages',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 12),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    ElevatedButton.icon(
+                      onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => const UserPage()),
+                      ),
+                      icon: const Icon(Icons.people, size: 18),
+                      label: const Text('Users'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue[100],
+                        foregroundColor: Colors.blue[800],
+                      ),
+                    ),
+                    ElevatedButton.icon(
+                      onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (_) => const AnalyticsPage()),
+                      ),
+                      icon: const Icon(Icons.analytics, size: 18),
+                      label: const Text('Analytics'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green[100],
+                        foregroundColor: Colors.green[800],
+                      ),
+                    ),
+                    ElevatedButton.icon(
+                      onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => const SettingsPage()),
+                      ),
+                      icon: const Icon(Icons.settings, size: 18),
+                      label: const Text('Settings'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.orange[100],
+                        foregroundColor: Colors.orange[800],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          // Counter page content
+          const Expanded(child: CounterPage()),
+        ],
+      ),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(16),
         color: Theme.of(context).colorScheme.surfaceContainerHighest,
@@ -163,8 +225,7 @@ class CounterPageWithSelector extends StatelessWidget {
           children: [
             // Compact Analytics Widget
             Container(
-              constraints:
-                  const BoxConstraints(maxHeight: 70), // Reduced from 80
+              constraints: const BoxConstraints(maxHeight: 70),
               child: const AnalyticsWidget(),
             ),
             const SizedBox(height: 8),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../repository/user_repository.dart';
 import '../repository/analytics_repository.dart';
+import '../settings/settings_cubit.dart';
 import 'user_cubit.dart';
 
 /// {@template user_page}

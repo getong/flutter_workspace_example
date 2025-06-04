@@ -229,11 +229,29 @@ class AnalyticsView extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              // Batch events via sink
+              // Batch events via sink - fix the structure
               context.read<AnalyticsCubit>().queueBatchEvents([
-                {'name': 'batch_event_1', 'data': 'test_data_1'},
-                {'name': 'batch_event_2', 'data': 'test_data_2'},
-                {'name': 'batch_event_3', 'data': 'test_data_3'},
+                {
+                  'name': 'batch_event_1',
+                  'data': {
+                    'test_data': 'value_1',
+                    'timestamp': DateTime.now().toIso8601String(),
+                  }
+                },
+                {
+                  'name': 'batch_event_2',
+                  'data': {
+                    'test_data': 'value_2',
+                    'timestamp': DateTime.now().toIso8601String(),
+                  }
+                },
+                {
+                  'name': 'batch_event_3',
+                  'data': {
+                    'test_data': 'value_3',
+                    'timestamp': DateTime.now().toIso8601String(),
+                  }
+                },
               ]);
             },
             child: const Text('Queue Batch Events (Sink)'),

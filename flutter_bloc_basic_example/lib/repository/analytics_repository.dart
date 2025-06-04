@@ -24,6 +24,7 @@ class AnalyticsEvent {
 abstract class AnalyticsRepository {
   Future<void> trackEvent(String eventName, Map<String, dynamic> properties);
   Future<List<AnalyticsEvent>> getEvents();
+  Future<int> getEventCount();
   Future<void> clearEvents();
   Stream<AnalyticsEvent> get eventStream;
 }
@@ -70,6 +71,12 @@ class MockAnalyticsRepository implements AnalyticsRepository {
   Future<List<AnalyticsEvent>> getEvents() async {
     await Future.delayed(const Duration(milliseconds: 200));
     return List.from(_events);
+  }
+
+  @override
+  Future<int> getEventCount() async {
+    await Future.delayed(const Duration(milliseconds: 100));
+    return _events.length;
   }
 
   @override
