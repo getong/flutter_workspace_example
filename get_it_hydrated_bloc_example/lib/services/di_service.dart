@@ -122,7 +122,9 @@ class DIService {
         ),
         GoRoute(
           path: RouterEnum.helloWorldView.routeName,
-          builder: (context, state) => const HelloWorldPage(),
+          builder: (context, state) => HelloWorldPage(
+            resetCounter: state.uri.queryParameters['reset'] ?? 'none',
+          ),
         ),
       ],
     );

@@ -3,9 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../enums/router_enum.dart';
 import '../services/di_service.dart';
+import '../bloc/counter_bloc.dart';
 
 class HelloWorldPage extends StatefulWidget {
-  const HelloWorldPage({super.key});
+  final String resetCounter;
+
+  const HelloWorldPage({super.key, this.resetCounter = 'none'});
 
   @override
   State<HelloWorldPage> createState() => _HelloWorldPageState();
@@ -15,16 +18,23 @@ class _HelloWorldPageState extends State<HelloWorldPage> {
   @override
   void initState() {
     super.initState();
-    // Reset the counter when entering this page to prevent auto-redirect loop
+    // Reset only the counter that triggered the navigation
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      getIt<CounterServiceBloc>().add(CounterServiceReset());
+      if (widget.resetCounter == 'service') {
+        getIt<CounterServiceBloc>().add(CounterServiceReset());
+      } else if (widget.resetCounter == 'bloc') {
+        getIt<CounterBloc>().add(CounterReset());
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: getIt<CounterServiceBloc>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: getIt<CounterServiceBloc>()),
+        BlocProvider.value(value: getIt<CounterBloc>()),
+      ],
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Hello World'),
@@ -52,18 +62,41 @@ class _HelloWorldPageState extends State<HelloWorldPage> {
                 style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
               ),
               const SizedBox(height: 20),
-              BlocBuilder<CounterServiceBloc, CounterServiceState>(
-                builder: (context, state) {
-                  return Text(
-                    'Counter was reset to: ${state.count}',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.green,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  );
-                },
-              ),
+              if (widget.resetCounter == 'service')
+                BlocBuilder<CounterServiceBloc, CounterServiceState>(
+                  builder: (context, state) {
+                    return Text(
+                      'Service Counter was reset to: ${state.count}',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  },
+                )
+              else if (widget.resetCounter == 'bloc')
+                BlocBuilder<CounterBloc, CounterState>(
+                  builder: (context, state) {
+                    return Text(
+                      'BLoC Counter was reset to: ${state.count}',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  },
+                )
+              else
+                const Text(
+                  'No counter was reset',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               const SizedBox(height: 40),
               ElevatedButton(
                 onPressed: () => context.go(RouterEnum.counterView.routeName),

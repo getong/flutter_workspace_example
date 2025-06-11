@@ -8,6 +8,8 @@ class CounterIncrement extends CounterEvent {}
 
 class CounterDecrement extends CounterEvent {}
 
+class CounterReset extends CounterEvent {}
+
 // States
 class CounterState {
   final int count;
@@ -31,6 +33,10 @@ class CounterBloc extends HydratedBloc<CounterEvent, CounterState> {
 
     on<CounterDecrement>((event, emit) {
       emit(CounterState(state.count - 1));
+    });
+
+    on<CounterReset>((event, emit) {
+      emit(const CounterState(0));
     });
   }
 
