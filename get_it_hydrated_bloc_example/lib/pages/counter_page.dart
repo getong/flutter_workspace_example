@@ -13,18 +13,13 @@ class CounterPage extends StatefulWidget {
 }
 
 class _CounterPageState extends State<CounterPage> {
-  late final CounterService _counterService;
-
-  @override
-  void initState() {
-    super.initState();
-    _counterService = getIt<CounterService>();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: getIt<CounterBloc>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: getIt<CounterBloc>()),
+        BlocProvider.value(value: getIt<CounterServiceBloc>()),
+      ],
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Counter with BLoC'),
@@ -35,8 +30,7 @@ class _CounterPageState extends State<CounterPage> {
           ),
         ),
         body: Center(
-          child: BlocListener<CounterServiceBloc, CounterServiceState>(
-            bloc: getIt<CounterServiceBloc>(),
+          child: BlocConsumer<CounterServiceBloc, CounterServiceState>(
             listener: (context, state) {
               if (state.count == 3) {
                 context.go(
@@ -44,44 +38,39 @@ class _CounterPageState extends State<CounterPage> {
                 );
               }
             },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                BlocBuilder<CounterServiceBloc, CounterServiceState>(
-                  bloc: getIt<CounterServiceBloc>(),
-                  builder: (context, state) {
-                    return Column(
-                      children: [
-                        Text(
-                          'Global Counter: ${state.count}',
-                          style: const TextStyle(
-                            fontSize: 18,
-                            color: Colors.blue,
-                          ),
+            builder: (context, serviceState) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        'Global Counter: ${serviceState.count}',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.blue,
                         ),
-                        const SizedBox(height: 10),
-                        const Text(
-                          'When global counter reaches 3, you\'ll be redirected!',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontStyle: FontStyle.italic,
-                            color: Colors.orange,
-                          ),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'When global counter reaches 3, you\'ll be redirected!',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.orange,
                         ),
-                      ],
-                    );
-                  },
-                ),
-                const SizedBox(height: 30),
-                BlocListener<CounterBloc, CounterState>(
-                  listener: (context, state) {
-                    if (state.count == 3) {
-                      context.go(
-                        '${RouterEnum.helloWorldView.routeName}?reset=bloc',
-                      );
-                    }
-                  },
-                  child: BlocBuilder<CounterBloc, CounterState>(
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 30),
+                  BlocConsumer<CounterBloc, CounterState>(
+                    listener: (context, state) {
+                      if (state.count == 3) {
+                        context.go(
+                          '${RouterEnum.helloWorldView.routeName}?reset=bloc',
+                        );
+                      }
+                    },
                     builder: (context, state) {
                       return Column(
                         children: [
@@ -154,9 +143,9 @@ class _CounterPageState extends State<CounterPage> {
                       );
                     },
                   ),
-                ),
-              ],
-            ),
+                ],
+              );
+            },
           ),
         ),
       ),
