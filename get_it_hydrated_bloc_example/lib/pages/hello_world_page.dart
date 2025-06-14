@@ -4,10 +4,10 @@ import 'package:go_router/go_router.dart';
 import '../enums/router_enum.dart';
 import '../services/di_service.dart';
 import '../bloc/counter_bloc.dart';
+import '../bloc/counter_service_bloc.dart';
 
 class HelloWorldPage extends StatefulWidget {
   final String resetCounter;
-
   const HelloWorldPage({super.key, this.resetCounter = 'none'});
 
   @override
@@ -18,15 +18,15 @@ class _HelloWorldPageState extends State<HelloWorldPage> {
   @override
   void initState() {
     super.initState();
-    // Reset only the counter that triggered the navigation
-    // Use getIt directly since BlocProvider context isn't available in initState
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (widget.resetCounter == 'service') {
-        getIt<CounterServiceBloc>().add(CounterServiceReset());
-      } else if (widget.resetCounter == 'bloc') {
-        getIt<CounterBloc>().add(CounterReset());
-      }
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) => _resetCounter());
+  }
+
+  void _resetCounter() {
+    if (widget.resetCounter == 'service') {
+      getIt<CounterServiceBloc>().add(CounterServiceReset());
+    } else if (widget.resetCounter == 'bloc') {
+      getIt<CounterBloc>().add(CounterReset());
+    }
   }
 
   @override
@@ -42,7 +42,7 @@ class _HelloWorldPageState extends State<HelloWorldPage> {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           leading: IconButton(
             icon: const Icon(Icons.home),
-            onPressed: () => context.go(RouterEnum.initialLocation.routeName),
+            onPressed: () => context.go(RouterEnum.homePage.routeName),
           ),
         ),
         body: Center(
@@ -57,13 +57,8 @@ class _HelloWorldPageState extends State<HelloWorldPage> {
                   color: Colors.purple,
                 ),
               ),
-              const SizedBox(height: 20),
-              const Text(
-                'Welcome to Flutter with BLoC!',
-                style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
-              ),
-              const SizedBox(height: 20),
-              _buildCounterResetInfo(),
+              const SizedBox(height: 40),
+              _buildResetInfo(),
               const SizedBox(height: 40),
               ElevatedButton(
                 onPressed: () => context.go(RouterEnum.counterView.routeName),
@@ -76,42 +71,26 @@ class _HelloWorldPageState extends State<HelloWorldPage> {
     );
   }
 
-  Widget _buildCounterResetInfo() {
-    if (widget.resetCounter == 'service') {
-      return BlocBuilder<CounterServiceBloc, CounterServiceState>(
-        builder: (context, state) {
-          return Text(
-            'Service Counter was reset to: ${state.count}',
-            style: const TextStyle(
-              fontSize: 16,
-              color: Colors.green,
-              fontWeight: FontWeight.bold,
-            ),
-          );
-        },
-      );
-    } else if (widget.resetCounter == 'bloc') {
-      return BlocBuilder<CounterBloc, CounterState>(
-        builder: (context, state) {
-          return Text(
-            'BLoC Counter was reset to: ${state.count}',
-            style: const TextStyle(
-              fontSize: 16,
-              color: Colors.green,
-              fontWeight: FontWeight.bold,
-            ),
-          );
-        },
-      );
-    } else {
-      return const Text(
-        'No counter was reset',
-        style: TextStyle(
-          fontSize: 16,
-          color: Colors.blue,
-          fontWeight: FontWeight.bold,
+  Widget _buildResetInfo() {
+    const style = TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
+
+    return switch (widget.resetCounter) {
+      'service' => BlocBuilder<CounterServiceBloc, CounterServiceState>(
+        builder: (context, state) => Text(
+          'Service Counter reset to: ${state.count}',
+          style: style.copyWith(color: Colors.green),
         ),
-      );
-    }
+      ),
+      'bloc' => BlocBuilder<CounterBloc, CounterState>(
+        builder: (context, state) => Text(
+          'BLoC Counter reset to: ${state.count}',
+          style: style.copyWith(color: Colors.green),
+        ),
+      ),
+      _ => Text(
+        'No counter was reset',
+        style: style.copyWith(color: Colors.blue),
+      ),
+    };
   }
 }
