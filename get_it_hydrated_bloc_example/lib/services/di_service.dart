@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import '../bloc/counter_bloc.dart';
 import '../bloc/counter_service_bloc.dart';
+import '../bloc/page_counter_bloc.dart';
 import 'counter_service.dart';
 import 'router_service.dart';
 
@@ -16,6 +17,7 @@ class DIService {
       CounterServiceBloc(counterService),
     );
     getIt.registerSingleton<CounterBloc>(CounterBloc());
+    getIt.registerSingleton<PageCounterBloc>(PageCounterBloc());
 
     // Register go_router
     getIt.registerSingleton<GoRouter>(RouterService.createRouter());

@@ -19,39 +19,41 @@ class DIPage extends StatelessWidget {
           title: const Text('Dependency Injection Demo'),
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         ),
-        body: Center(
-          child: BlocConsumer<CounterServiceBloc, CounterServiceState>(
-            listener: (context, state) {
-              if (state.count == 3) {
-                context.go(
-                  '${RouterEnum.helloWorldView.routeName}?reset=service',
-                );
-              }
-            },
-            builder: (context, state) => Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CounterDisplay(
-                  title: 'Global Counter (HydratedBloc)',
-                  count: state.count,
-                  subtitle:
-                      '💾 Persists across restarts!\nRedirects at count 3',
-                ),
-                const SizedBox(height: 40),
-                CounterButtons(
-                  onIncrement: () => context.read<CounterServiceBloc>().add(
-                    CounterServiceIncrement(),
+        body: BlocListener<CounterServiceBloc, CounterServiceState>(
+          listener: (context, state) {
+            if (state.count == 3) {
+              context.go(
+                '${RouterEnum.helloWorldView.routeName}?reset=service',
+              );
+            }
+          },
+          child: Center(
+            child: BlocBuilder<CounterServiceBloc, CounterServiceState>(
+              builder: (context, state) => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CounterDisplay(
+                    title: 'Global Counter (HydratedBloc)',
+                    count: state.count,
+                    subtitle:
+                        '💾 Persists across restarts!\nRedirects at count 3',
                   ),
-                  onDecrement: () => context.read<CounterServiceBloc>().add(
-                    CounterServiceDecrement(),
+                  const SizedBox(height: 40),
+                  CounterButtons(
+                    onIncrement: () => context.read<CounterServiceBloc>().add(
+                      CounterServiceIncrement(),
+                    ),
+                    onDecrement: () => context.read<CounterServiceBloc>().add(
+                      CounterServiceDecrement(),
+                    ),
+                    onReset: () => context.read<CounterServiceBloc>().add(
+                      CounterServiceReset(),
+                    ),
                   ),
-                  onReset: () => context.read<CounterServiceBloc>().add(
-                    CounterServiceReset(),
-                  ),
-                ),
-                const SizedBox(height: 40),
-                _buildNavigationButtons(context),
-              ],
+                  const SizedBox(height: 40),
+                  _buildNavigationButtons(context),
+                ],
+              ),
             ),
           ),
         ),
