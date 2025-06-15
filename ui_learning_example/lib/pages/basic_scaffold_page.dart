@@ -43,12 +43,30 @@ class BasicScaffoldPage extends StatelessWidget {
             borderRadius: BorderRadius.only(
               topRight: Radius.elliptical(50, 50),
               bottomLeft: Radius.elliptical(25, 25),
-              bottomRight: Radius.elliptical(25, 25),
+            ),
+            gradient: RadialGradient(
+              radius: 0.15,
+              center: Alignment(0, 0),
+              tileMode: TileMode.mirror,
+              colors: [Colors.blue, Colors.deepPurple, Colors.lightBlue],
+            ),
+            // gradient: LinearGradient(
+            //   // colors: [Colors.blue, Colors.purple],
+            //   // begin: Alignment.topLeft,
+            //   // end: Alignment.bottomRight,
+            //   begin: Alignment(0, -1),
+            //   end: Alignment(0, -0.4),
+            //   tileMode: TileMode.mirror,
+            //   colors: [Colors.blue, Colors.orange],
+            // ),
+            image: DecorationImage(
+              image: NetworkImage('https://picsum.photos/300/300'),
+              fit: BoxFit.cover,
             ),
           ),
           width: 300,
           height: 300,
-          child: Text('Container'),
+          child: FlutterLogo(size: 100),
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.ac_unit),
@@ -101,6 +119,14 @@ class BasicScaffoldPage extends StatelessWidget {
 //       ),
 //     );
 //   }
+// }
+// }
+// }
+// }
+// }
+// }
+// }
+// }
 // }
 // }
 // }
