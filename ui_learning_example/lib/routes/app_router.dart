@@ -6,6 +6,7 @@ import '../pages/popup_menu_page.dart';
 import '../pages/tab_bar_page.dart';
 import '../pages/stack_page.dart';
 import '../pages/list_view_page.dart';
+import '../pages/grid_view_page.dart';
 import 'app_routes.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -37,6 +38,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: AppRoutes.listView.path,
       builder: (context, state) => const ListViewPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.gridView.path,
+      builder: (context, state) => const GridViewPage(),
     ),
   ],
 );
