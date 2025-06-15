@@ -5,6 +5,21 @@ import '../routes/app_routes.dart';
 class RowColumnPage extends StatelessWidget {
   const RowColumnPage({super.key});
 
+  List<Widget> boxes(int n, double w, double h) {
+    List<Widget> bxs = <Widget>[];
+    List fill = [Colors.blue, Colors.green, Colors.purple, Colors.pink];
+    for (int i = 0; i <= n - 1; i++) {
+      Container bx = Container(
+        child: Text(i.toString()),
+        color: fill[i],
+        width: w,
+        height: h,
+      );
+      bxs.add(bx);
+    }
+    return bxs;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +33,7 @@ class RowColumnPage extends StatelessWidget {
           },
         ),
       ),
-      body: const Padding(
+      body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,6 +42,8 @@ class RowColumnPage extends StatelessWidget {
               'Row Example:',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
+            SizedBox(height: 10),
+            Row(children: boxes(4, 40, 40)),
             SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -42,6 +59,7 @@ class RowColumnPage extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
+            Column(children: boxes(4, 40, 40)),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
