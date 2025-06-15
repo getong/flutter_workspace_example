@@ -1,0 +1,87 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../routes/app_routes.dart';
+
+class BasicScaffoldPage extends StatelessWidget {
+  const BasicScaffoldPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+      data: ThemeData(
+        primaryColor: Colors.indigo,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.amber,
+          brightness: Brightness.dark,
+        ),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+        ),
+        textTheme: TextTheme(
+          bodyMedium: TextStyle(fontSize: 26, fontStyle: FontStyle.italic),
+        ),
+      ),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Flutter UI Succinctly'),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              context.go(AppRoutes.home.path);
+            },
+          ),
+        ),
+        body: Center(
+          child: Text(
+            'Our first Flutter layout',
+            style: TextStyle(fontSize: 24),
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.ac_unit),
+          onPressed: () {
+            print('Oh, it is cold outside...');
+          },
+        ),
+      ),
+    );
+  }
+}
+
+// import 'package:flutter/material.dart';
+
+// class BasicScaffoldPage extends StatelessWidget {
+//   const BasicScaffoldPage({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('Basic Scaffold'),
+//         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+//       ),
+//       body: const Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Icon(Icons.widgets, size: 100, color: Colors.blue),
+//             SizedBox(height: 20),
+//             Text(
+//               'Basic Scaffold Page',
+//               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+//             ),
+//             SizedBox(height: 10),
+//             Text(
+//               'This is a basic scaffold implementation',
+//               style: TextStyle(fontSize: 16),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+// }
+// }
