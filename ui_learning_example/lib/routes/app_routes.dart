@@ -4,7 +4,8 @@ enum AppRoutes {
   rowColumn('/row-column'),
   popupMenu('/popup-menu'),
   tabBar('/tab-bar'),
-  stack('/stack');
+  stack('/stack'),
+  listView('/list-view');
 
   const AppRoutes(this.path);
   final String path;
