@@ -33,11 +33,22 @@ class BasicScaffoldPage extends StatelessWidget {
             },
           ),
         ),
-        body: Center(
-          child: Text(
-            'Our first Flutter layout',
-            style: TextStyle(fontSize: 24),
+        body: Container(
+          margin: EdgeInsets.all(100),
+          padding: EdgeInsets.all(50),
+          decoration: BoxDecoration(
+            color: Colors.lightBlue,
+            // shape: BoxShape.circle,
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.only(
+              topRight: Radius.elliptical(50, 50),
+              bottomLeft: Radius.elliptical(25, 25),
+              bottomRight: Radius.elliptical(25, 25),
+            ),
           ),
+          width: 300,
+          height: 300,
+          child: Text('Container'),
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.ac_unit),
@@ -82,6 +93,15 @@ class BasicScaffoldPage extends StatelessWidget {
 //       ),
 //     );
 //   }
+// }
+// }
+// }
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 // }
 // }
 // }
