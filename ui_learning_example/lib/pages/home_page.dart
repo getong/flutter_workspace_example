@@ -50,6 +50,13 @@ class HomePage extends StatelessWidget {
               },
               child: const Text('View TabBar'),
             ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                context.go(AppRoutes.stack.path);
+              },
+              child: const Text('View Stack Layout'),
+            ),
           ],
         ),
       ),
