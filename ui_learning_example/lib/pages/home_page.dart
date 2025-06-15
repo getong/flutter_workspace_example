@@ -43,6 +43,13 @@ class HomePage extends StatelessWidget {
               },
               child: const Text('View PopupMenuButton'),
             ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                context.go(AppRoutes.tabBar.path);
+              },
+              child: const Text('View TabBar'),
+            ),
           ],
         ),
       ),
