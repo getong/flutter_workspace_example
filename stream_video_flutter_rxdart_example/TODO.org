@@ -1,0 +1,8 @@
+* TODO
+
+- [ ] signup page
+- [ ] login page
+- [ ] go_router router
+- [ ] rxdart listen data
+- [ ] flutter_bloc listen data
+- [ ] stream_video_flutter UI widgets
