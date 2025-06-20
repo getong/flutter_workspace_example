@@ -14,7 +14,7 @@ class ExampleSimpleState extends State<ExampleSimple> {
 
   void _incrementCounter() {
     setState(() {
-        _counter++;
+      _counter++;
     });
   }
 
@@ -23,8 +23,8 @@ class ExampleSimpleState extends State<ExampleSimple> {
     super.initState();
 
     googleFontsPending = GoogleFonts.pendingFonts([
-        GoogleFonts.poppins(),
-        GoogleFonts.montserrat(fontStyle: FontStyle.italic),
+      GoogleFonts.poppins(),
+      GoogleFonts.montserrat(fontStyle: FontStyle.italic),
     ]);
   }
 
