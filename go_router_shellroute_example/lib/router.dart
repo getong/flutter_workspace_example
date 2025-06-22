@@ -1,44 +1,101 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'services/navigation_service.dart';
 import 'shell_widget.dart';
 import 'pages/home_page.dart';
 import 'pages/profile_page.dart';
 import 'pages/settings_page.dart';
 import 'pages/details_page.dart';
+import 'pages/auth_page.dart';
+import 'pages/fullscreen_overlay_page.dart';
 
 /// Navigator keys for managing navigation state
-final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
+/// Using NavigationService.rootNavigatorKey for global access
+final GlobalKey<NavigatorState> _rootNavigatorKey =
+    NavigationService.rootNavigatorKey;
 final GlobalKey<NavigatorState> _shellNavigatorKey =
     GlobalKey<NavigatorState>();
 
-/// Router configuration for the application using GoRouter with ShellRoute
+/// Router configuration demonstrating comprehensive _rootNavigatorKey usage
 ///
-/// This configuration demonstrates:
+/// This configuration shows:
 /// - ShellRoute for persistent navigation (bottom navigation bar)
-/// - Nested routes within the shell
-/// - Navigation between different pages while maintaining the shell
+/// - Full-screen routes using parentNavigatorKey: _rootNavigatorKey
+/// - Authentication flow outside of shell
+/// - Modal overlays and dialogs
+/// - Global navigation control via NavigationService
 final GoRouter router = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/home',
+
+  /// Global redirect logic using _rootNavigatorKey
+  redirect: (context, state) {
+    // Example: Redirect logic for authentication
+    // This demonstrates how _rootNavigatorKey enables global state management
+    final isAuthRequired = state.uri.path.startsWith('/protected');
+    if (isAuthRequired) {
+      // Could check authentication state here
+      // return '/auth';
+    }
+    return null; // No redirect needed
+  },
+
+  /// Error handling using _rootNavigatorKey
+  errorBuilder: (context, state) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.error, size: 100, color: Colors.red),
+            const SizedBox(height: 20),
+            Text('Error: ${state.error}'),
+            ElevatedButton(
+              onPressed: () => NavigationService().navigateToRoute('/home'),
+              child: const Text('Go Home'),
+            ),
+          ],
+        ),
+      ),
+    );
+  },
+
   routes: [
-    /// ShellRoute maintains a persistent widget (like bottom navigation)
-    /// across multiple child routes. The shell widget will persist while
-    /// the content area changes based on the current route.
+    /// Authentication route - uses _rootNavigatorKey for full-screen display
+    GoRoute(
+      path: '/auth',
+      name: 'auth',
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) =>
+          MaterialPage(child: const AuthPage(), fullscreenDialog: true),
+    ),
+
+    /// Fullscreen overlay route - demonstrates modal navigation
+    GoRoute(
+      path: '/fullscreen-overlay',
+      name: 'fullscreenOverlay',
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) => MaterialPage(
+        child: const FullscreenOverlayPage(),
+        fullscreenDialog: true,
+      ),
+    ),
+
+    /// ShellRoute maintains persistent widget across child routes
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) {
         return ShellWidget(child: child);
       },
       routes: [
-        /// Home tab route
+        /// Home tab route with nested routes
         GoRoute(
           path: '/home',
           name: 'home',
           pageBuilder: (context, state) =>
               const NoTransitionPage(child: HomePage()),
           routes: [
-            /// Nested route under home - demonstrates navigation within shell
-            /// Uses parentNavigatorKey to display on root navigator (full screen)
+            /// Details route - uses _rootNavigatorKey for full-screen display
             GoRoute(
               path: 'details/:id',
               name: 'details',
