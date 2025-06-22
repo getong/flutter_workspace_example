@@ -123,7 +123,7 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '_rootNavigatorKey 的强大功能:',
+                    'Powerful Features of _rootNavigatorKey:',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -131,13 +131,27 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  _buildFeatureItem('🌐 全局导航控制 - 无需 BuildContext'),
-                  _buildFeatureItem('🔐 认证流程管理 - 全屏登录页面'),
-                  _buildFeatureItem('📱 模态覆盖层 - 脱离 Shell 显示'),
-                  _buildFeatureItem('🔗 深度链接处理 - 外部链接重定向'),
-                  _buildFeatureItem('⚠️ 全局错误处理 - 统一错误页面'),
-                  _buildFeatureItem('🎯 类型安全路由 - 编译时检查'),
-                  _buildFeatureItem('💬 全局对话框和提示 - 任意位置显示'),
+                  _buildFeatureItem(
+                    '🌐 Global Navigation Control - No BuildContext needed',
+                  ),
+                  _buildFeatureItem(
+                    '🔐 Authentication Flow Management - Fullscreen login pages',
+                  ),
+                  _buildFeatureItem(
+                    '📱 Modal Overlays - Display outside Shell',
+                  ),
+                  _buildFeatureItem(
+                    '🔗 Deep Link Handling - External link redirection',
+                  ),
+                  _buildFeatureItem(
+                    '⚠️ Global Error Handling - Unified error pages',
+                  ),
+                  _buildFeatureItem(
+                    '🎯 Type-safe Routing - Compile-time checking',
+                  ),
+                  _buildFeatureItem(
+                    '💬 Global Dialogs & Toasts - Display from anywhere',
+                  ),
                 ],
               ),
             ),
@@ -173,25 +187,25 @@ class HomePage extends StatelessWidget {
   void _showGlobalDialog(NavigationService navigationService) {
     navigationService.showGlobalDialog(
       dialog: AlertDialog(
-        title: const Text('全局对话框示例'),
+        title: const Text('Global Dialog Example'),
         content: const Text(
-          '这个对话框通过 _rootNavigatorKey 显示，'
-          '可以在应用的任何地方调用，无需当前页面的 BuildContext。\n\n'
-          '这展示了 NavigationService 如何利用 _rootNavigatorKey '
-          '实现真正的全局导航控制。',
+          'This dialog is displayed through _rootNavigatorKey, '
+          'and can be called from anywhere in the app without requiring the current page\'s BuildContext.\n\n'
+          'This demonstrates how NavigationService utilizes _rootNavigatorKey '
+          'to achieve true global navigation control.',
         ),
         actions: [
           TextButton(
             onPressed: () =>
                 Navigator.of(navigationService.currentContext!).pop(),
-            child: const Text('关闭'),
+            child: const Text('Close'),
           ),
           TextButton(
             onPressed: () {
               Navigator.of(navigationService.currentContext!).pop();
               navigationService.navigateToRoute('/settings');
             },
-            child: const Text('跳转到设置'),
+            child: const Text('Go to Settings'),
           ),
         ],
       ),

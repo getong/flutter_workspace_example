@@ -30,15 +30,17 @@ class SettingsPage extends StatelessWidget {
 
             // Global navigation examples
             const Text(
-              '全局导航示例:',
+              'Global Navigation Examples:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 15),
 
             ListTile(
               leading: const Icon(Icons.logout, color: Colors.red),
-              title: const Text('全局登出'),
-              subtitle: const Text('使用 _rootNavigatorKey 跳转到认证页面'),
+              title: const Text('Global Logout'),
+              subtitle: const Text(
+                'Navigate to auth page using _rootNavigatorKey',
+              ),
               onTap: () {
                 _showLogoutDialog(navigationService);
               },
@@ -46,15 +48,15 @@ class SettingsPage extends StatelessWidget {
 
             ListTile(
               leading: const Icon(Icons.fullscreen, color: Colors.purple),
-              title: const Text('全屏覆盖层'),
-              subtitle: const Text('展示脱离 Shell 的模态页面'),
+              title: const Text('Fullscreen Overlay'),
+              subtitle: const Text('Show modal page outside Shell'),
               onTap: () => navigationService.showFullscreenOverlay(),
             ),
 
             ListTile(
               leading: const Icon(Icons.info, color: Colors.blue),
-              title: const Text('全局信息对话框'),
-              subtitle: const Text('从任何地方显示对话框'),
+              title: const Text('Global Info Dialog'),
+              subtitle: const Text('Display dialog from anywhere'),
               onTap: () => _showGlobalInfoDialog(navigationService),
             ),
 
@@ -63,9 +65,11 @@ class SettingsPage extends StatelessWidget {
                 Icons.notification_important,
                 color: Colors.orange,
               ),
-              title: const Text('全局通知'),
-              subtitle: const Text('显示全局 SnackBar'),
-              onTap: () => navigationService.showGlobalSnackBar('设置页面的全局通知示例！'),
+              title: const Text('Global Notification'),
+              subtitle: const Text('Show global SnackBar'),
+              onTap: () => navigationService.showGlobalSnackBar(
+                'Global notification example from Settings page!',
+              ),
             ),
 
             const SizedBox(height: 30),
@@ -82,7 +86,7 @@ class SettingsPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '导航状态信息:',
+                    'Navigation State Info:',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -90,11 +94,11 @@ class SettingsPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  Text('可以返回: ${navigationService.canPop() ? "是" : "否"}'),
+                  Text('Can Pop: ${navigationService.canPop() ? "Yes" : "No"}'),
                   const SizedBox(height: 4),
                   const Text(
-                    '当前页面在 Shell 内部，拥有持久的底部导航栏。'
-                    '通过 _rootNavigatorKey 可以访问全局导航状态。',
+                    'Current page is inside Shell with persistent bottom navigation bar. '
+                    'Global navigation state is accessible through _rootNavigatorKey.',
                     style: TextStyle(fontSize: 14),
                   ),
                 ],
@@ -109,21 +113,23 @@ class SettingsPage extends StatelessWidget {
   void _showLogoutDialog(NavigationService navigationService) {
     navigationService.showGlobalDialog(
       dialog: AlertDialog(
-        title: const Text('确认登出'),
-        content: const Text('您确定要登出吗？这将跳转到认证页面。'),
+        title: const Text('Confirm Logout'),
+        content: const Text(
+          'Are you sure you want to logout? This will navigate to the authentication page.',
+        ),
         actions: [
           TextButton(
             onPressed: () =>
                 Navigator.of(navigationService.currentContext!).pop(),
-            child: const Text('取消'),
+            child: const Text('Cancel'),
           ),
           TextButton(
             onPressed: () {
               Navigator.of(navigationService.currentContext!).pop();
-              navigationService.showGlobalSnackBar('已登出');
+              navigationService.showGlobalSnackBar('Logged out');
               navigationService.navigateToLogin();
             },
-            child: const Text('确认登出'),
+            child: const Text('Confirm Logout'),
           ),
         ],
       ),
@@ -133,21 +139,21 @@ class SettingsPage extends StatelessWidget {
   void _showGlobalInfoDialog(NavigationService navigationService) {
     navigationService.showGlobalDialog(
       dialog: AlertDialog(
-        title: const Text('_rootNavigatorKey 优势'),
+        title: const Text('_rootNavigatorKey Advantages'),
         content: const Text(
-          '在设置页面中，我们可以:\n\n'
-          '• 不依赖当前 BuildContext 进行导航\n'
-          '• 显示全局对话框和通知\n'
-          '• 检查全局导航状态\n'
-          '• 处理认证流程\n'
-          '• 管理深度链接\n\n'
-          '这些功能都通过 NavigationService 和 _rootNavigatorKey 实现。',
+          'In the settings page, we can:\n\n'
+          '• Navigate without depending on current BuildContext\n'
+          '• Show global dialogs and notifications\n'
+          '• Check global navigation state\n'
+          '• Handle authentication flows\n'
+          '• Manage deep links\n\n'
+          'These features are all implemented through NavigationService and _rootNavigatorKey.',
         ),
         actions: [
           TextButton(
             onPressed: () =>
                 Navigator.of(navigationService.currentContext!).pop(),
-            child: const Text('明白了'),
+            child: const Text('Got it'),
           ),
         ],
       ),
