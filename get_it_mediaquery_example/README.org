@@ -1,0 +1,198 @@
+* GetIt Context Example
+:PROPERTIES:
+:CUSTOM_ID: get-it-context-example
+:END:
+
+A Flutter project demonstrating how to use GetIt service locator to manage context-dependent objects like Theme, MediaQuery, and Navigator.
+
+** Overview
+:PROPERTIES:
+:CUSTOM_ID: overview
+:END:
+
+This project shows how to solve the common Flutter problem of accessing context-dependent data (Theme.of(context), MediaQuery.of(context), Navigator.of(context)) from anywhere in your app without passing BuildContext around.
+
+** Features
+:PROPERTIES:
+:CUSTOM_ID: features
+:END:
+
+- ✅ Store Theme data in GetIt service locator
+- ✅ Store MediaQuery data in GetIt service locator
+- ✅ Store Navigator state in GetIt service locator
+- ✅ Automatic updates when context changes
+- ✅ Clean separation of concerns
+- ✅ No need to pass BuildContext everywhere
+
+** Architecture
+:PROPERTIES:
+:CUSTOM_ID: architecture
+:END:
+
+*** Service Locator Pattern
+- =service_locator.dart= - GetIt setup and ContextService definition
+- =ContextService= - Singleton service that stores context-dependent objects
+
+*** Widget Components
+- =context_updater.dart= - Widget that automatically updates context data
+- =info_dialog.dart= - Dialog showing context information from GetIt
+- =home_page.dart= - Main screen demonstrating GetIt usage
+
+** Project Structure
+:PROPERTIES:
+:CUSTOM_ID: project-structure
+:END:
+
+#+BEGIN_EXAMPLE
+lib/
+├── main.dart                    # App entry point
+├── service_locator.dart         # GetIt setup and ContextService
+├── screens/
+│   └── home_page.dart          # Main screen
+└── widgets/
+    ├── context_updater.dart    # Context update wrapper
+    └── info_dialog.dart        # Info display dialog
+#+END_EXAMPLE
+
+** Key Concepts
+:PROPERTIES:
+:CUSTOM_ID: key-concepts
+:END:
+
+*** ContextService
+Manages context-dependent data:
+- =ThemeData= from =Theme.of(context)=
+- =MediaQueryData= from =MediaQuery.of(context)=
+- =NavigatorState= from =Navigator.of(context)=
+
+*** Automatic Updates
+The =ContextUpdater= widget uses =didChangeDependencies()= to automatically refresh context data when:
+- Screen orientation changes
+- Theme changes
+- System settings change
+
+*** Usage Example
+#+BEGIN_SRC dart
+// Access anywhere in your app without BuildContext
+final contextService = getIt<ContextService>();
+final screenWidth = contextService.mediaQueryData.size.width;
+final primaryColor = contextService.themeData.primaryColor;
+contextService.navigatorState.pop();
+#+END_SRC
+
+** Benefits
+:PROPERTIES:
+:CUSTOM_ID: benefits
+:END:
+
+- 🚀 *No Context Passing* - Access context data from anywhere
+- 🔄 *Automatic Updates* - Data stays fresh when context changes
+- 🧹 *Clean Code* - Separation of concerns with dependency injection
+- 📱 *Responsive* - Easy access to screen dimensions and device info
+- 🎨 *Theme Aware* - Centralized theme data access
+
+** Getting Started
+:PROPERTIES:
+:CUSTOM_ID: getting-started
+:END:
+
+*** Prerequisites
+- Flutter SDK 3.8.1+
+- Dart 3.0+
+
+*** Dependencies
+#+BEGIN_SRC yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  get_it: ^8.0.3
+#+END_SRC
+
+*** Running the Project
+#+BEGIN_SRC bash
+flutter pub get
+flutter run
+#+END_SRC
+
+** Implementation Details
+:PROPERTIES:
+:CUSTOM_ID: implementation-details
+:END:
+
+*** 1. Service Registration
+#+BEGIN_SRC dart
+void setupServiceLocator() {
+  getIt.registerSingleton<ContextService>(ContextService());
+}
+#+END_SRC
+
+*** 2. Context Data Update
+#+BEGIN_SRC dart
+void updateContextData(BuildContext context) {
+  _themeData = Theme.of(context);
+  _mediaQueryData = MediaQuery.of(context);
+  _navigatorState = Navigator.of(context);
+}
+#+END_SRC
+
+*** 3. Usage in Widgets
+#+BEGIN_SRC dart
+final contextService = getIt<ContextService>();
+final theme = contextService.themeData;
+final mediaQuery = contextService.mediaQueryData;
+#+END_SRC
+
+** Best Practices
+:PROPERTIES:
+:CUSTOM_ID: best-practices
+:END:
+
+- Always check =hasData= before accessing context data
+- Wrap your app with =ContextUpdater= for automatic updates
+- Use this pattern for global access to context-dependent data
+- Consider performance implications of frequent context updates
+
+** References
+:PROPERTIES:
+:CUSTOM_ID: references
+:END:
+
+- [[https://pub.dev/packages/get_it][GetIt Package Documentation]]
+- [[https://docs.flutter.dev/development/data-and-backend/state-mgmt/options#getit][Flutter State Management with GetIt]]
+- [[https://mp.weixin.qq.com/s/fJIwC4Ot_Eo7qkCoKHCUlA][Original Chinese Article]]
+
+** Documentation Links
+:PROPERTIES:
+:CUSTOM_ID: documentation-links
+:END:
+
+*** Flutter Official Documentation
+- [[https://docs.flutter.dev/][Flutter Documentation]]
+- [[https://docs.flutter.dev/development/ui/widgets-intro][Introduction to Widgets]]
+- [[https://docs.flutter.dev/development/data-and-backend/state-mgmt][State Management]]
+- [[https://docs.flutter.dev/cookbook/design/themes][Using Themes to Share Colors and Font Styles]]
+
+*** GetIt and Service Locator Pattern
+- [[https://pub.dev/packages/get_it][GetIt Package on pub.dev]]
+- [[https://pub.dev/documentation/get_it/latest/][GetIt API Documentation]]
+- [[https://github.com/fluttercommunity/get_it][GetIt GitHub Repository]]
+- [[https://en.wikipedia.org/wiki/Service_locator_pattern][Service Locator Pattern - Wikipedia]]
+
+*** Context and Inherited Widgets
+- [[https://docs.flutter.dev/development/ui/widgets-intro#basic-widgets][Basic Widgets - BuildContext]]
+- [[https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html][InheritedWidget Class]]
+- [[https://docs.flutter.dev/development/ui/widgets-intro#using-material-components][Material Components]]
+- [[https://api.flutter.dev/flutter/material/Theme-class.html][Theme Class Documentation]]
+- [[https://api.flutter.dev/flutter/widgets/MediaQuery-class.html][MediaQuery Class Documentation]]
+- [[https://api.flutter.dev/flutter/widgets/Navigator-class.html][Navigator Class Documentation]]
+
+*** Dependency Injection
+- [[https://martinfowler.com/articles/injection.html][Dependency Injection by Martin Fowler]]
+- [[https://docs.flutter.dev/development/data-and-backend/state-mgmt/options][State Management Options]]
+- [[https://flutter.dev/docs/development/data-and-backend/state-mgmt/simple][Simple App State Management]]
+
+*** Related Packages
+- [[https://pub.dev/packages/provider][Provider Package]]
+- [[https://pub.dev/packages/riverpod][Riverpod Package]]
+- [[https://pub.dev/packages/injectable][Injectable Package]]
+- [[https://pub.dev/packages/auto_route][Auto Route Package]]
