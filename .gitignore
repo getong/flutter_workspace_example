@@ -66,3 +66,4 @@
 # cd project_name; flutter create . && flutter run
 **/error.txt
 **/.env
+**error.txt
