@@ -1,0 +1,292 @@
+* Flutter Navigation Master with Go Router
+:PROPERTIES:
+:CUSTOM_ID: flutter-navigation-master-with-go-router
+:END:
+A comprehensive Flutter project demonstrating advanced navigation
+patterns using GoRouter with enum-based routing, dynamic parameters, and
+custom page transitions.
+
+** 🚀 Features
+:PROPERTIES:
+:CUSTOM_ID: features
+:END:
+- *Enum-based Route Management*: Type-safe routing with compile-time
+  checks
+- *Dynamic Routing*: Support for path parameters and dynamic route
+  generation
+- *Custom Page Transitions*: Multiple transition animations (fade,
+  slide, scale, rotation)
+- *Proper Back Navigation*: Automatic back button handling with
+  navigation stack
+- *Clean Architecture*: Well-organized route configuration and screen
+  separation
+
+** 📁 Project Structure
+:PROPERTIES:
+:CUSTOM_ID: project-structure
+:END:
+#+begin_example
+lib/
+├── main.dart                    # App entry point with router configuration
+├── routes/
+│   ├── app_routes.dart         # Route enum definitions and extensions
+│   └── router_config.dart      # GoRouter configuration with transitions
+├── screens/
+│   ├── home_screen.dart        # Main navigation hub
+│   ├── profile_screen.dart     # Profile page with fade transition
+│   ├── settings_screen.dart    # Settings page with slide transition
+│   ├── user_detail_screen.dart # User details with scale transition
+│   ├── product_detail_screen.dart # Product details with rotation transition
+│   └── category_screen.dart    # Category listing with slide transition
+└── transitions/
+    └── custom_transitions.dart # Custom transition builders and pages
+#+end_example
+
+** 🎯 Navigation Patterns
+:PROPERTIES:
+:CUSTOM_ID: navigation-patterns
+:END:
+*** 1. Enum-Based Routing
+:PROPERTIES:
+:CUSTOM_ID: enum-based-routing
+:END:
+Routes are defined using enums for type safety and maintainability:
+
+#+begin_src dart
+enum AppRoute {
+  home('/'),
+  profile('/profile'),
+  settings('/settings'),
+  userDetail('/user/:id'),
+  productDetail('/product/:productId'),
+  category('/category/:categoryName');
+
+  const AppRoute(this.path);
+  final String path;
+}
+#+end_src
+
+*** 2. Dynamic Route Generation
+:PROPERTIES:
+:CUSTOM_ID: dynamic-route-generation
+:END:
+Extension methods provide clean parameter handling:
+
+#+begin_src dart
+extension AppRouteExtension on AppRoute {
+  String location({Map<String, String> pathParameters = const {}}) {
+    String result = path;
+    for (final entry in pathParameters.entries) {
+      result = result.replaceAll(':${entry.key}', entry.value);
+    }
+    return result;
+  }
+}
+#+end_src
+
+*** 3. Navigation Methods
+:PROPERTIES:
+:CUSTOM_ID: navigation-methods
+:END:
+- *Push Navigation*: =context.push(route)= - Adds to navigation stack
+  (shows back button)
+- *Replace Navigation*: =context.go(route)= - Replaces current route (no
+  back button)
+- *Named Navigation*: =context.goNamed(routeName)= - Navigate using
+  route names
+
+** 🎨 Custom Transitions
+:PROPERTIES:
+:CUSTOM_ID: custom-transitions
+:END:
+*** Available Transition Types
+:PROPERTIES:
+:CUSTOM_ID: available-transition-types
+:END:
+1. *Fade Transition*: Smooth opacity animation
+2. *Slide Transition*: Slide from right with easing
+3. *Scale Transition*: Elastic scale animation
+4. *Rotation Transition*: Rotation with fade effect
+
+*** Usage Example
+:PROPERTIES:
+:CUSTOM_ID: usage-example
+:END:
+#+begin_src dart
+GoRoute(
+  path: AppRoute.profile.path,
+  name: AppRoute.profile.name,
+  pageBuilder: (context, state) => buildPageWithTransition(
+    const ProfileScreen(),
+    state,
+    transitionBuilder: FadeTransitionBuilder(),
+  ),
+),
+#+end_src
+
+** 🛠 Implementation Guide
+:PROPERTIES:
+:CUSTOM_ID: implementation-guide
+:END:
+*** Step 1: Define Routes
+:PROPERTIES:
+:CUSTOM_ID: step-1-define-routes
+:END:
+#+begin_src dart
+enum AppRoute {
+  home('/'),
+  detail('/detail/:id');
+  
+  const AppRoute(this.path);
+  final String path;
+  String get name => toString().split('.').last;
+}
+#+end_src
+
+*** Step 2: Configure Router
+:PROPERTIES:
+:CUSTOM_ID: step-2-configure-router
+:END:
+#+begin_src dart
+final GoRouter appRouter = GoRouter(
+  initialLocation: AppRoute.home.path,
+  routes: [
+    GoRoute(
+      path: AppRoute.home.path,
+      name: AppRoute.home.name,
+      builder: (context, state) => const HomeScreen(),
+    ),
+    // Add more routes...
+  ],
+);
+#+end_src
+
+*** Step 3: Navigation Usage
+:PROPERTIES:
+:CUSTOM_ID: step-3-navigation-usage
+:END:
+#+begin_src dart
+// Push with parameters
+context.push(
+  AppRoute.userDetail.location(pathParameters: {'id': '123'}),
+);
+
+// Simple navigation
+context.push(AppRoute.profile.path);
+
+// Named navigation
+context.goNamed(AppRoute.settings.name);
+#+end_src
+
+** 🔧 Custom Transition Builder
+:PROPERTIES:
+:CUSTOM_ID: custom-transition-builder
+:END:
+Create custom transitions by extending the transition builder:
+
+#+begin_src dart
+class CustomTransitionBuilder {
+  Widget buildTransition(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    return FadeTransition(opacity: animation, child: child);
+  }
+}
+#+end_src
+
+** 📱 Screen Examples
+:PROPERTIES:
+:CUSTOM_ID: screen-examples
+:END:
+*** Dynamic Parameter Handling
+:PROPERTIES:
+:CUSTOM_ID: dynamic-parameter-handling
+:END:
+#+begin_src dart
+class UserDetailScreen extends StatelessWidget {
+  final String userId;
+
+  const UserDetailScreen({super.key, required this.userId});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('User Details')),
+      body: Text('User ID: $userId'),
+    );
+  }
+}
+#+end_src
+
+** 🎯 Navigation Best Practices
+:PROPERTIES:
+:CUSTOM_ID: navigation-best-practices
+:END:
+1. *Use Enums*: Define routes as enums for type safety
+2. *Parameter Validation*: Always validate path parameters
+3. *Transition Consistency*: Use consistent transitions for similar
+   screens
+4. *Back Navigation*: Use =context.push()= when back navigation is
+   needed
+5. *Error Handling*: Implement proper error routes and handling
+
+** 🚀 Getting Started
+:PROPERTIES:
+:CUSTOM_ID: getting-started
+:END:
+1. *Clone the repository*
+2. *Install dependencies*: =flutter pub get=
+3. *Run the app*: =flutter run=
+
+** 📚 Key Dependencies
+:PROPERTIES:
+:CUSTOM_ID: key-dependencies
+:END:
+#+begin_src yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  go_router: ^12.1.3
+#+end_src
+
+** 🔗 Navigation Flow
+:PROPERTIES:
+:CUSTOM_ID: navigation-flow
+:END:
+#+begin_example
+HomeScreen
+├── Profile (Fade) ↔️ Back
+├── Settings (Slide) ↔️ Back
+├── User Detail (Scale) ↔️ Back
+├── Product Detail (Rotation) ↔️ Back
+└── Category (Slide) ↔️ Back
+#+end_example
+
+** 💡 Tips and Tricks
+:PROPERTIES:
+:CUSTOM_ID: tips-and-tricks
+:END:
+- Use =context.push()= for stackable navigation
+- Use =context.go()= for replacement navigation
+- Implement custom transitions for enhanced UX
+- Always handle edge cases in parameter parsing
+- Use enum extensions for clean route management
+
+** 📖 References
+:PROPERTIES:
+:CUSTOM_ID: references
+:END:
+- [[https://pub.dev/packages/go_router][GoRouter Documentation]]
+- [[https://docs.flutter.dev/development/ui/navigation][Flutter
+  Navigation Guide]]
+- [[https://docs.flutter.dev/cookbook/animation/page-route-animation][Custom
+  Transitions in Flutter]]
+
+--------------
+
+*Mastering Navigation in Flutter* - A complete guide to implementing
+professional navigation patterns with GoRouter, enum-based routing, and
+custom transitions.

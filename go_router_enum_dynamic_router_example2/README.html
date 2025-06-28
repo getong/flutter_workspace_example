@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<!-- 2025-06-29 日 03:00 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="author" content="gerald" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="content" class="content">
+<nav id="table-of-contents" role="doc-toc">
+<h2>&#30446;&#24405;</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#flutter-navigation-master-with-go-router">1. Flutter Navigation Master with Go Router</a>
+<ul>
+<li><a href="#features">1.1. 🚀 Features</a></li>
+<li><a href="#project-structure">1.2. 📁 Project Structure</a></li>
+<li><a href="#navigation-patterns">1.3. 🎯 Navigation Patterns</a>
+<ul>
+<li><a href="#enum-based-routing">1.3.1. 1. Enum-Based Routing</a></li>
+<li><a href="#dynamic-route-generation">1.3.2. 2. Dynamic Route Generation</a></li>
+<li><a href="#navigation-methods">1.3.3. 3. Navigation Methods</a></li>
+</ul>
+</li>
+<li><a href="#custom-transitions">1.4. 🎨 Custom Transitions</a>
+<ul>
+<li><a href="#available-transition-types">1.4.1. Available Transition Types</a></li>
+<li><a href="#usage-example">1.4.2. Usage Example</a></li>
+</ul>
+</li>
+<li><a href="#implementation-guide">1.5. 🛠 Implementation Guide</a>
+<ul>
+<li><a href="#step-1-define-routes">1.5.1. Step 1: Define Routes</a></li>
+<li><a href="#step-2-configure-router">1.5.2. Step 2: Configure Router</a></li>
+<li><a href="#step-3-navigation-usage">1.5.3. Step 3: Navigation Usage</a></li>
+</ul>
+</li>
+<li><a href="#custom-transition-builder">1.6. 🔧 Custom Transition Builder</a></li>
+<li><a href="#screen-examples">1.7. 📱 Screen Examples</a>
+<ul>
+<li><a href="#dynamic-parameter-handling">1.7.1. Dynamic Parameter Handling</a></li>
+</ul>
+</li>
+<li><a href="#navigation-best-practices">1.8. 🎯 Navigation Best Practices</a></li>
+<li><a href="#getting-started">1.9. 🚀 Getting Started</a></li>
+<li><a href="#key-dependencies">1.10. 📚 Key Dependencies</a></li>
+<li><a href="#navigation-flow">1.11. 🔗 Navigation Flow</a></li>
+<li><a href="#tips-and-tricks">1.12. 💡 Tips and Tricks</a></li>
+<li><a href="#references">1.13. 📖 References</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+<div id="outline-container-flutter-navigation-master-with-go-router" class="outline-2">
+<h2 id="flutter-navigation-master-with-go-router"><span class="section-number-2">1.</span> Flutter Navigation Master with Go Router</h2>
+<div class="outline-text-2" id="text-flutter-navigation-master-with-go-router">
+<p>
+A comprehensive Flutter project demonstrating advanced navigation<br>
+patterns using GoRouter with enum-based routing, dynamic parameters, and<br>
+custom page transitions.<br>
+</p>
+</div>
+<div id="outline-container-features" class="outline-3">
+<h3 id="features"><span class="section-number-3">1.1.</span> 🚀 Features</h3>
+<div class="outline-text-3" id="text-features">
+<ul class="org-ul">
+<li><b>Enum-based Route Management</b>: Type-safe routing with compile-time<br>
+checks<br></li>
+<li><b>Dynamic Routing</b>: Support for path parameters and dynamic route<br>
+generation<br></li>
+<li><b>Custom Page Transitions</b>: Multiple transition animations (fade,<br>
+slide, scale, rotation)<br></li>
+<li><b>Proper Back Navigation</b>: Automatic back button handling with<br>
+navigation stack<br></li>
+<li><b>Clean Architecture</b>: Well-organized route configuration and screen<br>
+separation<br></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-project-structure" class="outline-3">
+<h3 id="project-structure"><span class="section-number-3">1.2.</span> 📁 Project Structure</h3>
+<div class="outline-text-3" id="text-project-structure">
+<pre class="example" id="org1d4aa60">
+lib/
+├── main.dart                    # App entry point with router configuration
+├── routes/
+│   ├── app_routes.dart         # Route enum definitions and extensions
+│   └── router_config.dart      # GoRouter configuration with transitions
+├── screens/
+│   ├── home_screen.dart        # Main navigation hub
+│   ├── profile_screen.dart     # Profile page with fade transition
+│   ├── settings_screen.dart    # Settings page with slide transition
+│   ├── user_detail_screen.dart # User details with scale transition
+│   ├── product_detail_screen.dart # Product details with rotation transition
+│   └── category_screen.dart    # Category listing with slide transition
+└── transitions/
+    └── custom_transitions.dart # Custom transition builders and pages
+</pre>
+</div>
+</div>
+<div id="outline-container-navigation-patterns" class="outline-3">
+<h3 id="navigation-patterns"><span class="section-number-3">1.3.</span> 🎯 Navigation Patterns</h3>
+<div class="outline-text-3" id="text-navigation-patterns">
+</div>
+<div id="outline-container-enum-based-routing" class="outline-4">
+<h4 id="enum-based-routing"><span class="section-number-4">1.3.1.</span> 1. Enum-Based Routing</h4>
+<div class="outline-text-4" id="text-enum-based-routing">
+<p>
+Routes are defined using enums for type safety and maintainability:<br>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-dart"><span style="color: #b9ca4a;">enum</span> <span style="color: #7aa6da;">AppRoute</span> <span style="color: #00ff00; font-size: 80%;">{</span>
+  home<span style="color: #228b22; font-size: 85%;">(</span><span style="color: #70c0b1;">'/'</span><span style="color: #228b22; font-size: 85%;">)</span>,
+  profile<span style="color: #228b22; font-size: 85%;">(</span><span style="color: #70c0b1;">'/profile'</span><span style="color: #228b22; font-size: 85%;">)</span>,
+  settings<span style="color: #228b22; font-size: 85%;">(</span><span style="color: #70c0b1;">'/settings'</span><span style="color: #228b22; font-size: 85%;">)</span>,
+  userDetail<span style="color: #228b22; font-size: 85%;">(</span><span style="color: #70c0b1;">'/user/:id'</span><span style="color: #228b22; font-size: 85%;">)</span>,
+  productDetail<span style="color: #228b22; font-size: 85%;">(</span><span style="color: #70c0b1;">'/product/:productId'</span><span style="color: #228b22; font-size: 85%;">)</span>,
+  category<span style="color: #228b22; font-size: 85%;">(</span><span style="color: #70c0b1;">'/category/:categoryName'</span><span style="color: #228b22; font-size: 85%;">)</span>;
+
+  <span style="color: #b9ca4a;">const</span> <span style="color: #7aa6da;">AppRoute</span><span style="color: #228b22; font-size: 85%;">(</span><span style="color: #b9ca4a;">this</span>.path<span style="color: #228b22; font-size: 85%;">)</span>;
+  <span style="color: #b9ca4a;">final</span> <span style="color: #7aa6da;">String</span> <span style="color: #e7c547;">path</span>;
+<span style="color: #00ff00; font-size: 80%;">}</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-dynamic-route-generation" class="outline-4">
+<h4 id="dynamic-route-generation"><span class="section-number-4">1.3.2.</span> 2. Dynamic Route Generation</h4>
+<div class="outline-text-4" id="text-dynamic-route-generation">
+<p>
+Extension methods provide clean parameter handling:<br>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-dart"><span style="color: #c397d8;">extension</span> <span style="color: #7aa6da;">AppRouteExtension</span> <span style="color: #e7c547;">on</span> <span style="color: #7aa6da;">AppRoute</span> <span style="color: #00ff00; font-size: 80%;">{</span>
+  <span style="color: #7aa6da;">String</span> <span style="color: #e78c45;">location</span><span style="color: #228b22; font-size: 85%;">(</span><span style="color: #20b2aa; font-size: 90%;">{</span><span style="color: #7aa6da;">Map</span>&lt;<span style="color: #7aa6da;">String</span>, <span style="color: #7aa6da;">String</span>&gt; <span style="color: #e7c547;">pathParameters</span> = <span style="color: #b9ca4a;">const</span> <span style="color: #87cefa; font-size: 95%; font-weight: bold;">{}</span><span style="color: #20b2aa; font-size: 90%;">}</span><span style="color: #228b22; font-size: 85%;">)</span> <span style="color: #228b22; font-size: 85%;">{</span>
+  &#9474; <span style="color: #7aa6da;">String</span> <span style="color: #e7c547;">result</span> = path;
+  &#9474; <span style="color: #b9ca4a;">for</span> <span style="color: #20b2aa; font-size: 90%;">(</span><span style="color: #b9ca4a;">final</span> <span style="color: #e7c547;">entry</span> <span style="color: #b9ca4a;">in</span> pathParameters.entries<span style="color: #20b2aa; font-size: 90%;">)</span> <span style="color: #20b2aa; font-size: 90%;">{</span>
+  &#9474; &#9474; result = result.replaceAll<span style="color: #87cefa; font-size: 95%; font-weight: bold;">(</span><span style="color: #70c0b1;">':</span><span style="color: #e7c547;">${entry.key}</span><span style="color: #70c0b1;">'</span>, entry.value<span style="color: #87cefa; font-size: 95%; font-weight: bold;">)</span>;
+  &#9474; <span style="color: #20b2aa; font-size: 90%;">}</span>
+  &#9474; <span style="color: #b9ca4a;">return</span> result;
+  <span style="color: #228b22; font-size: 85%;">}</span>
+<span style="color: #00ff00; font-size: 80%;">}</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-navigation-methods" class="outline-4">
+<h4 id="navigation-methods"><span class="section-number-4">1.3.3.</span> 3. Navigation Methods</h4>
+<div class="outline-text-4" id="text-navigation-methods">
+<ul class="org-ul">
+<li><b>Push Navigation</b>: <code>context.push(route)</code> - Adds to navigation stack<br>
+(shows back button)<br></li>
+<li><b>Replace Navigation</b>: <code>context.go(route)</code> - Replaces current route (no<br>
+back button)<br></li>
+<li><b>Named Navigation</b>: <code>context.goNamed(routeName)</code> - Navigate using<br>
+route names<br></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-custom-transitions" class="outline-3">
+<h3 id="custom-transitions"><span class="section-number-3">1.4.</span> 🎨 Custom Transitions</h3>
+<div class="outline-text-3" id="text-custom-transitions">
+</div>
+<div id="outline-container-available-transition-types" class="outline-4">
+<h4 id="available-transition-types"><span class="section-number-4">1.4.1.</span> Available Transition Types</h4>
+<div class="outline-text-4" id="text-available-transition-types">
+<ol class="org-ol">
+<li><b>Fade Transition</b>: Smooth opacity animation<br></li>
+<li><b>Slide Transition</b>: Slide from right with easing<br></li>
+<li><b>Scale Transition</b>: Elastic scale animation<br></li>
+<li><b>Rotation Transition</b>: Rotation with fade effect<br></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-usage-example" class="outline-4">
+<h4 id="usage-example"><span class="section-number-4">1.4.2.</span> Usage Example</h4>
+<div class="outline-text-4" id="text-usage-example">
+<div class="org-src-container">
+<pre class="src src-dart"><span style="color: #7aa6da;">GoRoute</span><span style="color: #00ff00; font-size: 80%;">(</span>
+  path: <span style="color: #7aa6da;">AppRoute</span>.profile.path,
+  name: <span style="color: #7aa6da;">AppRoute</span>.profile.name,
+  pageBuilder: <span style="color: #228b22; font-size: 85%;">(</span><span style="color: #e7c547;">context</span>, <span style="color: #e7c547;">state</span><span style="color: #228b22; font-size: 85%;">)</span> =&gt; buildPageWithTransition<span style="color: #228b22; font-size: 85%;">(</span>
+  &#9474; <span style="color: #b9ca4a;">const</span> <span style="color: #7aa6da;">ProfileScreen</span><span style="color: #20b2aa; font-size: 90%;">()</span>,
+  &#9474; state,
+  &#9474; transitionBuilder: <span style="color: #7aa6da;">FadeTransitionBuilder</span><span style="color: #20b2aa; font-size: 90%;">()</span>,
+  <span style="color: #228b22; font-size: 85%;">)</span>,
+<span style="color: #00ff00; font-size: 80%;">)</span>,
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-implementation-guide" class="outline-3">
+<h3 id="implementation-guide"><span class="section-number-3">1.5.</span> 🛠 Implementation Guide</h3>
+<div class="outline-text-3" id="text-implementation-guide">
+</div>
+<div id="outline-container-step-1-define-routes" class="outline-4">
+<h4 id="step-1-define-routes"><span class="section-number-4">1.5.1.</span> Step 1: Define Routes</h4>
+<div class="outline-text-4" id="text-step-1-define-routes">
+<div class="org-src-container">
+<pre class="src src-dart"><span style="color: #b9ca4a;">enum</span> <span style="color: #7aa6da;">AppRoute</span> <span style="color: #00ff00; font-size: 80%;">{</span>
+  home<span style="color: #228b22; font-size: 85%;">(</span><span style="color: #70c0b1;">'/'</span><span style="color: #228b22; font-size: 85%;">)</span>,
+  detail<span style="color: #228b22; font-size: 85%;">(</span><span style="color: #70c0b1;">'/detail/:id'</span><span style="color: #228b22; font-size: 85%;">)</span>;
+  
+  <span style="color: #b9ca4a;">const</span> <span style="color: #7aa6da;">AppRoute</span><span style="color: #228b22; font-size: 85%;">(</span><span style="color: #b9ca4a;">this</span>.path<span style="color: #228b22; font-size: 85%;">)</span>;
+  <span style="color: #b9ca4a;">final</span> <span style="color: #7aa6da;">String</span> <span style="color: #e7c547;">path</span>;
+  <span style="color: #7aa6da;">String</span> <span style="color: #c397d8;">get</span> <span style="color: #e7c547;">name</span> =&gt; toString<span style="color: #228b22; font-size: 85%;">()</span>.split<span style="color: #228b22; font-size: 85%;">(</span><span style="color: #70c0b1;">'.'</span><span style="color: #228b22; font-size: 85%;">)</span>.last;
+<span style="color: #00ff00; font-size: 80%;">}</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-step-2-configure-router" class="outline-4">
+<h4 id="step-2-configure-router"><span class="section-number-4">1.5.2.</span> Step 2: Configure Router</h4>
+<div class="outline-text-4" id="text-step-2-configure-router">
+<div class="org-src-container">
+<pre class="src src-dart"><span style="color: #b9ca4a;">final</span> <span style="color: #7aa6da;">GoRouter</span> <span style="color: #e7c547;">appRouter</span> = <span style="color: #7aa6da;">GoRouter</span><span style="color: #00ff00; font-size: 80%;">(</span>
+  initialLocation: <span style="color: #7aa6da;">AppRoute</span>.home.path,
+  routes: <span style="color: #228b22; font-size: 85%;">[</span>
+  &#9474; <span style="color: #7aa6da;">GoRoute</span><span style="color: #20b2aa; font-size: 90%;">(</span>
+  &#9474; &#9474; path: <span style="color: #7aa6da;">AppRoute</span>.home.path,
+  &#9474; &#9474; name: <span style="color: #7aa6da;">AppRoute</span>.home.name,
+  &#9474; &#9474; builder: <span style="color: #87cefa; font-size: 95%; font-weight: bold;">(</span><span style="color: #e7c547;">context</span>, <span style="color: #e7c547;">state</span><span style="color: #87cefa; font-size: 95%; font-weight: bold;">)</span> =&gt; <span style="color: #b9ca4a;">const</span> <span style="color: #7aa6da;">HomeScreen</span><span style="color: #87cefa; font-size: 95%; font-weight: bold;">()</span>,
+  &#9474; <span style="color: #20b2aa; font-size: 90%;">)</span>,
+  &#9474; <span style="color: #969896;">// </span><span style="color: #969896;">Add more routes...</span>
+  <span style="color: #228b22; font-size: 85%;">]</span>,
+<span style="color: #00ff00; font-size: 80%;">)</span>;
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-step-3-navigation-usage" class="outline-4">
+<h4 id="step-3-navigation-usage"><span class="section-number-4">1.5.3.</span> Step 3: Navigation Usage</h4>
+<div class="outline-text-4" id="text-step-3-navigation-usage">
+<div class="org-src-container">
+<pre class="src src-dart"><span style="color: #969896;">// </span><span style="color: #969896;">Push with parameters</span>
+context.push<span style="color: #00ff00; font-size: 80%;">(</span>
+  <span style="color: #7aa6da;">AppRoute</span>.userDetail.location<span style="color: #228b22; font-size: 85%;">(</span>pathParameters: <span style="color: #20b2aa; font-size: 90%;">{</span><span style="color: #70c0b1;">'id'</span>: <span style="color: #70c0b1;">'123'</span><span style="color: #20b2aa; font-size: 90%;">}</span><span style="color: #228b22; font-size: 85%;">)</span>,
+<span style="color: #00ff00; font-size: 80%;">)</span>;
+
+<span style="color: #969896;">// </span><span style="color: #969896;">Simple navigation</span>
+context.push<span style="color: #00ff00; font-size: 80%;">(</span><span style="color: #7aa6da;">AppRoute</span>.profile.path<span style="color: #00ff00; font-size: 80%;">)</span>;
+
+<span style="color: #969896;">// </span><span style="color: #969896;">Named navigation</span>
+context.goNamed<span style="color: #00ff00; font-size: 80%;">(</span><span style="color: #7aa6da;">AppRoute</span>.settings.name<span style="color: #00ff00; font-size: 80%;">)</span>;
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-custom-transition-builder" class="outline-3">
+<h3 id="custom-transition-builder"><span class="section-number-3">1.6.</span> 🔧 Custom Transition Builder</h3>
+<div class="outline-text-3" id="text-custom-transition-builder">
+<p>
+Create custom transitions by extending the transition builder:<br>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-dart"><span style="color: #b9ca4a;">class</span> <span style="color: #7aa6da;">CustomTransitionBuilder</span> <span style="color: #00ff00; font-size: 80%;">{</span>
+  <span style="color: #7aa6da;">Widget</span> <span style="color: #e78c45;">buildTransition</span><span style="color: #228b22; font-size: 85%;">(</span>
+  &#9474; <span style="color: #7aa6da;">BuildContext</span> <span style="color: #e7c547;">context</span>,
+  &#9474; <span style="color: #7aa6da;">Animation</span>&lt;<span style="color: #7aa6da;">double</span>&gt; <span style="color: #e7c547;">animation</span>,
+  &#9474; <span style="color: #7aa6da;">Animation</span>&lt;<span style="color: #7aa6da;">double</span>&gt; <span style="color: #e7c547;">secondaryAnimation</span>,
+  &#9474; <span style="color: #7aa6da;">Widget</span> <span style="color: #e7c547;">child</span>,
+  <span style="color: #228b22; font-size: 85%;">)</span> <span style="color: #228b22; font-size: 85%;">{</span>
+  &#9474; <span style="color: #b9ca4a;">return</span> <span style="color: #7aa6da;">FadeTransition</span><span style="color: #20b2aa; font-size: 90%;">(</span>opacity: animation, child: child<span style="color: #20b2aa; font-size: 90%;">)</span>;
+  <span style="color: #228b22; font-size: 85%;">}</span>
+<span style="color: #00ff00; font-size: 80%;">}</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-screen-examples" class="outline-3">
+<h3 id="screen-examples"><span class="section-number-3">1.7.</span> 📱 Screen Examples</h3>
+<div class="outline-text-3" id="text-screen-examples">
+</div>
+<div id="outline-container-dynamic-parameter-handling" class="outline-4">
+<h4 id="dynamic-parameter-handling"><span class="section-number-4">1.7.1.</span> Dynamic Parameter Handling</h4>
+<div class="outline-text-4" id="text-dynamic-parameter-handling">
+<div class="org-src-container">
+<pre class="src src-dart"><span style="color: #b9ca4a;">class</span> <span style="color: #7aa6da;">UserDetailScreen</span> <span style="color: #b9ca4a;">extends</span> <span style="color: #7aa6da;">StatelessWidget</span> <span style="color: #00ff00; font-size: 80%;">{</span>
+  <span style="color: #b9ca4a;">final</span> <span style="color: #7aa6da;">String</span> <span style="color: #e7c547;">userId</span>;
+
+  <span style="color: #b9ca4a;">const</span> <span style="color: #7aa6da;">UserDetailScreen</span><span style="color: #228b22; font-size: 85%;">(</span><span style="color: #20b2aa; font-size: 90%;">{</span><span style="color: #b9ca4a;">super</span>.key, <span style="color: #c397d8;">required</span> <span style="color: #b9ca4a;">this</span>.userId<span style="color: #20b2aa; font-size: 90%;">}</span><span style="color: #228b22; font-size: 85%;">)</span>;
+
+  <span style="color: #7aa6da;">@override</span>
+  <span style="color: #7aa6da;">Widget</span> <span style="color: #e78c45;">build</span><span style="color: #228b22; font-size: 85%;">(</span><span style="color: #7aa6da;">BuildContext</span> <span style="color: #e7c547;">context</span><span style="color: #228b22; font-size: 85%;">)</span> <span style="color: #228b22; font-size: 85%;">{</span>
+  &#9474; <span style="color: #b9ca4a;">return</span> <span style="color: #7aa6da;">Scaffold</span><span style="color: #20b2aa; font-size: 90%;">(</span>
+  &#9474; &#9474; appBar: <span style="color: #7aa6da;">AppBar</span><span style="color: #87cefa; font-size: 95%; font-weight: bold;">(</span>title: <span style="color: #b9ca4a;">const</span> <span style="color: #7aa6da;">Text</span><span style="color: #00ffff; font-weight: bold;">(</span><span style="color: #70c0b1;">'User Details'</span><span style="color: #00ffff; font-weight: bold;">)</span><span style="color: #87cefa; font-size: 95%; font-weight: bold;">)</span>,
+  &#9474; &#9474; body: <span style="color: #7aa6da;">Text</span><span style="color: #87cefa; font-size: 95%; font-weight: bold;">(</span><span style="color: #70c0b1;">'User ID: </span><span style="color: #e7c547;">$userId</span><span style="color: #70c0b1;">'</span><span style="color: #87cefa; font-size: 95%; font-weight: bold;">)</span>,
+  &#9474; <span style="color: #20b2aa; font-size: 90%;">)</span>;
+  <span style="color: #228b22; font-size: 85%;">}</span>
+<span style="color: #00ff00; font-size: 80%;">}</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-navigation-best-practices" class="outline-3">
+<h3 id="navigation-best-practices"><span class="section-number-3">1.8.</span> 🎯 Navigation Best Practices</h3>
+<div class="outline-text-3" id="text-navigation-best-practices">
+<ol class="org-ol">
+<li><b>Use Enums</b>: Define routes as enums for type safety<br></li>
+<li><b>Parameter Validation</b>: Always validate path parameters<br></li>
+<li><b>Transition Consistency</b>: Use consistent transitions for similar<br>
+screens<br></li>
+<li><b>Back Navigation</b>: Use <code>context.push()</code> when back navigation is<br>
+needed<br></li>
+<li><b>Error Handling</b>: Implement proper error routes and handling<br></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-getting-started" class="outline-3">
+<h3 id="getting-started"><span class="section-number-3">1.9.</span> 🚀 Getting Started</h3>
+<div class="outline-text-3" id="text-getting-started">
+<ol class="org-ol">
+<li><b>Clone the repository</b><br></li>
+<li><b>Install dependencies</b>: <code>flutter pub get</code><br></li>
+<li><b>Run the app</b>: <code>flutter run</code><br></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-key-dependencies" class="outline-3">
+<h3 id="key-dependencies"><span class="section-number-3">1.10.</span> 📚 Key Dependencies</h3>
+<div class="outline-text-3" id="text-key-dependencies">
+<div class="org-src-container">
+<pre class="src src-yaml"><span style="color: #e7c547;">dependencies</span>:
+  <span style="color: #e7c547;">flutter</span>:
+    <span style="color: #e7c547;">sdk</span>: flutter
+  <span style="color: #e7c547;">go_router</span>: ^12.1.3
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-navigation-flow" class="outline-3">
+<h3 id="navigation-flow"><span class="section-number-3">1.11.</span> 🔗 Navigation Flow</h3>
+<div class="outline-text-3" id="text-navigation-flow">
+<pre class="example" id="org84b2221">
+HomeScreen
+├── Profile (Fade) ↔️ Back
+├── Settings (Slide) ↔️ Back
+├── User Detail (Scale) ↔️ Back
+├── Product Detail (Rotation) ↔️ Back
+└── Category (Slide) ↔️ Back
+</pre>
+</div>
+</div>
+<div id="outline-container-tips-and-tricks" class="outline-3">
+<h3 id="tips-and-tricks"><span class="section-number-3">1.12.</span> 💡 Tips and Tricks</h3>
+<div class="outline-text-3" id="text-tips-and-tricks">
+<ul class="org-ul">
+<li>Use <code>context.push()</code> for stackable navigation<br></li>
+<li>Use <code>context.go()</code> for replacement navigation<br></li>
+<li>Implement custom transitions for enhanced UX<br></li>
+<li>Always handle edge cases in parameter parsing<br></li>
+<li>Use enum extensions for clean route management<br></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-references" class="outline-3">
+<h3 id="references"><span class="section-number-3">1.13.</span> 📖 References</h3>
+<div class="outline-text-3" id="text-references">
+<ul class="org-ul">
+<li><a href="https://pub.dev/packages/go_router">GoRouter Documentation</a><br></li>
+<li><a href="https://docs.flutter.dev/development/ui/navigation">Flutter<br>
+Navigation Guide</a><br></li>
+<li><a href="https://docs.flutter.dev/cookbook/animation/page-route-animation">Custom<br>
+Transitions in Flutter</a><br></li>
+</ul>
+
+<hr>
+
+<p>
+<b>Mastering Navigation in Flutter</b> - A complete guide to implementing<br>
+professional navigation patterns with GoRouter, enum-based routing, and<br>
+custom transitions.<br>
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">&#20316;&#32773;: gerald</p>
+<p class="date">Created: 2025-06-29 日 03:00</p>
+</div>
+</body>
+</html>
