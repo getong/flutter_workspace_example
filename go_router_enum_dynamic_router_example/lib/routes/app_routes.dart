@@ -15,6 +15,18 @@ extension AppRouteExtension on AppRoute {
     }
   }
 
+  Widget Function(BuildContext, GoRouterState) get builder {
+    switch (this) {
+      case AppRoute.home:
+        return (context, state) => HomePage();
+      case AppRoute.userDetails:
+        return (context, state) {
+          final userId = state.pathParameters['id']!;
+          return UserDetailsPage(userId: userId);
+        };
+    }
+  }
+
   String routeWithParams({required Map<String, String> params}) {
     var path = this.path;
     params.forEach((key, value) {
@@ -25,14 +37,7 @@ extension AppRouteExtension on AppRoute {
 }
 
 final router = GoRouter(
-  routes: [
-    GoRoute(path: AppRoute.home.path, builder: (context, state) => HomePage()),
-    GoRoute(
-      path: AppRoute.userDetails.path,
-      builder: (context, state) {
-        final userId = state.pathParameters['id']!;
-        return UserDetailsPage(userId: userId);
-      },
-    ),
-  ],
+  routes: AppRoute.values
+      .map((route) => GoRoute(path: route.path, builder: route.builder))
+      .toList(),
 );
