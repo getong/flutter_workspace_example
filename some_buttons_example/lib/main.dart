@@ -57,10 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 20),
 
             // ElevatedButton Examples
-            const Text(
-              'ElevatedButton:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
+            const Text('ElevatedButton:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () => _onButtonPressed('ElevatedButton'),
@@ -74,11 +71,24 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const SizedBox(height: 20),
 
-            // OutlinedButton Examples
-            const Text(
-              'OutlinedButton:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            // FilledButton Examples
+            const Text('FilledButton:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const Text('Material 3 filled button with medium emphasis', style: TextStyle(fontSize: 14, color: Colors.grey)),
+            const SizedBox(height: 10),
+            FilledButton(
+              onPressed: () => _onButtonPressed('FilledButton'),
+              child: const Text('Filled Button'),
             ),
+            const SizedBox(height: 10),
+            FilledButton.icon(
+              onPressed: () => _onButtonPressed('FilledButton with Icon'),
+              icon: const Icon(Icons.check),
+              label: const Text('Confirm'),
+            ),
+            const SizedBox(height: 20),
+
+            // OutlinedButton Examples
+            const Text('OutlinedButton:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
             OutlinedButton(
               onPressed: () => _onButtonPressed('OutlinedButton'),
@@ -93,10 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 20),
 
             // TextButton Examples
-            const Text(
-              'TextButton:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
+            const Text('TextButton:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
             TextButton(
               onPressed: () => _onButtonPressed('TextButton'),
@@ -111,10 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 20),
 
             // IconButton Examples
-            const Text(
-              'IconButton:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
+            const Text('IconButton:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -139,10 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 20),
 
             // Disabled Button Examples
-            const Text(
-              'Disabled Buttons:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
+            const Text('Disabled Buttons:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
             const ElevatedButton(
               onPressed: null,
@@ -154,7 +155,15 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text('Disabled Outlined'),
             ),
             const SizedBox(height: 10),
-            const TextButton(onPressed: null, child: Text('Disabled Text')),
+            const TextButton(
+              onPressed: null,
+              child: Text('Disabled Text'),
+            ),
+            const SizedBox(height: 10),
+            const FilledButton(
+              onPressed: null,
+              child: Text('Disabled Filled'),
+            ),
           ],
         ),
       ),
