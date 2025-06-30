@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'dart:async';
 import 'baidu_date_cubit.dart';
+import 'package:go_router/go_router.dart';
 
 class TimePage extends StatefulWidget {
   const TimePage({super.key});
@@ -63,6 +64,13 @@ class _TimePageState extends State<TimePage> {
                 const Text(
                   'Auto-refreshes every 5 seconds',
                   style: TextStyle(fontSize: 12, color: Colors.grey),
+                ),
+                const SizedBox(height: 32),
+                ElevatedButton(
+                  onPressed: () {
+                    context.go('/');
+                  },
+                  child: const Text('Back to Home'),
                 ),
               ],
             ),
