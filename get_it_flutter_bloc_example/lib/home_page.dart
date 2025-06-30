@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:get_it/get_it.dart';
+import 'app_router.dart';
 
 class MyHomePage extends StatefulWidget {
   final String title;
@@ -39,15 +40,17 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 32),
             ElevatedButton(
               onPressed: () {
-                // Use push() instead of go() to allow back navigation
-                GetIt.instance<GoRouter>().push('/time');
+                GetIt.instance<GoRouter>().pushNamed(RouterEnum.time.name);
               },
               child: const Text('Show Current Time'),
             ),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                GetIt.instance<GoRouter>().push('/param/12345');
+                GetIt.instance<GoRouter>().pushNamed(
+                  RouterEnum.param.name,
+                  pathParameters: {'value': '12345'},
+                );
               },
               child: const Text('Go to Param Page (12345)'),
             ),
