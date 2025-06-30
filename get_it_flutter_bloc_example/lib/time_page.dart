@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'dart:async';
+import 'baidu_date_state.dart';
 import 'baidu_date_cubit.dart';
 import 'package:go_router/go_router.dart';
 
@@ -38,10 +39,10 @@ class _TimePageState extends State<TimePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Baidu.com Date Header')),
-      body: BlocBuilder<BaiduDateCubit, String?>(
+      body: BlocBuilder<BaiduDateCubit, BaiduDateState?>(
         bloc: baiduDateCubit,
-        builder: (context, baiduDate) {
-          if (baiduDate == null) {
+        builder: (context, BaiduDateState? state) {
+          if (state == null) {
             return const Center(child: CircularProgressIndicator());
           }
           return Center(
@@ -49,12 +50,20 @@ class _TimePageState extends State<TimePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  baiduDate.startsWith('Failed')
-                      ? baiduDate
-                      : 'Baidu Date: $baiduDate',
+                  state.dateHeader?.startsWith('Failed') == true
+                      ? state.dateHeader!
+                      : 'Baidu Date: ${state.dateHeader}',
                   style: Theme.of(context).textTheme.headlineSmall,
                   textAlign: TextAlign.center,
                 ),
+                if (state.responseMilliseconds != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      'Response time: ${state.responseMilliseconds} ms',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ),
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: _refresh,
