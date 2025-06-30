@@ -8,7 +8,8 @@ import 'time_page.dart';
 final getIt = GetIt.instance;
 
 void setupLocator() {
-  getIt.registerSingleton<BaiduDateCubit>(BaiduDateCubit(Dio()));
+  getIt.registerSingleton<Dio>(Dio());
+  getIt.registerSingleton<BaiduDateCubit>(BaiduDateCubit());
 }
 
 final GoRouter _router = GoRouter(

@@ -1,10 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:get_it/get_it.dart';
 
 class BaiduDateCubit extends Cubit<String?> {
-  final Dio dio;
+  final Dio dio = GetIt.instance<Dio>();
 
-  BaiduDateCubit(this.dio) : super(null);
+  BaiduDateCubit() : super(null);
 
   Future<void> fetchDate() async {
     try {
