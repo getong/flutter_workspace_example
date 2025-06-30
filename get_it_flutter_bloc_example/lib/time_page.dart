@@ -68,7 +68,7 @@ class _TimePageState extends State<TimePage> {
                 const SizedBox(height: 32),
                 ElevatedButton(
                   onPressed: () {
-                    context.go('/');
+                    GetIt.instance<GoRouter>().go('/');
                   },
                   child: const Text('Back to Home'),
                 ),

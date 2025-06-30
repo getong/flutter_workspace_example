@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:get_it/get_it.dart';
 
 class MyHomePage extends StatefulWidget {
   final String title;
@@ -38,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 32),
             ElevatedButton(
               onPressed: () {
-                context.go('/time');
+                GetIt.instance<GoRouter>().go('/time');
               },
               child: const Text('Show Current Time'),
             ),
