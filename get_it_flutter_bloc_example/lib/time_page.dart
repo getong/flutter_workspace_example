@@ -75,12 +75,13 @@ class _TimePageState extends State<TimePage> {
                   style: TextStyle(fontSize: 12, color: Colors.grey),
                 ),
                 const SizedBox(height: 32),
-                ElevatedButton(
-                  onPressed: () {
-                    GetIt.instance<GoRouter>().go('/');
-                  },
-                  child: const Text('Back to Home'),
-                ),
+                // Remove the Back to Home button here
+                // ElevatedButton(
+                //   onPressed: () {
+                //     GetIt.instance<GoRouter>().go('/');
+                //   },
+                //   child: const Text('Back to Home'),
+                // ),
               ],
             ),
           );

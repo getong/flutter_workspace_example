@@ -39,9 +39,17 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 32),
             ElevatedButton(
               onPressed: () {
-                GetIt.instance<GoRouter>().go('/time');
+                // Use push() instead of go() to allow back navigation
+                GetIt.instance<GoRouter>().push('/time');
               },
               child: const Text('Show Current Time'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                GetIt.instance<GoRouter>().push('/param/12345');
+              },
+              child: const Text('Go to Param Page (12345)'),
             ),
           ],
         ),
