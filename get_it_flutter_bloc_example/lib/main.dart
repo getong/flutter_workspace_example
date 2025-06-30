@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'get_it_setup.dart';
-import 'app_router.dart';
-import 'home_page.dart';
+import 'package:go_router/go_router.dart';
 
 void main() {
   setupLocator();
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      routerConfig: appRouter,
+      routerConfig: getIt<GoRouter>(), // Now GoRouter is recognized
     );
   }
 }
