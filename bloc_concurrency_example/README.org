@@ -1,0 +1,354 @@
+* bloc_concurrency_example
+:PROPERTIES:
+:CUSTOM_ID: bloc_concurrency_example
+:END:
+A new Flutter project.
+
+** Getting Started
+:PROPERTIES:
+:CUSTOM_ID: getting-started
+:END:
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter
+project:
+
+- [[https://docs.flutter.dev/get-started/codelab][Lab: Write your first
+  Flutter app]]
+- [[https://docs.flutter.dev/cookbook][Cookbook: Useful Flutter
+  samples]]
+
+For help getting started with Flutter development, view the
+[[https://docs.flutter.dev/][online documentation]], which offers
+tutorials, samples, guidance on mobile development, and a full API
+reference.
+
+* Bloc Event Transformers Example
+:PROPERTIES:
+:CUSTOM_ID: bloc-event-transformers-example
+:END:
+A comprehensive Flutter application demonstrating the usage of different
+event transformers with the Bloc pattern. This project showcases how to
+handle concurrent, sequential, droppable, and restartable event
+processing using the =bloc_concurrency= package.
+
+** Overview
+:PROPERTIES:
+:CUSTOM_ID: overview
+:END:
+Event transformers in Bloc allow you to control how events are processed
+when multiple events are added to a Bloc. This is particularly useful
+for handling scenarios like:
+
+- *API calls that should not be duplicated*
+- *Form submissions that need to be queued*
+- *Search queries that should cancel previous requests*
+- *Operations that must be processed in order*
+
+** Event Transformers Explained
+:PROPERTIES:
+:CUSTOM_ID: event-transformers-explained
+:END:
+*** 1. Concurrent Transformer
+:PROPERTIES:
+:CUSTOM_ID: concurrent-transformer
+:END:
+The *concurrent* transformer allows multiple events to be processed
+simultaneously. This is the default behavior in Bloc.
+
+#+begin_src dart
+on<CounterIncremented>(_onIncrement, transformer: concurrent());
+#+end_src
+
+*Use Cases:* - Independent operations that can run in parallel -
+Multiple API calls that don't interfere with each other - Real-time
+updates from different sources
+
+*Behavior:* - All events are processed immediately - Multiple operations
+can run at the same time - No waiting for previous events to complete
+
+*** 2. Sequential Transformer
+:PROPERTIES:
+:CUSTOM_ID: sequential-transformer
+:END:
+The *sequential* transformer processes events one at a time, in the
+order they were added.
+
+#+begin_src dart
+on<CounterIncremented>(_onIncrement, transformer: sequential());
+#+end_src
+
+*Use Cases:* - Operations that must maintain order - Database
+transactions - File operations that depend on previous results - State
+updates that must be sequential
+
+*Behavior:* - Events are queued and processed one after another - Each
+event waits for the previous one to complete - Maintains strict ordering
+of operations
+
+*** 3. Droppable Transformer
+:PROPERTIES:
+:CUSTOM_ID: droppable-transformer
+:END:
+The *droppable* transformer ignores new events while the current event
+is being processed.
+
+#+begin_src dart
+on<CounterIncremented>(_onIncrement, transformer: droppable());
+#+end_src
+
+*Use Cases:* - Preventing duplicate form submissions - Avoiding multiple
+API calls for the same data - Button click handlers that should ignore
+rapid taps - Operations that are expensive and shouldn't be repeated
+
+*Behavior:* - Only the first event is processed - Subsequent events are
+ignored until completion - Prevents duplicate operations
+
+*** 4. Restartable Transformer
+:PROPERTIES:
+:CUSTOM_ID: restartable-transformer
+:END:
+The *restartable* transformer cancels the current event processing when
+a new event arrives.
+
+#+begin_src dart
+on<CounterIncremented>(_onIncrement, transformer: restartable());
+#+end_src
+
+*Use Cases:* - Search queries (cancel previous search when user types) -
+Auto-save functionality - Real-time filtering - Operations where only
+the latest request matters
+
+*Behavior:* - New events cancel and restart the current operation - Only
+the most recent event completes - Previous operations are aborted
+
+** Project Structure
+:PROPERTIES:
+:CUSTOM_ID: project-structure
+:END:
+#+begin_example
+lib/
+├── blocs/
+│   ├── concurrent_counter_bloc.dart
+│   ├── sequential_counter_bloc.dart
+│   ├── droppable_counter_bloc.dart
+│   └── restartable_counter_bloc.dart
+├── events/
+│   └── counter_events.dart
+├── state/
+│   └── counter_state.dart
+├── counter_bloc.dart
+└── main.dart
+#+end_example
+
+** Features
+:PROPERTIES:
+:CUSTOM_ID: features
+:END:
+- *4 Different Transformers*: Live demonstration of each transformer
+  type
+- *Real-time Operation Logs*: See exactly how events are processed
+- *Visual Feedback*: Color-coded UI with loading states
+- *Interactive Testing*: Various buttons to test different scenarios
+- *Pending Operations Counter*: Shows concurrent operations in progress
+- *Detailed Tips*: Contextual help for each transformer
+
+** Event Types
+:PROPERTIES:
+:CUSTOM_ID: event-types
+:END:
+The app demonstrates various event types:
+
+#+begin_src dart
+abstract class CounterEvent {}
+
+class CounterIncremented extends CounterEvent {}
+class CounterDecremented extends CounterEvent {}
+class CounterReset extends CounterEvent {}
+class CounterMultiplied extends CounterEvent {
+  final int multiplier;
+  CounterMultiplied(this.multiplier);
+}
+class CounterBatchIncrement extends CounterEvent {
+  final int amount;
+  CounterBatchIncrement(this.amount);
+}
+#+end_src
+
+** State Management
+:PROPERTIES:
+:CUSTOM_ID: state-management
+:END:
+The app uses an enhanced state that tracks:
+
+#+begin_src dart
+class CounterState {
+  final int count;
+  final bool isLoading;
+  final List<String> operations;
+  final DateTime lastUpdated;
+  final int pendingOperations;
+  final String? error;
+  final Map<String, dynamic> metadata;
+}
+#+end_src
+
+** Testing the Transformers
+:PROPERTIES:
+:CUSTOM_ID: testing-the-transformers
+:END:
+*** Concurrent Transformer Test
+:PROPERTIES:
+:CUSTOM_ID: concurrent-transformer-test
+:END:
+1. Rapidly tap the "+1" and "-1" buttons
+2. Notice multiple operations running simultaneously
+3. Observe the pending operations counter
+
+*** Sequential Transformer Test
+:PROPERTIES:
+:CUSTOM_ID: sequential-transformer-test
+:END:
+1. Quickly tap multiple buttons
+2. See how events queue up and process one by one
+3. Notice the "Queued" messages in the log
+
+*** Droppable Transformer Test
+:PROPERTIES:
+:CUSTOM_ID: droppable-transformer-test
+:END:
+1. Tap a button to start an operation
+2. Rapidly tap the same button during processing
+3. Observe that subsequent taps are ignored
+
+*** Restartable Transformer Test
+:PROPERTIES:
+:CUSTOM_ID: restartable-transformer-test
+:END:
+1. Tap a button to start an operation
+2. Tap another button before the first completes
+3. Notice how the first operation is cancelled
+
+** Dependencies
+:PROPERTIES:
+:CUSTOM_ID: dependencies
+:END:
+#+begin_src yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.3
+  bloc_concurrency: ^0.2.2
+#+end_src
+
+** Best Practices
+:PROPERTIES:
+:CUSTOM_ID: best-practices
+:END:
+*** When to Use Each Transformer
+:PROPERTIES:
+:CUSTOM_ID: when-to-use-each-transformer
+:END:
+| Transformer   | Best For                                    | Avoid When                                |
+|---------------+---------------------------------------------+-------------------------------------------|
+| *Concurrent*  | Independent operations, real-time updates   | Operations that interfere with each other |
+| *Sequential*  | Ordered operations, dependent processes     | Independent operations (performance loss) |
+| *Droppable*   | Preventing duplicates, expensive operations | When all events are important             |
+| *Restartable* | Search, auto-save, latest-wins scenarios    | When all events must complete             |
+
+*** Performance Considerations
+:PROPERTIES:
+:CUSTOM_ID: performance-considerations
+:END:
+- *Concurrent*: Highest performance but can overwhelm resources
+- *Sequential*: Slower but ensures consistency
+- *Droppable*: Prevents resource waste from duplicate operations
+- *Restartable*: Efficient for scenarios where only latest matters
+
+*** Error Handling
+:PROPERTIES:
+:CUSTOM_ID: error-handling
+:END:
+Each transformer handles errors differently:
+
+#+begin_src dart
+Future<void> _onIncrement(CounterIncremented event, Emitter<CounterState> emit) async {
+  try {
+    emit(state.copyWith(isLoading: true));
+    // Your async operation here
+    await Future.delayed(const Duration(seconds: 1));
+    emit(state.copyWith(count: state.count + 1, isLoading: false));
+  } catch (error) {
+    emit(state.copyWith(error: error.toString(), isLoading: false));
+  }
+}
+#+end_src
+
+** Advanced Usage
+:PROPERTIES:
+:CUSTOM_ID: advanced-usage
+:END:
+*** Custom Transformers
+:PROPERTIES:
+:CUSTOM_ID: custom-transformers
+:END:
+You can create custom transformers by extending the existing ones:
+
+#+begin_src dart
+EventTransformer<Event> customTransformer<Event>() {
+  return (events, mapper) {
+    // Custom logic here
+    return events.asyncExpand(mapper);
+  };
+}
+#+end_src
+
+*** Combining Transformers
+:PROPERTIES:
+:CUSTOM_ID: combining-transformers
+:END:
+Different events can use different transformers:
+
+#+begin_src dart
+class MyBloc extends Bloc<MyEvent, MyState> {
+  MyBloc() : super(MyInitialState()) {
+    on<SearchEvent>(_onSearch, transformer: restartable());
+    on<SaveEvent>(_onSave, transformer: sequential());
+    on<LoadEvent>(_onLoad, transformer: droppable());
+  }
+}
+#+end_src
+
+** Running the App
+:PROPERTIES:
+:CUSTOM_ID: running-the-app
+:END:
+1. Clone the repository
+2. Run =flutter pub get= to install dependencies
+3. Run =flutter run= to start the app
+4. Test different transformers using the tab interface
+
+** Learn More
+:PROPERTIES:
+:CUSTOM_ID: learn-more
+:END:
+- [[https://bloclibrary.dev][Bloc Documentation]]
+- [[https://pub.dev/packages/bloc_concurrency][bloc_concurrency
+  Package]]
+- [[https://bloclibrary.dev/#/architecture?id=event-transformers][Event
+  Transformers Guide]]
+
+** Contributing
+:PROPERTIES:
+:CUSTOM_ID: contributing
+:END:
+Feel free to contribute to this example by: - Adding new transformer
+examples - Improving the UI/UX - Adding more comprehensive tests -
+Enhancing documentation
+
+** License
+:PROPERTIES:
+:CUSTOM_ID: license
+:END:
+This project is licensed under the MIT License - see the LICENSE file
+for details.
