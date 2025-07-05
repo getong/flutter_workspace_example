@@ -15,3 +15,13 @@ class CounterBatchIncrement extends CounterEvent {
   final int amount;
   CounterBatchIncrement(this.amount);
 }
+
+class CounterDelayedIncrement extends CounterEvent {
+  final int seconds;
+  CounterDelayedIncrement(this.seconds);
+}
+
+class CounterAsyncOperation extends CounterEvent {
+  final String operation;
+  CounterAsyncOperation(this.operation);
+}

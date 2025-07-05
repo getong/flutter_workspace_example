@@ -5,6 +5,7 @@ class CounterState {
   final DateTime lastUpdated;
   final int pendingOperations;
   final String? error;
+  final Map<String, dynamic> metadata;
 
   const CounterState({
     required this.count,
@@ -13,6 +14,7 @@ class CounterState {
     required this.lastUpdated,
     this.pendingOperations = 0,
     this.error,
+    this.metadata = const {},
   });
 
   CounterState copyWith({
@@ -22,6 +24,7 @@ class CounterState {
     DateTime? lastUpdated,
     int? pendingOperations,
     String? error,
+    Map<String, dynamic>? metadata,
   }) {
     return CounterState(
       count: count ?? this.count,
@@ -30,6 +33,11 @@ class CounterState {
       lastUpdated: lastUpdated ?? this.lastUpdated,
       pendingOperations: pendingOperations ?? this.pendingOperations,
       error: error ?? this.error,
+      metadata: metadata ?? this.metadata,
     );
   }
+
+  String get formattedTime => '${lastUpdated.hour.toString().padLeft(2, '0')}:'
+      '${lastUpdated.minute.toString().padLeft(2, '0')}:'
+      '${lastUpdated.second.toString().padLeft(2, '0')}';
 }
