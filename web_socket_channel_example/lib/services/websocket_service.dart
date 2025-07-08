@@ -71,7 +71,7 @@ class WebSocketService {
     if (_currentState == WebSocketConnectionState.disconnected) return;
 
     _streamSubscription?.cancel();
-    _channel?.sink.close(status.goingAway);
+    _channel?.sink.close(status.normalClosure);
     _updateState(WebSocketConnectionState.disconnected);
     _addMessage(WebSocketMessage.info('Disconnected'));
     _currentUrl = null;
