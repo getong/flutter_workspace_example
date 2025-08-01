@@ -156,9 +156,9 @@ class SuiServiceFinal {
     try {
       // Try multiple faucet endpoints
       final faucetEndpoints = [
-        'http://192.168.31.136:9123',
-        'http://192.168.31.136:5003',
-        'http://192.168.31.136:9123',
+        'http://192.168.31.136:9123/gas',
+        'http://192.168.31.136:5003/gas',
+        'http://192.168.31.136:9123/gas',
       ];
 
       bool success = false;
