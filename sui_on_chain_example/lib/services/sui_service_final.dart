@@ -18,14 +18,33 @@ class SuiServiceFinal {
 
   Future<void> initializeWallet([String? privateKeyHex]) async {
     try {
-      // Use a well-known devnet address that's more likely to have objects
-      // This address is from Sui documentation examples
-      final addressString =
-          privateKeyHex ??
-          '0x9bc93515356b1f763a04359c54b9dea70fbbe5e1fd3a39051da5dd8d7beffe8f';
+      if (privateKeyHex != null) {
+        // Use provided private key
+        _suiAddress = SuiAddress(privateKeyHex);
+        print(
+          'Initialized wallet with provided address: ${_suiAddress!.address}',
+        );
+      } else {
+        // Generate a random Ed25519 private key using current time and random factors
+        final now = DateTime.now();
+        final randomBytes = List<int>.generate(
+          32,
+          (i) =>
+              (now.millisecondsSinceEpoch +
+                  i * 17 +
+                  now.microsecond * 23 +
+                  i * i * 31) %
+              256,
+        );
 
-      _suiAddress = SuiAddress(addressString);
-      print('Initialized wallet with address: ${_suiAddress!.address}');
+        final privateKey = SuiED25519PrivateKey.fromBytes(randomBytes);
+        final account = SuiEd25519Account(privateKey);
+        _suiAddress = account.toAddress();
+
+        print('Generated new random wallet:');
+        print('Private key: ${privateKey.toHex()}');
+        print('Address: ${_suiAddress!.address}');
+      }
     } catch (e) {
       throw Exception('Failed to initialize wallet: $e');
     }
