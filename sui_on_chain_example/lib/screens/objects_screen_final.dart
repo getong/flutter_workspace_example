@@ -45,16 +45,26 @@ class _ObjectsScreenFinalState extends State<ObjectsScreenFinal>
     });
 
     try {
-      // Load objects, coins, and balance
-      final futures = await Future.wait([
-        widget.suiService.getOwnedObjects(),
-        widget.suiService.getCoins(),
-        widget.suiService.getBalance(),
-      ]);
+      // Test connectivity first
+      print('Testing connection...');
+      final isConnected = await widget.suiService.testConnection();
+      if (!isConnected) {
+        throw Exception('Failed to connect to Sui network');
+      }
 
-      final objectsResponse = futures[0] as List<Map<String, dynamic>>;
-      final coinsResponse = futures[1] as List<Map<String, dynamic>>;
-      final balanceResponse = futures[2] as BigInt;
+      // Load objects, coins, and balance
+      print('Loading owned objects...');
+      final objectsResponse = await widget.suiService.getOwnedObjects();
+      print('Objects response: ${objectsResponse.length} items');
+      print('First few objects: ${objectsResponse.take(3).toList()}');
+
+      print('Loading coins...');
+      final coinsResponse = await widget.suiService.getCoins();
+      print('Coins response: ${coinsResponse.length} items');
+
+      print('Loading balance...');
+      final balanceResponse = await widget.suiService.getBalance();
+      print('Balance response: $balanceResponse');
 
       setState(() {
         _objects = objectsResponse;
@@ -62,6 +72,7 @@ class _ObjectsScreenFinalState extends State<ObjectsScreenFinal>
         _balance = balanceResponse;
       });
     } catch (e) {
+      print('Error loading data: $e');
       setState(() {
         _errorMessage = 'Failed to load data: ${e.toString()}';
       });
@@ -73,82 +84,137 @@ class _ObjectsScreenFinalState extends State<ObjectsScreenFinal>
   }
 
   Widget _buildObjectsTab() {
+    print('Building objects tab with ${_objects.length} objects');
+
     if (_objects.isEmpty) {
-      return const Center(child: Text('No objects found'));
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.inventory_2_outlined,
+              size: 64,
+              color: Colors.grey.shade400,
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'No objects found',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'This address doesn\'t have any objects yet.\nTry using a different address or interact with the blockchain first.',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.grey.shade600),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: _loadAllData,
+              child: const Text('Refresh'),
+            ),
+          ],
+        ),
+      );
     }
 
-    return ListView.builder(
-      itemCount: _objects.length,
-      itemBuilder: (context, index) {
-        final objectWrapper = _objects[index];
-        final object = objectWrapper['data'] as Map<String, dynamic>?;
-
-        if (object == null) {
-          return const SizedBox.shrink();
-        }
-
-        return Card(
+    return Column(
+      children: [
+        // Demo data notice
+        Container(
           margin: const EdgeInsets.all(8),
-          child: ExpansionTile(
-            title: Text(
-              'Object: ${(object['objectId'] ?? 'Unknown').toString().substring(0, 16)}...',
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Type: ${object['type'] ?? 'Unknown'}'),
-                Text('Version: ${object['version'] ?? 'Unknown'}'),
-              ],
-            ),
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.orange.shade50,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.orange.shade200),
+          ),
+          child: Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildInfoRow(
-                      'Object ID',
-                      object['objectId']?.toString() ?? 'Unknown',
-                    ),
-                    _buildInfoRow(
-                      'Digest',
-                      object['digest']?.toString() ?? 'Unknown',
-                    ),
-                    _buildInfoRow(
-                      'Owner',
-                      object['owner']?.toString() ?? 'Unknown',
-                    ),
-                    if (object['storageRebate'] != null)
-                      _buildInfoRow(
-                        'Storage Rebate',
-                        object['storageRebate'].toString(),
-                      ),
-                    if (object['content'] != null) ...[
-                      const SizedBox(height: 8),
-                      const Text(
-                        'Content:',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Text(
-                          object['content'].toString(),
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                      ),
-                    ],
-                  ],
+              Icon(Icons.info_outline, color: Colors.orange.shade700, size: 20),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'Showing demo data since the address has no objects. In a real scenario, this would show actual blockchain objects.',
+                  style: TextStyle(fontSize: 12, color: Colors.orange.shade700),
                 ),
               ),
             ],
           ),
-        );
-      },
+        ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: _objects.length,
+            itemBuilder: (context, index) {
+              final object = _objects[index];
+              print('Object $index: $object');
+
+              // Handle direct object structure (no wrapper)
+              final objectId = object['objectId']?.toString() ?? 'Unknown';
+              final objectType = object['type']?.toString() ?? 'Unknown';
+              final version = object['version']?.toString() ?? 'Unknown';
+
+              return Card(
+                margin: const EdgeInsets.all(8),
+                child: ExpansionTile(
+                  title: Text(
+                    'Object: ${_truncateString(objectId)}',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Type: $objectType'),
+                      Text('Version: $version'),
+                    ],
+                  ),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildInfoRow('Object ID', objectId),
+                          _buildInfoRow(
+                            'Digest',
+                            object['digest']?.toString() ?? 'Unknown',
+                          ),
+                          _buildInfoRow(
+                            'Owner',
+                            object['owner']?.toString() ?? 'Unknown',
+                          ),
+                          if (object['storageRebate'] != null)
+                            _buildInfoRow(
+                              'Storage Rebate',
+                              object['storageRebate'].toString(),
+                            ),
+                          if (object['content'] != null) ...[
+                            const SizedBox(height: 8),
+                            const Text(
+                              'Content:',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade100,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                object['content'].toString(),
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 
@@ -157,31 +223,67 @@ class _ObjectsScreenFinalState extends State<ObjectsScreenFinal>
       return const Center(child: Text('No coins found'));
     }
 
-    return ListView.builder(
-      itemCount: _coins.length,
-      itemBuilder: (context, index) {
-        final coin = _coins[index];
-        return Card(
+    return Column(
+      children: [
+        // Demo data notice
+        Container(
           margin: const EdgeInsets.all(8),
-          child: ListTile(
-            leading: const Icon(Icons.monetization_on),
-            title: Text('${coin['balance'] ?? '0'} MIST'),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Object ID: ${(coin['coinObjectId'] ?? 'Unknown').toString().substring(0, 16)}...',
-                ),
-                Text('Version: ${coin['version'] ?? 'Unknown'}'),
-                Text(
-                  'Digest: ${(coin['digest'] ?? 'Unknown').toString().substring(0, 16)}...',
-                ),
-              ],
-            ),
-            trailing: Text(coin['coinType']?.toString() ?? 'Unknown'),
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.blue.shade50,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.blue.shade200),
           ),
-        );
-      },
+          child: Row(
+            children: [
+              Icon(Icons.info_outline, color: Colors.blue.shade700, size: 20),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'Showing demo coin data. In a real scenario, this would show actual SUI coins from the blockchain.',
+                  style: TextStyle(fontSize: 12, color: Colors.blue.shade700),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: _coins.length,
+            itemBuilder: (context, index) {
+              final coin = _coins[index];
+              final balanceInSui =
+                  (double.parse(coin['balance'] ?? '0') / 1000000000)
+                      .toStringAsFixed(4);
+
+              return Card(
+                margin: const EdgeInsets.all(8),
+                child: ListTile(
+                  leading: const Icon(Icons.monetization_on),
+                  title: Text(
+                    '$balanceInSui SUI (${coin['balance'] ?? '0'} MIST)',
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Object ID: ${_truncateString(coin['coinObjectId'] ?? 'Unknown')}',
+                      ),
+                      Text('Version: ${coin['version'] ?? 'Unknown'}'),
+                      Text(
+                        'Digest: ${_truncateString(coin['digest'] ?? 'Unknown')}',
+                      ),
+                    ],
+                  ),
+                  trailing: Text(
+                    coin['coinType']?.toString().split('::').last ?? 'SUI',
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 
@@ -202,7 +304,10 @@ class _ObjectsScreenFinalState extends State<ObjectsScreenFinal>
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 16),
-                  _buildInfoRow('Total Balance', '$_balance MIST'),
+                  _buildInfoRow(
+                    'Total Balance',
+                    '${(_balance.toDouble() / 1000000000).toStringAsFixed(4)} SUI ($_balance MIST)',
+                  ),
                   _buildInfoRow(
                     'Number of Objects',
                     _objects.length.toString(),
@@ -230,9 +335,10 @@ class _ObjectsScreenFinalState extends State<ObjectsScreenFinal>
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
-                  ..._objects.take(3).map((objWrapper) {
-                    final obj = objWrapper['data'] as Map<String, dynamic>?;
-                    if (obj == null) return const SizedBox.shrink();
+                  ..._objects.take(3).map((obj) {
+                    // Handle direct object structure (no wrapper)
+                    final objectId = obj['objectId']?.toString() ?? 'Unknown';
+                    final objectType = obj['type']?.toString() ?? 'Unknown';
 
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 4),
@@ -242,13 +348,12 @@ class _ObjectsScreenFinalState extends State<ObjectsScreenFinal>
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
-                              '${(obj['objectId'] ?? 'Unknown').toString().substring(0, 16)}...',
+                              _truncateString(objectId),
                               style: const TextStyle(fontSize: 12),
                             ),
                           ),
                           Text(
-                            obj['type']?.toString().split('::').last ??
-                                'Object',
+                            objectType.split('::').last,
                             style: const TextStyle(
                               fontSize: 10,
                               color: Colors.grey,
@@ -321,6 +426,11 @@ class _ObjectsScreenFinalState extends State<ObjectsScreenFinal>
         ],
       ),
     );
+  }
+
+  String _truncateString(String text, {int maxLength = 16}) {
+    if (text.length <= maxLength) return text;
+    return '${text.substring(0, maxLength)}...';
   }
 
   @override

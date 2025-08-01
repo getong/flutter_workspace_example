@@ -33,7 +33,7 @@ class SuiHomePage extends StatefulWidget {
 
 class _SuiHomePageState extends State<SuiHomePage> {
   int _selectedIndex = 0;
-  final SuiServiceFinal _suiService = SuiServiceFinal(useLocalDevnet: true);
+  final SuiServiceFinal _suiService = SuiServiceFinal(useLocalDevnet: false);
 
   late final List<Widget> _pages;
 
