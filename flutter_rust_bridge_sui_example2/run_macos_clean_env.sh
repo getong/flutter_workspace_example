@@ -68,6 +68,19 @@ chmod +x "$tmp_bin_dir/xcrun"
 
 clean_path="$tmp_bin_dir:$flutter_bin_dir:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.cargo/bin"
 
+# Preserve Flutter/Dart package registry settings. When mirror vars are not set,
+# default to the CN mirror (opt out with FRB_USE_CN_MIRROR=0) to avoid
+# pub.dev DNS/socket failures in restricted networks.
+pub_hosted_url="${PUB_HOSTED_URL:-}"
+flutter_storage_base_url="${FLUTTER_STORAGE_BASE_URL:-}"
+if [[ -z "$pub_hosted_url" && "${FRB_USE_CN_MIRROR:-1}" != "0" ]]; then
+  pub_hosted_url="https://pub.flutter-io.cn"
+fi
+if [[ -z "$flutter_storage_base_url" && "$pub_hosted_url" == "https://pub.flutter-io.cn" ]]; then
+  flutter_storage_base_url="https://storage.flutter-io.cn"
+fi
+pub_cache="${PUB_CACHE:-$HOME/.pub-cache}"
+
 exec env -i \
   HOME="$HOME" \
   USER="${USER:-}" \
@@ -87,5 +100,10 @@ exec env -i \
   no_proxy="${no_proxy:-}" \
   SSL_CERT_FILE="${SSL_CERT_FILE:-}" \
   SSL_CERT_DIR="${SSL_CERT_DIR:-}" \
+  PUB_HOSTED_URL="$pub_hosted_url" \
+  FLUTTER_STORAGE_BASE_URL="$flutter_storage_base_url" \
+  PUB_CACHE="$pub_cache" \
+  PUB_ENVIRONMENT="${PUB_ENVIRONMENT:-}" \
+  FRB_USE_CN_MIRROR="${FRB_USE_CN_MIRROR:-1}" \
   FRB_DEBUG_XCRUN="${FRB_DEBUG_XCRUN:-0}" \
   flutter run -d macos "$@"
