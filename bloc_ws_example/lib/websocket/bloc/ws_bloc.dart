@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:bloc_ws_example/websocket/data/ws_repository.dart';
@@ -52,7 +53,7 @@ class WsBloc extends Bloc<WsEvent, WsState> {
       final stream = await _repository.connect(url);
       _subscription = stream.listen(
         (dynamic data) {
-          add(WsMessageArrived(data.toString()));
+          add(WsMessageArrived(_formatIncomingData(data)));
         },
         onError: (Object error, StackTrace stackTrace) {
           add(WsSocketError(error.toString()));
@@ -66,7 +67,7 @@ class WsBloc extends Bloc<WsEvent, WsState> {
       emit(
         state.copyWith(
           status: WsStatus.connected,
-          messages: [...state.messages, '[system] Connected: $url'],
+          messages: [...state.messages, '[system] Connected: ${url.trim()}'],
         ),
       );
     } catch (error) {
@@ -107,14 +108,28 @@ class WsBloc extends Bloc<WsEvent, WsState> {
     if (state.status != WsStatus.connected || message.isEmpty) {
       return;
     }
+
+    final jsonValue = _tryDecodeJson(message);
+    if (jsonValue != null) {
+      final encoded = jsonEncode(jsonValue);
+      _repository.send(encoded);
+      emit(
+        state.copyWith(
+          messages: [
+            ...state.messages,
+            '[me][json]\n${_prettyJson(jsonValue)}',
+          ],
+        ),
+      );
+      return;
+    }
+
     _repository.send(message);
     emit(state.copyWith(messages: [...state.messages, '[me] $message']));
   }
 
   void _onMessageArrived(WsMessageArrived event, Emitter<WsState> emit) {
-    emit(
-      state.copyWith(messages: [...state.messages, '[recv] ${event.message}']),
-    );
+    emit(state.copyWith(messages: [...state.messages, event.message]));
   }
 
   void _onSocketError(WsSocketError event, Emitter<WsState> emit) {
@@ -135,5 +150,36 @@ class WsBloc extends Bloc<WsEvent, WsState> {
     await _subscription?.cancel();
     await _repository.disconnect();
     return super.close();
+  }
+
+  String _formatIncomingData(dynamic data) {
+    if (data is String) {
+      return _formatIncomingText(data);
+    }
+    if (data is List<int>) {
+      final decodedText = utf8.decode(data, allowMalformed: true);
+      return _formatIncomingText(decodedText);
+    }
+    return '[recv] $data';
+  }
+
+  String _formatIncomingText(String text) {
+    final jsonValue = _tryDecodeJson(text);
+    if (jsonValue == null) {
+      return '[recv] $text';
+    }
+    return '[recv][json]\n${_prettyJson(jsonValue)}';
+  }
+
+  Object? _tryDecodeJson(String input) {
+    try {
+      return jsonDecode(input);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  String _prettyJson(Object value) {
+    return const JsonEncoder.withIndent('  ').convert(value);
   }
 }

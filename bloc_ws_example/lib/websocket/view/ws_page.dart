@@ -51,7 +51,7 @@ class _WsPageState extends State<WsPage> {
                 TextField(
                   controller: _urlController,
                   decoration: const InputDecoration(
-                    labelText: 'WebSocket URL',
+                    labelText: 'WebSocket URL (ws/wss)',
                     border: OutlineInputBorder(),
                   ),
                 ),
@@ -87,7 +87,8 @@ class _WsPageState extends State<WsPage> {
                         controller: _messageController,
                         enabled: canSend,
                         decoration: const InputDecoration(
-                          labelText: 'Message',
+                          labelText: 'Message (text or JSON)',
+                          hintText: '{"type":"ping"}',
                           border: OutlineInputBorder(),
                         ),
                         onSubmitted: (_) => _sendMessage(context),
