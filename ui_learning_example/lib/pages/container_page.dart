@@ -143,6 +143,23 @@ class ContainerPage extends StatelessWidget {
                 shape: BoxShape.rectangle,
               ),
             ),
+            const SizedBox(height: 26),
+            _buildSectionTitle('5) Container with LinearGradient'),
+            const SizedBox(height: 10),
+            Container(
+              height: 180,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.lightBlue,
+                gradient: LinearGradient(
+                  begin: Alignment(0, -1),
+                  end: Alignment(0, -0.4),
+                  tileMode: TileMode.mirror,
+                  colors: [Colors.blue, Colors.orange],
+                ),
+                shape: BoxShape.rectangle,
+              ),
+            ),
           ],
         ),
       ),
