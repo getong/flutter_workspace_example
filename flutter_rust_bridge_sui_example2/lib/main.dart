@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rust_bridge_sui_example2/src/rust/api/simple.dart';
 import 'package:flutter_rust_bridge_sui_example2/src/rust/frb_generated.dart';
@@ -31,6 +33,8 @@ class SuiBridgePage extends StatefulWidget {
 }
 
 class _SuiBridgePageState extends State<SuiBridgePage> {
+  static const Duration _metricsPollInterval = Duration(seconds: 5);
+
   final TextEditingController _networkController = TextEditingController(
     text: 'mainnet',
   );
@@ -44,9 +48,12 @@ class _SuiBridgePageState extends State<SuiBridgePage> {
   bool _metricsLoading = false;
   SuiNetworkMetrics? _metrics;
   String _metricsError = '';
+  Timer? _metricsPollingTimer;
+  bool _metricsAutoRefreshing = false;
 
   @override
   void dispose() {
+    _stopMetricsPolling();
     _networkController.dispose();
     _addressController.dispose();
     super.dispose();
@@ -82,11 +89,17 @@ class _SuiBridgePageState extends State<SuiBridgePage> {
     }
   }
 
-  Future<void> _fetchMetrics() async {
+  Future<void> _fetchMetrics({bool clearBeforeFetch = true}) async {
+    if (_metricsLoading) {
+      return;
+    }
+
     setState(() {
       _metricsLoading = true;
-      _metrics = null;
-      _metricsError = '';
+      if (clearBeforeFetch) {
+        _metrics = null;
+        _metricsError = '';
+      }
     });
 
     try {
@@ -96,6 +109,7 @@ class _SuiBridgePageState extends State<SuiBridgePage> {
       }
       setState(() {
         _metrics = metrics;
+        _metricsError = '';
       });
     } catch (error) {
       if (!mounted) {
@@ -111,6 +125,32 @@ class _SuiBridgePageState extends State<SuiBridgePage> {
         });
       }
     }
+  }
+
+  void _startMetricsPolling() {
+    if (_metricsAutoRefreshing) {
+      return;
+    }
+
+    setState(() {
+      _metricsAutoRefreshing = true;
+    });
+
+    _fetchMetrics(clearBeforeFetch: false);
+    _metricsPollingTimer = Timer.periodic(_metricsPollInterval, (_) {
+      _fetchMetrics(clearBeforeFetch: false);
+    });
+  }
+
+  void _stopMetricsPolling() {
+    _metricsPollingTimer?.cancel();
+    _metricsPollingTimer = null;
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _metricsAutoRefreshing = false;
+    });
   }
 
   void _normalizeAddress() {
@@ -187,9 +227,30 @@ class _SuiBridgePageState extends State<SuiBridgePage> {
                   ),
                   const SizedBox(height: 8),
                   FilledButton.tonal(
-                    onPressed: _metricsLoading ? null : _fetchMetrics,
+                    onPressed: _metricsLoading ? null : () => _fetchMetrics(),
                     child: Text(_metricsLoading ? '查询中...' : '获取网络 Metrics'),
                   ),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      OutlinedButton(
+                        onPressed: _metricsAutoRefreshing
+                            ? null
+                            : _startMetricsPolling,
+                        child: const Text('开始轮询'),
+                      ),
+                      OutlinedButton(
+                        onPressed: _metricsAutoRefreshing
+                            ? _stopMetricsPolling
+                            : null,
+                        child: const Text('停止刷新'),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  Text(_metricsAutoRefreshing ? '自动刷新中（每 5 秒）' : '自动刷新已停止'),
                   const SizedBox(height: 10),
                   if (_metricsError.isNotEmpty)
                     SelectableText('查询失败: $_metricsError')
