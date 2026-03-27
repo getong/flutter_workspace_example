@@ -176,6 +176,33 @@ class ContainerPage extends StatelessWidget {
                 shape: BoxShape.rectangle,
               ),
             ),
+            const SizedBox(height: 26),
+            _buildSectionTitle('7) Container with image'),
+            const SizedBox(height: 10),
+            Container(
+              width: 450,
+              height: 900,
+              margin: const EdgeInsets.all(100),
+              padding: const EdgeInsets.all(50),
+              decoration: BoxDecoration(
+                color: Colors.lightBlue,
+                shape: BoxShape.rectangle,
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.elliptical(50, 50),
+                  topLeft: Radius.circular(20),
+                  bottomRight: Radius.elliptical(25, 25),
+                ),
+                image: DecorationImage(
+                  colorFilter: ColorFilter.mode(
+                    Colors.black.withValues(alpha: 0.6),
+                    BlendMode.dstATop,
+                  ),
+                  image: const AssetImage('images/idea-1873540_640.png'),
+                  repeat: ImageRepeat.repeatY,
+                ),
+              ),
+              child: const Text('Container'),
+            ),
           ],
         ),
       ),
