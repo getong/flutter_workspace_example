@@ -203,6 +203,52 @@ class ContainerPage extends StatelessWidget {
               ),
               child: const Text('Container'),
             ),
+            const SizedBox(height: 26),
+            _buildSectionTitle('8) Container with image'),
+            const SizedBox(height: 10),
+            Container(
+              margin: EdgeInsets.all(100),
+              padding: EdgeInsets.all(50),
+              decoration: BoxDecoration(
+                color: Colors.lightBlue,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.elliptical(50, 50),
+                  topLeft: Radius.circular(20),
+                  bottomRight: Radius.elliptical(25, 25),
+                ),
+                image: DecorationImage(
+                  colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.6),
+                    BlendMode.dstATop,
+                  ),
+                  image: AssetImage("images/idea-1873540_640.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Text('Container'),
+            ),
+            const SizedBox(height: 26),
+            _buildSectionTitle('9) Container with image'),
+            const SizedBox(height: 10),
+            Container(
+              margin: EdgeInsets.all(100),
+              padding: EdgeInsets.all(50),
+              decoration: BoxDecoration(
+                color: Colors.lightBlue,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.elliptical(50, 50),
+                  topLeft: Radius.circular(20),
+                  bottomRight: Radius.elliptical(25, 25),
+                ),
+                image: DecorationImage(
+                  image: AssetImage("images/idea-1873540_640.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Text('Container'),
+            ),
           ],
         ),
       ),
