@@ -6,10 +6,61 @@
 import '../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-// These functions are ignored because they are not marked as `pub`: `query_sui_api_version`
+// These functions are ignored because they are not marked as `pub`: `build_client_for_target`, `query_sui_api_version`, `query_sui_metrics`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `fmt`
 
 String greet({required String name}) =>
     RustLib.instance.api.crateApiSimpleGreet(name: name);
 
 Future<String> hello({required String a}) =>
     RustLib.instance.api.crateApiSimpleHello(a: a);
+
+Future<SuiNetworkMetrics> fetchSuiMetrics({required String network}) =>
+    RustLib.instance.api.crateApiSimpleFetchSuiMetrics(network: network);
+
+class SuiNetworkMetrics {
+  final String network;
+  final String apiVersion;
+  final String chainIdentifier;
+  final BigInt latestCheckpoint;
+  final String latestCheckpointDigest;
+  final BigInt latestCheckpointTimestampMs;
+  final BigInt latestCheckpointEpoch;
+  final BigInt networkTotalTransactions;
+
+  const SuiNetworkMetrics({
+    required this.network,
+    required this.apiVersion,
+    required this.chainIdentifier,
+    required this.latestCheckpoint,
+    required this.latestCheckpointDigest,
+    required this.latestCheckpointTimestampMs,
+    required this.latestCheckpointEpoch,
+    required this.networkTotalTransactions,
+  });
+
+  @override
+  int get hashCode =>
+      network.hashCode ^
+      apiVersion.hashCode ^
+      chainIdentifier.hashCode ^
+      latestCheckpoint.hashCode ^
+      latestCheckpointDigest.hashCode ^
+      latestCheckpointTimestampMs.hashCode ^
+      latestCheckpointEpoch.hashCode ^
+      networkTotalTransactions.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SuiNetworkMetrics &&
+          runtimeType == other.runtimeType &&
+          network == other.network &&
+          apiVersion == other.apiVersion &&
+          chainIdentifier == other.chainIdentifier &&
+          latestCheckpoint == other.latestCheckpoint &&
+          latestCheckpointDigest == other.latestCheckpointDigest &&
+          latestCheckpointTimestampMs == other.latestCheckpointTimestampMs &&
+          latestCheckpointEpoch == other.latestCheckpointEpoch &&
+          networkTotalTransactions == other.networkTotalTransactions;
+}

@@ -66,7 +66,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.11.1';
 
   @override
-  int get rustContentHash => -810418245;
+  int get rustContentHash => -487641688;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -77,6 +77,10 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
 }
 
 abstract class RustLibApi extends BaseApi {
+  Future<SuiNetworkMetrics> crateApiSimpleFetchSuiMetrics({
+    required String network,
+  });
+
   String crateApiSimpleGreet({required String name});
 
   Future<String> crateApiSimpleHello({required String a});
@@ -93,13 +97,46 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   });
 
   @override
+  Future<SuiNetworkMetrics> crateApiSimpleFetchSuiMetrics({
+    required String network,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(network, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 1,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_sui_network_metrics,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiSimpleFetchSuiMetricsConstMeta,
+        argValues: [network],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiSimpleFetchSuiMetricsConstMeta =>
+      const TaskConstMeta(
+        debugName: "fetch_sui_metrics",
+        argNames: ["network"],
+      );
+
+  @override
   String crateApiSimpleGreet({required String name}) {
     return handler.executeSync(
       SyncTask(
         callFfi: () {
           final serializer = SseSerializer(generalizedFrbRustBinding);
           sse_encode_String(name, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 1)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 2)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_String,
@@ -125,7 +162,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 2,
+            funcId: 3,
             port: port_,
           );
         },
@@ -152,7 +189,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 3,
+            funcId: 4,
             port: port_,
           );
         },
@@ -183,6 +220,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  SuiNetworkMetrics dco_decode_sui_network_metrics(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 8)
+      throw Exception('unexpected arr length: expect 8 but see ${arr.length}');
+    return SuiNetworkMetrics(
+      network: dco_decode_String(arr[0]),
+      apiVersion: dco_decode_String(arr[1]),
+      chainIdentifier: dco_decode_String(arr[2]),
+      latestCheckpoint: dco_decode_u_64(arr[3]),
+      latestCheckpointDigest: dco_decode_String(arr[4]),
+      latestCheckpointTimestampMs: dco_decode_u_64(arr[5]),
+      latestCheckpointEpoch: dco_decode_u_64(arr[6]),
+      networkTotalTransactions: dco_decode_u_64(arr[7]),
+    );
+  }
+
+  @protected
+  BigInt dco_decode_u_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dcoDecodeU64(raw);
+  }
+
+  @protected
   int dco_decode_u_8(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as int;
@@ -206,6 +267,37 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var len_ = sse_decode_i_32(deserializer);
     return deserializer.buffer.getUint8List(len_);
+  }
+
+  @protected
+  SuiNetworkMetrics sse_decode_sui_network_metrics(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_network = sse_decode_String(deserializer);
+    var var_apiVersion = sse_decode_String(deserializer);
+    var var_chainIdentifier = sse_decode_String(deserializer);
+    var var_latestCheckpoint = sse_decode_u_64(deserializer);
+    var var_latestCheckpointDigest = sse_decode_String(deserializer);
+    var var_latestCheckpointTimestampMs = sse_decode_u_64(deserializer);
+    var var_latestCheckpointEpoch = sse_decode_u_64(deserializer);
+    var var_networkTotalTransactions = sse_decode_u_64(deserializer);
+    return SuiNetworkMetrics(
+      network: var_network,
+      apiVersion: var_apiVersion,
+      chainIdentifier: var_chainIdentifier,
+      latestCheckpoint: var_latestCheckpoint,
+      latestCheckpointDigest: var_latestCheckpointDigest,
+      latestCheckpointTimestampMs: var_latestCheckpointTimestampMs,
+      latestCheckpointEpoch: var_latestCheckpointEpoch,
+      networkTotalTransactions: var_networkTotalTransactions,
+    );
+  }
+
+  @protected
+  BigInt sse_decode_u_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getBigUint64();
   }
 
   @protected
@@ -245,6 +337,28 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.length, serializer);
     serializer.buffer.putUint8List(self);
+  }
+
+  @protected
+  void sse_encode_sui_network_metrics(
+    SuiNetworkMetrics self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.network, serializer);
+    sse_encode_String(self.apiVersion, serializer);
+    sse_encode_String(self.chainIdentifier, serializer);
+    sse_encode_u_64(self.latestCheckpoint, serializer);
+    sse_encode_String(self.latestCheckpointDigest, serializer);
+    sse_encode_u_64(self.latestCheckpointTimestampMs, serializer);
+    sse_encode_u_64(self.latestCheckpointEpoch, serializer);
+    sse_encode_u_64(self.networkTotalTransactions, serializer);
+  }
+
+  @protected
+  void sse_encode_u_64(BigInt self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putBigUint64(self);
   }
 
   @protected

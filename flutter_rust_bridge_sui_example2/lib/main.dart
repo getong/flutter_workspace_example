@@ -41,6 +41,9 @@ class _SuiBridgePageState extends State<SuiBridgePage> {
   String _networkResult = '';
   String _addressResult = '';
   bool _networkLoading = false;
+  bool _metricsLoading = false;
+  SuiNetworkMetrics? _metrics;
+  String _metricsError = '';
 
   @override
   void dispose() {
@@ -79,11 +82,50 @@ class _SuiBridgePageState extends State<SuiBridgePage> {
     }
   }
 
+  Future<void> _fetchMetrics() async {
+    setState(() {
+      _metricsLoading = true;
+      _metrics = null;
+      _metricsError = '';
+    });
+
+    try {
+      final metrics = await fetchSuiMetrics(network: _networkController.text);
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _metrics = metrics;
+      });
+    } catch (error) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _metricsError = '$error';
+      });
+    } finally {
+      if (mounted) {
+        setState(() {
+          _metricsLoading = false;
+        });
+      }
+    }
+  }
+
   void _normalizeAddress() {
     final result = greet(name: _addressController.text);
     setState(() {
       _addressResult = result;
     });
+  }
+
+  String _formatTimestamp(BigInt timestampMs) {
+    final utc = DateTime.fromMillisecondsSinceEpoch(
+      timestampMs.toInt(),
+      isUtc: true,
+    );
+    return '${utc.toLocal()} (local)';
   }
 
   @override
@@ -140,7 +182,45 @@ class _SuiBridgePageState extends State<SuiBridgePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    '2) Sui 地址规范化',
+                    '2) 查询 Sui 网络指标（Rust 拉取）',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                  const SizedBox(height: 8),
+                  FilledButton.tonal(
+                    onPressed: _metricsLoading ? null : _fetchMetrics,
+                    child: Text(_metricsLoading ? '查询中...' : '获取网络 Metrics'),
+                  ),
+                  const SizedBox(height: 10),
+                  if (_metricsError.isNotEmpty)
+                    SelectableText('查询失败: $_metricsError')
+                  else if (_metrics == null)
+                    const SelectableText('结果会显示在这里')
+                  else
+                    SelectableText(
+                      [
+                        'network: ${_metrics!.network}',
+                        'apiVersion: ${_metrics!.apiVersion}',
+                        'chainIdentifier: ${_metrics!.chainIdentifier}',
+                        'latestCheckpoint: ${_metrics!.latestCheckpoint}',
+                        'latestCheckpointDigest: ${_metrics!.latestCheckpointDigest}',
+                        'latestCheckpointEpoch: ${_metrics!.latestCheckpointEpoch}',
+                        'networkTotalTransactions: ${_metrics!.networkTotalTransactions}',
+                        'latestCheckpointTime: ${_formatTimestamp(_metrics!.latestCheckpointTimestampMs)}',
+                      ].join('\n'),
+                    ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    '3) Sui 地址规范化',
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 8),
