@@ -130,7 +130,7 @@ class ContainerPage extends StatelessWidget {
             _buildSectionTitle('4) Container with RadialGradient 2'),
             const SizedBox(height: 10),
             Container(
-              height: 180,
+              height: 360,
               width: double.infinity,
               decoration: const BoxDecoration(
                 color: Colors.lightBlue,
@@ -147,7 +147,7 @@ class ContainerPage extends StatelessWidget {
             _buildSectionTitle('5) Container with LinearGradient'),
             const SizedBox(height: 10),
             Container(
-              height: 180,
+              height: 360,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.lightBlue,
@@ -155,6 +155,22 @@ class ContainerPage extends StatelessWidget {
                   begin: Alignment(0, -1),
                   end: Alignment(0, -0.4),
                   tileMode: TileMode.mirror,
+                  colors: [Colors.blue, Colors.orange],
+                ),
+                shape: BoxShape.rectangle,
+              ),
+            ),
+            const SizedBox(height: 26),
+            _buildSectionTitle('6) Container with Gradients'),
+            const SizedBox(height: 10),
+            Container(
+              height: 360,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.lightBlue,
+                gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
                   colors: [Colors.blue, Colors.orange],
                 ),
                 shape: BoxShape.rectangle,
