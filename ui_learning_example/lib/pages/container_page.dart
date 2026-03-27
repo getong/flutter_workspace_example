@@ -126,6 +126,23 @@ class ContainerPage extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 26),
+            _buildSectionTitle('4) Container with RadialGradient 2'),
+            const SizedBox(height: 10),
+            Container(
+              height: 180,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: Colors.lightBlue,
+                gradient: RadialGradient(
+                  radius: 0.15,
+                  center: Alignment(0, 0),
+                  tileMode: TileMode.mirror,
+                  colors: [Colors.blue, Colors.deepPurple, Colors.lightBlue],
+                ),
+                shape: BoxShape.rectangle,
+              ),
+            ),
           ],
         ),
       ),
