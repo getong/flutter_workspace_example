@@ -2,6 +2,7 @@ enum AppRoutes {
   home('/'),
   basicScaffold('/basic-scaffold'),
   container('/container'),
+  containerModule('/container-module'),
   rowColumn('/row-column'),
   popupMenu('/popup-menu'),
   tabBar('/tab-bar'),

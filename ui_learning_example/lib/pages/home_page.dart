@@ -42,6 +42,13 @@ class HomePage extends StatelessWidget {
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
+                    context.go(AppRoutes.containerModule.path);
+                  },
+                  child: const Text('View Container Module'),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
                     context.go(AppRoutes.rowColumn.path);
                   },
                   child: const Text('View Row & Column'),

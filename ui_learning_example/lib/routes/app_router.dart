@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import '../pages/home_page.dart';
 import '../pages/basic_scaffold_page.dart';
 import '../pages/container_page.dart';
+import '../pages/container_module_page.dart';
 import '../pages/row_column_page.dart';
 import '../pages/popup_menu_page.dart';
 import '../pages/tab_bar_page.dart';
@@ -23,6 +24,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: AppRoutes.container.path,
       builder: (context, state) => const ContainerPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.containerModule.path,
+      builder: (context, state) => const ContainerModulePage(),
     ),
     GoRoute(
       path: AppRoutes.rowColumn.path,
