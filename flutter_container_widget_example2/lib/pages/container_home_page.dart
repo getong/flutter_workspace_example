@@ -14,10 +14,15 @@ class ContainerHomePage extends StatelessWidget {
       ),
       body: ListView.separated(
         padding: const EdgeInsets.all(16),
-        itemCount: containerPages.length,
+        itemCount: containerPages.length + 1,
         separatorBuilder: (_, __) => const SizedBox(height: 12),
         itemBuilder: (BuildContext context, int index) {
-          final ContainerPageSpec page = containerPages[index];
+          if (index == 0) {
+            return const Card(
+              child: _ButtonContainerTile(),
+            );
+          }
+          final ContainerPageSpec page = containerPages[index - 1];
           return Card(
             child: ListTile(
               leading: Icon(page.icon),
@@ -29,6 +34,21 @@ class ContainerHomePage extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+}
+
+class _ButtonContainerTile extends StatelessWidget {
+  const _ButtonContainerTile();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: const Icon(Icons.smart_button),
+      title: const Text('Button Container'),
+      subtitle: const Text('/button_container'),
+      trailing: const Icon(Icons.arrow_forward_ios),
+      onTap: () => context.go('/button_container'),
     );
   }
 }
