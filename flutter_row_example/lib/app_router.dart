@@ -5,6 +5,7 @@ import 'pages/column_alignment_page.dart';
 import 'pages/column_basics_page.dart';
 import 'pages/column_boxes_module_page.dart';
 import 'pages/column_nested_page.dart';
+import 'pages/column_space_evenly_stretch_module_page.dart';
 import 'pages/not_found_page.dart';
 import 'pages/row_alignment_page.dart';
 import 'pages/row_basics_page.dart';
@@ -86,6 +87,13 @@ final GoRouter appRouter = GoRouter(
       name: 'column_boxes_module',
       builder: (BuildContext context, GoRouterState state) {
         return const ColumnBoxesModulePage();
+      },
+    ),
+    GoRoute(
+      path: '/column_space_evenly_stretch_module',
+      name: 'column_space_evenly_stretch_module',
+      builder: (BuildContext context, GoRouterState state) {
+        return const ColumnSpaceEvenlyStretchModulePage();
       },
     ),
     GoRoute(

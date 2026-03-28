@@ -52,6 +52,11 @@ class RowColumnHomePage extends StatelessWidget {
       title: 'Column Boxes Module',
       icon: Icons.gradient,
     ),
+    _RouteSpec(
+      path: '/column_space_evenly_stretch_module',
+      title: 'Column SpaceEvenly Stretch',
+      icon: Icons.format_line_spacing,
+    ),
   ];
 
   @override
