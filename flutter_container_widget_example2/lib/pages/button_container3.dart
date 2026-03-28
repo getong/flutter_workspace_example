@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ButtonContainer3 extends StatelessWidget {
   const ButtonContainer3({super.key});
@@ -20,6 +21,13 @@ class ButtonContainer3 extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Flutter UI Container'),
+          actions: <Widget>[
+            IconButton(
+              tooltip: 'Go Home',
+              onPressed: () => context.go('/'),
+              icon: const Icon(Icons.home),
+            ),
+          ],
         ),
         body: Container(
           margin: EdgeInsets.all(100),
