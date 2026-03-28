@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import 'container_catalog.dart';
 
-const CONTAINER_NUM = 4;
+const CONTAINER_NUM = 5;
 
 class ContainerHomePage extends StatelessWidget {
   const ContainerHomePage({super.key});
@@ -37,6 +37,11 @@ class ContainerHomePage extends StatelessWidget {
           if (index == 3) {
             return const Card(
               child: _ButtonContainer4Tile(),
+            );
+          }
+          if (index == 4) {
+            return const Card(
+              child: _ButtonContainer5Tile(),
             );
           }
           final ContainerPageSpec page = containerPages[index - CONTAINER_NUM];
@@ -111,6 +116,21 @@ class _ButtonContainer4Tile extends StatelessWidget {
       subtitle: const Text('/button_container4'),
       trailing: const Icon(Icons.arrow_forward_ios),
       onTap: () => context.go('/button_container4'),
+    );
+  }
+}
+
+class _ButtonContainer5Tile extends StatelessWidget {
+  const _ButtonContainer5Tile();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: const Icon(Icons.smart_button_outlined),
+      title: const Text('Button Container 5'),
+      subtitle: const Text('/button_container5'),
+      trailing: const Icon(Icons.arrow_forward_ios),
+      onTap: () => context.go('/button_container5'),
     );
   }
 }
