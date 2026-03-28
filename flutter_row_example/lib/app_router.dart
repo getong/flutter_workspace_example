@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import 'pages/column_alignment_page.dart';
 import 'pages/column_basics_page.dart';
+import 'pages/column_boxes_module_page.dart';
 import 'pages/column_nested_page.dart';
 import 'pages/not_found_page.dart';
 import 'pages/row_alignment_page.dart';
@@ -62,6 +63,13 @@ final GoRouter appRouter = GoRouter(
       name: 'column_nested',
       builder: (BuildContext context, GoRouterState state) {
         return const ColumnNestedPage();
+      },
+    ),
+    GoRoute(
+      path: '/column_boxes_module',
+      name: 'column_boxes_module',
+      builder: (BuildContext context, GoRouterState state) {
+        return const ColumnBoxesModulePage();
       },
     ),
     GoRoute(

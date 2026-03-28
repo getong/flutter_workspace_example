@@ -37,6 +37,11 @@ class RowColumnHomePage extends StatelessWidget {
       title: 'Column Nested Layout',
       icon: Icons.dashboard,
     ),
+    _RouteSpec(
+      path: '/column_boxes_module',
+      title: 'Column Boxes Module',
+      icon: Icons.gradient,
+    ),
   ];
 
   @override
