@@ -14,7 +14,7 @@ class ContainerHomePage extends StatelessWidget {
       ),
       body: ListView.separated(
         padding: const EdgeInsets.all(16),
-        itemCount: containerPages.length + 1,
+        itemCount: containerPages.length + 2,
         separatorBuilder: (_, __) => const SizedBox(height: 12),
         itemBuilder: (BuildContext context, int index) {
           if (index == 0) {
@@ -22,7 +22,12 @@ class ContainerHomePage extends StatelessWidget {
               child: _ButtonContainerTile(),
             );
           }
-          final ContainerPageSpec page = containerPages[index - 1];
+          if (index == 1) {
+            return const Card(
+              child: _ButtonContainer2Tile(),
+            );
+          }
+          final ContainerPageSpec page = containerPages[index - 2];
           return Card(
             child: ListTile(
               leading: Icon(page.icon),
@@ -49,6 +54,21 @@ class _ButtonContainerTile extends StatelessWidget {
       subtitle: const Text('/button_container'),
       trailing: const Icon(Icons.arrow_forward_ios),
       onTap: () => context.go('/button_container'),
+    );
+  }
+}
+
+class _ButtonContainer2Tile extends StatelessWidget {
+  const _ButtonContainer2Tile();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: const Icon(Icons.smart_button_outlined),
+      title: const Text('Button Container 2'),
+      subtitle: const Text('/button_container2'),
+      trailing: const Icon(Icons.arrow_forward_ios),
+      onTap: () => context.go('/button_container2'),
     );
   }
 }
