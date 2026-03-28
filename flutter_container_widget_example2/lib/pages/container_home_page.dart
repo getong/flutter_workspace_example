@@ -69,6 +69,11 @@ class ContainerHomePage extends StatelessWidget {
               child: _ButtonContainer10Tile(),
             );
           }
+          if (index == 10) {
+            return const Card(
+              child: _ButtonContainer11Tile(),
+            );
+          }
           final ContainerPageSpec page = containerPages[index - CONTAINER_NUM];
           return Card(
             child: ListTile(
@@ -231,6 +236,21 @@ class _ButtonContainer10Tile extends StatelessWidget {
       subtitle: const Text('/button_container10'),
       trailing: const Icon(Icons.arrow_forward_ios),
       onTap: () => context.go('/button_container10'),
+    );
+  }
+}
+
+class _ButtonContainer11Tile extends StatelessWidget {
+  const _ButtonContainer11Tile();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: const Icon(Icons.smart_button_outlined),
+      title: const Text('Button Container 11'),
+      subtitle: const Text('/button_container11'),
+      trailing: const Icon(Icons.arrow_forward_ios),
+      onTap: () => context.go('/button_container11'),
     );
   }
 }
