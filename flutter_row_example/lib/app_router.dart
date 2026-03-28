@@ -8,6 +8,7 @@ import 'pages/column_nested_page.dart';
 import 'pages/not_found_page.dart';
 import 'pages/row_alignment_page.dart';
 import 'pages/row_basics_page.dart';
+import 'pages/row_boxes_module_page.dart';
 import 'pages/row_column_catalog.dart';
 import 'pages/row_column_detail_page.dart';
 import 'pages/row_column_home_page.dart';
@@ -42,6 +43,13 @@ final GoRouter appRouter = GoRouter(
       name: 'row_expanded',
       builder: (BuildContext context, GoRouterState state) {
         return const RowExpandedPage();
+      },
+    ),
+    GoRoute(
+      path: '/row_boxes_module',
+      name: 'row_boxes_module',
+      builder: (BuildContext context, GoRouterState state) {
+        return const RowBoxesModulePage();
       },
     ),
     GoRoute(

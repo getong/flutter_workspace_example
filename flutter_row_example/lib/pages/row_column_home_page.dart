@@ -23,6 +23,11 @@ class RowColumnHomePage extends StatelessWidget {
       icon: Icons.space_bar,
     ),
     _RouteSpec(
+      path: '/row_boxes_module',
+      title: 'Row Boxes Module',
+      icon: Icons.view_array,
+    ),
+    _RouteSpec(
       path: '/column_basics',
       title: 'Column Basics',
       icon: Icons.view_stream,
