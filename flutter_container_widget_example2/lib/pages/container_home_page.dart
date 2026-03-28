@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 
 import 'container_catalog.dart';
 
+const CONTAINER_NUM = 4;
+
 class ContainerHomePage extends StatelessWidget {
   const ContainerHomePage({super.key});
 
@@ -14,7 +16,7 @@ class ContainerHomePage extends StatelessWidget {
       ),
       body: ListView.separated(
         padding: const EdgeInsets.all(16),
-        itemCount: containerPages.length + 3,
+        itemCount: containerPages.length + CONTAINER_NUM,
         separatorBuilder: (_, __) => const SizedBox(height: 12),
         itemBuilder: (BuildContext context, int index) {
           if (index == 0) {
@@ -32,7 +34,12 @@ class ContainerHomePage extends StatelessWidget {
               child: _ButtonContainer3Tile(),
             );
           }
-          final ContainerPageSpec page = containerPages[index - 3];
+          if (index == 3) {
+            return const Card(
+              child: _ButtonContainer4Tile(),
+            );
+          }
+          final ContainerPageSpec page = containerPages[index - CONTAINER_NUM];
           return Card(
             child: ListTile(
               leading: Icon(page.icon),
@@ -89,6 +96,21 @@ class _ButtonContainer3Tile extends StatelessWidget {
       subtitle: const Text('/button_container3'),
       trailing: const Icon(Icons.arrow_forward_ios),
       onTap: () => context.go('/button_container3'),
+    );
+  }
+}
+
+class _ButtonContainer4Tile extends StatelessWidget {
+  const _ButtonContainer4Tile();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: const Icon(Icons.smart_button_outlined),
+      title: const Text('Button Container 4'),
+      subtitle: const Text('/button_container4'),
+      trailing: const Icon(Icons.arrow_forward_ios),
+      onTap: () => context.go('/button_container4'),
     );
   }
 }

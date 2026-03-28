@@ -7,6 +7,7 @@ import 'pages/container_home_page.dart';
 import 'pages/button_container.dart';
 import 'pages/button_container2.dart';
 import 'pages/button_container3.dart';
+import 'pages/button_container4.dart';
 import 'pages/not_found_page.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -50,6 +51,13 @@ final GoRouter appRouter = GoRouter(
       name: 'button_container3',
       builder: (BuildContext context, GoRouterState state) {
         return const ButtonContainer3();
+      },
+    ),
+    GoRoute(
+      path: '/button_container4',
+      name: 'button_container4',
+      builder: (BuildContext context, GoRouterState state) {
+        return const ButtonContainer4();
       },
     ),
   ],
