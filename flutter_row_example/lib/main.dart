@@ -1,49 +1,22 @@
 import 'package:flutter/material.dart';
 
+import 'app_router.dart';
+
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: SafeArea(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
-            children: [
-              Container(
-                color: Colors.redAccent,
-                height: 50,
-                width: 50,
-                child: const Text(
-                  'Dart',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-              Container(
-                color: Colors.greenAccent,
-                height: 75,
-                width: 50,
-                child: const Text('is'),
-              ),
-              Container(
-                color: Colors.blueAccent,
-                height: 100,
-                width: 50,
-                child: const Text(
-                  'cool',
-                  style: TextStyle(fontSize: 25),
-                ),
-              ),
-            ],
-          ),
-        ),
+      routerConfig: appRouter,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
+        useMaterial3: true,
       ),
     );
   }
