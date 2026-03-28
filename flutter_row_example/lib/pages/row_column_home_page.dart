@@ -28,6 +28,11 @@ class RowColumnHomePage extends StatelessWidget {
       icon: Icons.view_array,
     ),
     _RouteSpec(
+      path: '/row_center_stretch_module',
+      title: 'Row Center Stretch Module',
+      icon: Icons.vertical_align_center,
+    ),
+    _RouteSpec(
       path: '/column_basics',
       title: 'Column Basics',
       icon: Icons.view_stream,
