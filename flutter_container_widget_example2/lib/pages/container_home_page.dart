@@ -10,7 +10,7 @@ class ContainerHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flutter UI Succinctly'),
+        title: const Text('Flutter UI Container'),
       ),
       body: ListView.separated(
         padding: const EdgeInsets.all(16),

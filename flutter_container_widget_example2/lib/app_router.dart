@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'pages/container_catalog.dart';
 import 'pages/container_detail_page.dart';
 import 'pages/container_home_page.dart';
+import 'pages/button_container.dart';
 import 'pages/not_found_page.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -26,6 +27,13 @@ final GoRouter appRouter = GoRouter(
           return NotFoundPage(slug: slug);
         }
         return ContainerDetailPage(page: page);
+      },
+    ),
+    GoRoute(
+      path: '/button_container',
+      name: 'button_container',
+      builder: (BuildContext context, GoRouterState state) {
+        return const ButtonContainer();
       },
     ),
   ],
