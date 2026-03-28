@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 
+import 'app_router.dart';
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
-@override
-Widget build(BuildContext context) {
-  return MaterialApp(
-  home: Scaffold(
-    appBar: AppBar(
-    title: const Text("Container example"),
-    ),
-    body: Container(
-    child:const Text("Hello! i am inside a container!",
-      style: TextStyle(fontSize: 20)),
-    ),
-  ),
-  );
-}
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      routerConfig: appRouter,
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.indigo,
+          brightness: Brightness.dark,
+        ).copyWith(secondary: Colors.amber),
+        textTheme: const TextTheme(
+          bodyMedium: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+        ),
+      ),
+    );
+  }
 }
