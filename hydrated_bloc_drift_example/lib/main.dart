@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
-import 'src/app_router.dart';
-import 'src/data/local/app_database.dart';
-import 'src/data/local/drift_hydrated_storage.dart';
-import 'src/data/remote/layout_api_client.dart';
-import 'src/presentation/layout_catalog_bloc.dart';
+import 'app_router.dart';
+import 'data/local/app_database.dart';
+import 'data/local/drift_hydrated_storage.dart';
+import 'data/remote/layout_api_client.dart';
+import 'presentation/layout_catalog_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

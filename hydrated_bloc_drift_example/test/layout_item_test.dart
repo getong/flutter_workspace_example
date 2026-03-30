@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hydrated_bloc_drift_example/src/domain/layout_item.dart';
+import 'package:hydrated_bloc_drift_example/domain/layout_item.dart';
 
 void main() {
   test('LayoutItem serializes and deserializes', () {
