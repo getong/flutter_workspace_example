@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
-import 'data/local/drift_hydrated_storage.dart';
 import 'data/repositories/fetch_history_repository.dart';
 import 'presentation/pages/layout_detail_page.dart';
 import 'presentation/pages/layout_home_page.dart';
@@ -11,7 +10,6 @@ import 'presentation/pages/fetch_home_page.dart';
 import 'presentation/pages/not_found_page.dart';
 
 GoRouter buildAppRouter({
-  required DriftHydratedStorage hydratedStorage,
   required FetchHistoryRepository fetchHistoryRepository,
 }) {
   return GoRouter(
@@ -21,7 +19,7 @@ GoRouter buildAppRouter({
         path: '/',
         name: 'home',
         builder: (BuildContext context, GoRouterState state) {
-          return LayoutHomePage(hydratedStorage: hydratedStorage);
+          return const LayoutHomePage();
         },
       ),
       GoRoute(

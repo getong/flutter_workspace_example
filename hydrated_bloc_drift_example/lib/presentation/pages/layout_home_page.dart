@@ -1,18 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/services.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../data/local/app_database.dart';
-import '../../data/local/drift_hydrated_storage.dart';
+import '../../data/repositories/layout_catalog_repository.dart';
 import '../../domain/layout_item.dart';
 import '../layout_catalog_bloc.dart';
 
 class LayoutHomePage extends StatelessWidget {
-  const LayoutHomePage({required this.hydratedStorage, super.key});
-
-  final DriftHydratedStorage hydratedStorage;
+  const LayoutHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +33,7 @@ class LayoutHomePage extends StatelessWidget {
             icon: const Icon(Icons.refresh),
           ),
           IconButton(
-            tooltip: 'Read raw rows from Drift',
+            tooltip: 'Read cached rows from Drift',
             onPressed: () => _showDriftRows(context),
             icon: const Icon(Icons.storage),
           ),
@@ -43,6 +41,8 @@ class LayoutHomePage extends StatelessWidget {
       ),
       body: BlocBuilder<LayoutCatalogBloc, LayoutCatalogState>(
         builder: (BuildContext context, LayoutCatalogState state) {
+          final List<LayoutItem> visibleItems = state.visibleItems;
+
           return RefreshIndicator(
             onRefresh: () async {
               context.read<LayoutCatalogBloc>().add(
@@ -52,10 +52,15 @@ class LayoutHomePage extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.all(16),
               children: <Widget>[
-                _SummaryCard(state: state),
-                if (state.items.isNotEmpty) ...<Widget>[
+                _SummaryCard(
+                  state: state,
+                  visibleItemCount: visibleItems.length,
+                ),
+                const SizedBox(height: 16),
+                _FilterCard(selectedFilter: state.filter),
+                if (visibleItems.isNotEmpty) ...<Widget>[
                   const SizedBox(height: 16),
-                  _LayoutItemsChart(items: state.items),
+                  _LayoutItemsChart(items: visibleItems),
                 ],
                 const SizedBox(height: 16),
                 if (state.status == LayoutCatalogStatus.loading)
@@ -124,11 +129,20 @@ class LayoutHomePage extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.all(16),
                       child: Text(
-                        'No data yet. Pull down or tap refresh to fetch from Dio.',
+                        'No data cached yet. Pull down or tap refresh to fetch from Dio and store it in Drift.',
                       ),
                     ),
                   ),
-                ...state.items.map((LayoutItem item) {
+                if (state.items.isNotEmpty && visibleItems.isEmpty)
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Text(
+                        'No layouts match the ${_filterLabel(state.filter).toLowerCase()} filter.',
+                      ),
+                    ),
+                  ),
+                ...visibleItems.map((LayoutItem item) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Card(
@@ -164,7 +178,10 @@ class LayoutHomePage extends StatelessWidget {
   }
 
   Future<void> _showDriftRows(BuildContext context) async {
-    final List<PersistedHydratedRow> rows = await hydratedStorage.readRows();
+    final LayoutCatalogRepository repository = context
+        .read<LayoutCatalogRepository>();
+    final List<PersistedLayoutCatalogRow> rows = await repository
+        .readCachedRows();
     if (!context.mounted) {
       return;
     }
@@ -176,7 +193,7 @@ class LayoutHomePage extends StatelessWidget {
         if (rows.isEmpty) {
           return const SizedBox(
             height: 180,
-            child: Center(child: Text('No hydrated rows in drift yet.')),
+            child: Center(child: Text('No layout rows cached in Drift yet.')),
           );
         }
 
@@ -187,20 +204,25 @@ class LayoutHomePage extends StatelessWidget {
             separatorBuilder: (BuildContext context, int index) =>
                 const Divider(height: 20),
             itemBuilder: (BuildContext context, int index) {
-              final PersistedHydratedRow row = rows[index];
+              final PersistedLayoutCatalogRow row = rows[index];
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(row.key, style: Theme.of(context).textTheme.titleMedium),
-                  const SizedBox(height: 6),
                   Text(
-                    'updated: ${row.updatedAt.toIso8601String()}',
+                    row.title,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 6),
+                  Text('slug: ${row.slug}'),
+                  Text('kind: ${row.kind.name}'),
+                  Text(
+                    'cached: ${row.fetchedAt.toIso8601String()}',
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    row.value,
-                    maxLines: 10,
+                    row.message,
+                    maxLines: 6,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],
@@ -225,13 +247,18 @@ class LayoutHomePage extends StatelessWidget {
 }
 
 class _SummaryCard extends StatelessWidget {
-  const _SummaryCard({required this.state});
+  const _SummaryCard({required this.state, required this.visibleItemCount});
 
   final LayoutCatalogState state;
+  final int visibleItemCount;
 
   @override
   Widget build(BuildContext context) {
-    final String source = state.loadedFromDrift ? 'drift (hydrated)' : 'dio';
+    final String source = switch (state.source) {
+      LayoutCatalogSource.driftCache => 'drift cache',
+      LayoutCatalogSource.network => 'dio -> drift cache',
+      LayoutCatalogSource.none => 'n/a',
+    };
     final String status = state.status.name;
     final String updatedAt = state.lastUpdatedAt?.toIso8601String() ?? 'n/a';
 
@@ -247,13 +274,60 @@ class _SummaryCard extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             const Text(
-              'Dio fetches API data, HydratedBloc persists state to Drift.',
+              'Drift caches layout rows for bootstrap and offline reuse. HydratedBloc only persists the selected filter for this page.',
             ),
             const SizedBox(height: 10),
             Text('status: $status'),
             Text('source: $source'),
-            Text('items: ${state.items.length}'),
+            Text('filter: ${_filterLabel(state.filter)}'),
+            Text('visible items: $visibleItemCount / ${state.items.length}'),
             Text('lastUpdatedAt: $updatedAt'),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _FilterCard extends StatelessWidget {
+  const _FilterCard({required this.selectedFilter});
+
+  final LayoutCatalogFilter selectedFilter;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Home Page Filter',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'This choice is persisted by HydratedBloc and restored on the next app launch.',
+            ),
+            const SizedBox(height: 12),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: LayoutCatalogFilter.values.map((
+                LayoutCatalogFilter filter,
+              ) {
+                return ChoiceChip(
+                  label: Text(_filterLabel(filter)),
+                  selected: selectedFilter == filter,
+                  onSelected: (_) {
+                    context.read<LayoutCatalogBloc>().add(
+                      LayoutCatalogFilterChanged(filter),
+                    );
+                  },
+                );
+              }).toList(),
+            ),
           ],
         ),
       ),
@@ -284,12 +358,12 @@ class _LayoutItemsChart extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Dio Data Chart (fl_chart)',
+              'Cached Layout Chart',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 8),
             const Text(
-              'Bars show fetched message length (characters) for the first 6 items.',
+              'Bars show cached message length for the first 6 visible items.',
             ),
             const SizedBox(height: 12),
             SizedBox(
@@ -386,4 +460,12 @@ class _LayoutItemsChart extends StatelessWidget {
       ),
     );
   }
+}
+
+String _filterLabel(LayoutCatalogFilter filter) {
+  return switch (filter) {
+    LayoutCatalogFilter.all => 'All Layouts',
+    LayoutCatalogFilter.row => 'Row Layouts',
+    LayoutCatalogFilter.column => 'Column Layouts',
+  };
 }

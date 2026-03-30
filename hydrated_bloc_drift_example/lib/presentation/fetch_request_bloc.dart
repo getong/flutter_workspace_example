@@ -164,9 +164,7 @@ class FetchRequestBloc
           lastStatusCode: result.statusCode,
           lastRequestSucceeded: result.isSuccess,
           lastFetchedAt: result.fetchedAt,
-          errorMessage: result.isSuccess
-              ? null
-              : 'Request finished with a non-success result and was still saved to Drift history.',
+          errorMessage: result.isSuccess ? null : _toFailureMessage(result),
           clearError: result.isSuccess,
         ),
       );
@@ -185,6 +183,18 @@ class FetchRequestBloc
         ),
       );
     }
+  }
+
+  String _toFailureMessage(FetchHistoryEntry entry) {
+    final String body = entry.responseBody.toLowerCase();
+    if (entry.statusCode == null &&
+        (body.contains('timed out') || body.contains('timeout'))) {
+      return 'The request timed out. The failed attempt was still saved to '
+          'Drift history.';
+    }
+
+    return 'Request finished with a non-success result and was still saved '
+        'to Drift history.';
   }
 
   @override

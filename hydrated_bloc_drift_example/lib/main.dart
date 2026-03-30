@@ -8,6 +8,7 @@ import 'data/local/app_database.dart';
 import 'data/local/drift_hydrated_storage.dart';
 import 'data/remote/layout_api_client.dart';
 import 'data/repositories/fetch_history_repository.dart';
+import 'data/repositories/layout_catalog_repository.dart';
 import 'presentation/fetch_request_bloc.dart';
 import 'presentation/layout_catalog_bloc.dart';
 
@@ -67,6 +68,7 @@ class _AppBootstrapState extends State<AppBootstrap> {
           database: services.database,
           hydratedStorage: services.hydratedStorage,
           fetchHistoryRepository: services.fetchHistoryRepository,
+          layoutCatalogRepository: services.layoutCatalogRepository,
           layoutCatalogBloc: services.layoutCatalogBloc,
           fetchRequestBloc: services.fetchRequestBloc,
         );
@@ -104,8 +106,10 @@ class _AppBootstrapState extends State<AppBootstrap> {
       ),
     );
     final LayoutApiClient layoutApiClient = LayoutApiClient(layoutDio);
+    final LayoutCatalogRepository layoutCatalogRepository =
+        LayoutCatalogRepository(apiClient: layoutApiClient, database: database);
     final LayoutCatalogBloc layoutCatalogBloc = LayoutCatalogBloc(
-      layoutApiClient,
+      layoutCatalogRepository,
     )..add(const LayoutCatalogBootstrapRequested());
     final FetchRequestBloc fetchRequestBloc = FetchRequestBloc(
       fetchHistoryRepository,
@@ -115,6 +119,7 @@ class _AppBootstrapState extends State<AppBootstrap> {
       database: database,
       hydratedStorage: hydratedStorage,
       fetchHistoryRepository: fetchHistoryRepository,
+      layoutCatalogRepository: layoutCatalogRepository,
       layoutCatalogBloc: layoutCatalogBloc,
       fetchRequestBloc: fetchRequestBloc,
     );
@@ -126,6 +131,7 @@ class _AppServices {
     required this.database,
     required this.hydratedStorage,
     required this.fetchHistoryRepository,
+    required this.layoutCatalogRepository,
     required this.layoutCatalogBloc,
     required this.fetchRequestBloc,
   });
@@ -133,6 +139,7 @@ class _AppServices {
   final AppDatabase database;
   final DriftHydratedStorage hydratedStorage;
   final FetchHistoryRepository fetchHistoryRepository;
+  final LayoutCatalogRepository layoutCatalogRepository;
   final LayoutCatalogBloc layoutCatalogBloc;
   final FetchRequestBloc fetchRequestBloc;
 }
@@ -142,6 +149,7 @@ class AppRoot extends StatelessWidget {
     required this.database,
     required this.hydratedStorage,
     required this.fetchHistoryRepository,
+    required this.layoutCatalogRepository,
     required this.layoutCatalogBloc,
     required this.fetchRequestBloc,
     super.key,
@@ -150,6 +158,7 @@ class AppRoot extends StatelessWidget {
   final AppDatabase database;
   final DriftHydratedStorage hydratedStorage;
   final FetchHistoryRepository fetchHistoryRepository;
+  final LayoutCatalogRepository layoutCatalogRepository;
   final LayoutCatalogBloc layoutCatalogBloc;
   final FetchRequestBloc fetchRequestBloc;
 
@@ -162,6 +171,9 @@ class AppRoot extends StatelessWidget {
         RepositoryProvider<FetchHistoryRepository>.value(
           value: fetchHistoryRepository,
         ),
+        RepositoryProvider<LayoutCatalogRepository>.value(
+          value: layoutCatalogRepository,
+        ),
       ],
       child: MultiBlocProvider(
         providers: <BlocProvider<dynamic>>[
@@ -173,7 +185,6 @@ class AppRoot extends StatelessWidget {
           locale: const Locale('en', 'US'),
           supportedLocales: const <Locale>[Locale('en', 'US')],
           routerConfig: buildAppRouter(
-            hydratedStorage: hydratedStorage,
             fetchHistoryRepository: fetchHistoryRepository,
           ),
           theme: ThemeData(

@@ -1,81 +1,85 @@
-import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:dio/dio.dart';
+import 'dart:async';
 
-import '../data/remote/layout_api_client.dart';
+import 'package:dio/dio.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+
+import '../data/repositories/layout_catalog_repository.dart';
 import '../domain/layout_item.dart';
 
 enum LayoutCatalogStatus { initial, loading, success, failure }
+
+enum LayoutCatalogFilter { all, row, column }
+
+enum LayoutCatalogSource { none, driftCache, network }
+
+const Object _layoutCatalogSentinel = Object();
 
 class LayoutCatalogState {
   const LayoutCatalogState({
     this.status = LayoutCatalogStatus.initial,
     this.items = const <LayoutItem>[],
+    this.filter = LayoutCatalogFilter.all,
     this.errorMessage,
     this.lastUpdatedAt,
-    this.loadedFromDrift = false,
+    this.source = LayoutCatalogSource.none,
   });
 
   final LayoutCatalogStatus status;
   final List<LayoutItem> items;
+  final LayoutCatalogFilter filter;
   final String? errorMessage;
   final DateTime? lastUpdatedAt;
-  final bool loadedFromDrift;
+  final LayoutCatalogSource source;
+
+  List<LayoutItem> get visibleItems {
+    switch (filter) {
+      case LayoutCatalogFilter.all:
+        return items;
+      case LayoutCatalogFilter.row:
+        return items
+            .where((LayoutItem item) => item.kind == LayoutKind.row)
+            .toList();
+      case LayoutCatalogFilter.column:
+        return items
+            .where((LayoutItem item) => item.kind == LayoutKind.column)
+            .toList();
+    }
+  }
 
   LayoutCatalogState copyWith({
     LayoutCatalogStatus? status,
     List<LayoutItem>? items,
+    LayoutCatalogFilter? filter,
     String? errorMessage,
-    DateTime? lastUpdatedAt,
-    bool? loadedFromDrift,
+    Object? lastUpdatedAt = _layoutCatalogSentinel,
+    LayoutCatalogSource? source,
     bool clearError = false,
   }) {
     return LayoutCatalogState(
       status: status ?? this.status,
       items: items ?? this.items,
+      filter: filter ?? this.filter,
       errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
-      lastUpdatedAt: lastUpdatedAt ?? this.lastUpdatedAt,
-      loadedFromDrift: loadedFromDrift ?? this.loadedFromDrift,
+      lastUpdatedAt: identical(lastUpdatedAt, _layoutCatalogSentinel)
+          ? this.lastUpdatedAt
+          : lastUpdatedAt as DateTime?,
+      source: source ?? this.source,
     );
   }
 
   Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'status': status.name,
-      'items': items.map((LayoutItem item) => item.toJson()).toList(),
-      'errorMessage': errorMessage,
-      'lastUpdatedAt': lastUpdatedAt?.millisecondsSinceEpoch,
-      'loadedFromDrift': loadedFromDrift,
-    };
+    return <String, dynamic>{'filter': filter.name};
   }
 
   factory LayoutCatalogState.fromJson(Map<String, dynamic> json) {
-    final List<LayoutItem> deserializedItems = <LayoutItem>[];
-    final dynamic rawItems = json['items'];
-    if (rawItems is List) {
-      for (final dynamic item in rawItems) {
-        if (item is Map) {
-          deserializedItems.add(
-            LayoutItem.fromJson(Map<String, dynamic>.from(item)),
-          );
-        }
-      }
-    }
-
-    final String statusName =
-        (json['status'] ?? LayoutCatalogStatus.initial.name).toString();
-    final int? rawUpdatedAt = (json['lastUpdatedAt'] as num?)?.toInt();
+    final String rawFilter = (json['filter'] ?? LayoutCatalogFilter.all.name)
+        .toString();
 
     return LayoutCatalogState(
-      status: LayoutCatalogStatus.values.firstWhere(
-        (LayoutCatalogStatus status) => status.name == statusName,
-        orElse: () => LayoutCatalogStatus.initial,
+      filter: LayoutCatalogFilter.values.firstWhere(
+        (LayoutCatalogFilter value) => value.name == rawFilter,
+        orElse: () => LayoutCatalogFilter.all,
       ),
-      items: deserializedItems,
-      errorMessage: json['errorMessage']?.toString(),
-      lastUpdatedAt: rawUpdatedAt == null
-          ? null
-          : DateTime.fromMillisecondsSinceEpoch(rawUpdatedAt),
-      loadedFromDrift: json['loadedFromDrift'] == true,
     );
   }
 }
@@ -92,23 +96,41 @@ class LayoutCatalogRefreshRequested extends LayoutCatalogEvent {
   const LayoutCatalogRefreshRequested();
 }
 
+class LayoutCatalogFilterChanged extends LayoutCatalogEvent {
+  const LayoutCatalogFilterChanged(this.filter);
+
+  final LayoutCatalogFilter filter;
+}
+
 class LayoutCatalogBloc
     extends HydratedBloc<LayoutCatalogEvent, LayoutCatalogState> {
-  LayoutCatalogBloc(this._apiClient) : super(const LayoutCatalogState()) {
+  LayoutCatalogBloc(this._repository) : super(const LayoutCatalogState()) {
     on<LayoutCatalogBootstrapRequested>(_onBootstrapRequested);
     on<LayoutCatalogRefreshRequested>(_onRefreshRequested);
+    on<LayoutCatalogFilterChanged>(_onFilterChanged);
   }
 
-  final LayoutApiClient _apiClient;
+  final LayoutCatalogRepository _repository;
 
   Future<void> _onBootstrapRequested(
     LayoutCatalogBootstrapRequested event,
     Emitter<LayoutCatalogState> emit,
   ) async {
-    if (state.items.isNotEmpty) {
-      emit(state.copyWith(loadedFromDrift: true, clearError: true));
+    final CachedLayoutCatalog cachedCatalog = await _repository
+        .readCachedCatalog();
+    if (cachedCatalog.items.isNotEmpty) {
+      emit(
+        state.copyWith(
+          status: LayoutCatalogStatus.success,
+          items: cachedCatalog.items,
+          lastUpdatedAt: cachedCatalog.cachedAt,
+          source: LayoutCatalogSource.driftCache,
+          clearError: true,
+        ),
+      );
       return;
     }
+
     await _fetchFromNetwork(emit);
   }
 
@@ -119,23 +141,28 @@ class LayoutCatalogBloc
     await _fetchFromNetwork(emit);
   }
 
+  void _onFilterChanged(
+    LayoutCatalogFilterChanged event,
+    Emitter<LayoutCatalogState> emit,
+  ) {
+    if (event.filter == state.filter) {
+      return;
+    }
+    emit(state.copyWith(filter: event.filter));
+  }
+
   Future<void> _fetchFromNetwork(Emitter<LayoutCatalogState> emit) async {
-    emit(
-      state.copyWith(
-        status: LayoutCatalogStatus.loading,
-        clearError: true,
-        loadedFromDrift: false,
-      ),
-    );
+    emit(state.copyWith(status: LayoutCatalogStatus.loading, clearError: true));
 
     try {
-      final List<LayoutItem> layouts = await _apiClient.fetchLayouts();
+      final CachedLayoutCatalog refreshedCatalog = await _repository
+          .refreshCatalog();
       emit(
         state.copyWith(
           status: LayoutCatalogStatus.success,
-          items: layouts,
-          lastUpdatedAt: DateTime.now(),
-          loadedFromDrift: false,
+          items: refreshedCatalog.items,
+          lastUpdatedAt: refreshedCatalog.cachedAt,
+          source: LayoutCatalogSource.network,
           clearError: true,
         ),
       );
@@ -144,7 +171,6 @@ class LayoutCatalogBloc
         state.copyWith(
           status: LayoutCatalogStatus.failure,
           errorMessage: _toEnglishErrorMessage(error),
-          loadedFromDrift: false,
         ),
       );
     }
@@ -152,6 +178,10 @@ class LayoutCatalogBloc
 
   String _toEnglishErrorMessage(Object error) {
     if (error is DioException) {
+      if (_isTimeout(error)) {
+        return 'The layout request timed out. Cached Drift data is kept, '
+            'so please try refreshing again when the network is stable.';
+      }
       final int? statusCode = error.response?.statusCode;
       if (statusCode != null) {
         return 'Request failed with HTTP status code $statusCode. '
@@ -161,6 +191,13 @@ class LayoutCatalogBloc
           'and try again.';
     }
     return 'Unexpected error: $error';
+  }
+
+  bool _isTimeout(DioException error) {
+    return error.type == DioExceptionType.connectionTimeout ||
+        error.type == DioExceptionType.sendTimeout ||
+        error.type == DioExceptionType.receiveTimeout ||
+        error.error is TimeoutException;
   }
 
   LayoutItem? findBySlug(String slug) {
@@ -174,7 +211,7 @@ class LayoutCatalogBloc
 
   @override
   LayoutCatalogState? fromJson(Map<String, dynamic> json) {
-    return LayoutCatalogState.fromJson(json).copyWith(loadedFromDrift: true);
+    return LayoutCatalogState.fromJson(json);
   }
 
   @override

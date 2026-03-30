@@ -5,6 +5,8 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../domain/layout_item.dart';
+
 class PersistedHydratedRow {
   const PersistedHydratedRow({
     required this.key,
@@ -35,11 +37,29 @@ class PersistedFetchHistoryRow {
   final DateTime fetchedAt;
 }
 
+class PersistedLayoutCatalogRow {
+  const PersistedLayoutCatalogRow({
+    required this.id,
+    required this.slug,
+    required this.title,
+    required this.message,
+    required this.kind,
+    required this.fetchedAt,
+  });
+
+  final int id;
+  final String slug;
+  final String title;
+  final String message;
+  final LayoutKind kind;
+  final DateTime fetchedAt;
+}
+
 class AppDatabase extends GeneratedDatabase {
   AppDatabase._(super.executor);
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -55,6 +75,18 @@ class AppDatabase extends GeneratedDatabase {
             status_code INTEGER,
             is_success INTEGER NOT NULL,
             response_body TEXT NOT NULL,
+            fetched_at INTEGER NOT NULL
+          )
+        ''');
+      }
+      if (from < 3) {
+        await customStatement('''
+          CREATE TABLE IF NOT EXISTS layout_catalog_cache (
+            id INTEGER PRIMARY KEY NOT NULL,
+            slug TEXT NOT NULL,
+            title TEXT NOT NULL,
+            message TEXT NOT NULL,
+            kind TEXT NOT NULL,
             fetched_at INTEGER NOT NULL
           )
         ''');
@@ -95,6 +127,16 @@ class AppDatabase extends GeneratedDatabase {
         status_code INTEGER,
         is_success INTEGER NOT NULL,
         response_body TEXT NOT NULL,
+        fetched_at INTEGER NOT NULL
+      )
+    ''');
+    await customStatement('''
+      CREATE TABLE IF NOT EXISTS layout_catalog_cache (
+        id INTEGER PRIMARY KEY NOT NULL,
+        slug TEXT NOT NULL,
+        title TEXT NOT NULL,
+        message TEXT NOT NULL,
+        kind TEXT NOT NULL,
         fetched_at INTEGER NOT NULL
       )
     ''');
@@ -219,6 +261,61 @@ class AppDatabase extends GeneratedDatabase {
       return null;
     }
     return _mapFetchHistoryRow(row);
+  }
+
+  Future<void> replaceLayoutCatalog({
+    required List<LayoutItem> items,
+    required DateTime fetchedAt,
+  }) async {
+    await transaction(() async {
+      await customStatement('DELETE FROM layout_catalog_cache');
+      for (final LayoutItem item in items) {
+        await customStatement(
+          '''
+          INSERT INTO layout_catalog_cache (
+            id,
+            slug,
+            title,
+            message,
+            kind,
+            fetched_at
+          ) VALUES (?, ?, ?, ?, ?, ?)
+          ''',
+          <Object>[
+            item.id,
+            item.slug,
+            item.title,
+            item.message,
+            item.kind.name,
+            fetchedAt.millisecondsSinceEpoch,
+          ],
+        );
+      }
+    });
+  }
+
+  Future<List<PersistedLayoutCatalogRow>> readLayoutCatalogRows() async {
+    final List<QueryRow> rows = await customSelect('''
+      SELECT id, slug, title, message, kind, fetched_at
+      FROM layout_catalog_cache
+      ORDER BY fetched_at DESC, id ASC
+    ''').get();
+
+    return rows.map((QueryRow row) {
+      final String rawKind = row.read<String>('kind');
+      return PersistedLayoutCatalogRow(
+        id: row.read<int>('id'),
+        slug: row.read<String>('slug'),
+        title: row.read<String>('title'),
+        message: row.read<String>('message'),
+        kind: rawKind == LayoutKind.column.name
+            ? LayoutKind.column
+            : LayoutKind.row,
+        fetchedAt: DateTime.fromMillisecondsSinceEpoch(
+          row.read<int>('fetched_at'),
+        ),
+      );
+    }).toList();
   }
 
   PersistedFetchHistoryRow _mapFetchHistoryRow(QueryRow row) {
