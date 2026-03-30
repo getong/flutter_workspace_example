@@ -21,6 +21,11 @@ class LayoutHomePage extends StatelessWidget {
         title: const Text('HydratedBloc + Drift + Dio'),
         actions: <Widget>[
           IconButton(
+            tooltip: 'Open URL fetch page',
+            onPressed: () => context.go('/fetch'),
+            icon: const Icon(Icons.link),
+          ),
+          IconButton(
             tooltip: 'Refresh from API',
             onPressed: () {
               context.read<LayoutCatalogBloc>().add(
