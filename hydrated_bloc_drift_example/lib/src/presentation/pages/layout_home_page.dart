@@ -123,6 +123,7 @@ class LayoutHomePage extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Card(
                       child: ListTile(
+                        isThreeLine: true,
                         leading: CircleAvatar(
                           backgroundColor: _tileColor(item.kind, item.id),
                           child: Icon(
@@ -131,7 +132,13 @@ class LayoutHomePage extends StatelessWidget {
                           ),
                         ),
                         title: Text(item.title),
-                        subtitle: Text('/layouts/${item.slug}'),
+                        subtitle: Text(
+                          item.message.isEmpty
+                              ? '/layouts/${item.slug}'
+                              : '${item.message}\n/layouts/${item.slug}',
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                         trailing: const Icon(Icons.arrow_forward_ios),
                         onTap: () => context.go('/layouts/${item.slug}'),
                       ),

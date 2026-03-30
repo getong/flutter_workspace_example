@@ -49,34 +49,34 @@ class LayoutDetailPage extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(title: Text(item.title)),
-          body: Padding(
+          body: ListView(
             padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('Dynamic route: /layouts/${item.slug}'),
-                const SizedBox(height: 16),
-                Expanded(
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: _kindColor(item.kind).withAlpha(26),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: _kindColor(item.kind),
-                        width: 2,
-                      ),
-                    ),
-                    child: item.kind == LayoutKind.row
-                        ? _buildRowPreview(item)
-                        : _buildColumnPreview(item),
+            children: <Widget>[
+              Text('Dynamic route: /layouts/${item.slug}'),
+              const SizedBox(height: 16),
+              SizedBox(
+                height: 260,
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: _kindColor(item.kind).withAlpha(26),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: _kindColor(item.kind), width: 2),
                   ),
+                  child: item.kind == LayoutKind.row
+                      ? _buildRowPreview(item)
+                      : _buildColumnPreview(item),
                 ),
-                const SizedBox(height: 12),
-                Text(item.message),
-              ],
-            ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                'Fetched text from Dio:',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 8),
+              SelectableText(item.message),
+            ],
           ),
           persistentFooterButtons: <Widget>[
             TextButton.icon(
