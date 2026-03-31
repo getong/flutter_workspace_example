@@ -17,10 +17,17 @@ class HomePage extends StatelessWidget {
               onPressed: () => context.go('/center-box'),
               child: const Text('Center Box Module'),
             ),
+
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () => context.go('/constrained-box'),
               child: const Text('Constrained Box Module'),
+            ),
+
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () => context.go('/row-expand-page'),
+              child: const Text('Row Expanded Module'),
             ),
           ],
         ),
