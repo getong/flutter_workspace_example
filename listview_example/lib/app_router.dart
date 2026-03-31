@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'pages/key_demos/global_key_demo_page.dart';
+import 'pages/key_demos/object_key_demo_page.dart';
+import 'pages/key_demos/page_storage_key_demo_page.dart';
+import 'pages/key_demos/unique_key_demo_page.dart';
+import 'pages/key_demos/value_key_demo_page.dart';
 import 'pages/listview_basics_page.dart';
 import 'pages/listview_builder_page.dart';
 import 'pages/listview_catalog.dart';
@@ -17,6 +22,11 @@ class AppRoutes {
   static const String listViewSeparated = '/listview_separated';
   static const String listViewHorizontal = '/listview_horizontal';
   static const String listViewInteractive = '/listview_interactive';
+  static const String uniqueKeyDemo = '/key_demo_unique';
+  static const String valueKeyDemo = '/key_demo_value';
+  static const String objectKeyDemo = '/key_demo_object';
+  static const String globalKeyDemo = '/key_demo_global';
+  static const String pageStorageKeyDemo = '/key_demo_page_storage';
   static const String showcasePrefix = '/showcase';
 }
 
@@ -35,6 +45,16 @@ Route<dynamic> onGenerateAppRoute(RouteSettings settings) {
       return _buildRoute(settings, const ListViewHorizontalPage());
     case AppRoutes.listViewInteractive:
       return _buildRoute(settings, const ListViewInteractivePage());
+    case AppRoutes.uniqueKeyDemo:
+      return _buildRoute(settings, const UniqueKeyDemoPage());
+    case AppRoutes.valueKeyDemo:
+      return _buildRoute(settings, const ValueKeyDemoPage());
+    case AppRoutes.objectKeyDemo:
+      return _buildRoute(settings, const ObjectKeyDemoPage());
+    case AppRoutes.globalKeyDemo:
+      return _buildRoute(settings, const GlobalKeyDemoPage());
+    case AppRoutes.pageStorageKeyDemo:
+      return _buildRoute(settings, const PageStorageKeyDemoPage());
   }
 
   final Uri uri = Uri.parse(routeName);
