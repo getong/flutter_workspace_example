@@ -83,6 +83,11 @@ class HomePage extends StatelessWidget {
                     onPressed: () => context.go('/scrollbar-page'),
                     child: const Text('Scrollbar Module'),
                   ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => context.go('/filled-button-page'),
+                    child: const Text('FilledButton Module'),
+                  ),
                 ],
               ),
             ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:widget_layout_example/modules/center_box_page.dart';
+import 'package:widget_layout_example/modules/filled_button_page.dart';
 import 'package:widget_layout_example/modules/constrained_box_page.dart';
 import 'package:widget_layout_example/modules/row_expanded_page.dart';
 import 'package:widget_layout_example/modules/gesturedetector.dart';
@@ -105,6 +106,13 @@ class AppRouter {
             path: 'scrollbar-page',
             builder: (BuildContext context, GoRouterState state) {
               return const ScrollbarPage();
+            },
+          ),
+
+          GoRoute(
+            path: 'filled-button-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const FilledButtonPage();
             },
           ),
         ],
