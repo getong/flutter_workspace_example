@@ -15,6 +15,7 @@ import 'package:widget_layout_example/modules/merge_semantics_page.dart';
 import 'package:widget_layout_example/modules/padding_page.dart';
 import 'package:widget_layout_example/modules/scrollbar_page.dart';
 import 'package:widget_layout_example/modules/semantics_page.dart';
+import 'package:widget_layout_example/modules/shared_preferences_page.dart';
 import 'package:widget_layout_example/modules/single_child_scroll_view_page.dart';
 import 'package:widget_layout_example/modules/table_page.dart';
 import 'package:widget_layout_example/modules/text_rich_page.dart';
@@ -145,6 +146,13 @@ class AppRouter {
             path: 'merge-semantics-page',
             builder: (BuildContext context, GoRouterState state) {
               return const MergeSemanticsPage();
+            },
+          ),
+
+          GoRoute(
+            path: 'shared-preferences-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const SharedPreferencesPage();
             },
           ),
         ],

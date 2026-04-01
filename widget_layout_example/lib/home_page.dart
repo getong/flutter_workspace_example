@@ -108,6 +108,11 @@ class HomePage extends StatelessWidget {
                     onPressed: () => context.go('/merge-semantics-page'),
                     child: const Text('MergeSemantics Module'),
                   ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => context.go('/shared-preferences-page'),
+                    child: const Text('shared_preferences Module'),
+                  ),
                 ],
               ),
             ),
