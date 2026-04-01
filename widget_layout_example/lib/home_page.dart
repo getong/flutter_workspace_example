@@ -113,6 +113,13 @@ class HomePage extends StatelessWidget {
                     onPressed: () => context.go('/shared-preferences-page'),
                     child: const Text('shared_preferences Module'),
                   ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => context.go('/text-field-controller-page'),
+                    child: const Text(
+                      'TextField + TextEditingController Module',
+                    ),
+                  ),
                 ],
               ),
             ),

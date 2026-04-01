@@ -18,6 +18,7 @@ import 'package:widget_layout_example/modules/semantics_page.dart';
 import 'package:widget_layout_example/modules/shared_preferences_page.dart';
 import 'package:widget_layout_example/modules/single_child_scroll_view_page.dart';
 import 'package:widget_layout_example/modules/table_page.dart';
+import 'package:widget_layout_example/modules/text_field_controller_page.dart';
 import 'package:widget_layout_example/modules/text_rich_page.dart';
 import 'package:widget_layout_example/home_page.dart';
 
@@ -153,6 +154,13 @@ class AppRouter {
             path: 'shared-preferences-page',
             builder: (BuildContext context, GoRouterState state) {
               return const SharedPreferencesPage();
+            },
+          ),
+
+          GoRoute(
+            path: 'text-field-controller-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const TextFieldControllerPage();
             },
           ),
         ],

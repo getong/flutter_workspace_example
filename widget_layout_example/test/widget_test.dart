@@ -21,5 +21,9 @@ void main() {
     expect(find.text('ExcludeSemantics Module'), findsOneWidget);
     expect(find.text('MergeSemantics Module'), findsOneWidget);
     expect(find.text('shared_preferences Module'), findsOneWidget);
+    expect(
+      find.text('TextField + TextEditingController Module'),
+      findsOneWidget,
+    );
   });
 }
