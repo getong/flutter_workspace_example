@@ -135,6 +135,12 @@ class HomePage extends StatelessWidget {
                     onPressed: () => context.go('/animated-switcher-page'),
                     child: const Text('AnimatedSwitcher Module'),
                   ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () =>
+                        context.go('/animated-default-text-style-page'),
+                    child: const Text('AnimatedDefaultTextStyle Module'),
+                  ),
                 ],
               ),
             ),
