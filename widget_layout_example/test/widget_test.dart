@@ -29,5 +29,10 @@ void main() {
     expect(find.text('fl_chart Module'), findsOneWidget);
     expect(find.text('AnimatedSwitcher Module'), findsOneWidget);
     expect(find.text('AnimatedDefaultTextStyle Module'), findsOneWidget);
+    expect(find.text('CustomPaint Module'), findsOneWidget);
+    expect(find.text('TweenAnimationBuilder Module'), findsOneWidget);
+    expect(find.text('AnimationController Module'), findsOneWidget);
+    expect(find.text('SingleTickerProviderStateMixin Module'), findsOneWidget);
+    expect(find.text('Tween Module'), findsOneWidget);
   });
 }

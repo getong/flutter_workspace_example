@@ -141,6 +141,33 @@ class HomePage extends StatelessWidget {
                         context.go('/animated-default-text-style-page'),
                     child: const Text('AnimatedDefaultTextStyle Module'),
                   ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => context.go('/custom-paint-page'),
+                    child: const Text('CustomPaint Module'),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () =>
+                        context.go('/tween-animation-builder-page'),
+                    child: const Text('TweenAnimationBuilder Module'),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => context.go('/animation-controller-page'),
+                    child: const Text('AnimationController Module'),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () =>
+                        context.go('/single-ticker-provider-state-mixin-page'),
+                    child: const Text('SingleTickerProviderStateMixin Module'),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => context.go('/tween-page'),
+                    child: const Text('Tween Module'),
+                  ),
                 ],
               ),
             ),

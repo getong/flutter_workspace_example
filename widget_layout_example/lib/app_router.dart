@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:widget_layout_example/modules/animation_controller_page.dart';
 import 'package:widget_layout_example/modules/animated_default_text_style_page.dart';
 import 'package:widget_layout_example/modules/center_box_page.dart';
 import 'package:widget_layout_example/modules/animated_switcher_page.dart';
+import 'package:widget_layout_example/modules/custom_paint_page.dart';
 import 'package:widget_layout_example/modules/data_table_page.dart';
 import 'package:widget_layout_example/modules/decorated_box_page.dart';
 import 'package:widget_layout_example/modules/exclude_semantics_page.dart';
@@ -21,9 +23,12 @@ import 'package:widget_layout_example/modules/scrollbar_page.dart';
 import 'package:widget_layout_example/modules/semantics_page.dart';
 import 'package:widget_layout_example/modules/shared_preferences_page.dart';
 import 'package:widget_layout_example/modules/single_child_scroll_view_page.dart';
+import 'package:widget_layout_example/modules/single_ticker_provider_state_mixin_page.dart';
 import 'package:widget_layout_example/modules/table_page.dart';
 import 'package:widget_layout_example/modules/text_field_controller_page.dart';
 import 'package:widget_layout_example/modules/text_rich_page.dart';
+import 'package:widget_layout_example/modules/tween_animation_builder_page.dart';
+import 'package:widget_layout_example/modules/tween_page.dart';
 import 'package:widget_layout_example/home_page.dart';
 
 class AppRouter {
@@ -193,6 +198,41 @@ class AppRouter {
             path: 'animated-default-text-style-page',
             builder: (BuildContext context, GoRouterState state) {
               return const AnimatedDefaultTextStylePage();
+            },
+          ),
+
+          GoRoute(
+            path: 'custom-paint-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const CustomPaintPage();
+            },
+          ),
+
+          GoRoute(
+            path: 'tween-animation-builder-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const TweenAnimationBuilderPage();
+            },
+          ),
+
+          GoRoute(
+            path: 'animation-controller-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const AnimationControllerPage();
+            },
+          ),
+
+          GoRoute(
+            path: 'single-ticker-provider-state-mixin-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const SingleTickerProviderStateMixinPage();
+            },
+          ),
+
+          GoRoute(
+            path: 'tween-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const TweenPage();
             },
           ),
         ],
