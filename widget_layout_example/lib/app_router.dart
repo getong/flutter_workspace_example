@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:widget_layout_example/modules/center_box_page.dart';
 import 'package:widget_layout_example/modules/decorated_box_page.dart';
+import 'package:widget_layout_example/modules/exclude_semantics_page.dart';
 import 'package:widget_layout_example/modules/filled_button_page.dart';
 import 'package:widget_layout_example/modules/constrained_box_page.dart';
 import 'package:widget_layout_example/modules/row_expanded_page.dart';
@@ -129,6 +130,13 @@ class AppRouter {
             path: 'semantics-page',
             builder: (BuildContext context, GoRouterState state) {
               return const SemanticsPage();
+            },
+          ),
+
+          GoRoute(
+            path: 'exclude-semantics-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const ExcludeSemanticsPage();
             },
           ),
         ],

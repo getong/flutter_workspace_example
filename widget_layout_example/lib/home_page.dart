@@ -98,6 +98,11 @@ class HomePage extends StatelessWidget {
                     onPressed: () => context.go('/semantics-page'),
                     child: const Text('Semantics Module'),
                   ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => context.go('/exclude-semantics-page'),
+                    child: const Text('ExcludeSemantics Module'),
+                  ),
                 ],
               ),
             ),
