@@ -9,6 +9,35 @@ class DataTablePage extends StatefulWidget {
 }
 
 class _DataTablePageState extends State<DataTablePage> {
+  static const String _sortingExampleCode = '''
+DataTable(
+  sortColumnIndex: _sortColumnIndex,
+  sortAscending: _sortAscending,
+  columns: <DataColumn>[
+    DataColumn(
+      label: const Text('Name'),
+      onSort: (int columnIndex, bool ascending) {
+        setState(() {
+          _sortColumnIndex = columnIndex;
+          _sortAscending = ascending;
+          _employees.sort(
+            (_EmployeeRow a, _EmployeeRow b) => a.name.compareTo(b.name),
+          );
+          if (!ascending) {
+            _employees.replaceRange(0, _employees.length, _employees.reversed);
+          }
+        });
+      },
+    ),
+  ],
+  rows: _employees.map((_EmployeeRow employee) {
+    return DataRow(
+      cells: <DataCell>[DataCell(Text(employee.name))],
+    );
+  }).toList(),
+)
+''';
+
   int _sortColumnIndex = 0;
   bool _sortAscending = true;
   int _rowsPerPage = 4;
@@ -65,111 +94,150 @@ class _DataTablePageState extends State<DataTablePage> {
       appBar: AppBar(
         title: const Text('DataTable + PaginatedDataTable Module'),
       ),
-      body: SelectionArea(
-        child: ListView(
-          padding: const EdgeInsets.all(24),
-          children: <Widget>[
-            const Text(
-              'DataTable is useful for small structured datasets, while PaginatedDataTable adds paging controls for larger sets.',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(height: 20),
-            Card(
-              clipBehavior: Clip.antiAlias,
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'DataTable Example',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
+      body: ListView(
+        padding: const EdgeInsets.all(24),
+        children: <Widget>[
+          const SelectableText(
+            'DataTable is useful for small structured datasets, while PaginatedDataTable adds paging controls for larger sets.',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          ),
+          const SizedBox(height: 20),
+          Card(
+            clipBehavior: Clip.antiAlias,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SelectableText(
+                    'DataTable Example',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
                     ),
-                    const SizedBox(height: 8),
-                    const Text(
-                      'This example shows sorting across columns in a compact table.',
-                    ),
-                    const SizedBox(height: 16),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: DataTable(
-                        sortColumnIndex: _sortColumnIndex,
-                        sortAscending: _sortAscending,
-                        columns: <DataColumn>[
-                          DataColumn(
-                            label: const Text('Name'),
-                            onSort: _sortTable,
-                          ),
-                          DataColumn(
-                            label: const Text('Team'),
-                            onSort: _sortTable,
-                          ),
-                          DataColumn(
-                            label: const Text('Salary'),
-                            numeric: true,
-                            onSort: _sortTable,
-                          ),
-                          DataColumn(
-                            label: const Text('Active'),
-                            onSort: _sortTable,
-                          ),
-                        ],
-                        rows: _employees
-                            .map(
-                              (_EmployeeRow employee) => DataRow(
-                                cells: <DataCell>[
-                                  DataCell(Text(employee.name)),
-                                  DataCell(Text(employee.team)),
-                                  DataCell(Text(employee.formattedSalary)),
-                                  DataCell(
-                                    Icon(
-                                      employee.active
-                                          ? Icons.check_circle
-                                          : Icons.cancel,
-                                      color: employee.active
-                                          ? Colors.green
-                                          : Colors.red,
-                                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  const SelectableText(
+                    'This example shows sorting across columns in a compact table.',
+                  ),
+                  const SizedBox(height: 16),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: DataTable(
+                      sortColumnIndex: _sortColumnIndex,
+                      sortAscending: _sortAscending,
+                      columns: <DataColumn>[
+                        DataColumn(
+                          label: const Text('Name'),
+                          onSort: _sortTable,
+                        ),
+                        DataColumn(
+                          label: const Text('Team'),
+                          onSort: _sortTable,
+                        ),
+                        DataColumn(
+                          label: const Text('Salary'),
+                          numeric: true,
+                          onSort: _sortTable,
+                        ),
+                        DataColumn(
+                          label: const Text('Active'),
+                          onSort: _sortTable,
+                        ),
+                      ],
+                      rows: _employees
+                          .map(
+                            (_EmployeeRow employee) => DataRow(
+                              cells: <DataCell>[
+                                DataCell(SelectableText(employee.name)),
+                                DataCell(SelectableText(employee.team)),
+                                DataCell(
+                                  SelectableText(employee.formattedSalary),
+                                ),
+                                DataCell(
+                                  Icon(
+                                    employee.active
+                                        ? Icons.check_circle
+                                        : Icons.cancel,
+                                    color: employee.active
+                                        ? Colors.green
+                                        : Colors.red,
                                   ),
-                                ],
-                              ),
-                            )
-                            .toList(),
+                                ),
+                              ],
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Card(
+            clipBehavior: Clip.antiAlias,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SelectableText(
+                    'Sorting DataTables Code Example',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  const SelectableText(
+                    'The key pieces are `sortColumnIndex`, `sortAscending`, and `DataColumn.onSort`. Update the list inside `setState`, then reverse it when descending order is requested.',
+                  ),
+                  const SizedBox(height: 16),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade900,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: SelectableText(
+                      _sortingExampleCode,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'monospace',
+                        height: 1.4,
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            Card(
-              clipBehavior: Clip.antiAlias,
-              child: PaginatedDataTable(
-                header: const Text('PaginatedDataTable Example'),
-                columns: const <DataColumn>[
-                  DataColumn(label: Text('ID')),
-                  DataColumn(label: Text('Item')),
-                  DataColumn(label: Text('Category')),
-                  DataColumn(label: Text('Stock')),
+                  ),
                 ],
-                source: _dataSource,
-                rowsPerPage: _rowsPerPage,
-                availableRowsPerPage: const <int>[4, 6, 8],
-                onRowsPerPageChanged: (int? value) {
-                  if (value == null) {
-                    return;
-                  }
-
-                  setState(() {
-                    _rowsPerPage = value;
-                  });
-                },
               ),
             ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 16),
+          Card(
+            clipBehavior: Clip.antiAlias,
+            child: PaginatedDataTable(
+              header: const Text('PaginatedDataTable Example'),
+              columns: const <DataColumn>[
+                DataColumn(label: Text('ID')),
+                DataColumn(label: Text('Item')),
+                DataColumn(label: Text('Category')),
+                DataColumn(label: Text('Stock')),
+              ],
+              source: _dataSource,
+              rowsPerPage: _rowsPerPage,
+              availableRowsPerPage: const <int>[4, 6, 8],
+              onRowsPerPageChanged: (int? value) {
+                if (value == null) {
+                  return;
+                }
+
+                setState(() {
+                  _rowsPerPage = value;
+                });
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.go('/'),
