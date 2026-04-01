@@ -17,5 +17,6 @@ void main() {
     expect(find.text('Scrollbar Module'), findsOneWidget);
     expect(find.text('FilledButton Module'), findsOneWidget);
     expect(find.text('DecoratedBox Module'), findsOneWidget);
+    expect(find.text('Semantics Module'), findsOneWidget);
   });
 }
