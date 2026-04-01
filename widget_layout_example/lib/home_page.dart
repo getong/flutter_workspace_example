@@ -130,6 +130,11 @@ class HomePage extends StatelessWidget {
                     onPressed: () => context.go('/fl-chart-page'),
                     child: const Text('fl_chart Module'),
                   ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => context.go('/animated-switcher-page'),
+                    child: const Text('AnimatedSwitcher Module'),
+                  ),
                 ],
               ),
             ),

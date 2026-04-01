@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:widget_layout_example/modules/center_box_page.dart';
+import 'package:widget_layout_example/modules/animated_switcher_page.dart';
 import 'package:widget_layout_example/modules/data_table_page.dart';
 import 'package:widget_layout_example/modules/decorated_box_page.dart';
 import 'package:widget_layout_example/modules/exclude_semantics_page.dart';
@@ -177,6 +178,13 @@ class AppRouter {
             path: 'fl-chart-page',
             builder: (BuildContext context, GoRouterState state) {
               return const FlChartPage();
+            },
+          ),
+
+          GoRoute(
+            path: 'animated-switcher-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const AnimatedSwitcherPage();
             },
           ),
         ],
