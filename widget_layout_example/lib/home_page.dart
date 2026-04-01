@@ -35,6 +35,12 @@ class HomePage extends StatelessWidget {
               onPressed: () => context.go('/gesturedector-page'),
               child: const Text('gesturedector Module'),
             ),
+
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () => context.go('/column-page'),
+              child: const Text('Column Module'),
+            ),
           ],
         ),
       ),
