@@ -6,6 +6,7 @@ import 'package:widget_layout_example/modules/data_table_page.dart';
 import 'package:widget_layout_example/modules/decorated_box_page.dart';
 import 'package:widget_layout_example/modules/exclude_semantics_page.dart';
 import 'package:widget_layout_example/modules/filled_button_page.dart';
+import 'package:widget_layout_example/modules/fl_chart_page.dart';
 import 'package:widget_layout_example/modules/constrained_box_page.dart';
 import 'package:widget_layout_example/modules/row_expanded_page.dart';
 import 'package:widget_layout_example/modules/gesturedetector.dart';
@@ -169,6 +170,13 @@ class AppRouter {
             path: 'data-table-page',
             builder: (BuildContext context, GoRouterState state) {
               return const DataTablePage();
+            },
+          ),
+
+          GoRoute(
+            path: 'fl-chart-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const FlChartPage();
             },
           ),
         ],

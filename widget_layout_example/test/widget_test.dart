@@ -26,5 +26,6 @@ void main() {
       findsOneWidget,
     );
     expect(find.text('DataTable + PaginatedDataTable Module'), findsOneWidget);
+    expect(find.text('fl_chart Module'), findsOneWidget);
   });
 }

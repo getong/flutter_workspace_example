@@ -125,6 +125,11 @@ class HomePage extends StatelessWidget {
                     onPressed: () => context.go('/data-table-page'),
                     child: const Text('DataTable + PaginatedDataTable Module'),
                   ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => context.go('/fl-chart-page'),
+                    child: const Text('fl_chart Module'),
+                  ),
                 ],
               ),
             ),
