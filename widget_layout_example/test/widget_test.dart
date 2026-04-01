@@ -25,5 +25,6 @@ void main() {
       find.text('TextField + TextEditingController Module'),
       findsOneWidget,
     );
+    expect(find.text('DataTable + PaginatedDataTable Module'), findsOneWidget);
   });
 }

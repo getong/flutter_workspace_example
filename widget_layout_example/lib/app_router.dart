@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:widget_layout_example/modules/center_box_page.dart';
+import 'package:widget_layout_example/modules/data_table_page.dart';
 import 'package:widget_layout_example/modules/decorated_box_page.dart';
 import 'package:widget_layout_example/modules/exclude_semantics_page.dart';
 import 'package:widget_layout_example/modules/filled_button_page.dart';
@@ -161,6 +162,13 @@ class AppRouter {
             path: 'text-field-controller-page',
             builder: (BuildContext context, GoRouterState state) {
               return const TextFieldControllerPage();
+            },
+          ),
+
+          GoRoute(
+            path: 'data-table-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const DataTablePage();
             },
           ),
         ],

@@ -120,6 +120,11 @@ class HomePage extends StatelessWidget {
                       'TextField + TextEditingController Module',
                     ),
                   ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => context.go('/data-table-page'),
+                    child: const Text('DataTable + PaginatedDataTable Module'),
+                  ),
                 ],
               ),
             ),
