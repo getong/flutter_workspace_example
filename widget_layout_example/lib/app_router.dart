@@ -10,6 +10,7 @@ import 'package:widget_layout_example/modules/column_saved_page.dart';
 import 'package:widget_layout_example/modules/intl_page.dart';
 import 'package:widget_layout_example/modules/padding_page.dart';
 import 'package:widget_layout_example/modules/table_page.dart';
+import 'package:widget_layout_example/modules/text_rich_page.dart';
 import 'package:widget_layout_example/home_page.dart';
 
 class AppRouter {
@@ -81,6 +82,13 @@ class AppRouter {
             path: 'intl-page',
             builder: (BuildContext context, GoRouterState state) {
               return const IntlPage();
+            },
+          ),
+
+          GoRoute(
+            path: 'text-rich-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const TextRichPage();
             },
           ),
         ],

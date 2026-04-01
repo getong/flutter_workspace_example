@@ -66,6 +66,11 @@ class HomePage extends StatelessWidget {
                   onPressed: () => context.go('/intl-page'),
                   child: const Text('Intl Module'),
                 ),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () => context.go('/text-rich-page'),
+                  child: const Text('Text.rich Module'),
+                ),
               ],
             ),
           ),
