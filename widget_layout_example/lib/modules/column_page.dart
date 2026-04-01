@@ -9,15 +9,27 @@ class ColumnPage extends StatefulWidget {
 }
 
 class _ColumnPageState extends State<ColumnPage> {
-  bool isEnabled = true;
+  static bool _savedIsEnabled = true;
+  late bool isEnabled;
+
+  @override
+  void initState() {
+    super.initState();
+    isEnabled = _savedIsEnabled;
+  }
 
   void doTheThing() {
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(const SnackBar(content: Text('The thing was done.')));
 
+    setEnabled(false);
+  }
+
+  void setEnabled(bool value) {
     setState(() {
-      isEnabled = false;
+      isEnabled = value;
+      _savedIsEnabled = value;
     });
   }
 
@@ -44,6 +56,11 @@ class _ColumnPageState extends State<ColumnPage> {
                   Text('Do the thing'),
                 ],
               ),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () => setEnabled(!isEnabled),
+              child: Text(isEnabled ? 'Disable isEnabled' : 'Enable isEnabled'),
             ),
           ],
         ),
