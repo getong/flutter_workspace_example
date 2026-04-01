@@ -34,5 +34,6 @@ void main() {
     expect(find.text('AnimationController Module'), findsOneWidget);
     expect(find.text('SingleTickerProviderStateMixin Module'), findsOneWidget);
     expect(find.text('Tween Module'), findsOneWidget);
+    expect(find.text('TweenSequence + Interval Module'), findsOneWidget);
   });
 }

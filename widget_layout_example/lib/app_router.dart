@@ -29,6 +29,7 @@ import 'package:widget_layout_example/modules/text_field_controller_page.dart';
 import 'package:widget_layout_example/modules/text_rich_page.dart';
 import 'package:widget_layout_example/modules/tween_animation_builder_page.dart';
 import 'package:widget_layout_example/modules/tween_page.dart';
+import 'package:widget_layout_example/modules/tween_sequence_interval_page.dart';
 import 'package:widget_layout_example/home_page.dart';
 
 class AppRouter {
@@ -233,6 +234,13 @@ class AppRouter {
             path: 'tween-page',
             builder: (BuildContext context, GoRouterState state) {
               return const TweenPage();
+            },
+          ),
+
+          GoRoute(
+            path: 'tween-sequence-interval-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const TweenSequenceIntervalPage();
             },
           ),
         ],

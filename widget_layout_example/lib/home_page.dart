@@ -168,6 +168,12 @@ class HomePage extends StatelessWidget {
                     onPressed: () => context.go('/tween-page'),
                     child: const Text('Tween Module'),
                   ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () =>
+                        context.go('/tween-sequence-interval-page'),
+                    child: const Text('TweenSequence + Interval Module'),
+                  ),
                 ],
               ),
             ),
