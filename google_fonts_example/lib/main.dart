@@ -10,14 +10,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Offline Font Demo',
       theme: ThemeData.light(useMaterial3: true),
       home: DefaultTabController(
         animationDuration: Duration.zero,
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('Google Fonts Demo'),
+            title: const Text('Offline Font Demo'),
             bottom: const TabBar(
               tabs: <Widget>[
                 Tab(text: 'Simple'),

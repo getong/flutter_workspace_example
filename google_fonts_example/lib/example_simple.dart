@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+import 'offline_fonts.dart';
 
 class ExampleSimple extends StatefulWidget {
   const ExampleSimple({Key? key}) : super(key: key);
@@ -10,7 +11,6 @@ class ExampleSimple extends StatefulWidget {
 
 class ExampleSimpleState extends State<ExampleSimple> {
   int _counter = 0;
-  late Future googleFontsPending;
 
   void _incrementCounter() {
     setState(() {
@@ -19,44 +19,38 @@ class ExampleSimpleState extends State<ExampleSimple> {
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    googleFontsPending = GoogleFonts.pendingFonts([
-      GoogleFonts.poppins(),
-      GoogleFonts.montserrat(fontStyle: FontStyle.italic),
-    ]);
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final pushButtonTextStyle = GoogleFonts.poppins(
+    const DemoFontOption headlineFont = DemoFontOption(
+      'Lato',
+      fontFamily: 'Lato',
+    );
+    final TextStyle pushButtonTextStyle = demoFontStyle(
+      headlineFont,
       textStyle: Theme.of(context).textTheme.headlineMedium,
     );
-    final counterTextStyle = GoogleFonts.montserrat(
+    final TextStyle counterTextStyle = demoFontStyle(
+      headlineFont,
       fontStyle: FontStyle.italic,
       textStyle: Theme.of(context).textTheme.displayLarge,
     );
 
     return Scaffold(
       body: Center(
-        child: FutureBuilder(
-          future: googleFontsPending,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState != ConnectionState.done) {
-              return const SizedBox();
-            }
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'You have pushed the button this many times:',
-                  style: pushButtonTextStyle,
-                ),
-                Text('$_counter', style: counterTextStyle),
-              ],
-            );
-          },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'You have pushed the button this many times:',
+              style: pushButtonTextStyle,
+            ),
+            const SizedBox(height: 12),
+            Text('$_counter', style: counterTextStyle),
+            const SizedBox(height: 24),
+            Text(
+              'This screen now uses bundled and system fonts only.',
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
