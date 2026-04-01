@@ -9,6 +9,7 @@ import 'package:widget_layout_example/modules/column_page.dart';
 import 'package:widget_layout_example/modules/column_saved_page.dart';
 import 'package:widget_layout_example/modules/intl_page.dart';
 import 'package:widget_layout_example/modules/padding_page.dart';
+import 'package:widget_layout_example/modules/scrollbar_page.dart';
 import 'package:widget_layout_example/modules/single_child_scroll_view_page.dart';
 import 'package:widget_layout_example/modules/table_page.dart';
 import 'package:widget_layout_example/modules/text_rich_page.dart';
@@ -97,6 +98,13 @@ class AppRouter {
             path: 'single-child-scroll-view-page',
             builder: (BuildContext context, GoRouterState state) {
               return const SingleChildScrollViewPage();
+            },
+          ),
+
+          GoRoute(
+            path: 'scrollbar-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const ScrollbarPage();
             },
           ),
         ],

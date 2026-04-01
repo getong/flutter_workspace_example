@@ -14,5 +14,6 @@ void main() {
     expect(find.text('Intl Module'), findsOneWidget);
     expect(find.text('Text.rich Module'), findsOneWidget);
     expect(find.text('SingleChildScrollView Module'), findsOneWidget);
+    expect(find.text('Scrollbar Module'), findsOneWidget);
   });
 }
