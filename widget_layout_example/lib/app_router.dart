@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:widget_layout_example/modules/center_box_page.dart';
 import 'package:widget_layout_example/modules/constrained_box_page.dart';
 import 'package:widget_layout_example/modules/row_expanded_page.dart';
+import 'package:widget_layout_example/modules/gesturedetector.dart';
 import 'package:widget_layout_example/home_page.dart';
 
 class AppRouter {
@@ -33,6 +34,13 @@ class AppRouter {
             path: 'row-expand-page',
             builder: (BuildContext context, GoRouterState state) {
               return const RowExpandedPage();
+            },
+          ),
+
+          GoRoute(
+            path: 'gesturedector-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const GesturedetectorPage();
             },
           ),
         ],

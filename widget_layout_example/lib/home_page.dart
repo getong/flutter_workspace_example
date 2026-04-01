@@ -29,6 +29,12 @@ class HomePage extends StatelessWidget {
               onPressed: () => context.go('/row-expand-page'),
               child: const Text('Row Expanded Module'),
             ),
+
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () => context.go('/gesturedector-page'),
+              child: const Text('gesturedector Module'),
+            ),
           ],
         ),
       ),
