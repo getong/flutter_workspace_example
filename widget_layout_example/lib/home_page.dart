@@ -41,6 +41,12 @@ class HomePage extends StatelessWidget {
               onPressed: () => context.go('/column-page'),
               child: const Text('Column Module'),
             ),
+
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () => context.go('/column-saved-page'),
+              child: const Text('Column Saved Module'),
+            ),
           ],
         ),
       ),
