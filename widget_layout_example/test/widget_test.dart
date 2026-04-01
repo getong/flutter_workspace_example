@@ -11,5 +11,6 @@ void main() {
     expect(find.text('Center Box Module'), findsOneWidget);
     expect(find.text('Constrained Box Module'), findsOneWidget);
     expect(find.text('Table Module'), findsOneWidget);
+    expect(find.text('Intl Module'), findsOneWidget);
   });
 }
