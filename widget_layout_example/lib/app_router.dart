@@ -7,6 +7,7 @@ import 'package:widget_layout_example/modules/row_expanded_page.dart';
 import 'package:widget_layout_example/modules/gesturedetector.dart';
 import 'package:widget_layout_example/modules/column_page.dart';
 import 'package:widget_layout_example/modules/column_saved_page.dart';
+import 'package:widget_layout_example/modules/padding_page.dart';
 import 'package:widget_layout_example/home_page.dart';
 
 class AppRouter {
@@ -57,6 +58,13 @@ class AppRouter {
             path: 'column-saved-page',
             builder: (BuildContext context, GoRouterState state) {
               return const ColumnSavedPage();
+            },
+          ),
+
+          GoRoute(
+            path: 'padding-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const PaddingPage();
             },
           ),
         ],
