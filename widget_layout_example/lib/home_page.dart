@@ -71,6 +71,11 @@ class HomePage extends StatelessWidget {
                   onPressed: () => context.go('/text-rich-page'),
                   child: const Text('Text.rich Module'),
                 ),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () => context.go('/single-child-scroll-view-page'),
+                  child: const Text('SingleChildScrollView Module'),
+                ),
               ],
             ),
           ),

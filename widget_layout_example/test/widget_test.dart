@@ -13,5 +13,6 @@ void main() {
     expect(find.text('Table Module'), findsOneWidget);
     expect(find.text('Intl Module'), findsOneWidget);
     expect(find.text('Text.rich Module'), findsOneWidget);
+    expect(find.text('SingleChildScrollView Module'), findsOneWidget);
   });
 }
