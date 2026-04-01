@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ConstrainedBoxPage extends StatelessWidget {
   const ConstrainedBoxPage({super.key});
@@ -17,6 +18,11 @@ class ConstrainedBoxPage extends StatelessWidget {
           ),
           child: Container(color: Colors.green),
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => context.go('/'),
+        icon: const Icon(Icons.home),
+        label: const Text('Home'),
       ),
     );
   }

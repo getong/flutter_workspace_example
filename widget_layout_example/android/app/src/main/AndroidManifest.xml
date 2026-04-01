@@ -1,4 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.example.widget_layout_example">
     <application
         android:label="widget_layout_example"
         android:name="${applicationName}"
