@@ -103,6 +103,11 @@ class HomePage extends StatelessWidget {
                     onPressed: () => context.go('/exclude-semantics-page'),
                     child: const Text('ExcludeSemantics Module'),
                   ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => context.go('/merge-semantics-page'),
+                    child: const Text('MergeSemantics Module'),
+                  ),
                 ],
               ),
             ),

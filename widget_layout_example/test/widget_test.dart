@@ -19,5 +19,6 @@ void main() {
     expect(find.text('DecoratedBox Module'), findsOneWidget);
     expect(find.text('Semantics Module'), findsOneWidget);
     expect(find.text('ExcludeSemantics Module'), findsOneWidget);
+    expect(find.text('MergeSemantics Module'), findsOneWidget);
   });
 }

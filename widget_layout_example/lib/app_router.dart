@@ -11,6 +11,7 @@ import 'package:widget_layout_example/modules/gesturedetector.dart';
 import 'package:widget_layout_example/modules/column_page.dart';
 import 'package:widget_layout_example/modules/column_saved_page.dart';
 import 'package:widget_layout_example/modules/intl_page.dart';
+import 'package:widget_layout_example/modules/merge_semantics_page.dart';
 import 'package:widget_layout_example/modules/padding_page.dart';
 import 'package:widget_layout_example/modules/scrollbar_page.dart';
 import 'package:widget_layout_example/modules/semantics_page.dart';
@@ -137,6 +138,13 @@ class AppRouter {
             path: 'exclude-semantics-page',
             builder: (BuildContext context, GoRouterState state) {
               return const ExcludeSemanticsPage();
+            },
+          ),
+
+          GoRoute(
+            path: 'merge-semantics-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const MergeSemanticsPage();
             },
           ),
         ],
