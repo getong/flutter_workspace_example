@@ -8,43 +8,45 @@ class PaddingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Padding Module')),
-      body: ListView(
-        padding: const EdgeInsets.all(24),
-        children: <Widget>[
-          const Text(
-            'Padding adds space inside a widget around its child.',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(height: 20),
-          _PaddingExampleCard(
-            title: 'All Sides',
-            description:
-                'EdgeInsets.all(16) applies the same spacing everywhere.',
-            padding: const EdgeInsets.all(16),
-            color: Colors.blue,
-          ),
-          const SizedBox(height: 16),
-          _PaddingExampleCard(
-            title: 'Symmetric',
-            description:
-                'EdgeInsets.symmetric(horizontal: 24, vertical: 12) uses different horizontal and vertical spacing.',
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-            color: Colors.green,
-          ),
-          const SizedBox(height: 16),
-          _PaddingExampleCard(
-            title: 'Only',
-            description:
-                'EdgeInsets.only(left: 32, top: 8, right: 12, bottom: 20) gives fine-grained control.',
-            padding: const EdgeInsets.only(
-              left: 32,
-              top: 8,
-              right: 12,
-              bottom: 20,
+      body: SelectionArea(
+        child: ListView(
+          padding: const EdgeInsets.all(24),
+          children: <Widget>[
+            const Text(
+              'Padding adds space inside a widget around its child.',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
-            color: Colors.orange,
-          ),
-        ],
+            const SizedBox(height: 20),
+            _PaddingExampleCard(
+              title: 'All Sides',
+              description:
+                  'EdgeInsets.all(16) applies the same spacing everywhere.',
+              padding: const EdgeInsets.all(16),
+              color: Colors.blue,
+            ),
+            const SizedBox(height: 16),
+            _PaddingExampleCard(
+              title: 'Symmetric',
+              description:
+                  'EdgeInsets.symmetric(horizontal: 24, vertical: 12) uses different horizontal and vertical spacing.',
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              color: Colors.green,
+            ),
+            const SizedBox(height: 16),
+            _PaddingExampleCard(
+              title: 'Only',
+              description:
+                  'EdgeInsets.only(left: 32, top: 8, right: 12, bottom: 20) gives fine-grained control.',
+              padding: const EdgeInsets.only(
+                left: 32,
+                top: 8,
+                right: 12,
+                bottom: 20,
+              ),
+              color: Colors.orange,
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.go('/'),

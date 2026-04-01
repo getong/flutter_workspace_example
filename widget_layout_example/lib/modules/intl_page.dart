@@ -30,82 +30,84 @@ class IntlPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Intl Module')),
-      body: ListView(
-        padding: const EdgeInsets.all(24),
-        children: <Widget>[
-          const Text(
-            'The intl package helps present locale-aware values. Currency formatting is a common need because raw numbers are harder to read and lack the correct symbol grouping.',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(height: 20),
-          Card(
-            clipBehavior: Clip.antiAlias,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Currency Formatting',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text('Raw value: $rawContractSize'),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Formatted value: ${NumberFormat.simpleCurrency(locale: "en_US").format(client.contractSize)}',
-                  ),
-                ],
-              ),
+      body: SelectionArea(
+        child: ListView(
+          padding: const EdgeInsets.all(24),
+          children: <Widget>[
+            const Text(
+              'The intl package helps present locale-aware values. Currency formatting is a common need because raw numbers are harder to read and lack the correct symbol grouping.',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
-          ),
-          const SizedBox(height: 16),
-          Card(
-            clipBehavior: Clip.antiAlias,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Client Summary',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'This section uses the MapEntry structure you provided to prepare display-friendly label/value rows.',
-                  ),
-                  const SizedBox(height: 16),
-                  ...details.map(
-                    (entry) => Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          SizedBox(
-                            width: 120,
-                            child: Text(
-                              entry.key,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(child: Text(entry.value)),
-                        ],
+            const SizedBox(height: 20),
+            Card(
+              clipBehavior: Clip.antiAlias,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Currency Formatting',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 8),
+                    Text('Raw value: $rawContractSize'),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Formatted value: ${NumberFormat.simpleCurrency(locale: "en_US").format(client.contractSize)}',
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+            const SizedBox(height: 16),
+            Card(
+              clipBehavior: Clip.antiAlias,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Client Summary',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'This section uses the MapEntry structure you provided to prepare display-friendly label/value rows.',
+                    ),
+                    const SizedBox(height: 16),
+                    ...details.map(
+                      (entry) => Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(
+                              width: 120,
+                              child: Text(
+                                entry.key,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(child: Text(entry.value)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.go('/'),

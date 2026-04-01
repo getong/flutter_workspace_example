@@ -7,11 +7,13 @@ class RowExpandedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-        children: <Widget>[
-          Expanded(flex: 2, child: Container(color: Colors.amber)),
-          Expanded(flex: 1, child: Container(color: Colors.blue)),
-        ],
+      body: SelectionArea(
+        child: Row(
+          children: <Widget>[
+            Expanded(flex: 2, child: Container(color: Colors.amber)),
+            Expanded(flex: 1, child: Container(color: Colors.blue)),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.go('/'),

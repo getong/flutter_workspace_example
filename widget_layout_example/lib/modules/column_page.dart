@@ -37,32 +37,36 @@ class _ColumnPageState extends State<ColumnPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Column')),
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const Text("Let's go!"),
-            const SizedBox(height: 16),
-            TextButton(
-              onPressed: isEnabled ? doTheThing : null,
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(right: 8),
-                    child: Icon(Icons.link),
-                  ),
-                  Text('Do the thing'),
-                ],
+      body: SelectionArea(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const Text("Let's go!"),
+              const SizedBox(height: 16),
+              TextButton(
+                onPressed: isEnabled ? doTheThing : null,
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(right: 8),
+                      child: Icon(Icons.link),
+                    ),
+                    Text('Do the thing'),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () => setEnabled(!isEnabled),
-              child: Text(isEnabled ? 'Disable isEnabled' : 'Enable isEnabled'),
-            ),
-          ],
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () => setEnabled(!isEnabled),
+                child: Text(
+                  isEnabled ? 'Disable isEnabled' : 'Enable isEnabled',
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(

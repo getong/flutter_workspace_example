@@ -8,15 +8,17 @@ class ConstrainedBoxPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Constrained Box Module')),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            minWidth: 50.0,
-            maxWidth: 150.0,
-            minHeight: 50.0,
-            maxHeight: 150.0,
+      body: SelectionArea(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              minWidth: 50.0,
+              maxWidth: 150.0,
+              minHeight: 50.0,
+              maxHeight: 150.0,
+            ),
+            child: Container(color: Colors.green),
           ),
-          child: Container(color: Colors.green),
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(

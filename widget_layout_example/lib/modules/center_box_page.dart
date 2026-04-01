@@ -8,8 +8,10 @@ class CenterBoxPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Center Box Module')),
-      body: Center(
-        child: Container(width: 100.0, height: 100.0, color: Colors.blue),
+      body: SelectionArea(
+        child: Center(
+          child: Container(width: 100.0, height: 100.0, color: Colors.blue),
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.go('/'),

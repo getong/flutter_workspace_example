@@ -9,92 +9,94 @@ class TextRichPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Text.rich Module')),
-      body: ListView(
-        padding: const EdgeInsets.all(24),
-        children: <Widget>[
-          const Text(
-            'Text.rich lets you combine multiple TextSpan styles and inline widgets inside a single block of text.',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(height: 20),
-          _TextRichExampleCard(
-            title: 'Mixed Styling',
-            description:
-                'Use different weights, colors, and emphasis within one sentence.',
-            child: Text.rich(
-              TextSpan(
-                style: Theme.of(context).textTheme.bodyLarge,
-                children: <InlineSpan>[
-                  const TextSpan(text: 'Build '),
-                  TextSpan(
-                    text: 'clear',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  const TextSpan(text: ', '),
-                  const TextSpan(
-                    text: 'readable',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                  const TextSpan(text: ', and '),
-                  TextSpan(
-                    text: 'expressive',
-                    style: TextStyle(
-                      color: Colors.deepOrange.shade600,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  const TextSpan(text: ' UI copy with one Text widget.'),
-                ],
-              ),
+      body: SelectionArea(
+        child: ListView(
+          padding: const EdgeInsets.all(24),
+          children: <Widget>[
+            const Text(
+              'Text.rich lets you combine multiple TextSpan styles and inline widgets inside a single block of text.',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
-          ),
-          const SizedBox(height: 16),
-          _TextRichExampleCard(
-            title: 'Inline Icon And Action',
-            description:
-                'TextSpan and WidgetSpan can be combined to add icons and tappable segments.',
-            child: Text.rich(
-              TextSpan(
-                style: Theme.of(context).textTheme.bodyLarge,
-                children: <InlineSpan>[
-                  const TextSpan(text: 'Review the '),
-                  WidgetSpan(
-                    alignment: PlaceholderAlignment.middle,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: Icon(
-                        Icons.description_outlined,
-                        size: 18,
+            const SizedBox(height: 20),
+            _TextRichExampleCard(
+              title: 'Mixed Styling',
+              description:
+                  'Use different weights, colors, and emphasis within one sentence.',
+              child: Text.rich(
+                TextSpan(
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  children: <InlineSpan>[
+                    const TextSpan(text: 'Build '),
+                    TextSpan(
+                      text: 'clear',
+                      style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
-                  ),
-                  const TextSpan(text: 'documentation and tap '),
-                  TextSpan(
-                    text: 'here',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontWeight: FontWeight.w700,
-                      decoration: TextDecoration.underline,
+                    const TextSpan(text: ', '),
+                    const TextSpan(
+                      text: 'readable',
+                      style: TextStyle(fontStyle: FontStyle.italic),
                     ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Inline TextSpan tap handled.'),
-                          ),
-                        );
-                      },
-                  ),
-                  const TextSpan(text: ' to trigger an inline action.'),
-                ],
+                    const TextSpan(text: ', and '),
+                    TextSpan(
+                      text: 'expressive',
+                      style: TextStyle(
+                        color: Colors.deepOrange.shade600,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const TextSpan(text: ' UI copy with one Text widget.'),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+            const SizedBox(height: 16),
+            _TextRichExampleCard(
+              title: 'Inline Icon And Action',
+              description:
+                  'TextSpan and WidgetSpan can be combined to add icons and tappable segments.',
+              child: Text.rich(
+                TextSpan(
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  children: <InlineSpan>[
+                    const TextSpan(text: 'Review the '),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: Icon(
+                          Icons.description_outlined,
+                          size: 18,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ),
+                    const TextSpan(text: 'documentation and tap '),
+                    TextSpan(
+                      text: 'here',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.w700,
+                        decoration: TextDecoration.underline,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Inline TextSpan tap handled.'),
+                            ),
+                          );
+                        },
+                    ),
+                    const TextSpan(text: ' to trigger an inline action.'),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.go('/'),
