@@ -24,6 +24,7 @@ import 'package:widget_layout_example/modules/intl_page.dart';
 import 'package:widget_layout_example/modules/media_query_page.dart';
 import 'package:widget_layout_example/modules/merge_semantics_page.dart';
 import 'package:widget_layout_example/modules/padding_page.dart';
+import 'package:widget_layout_example/modules/positioned_page.dart';
 import 'package:widget_layout_example/modules/scrollbar_page.dart';
 import 'package:widget_layout_example/modules/semantics_page.dart';
 import 'package:widget_layout_example/modules/shared_preferences_page.dart';
@@ -92,6 +93,13 @@ class AppRouter {
             path: 'padding-page',
             builder: (BuildContext context, GoRouterState state) {
               return const PaddingPage();
+            },
+          ),
+
+          GoRoute(
+            path: 'positioned-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const PositionedPage();
             },
           ),
 

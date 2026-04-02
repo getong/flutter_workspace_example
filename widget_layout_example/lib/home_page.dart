@@ -59,6 +59,11 @@ class HomePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
+                    onPressed: () => context.go('/positioned-page'),
+                    child: const Text('Positioned Module'),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
                     onPressed: () => context.go('/align-page'),
                     child: const Text('Align Module'),
                   ),
