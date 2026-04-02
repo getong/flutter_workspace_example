@@ -184,6 +184,11 @@ class HomePage extends StatelessWidget {
                     onPressed: () => context.go('/flutter-svg-page'),
                     child: const Text('flutter_svg Module'),
                   ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => context.go('/image-widget-page'),
+                    child: const Text('Image Module'),
+                  ),
                 ],
               ),
             ),

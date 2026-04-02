@@ -16,6 +16,7 @@ import 'package:widget_layout_example/modules/flutter_svg_page.dart';
 import 'package:widget_layout_example/modules/constrained_box_page.dart';
 import 'package:widget_layout_example/modules/row_expanded_page.dart';
 import 'package:widget_layout_example/modules/gesturedetector.dart';
+import 'package:widget_layout_example/modules/image_widget_page.dart';
 import 'package:widget_layout_example/modules/column_page.dart';
 import 'package:widget_layout_example/modules/column_saved_page.dart';
 import 'package:widget_layout_example/modules/intl_page.dart';
@@ -194,6 +195,13 @@ class AppRouter {
             path: 'font-awesome-flutter-page',
             builder: (BuildContext context, GoRouterState state) {
               return const FontAwesomeFlutterPage();
+            },
+          ),
+
+          GoRoute(
+            path: 'image-widget-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const ImageWidgetPage();
             },
           ),
 
