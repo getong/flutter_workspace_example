@@ -12,6 +12,7 @@ import 'package:widget_layout_example/modules/exclude_semantics_page.dart';
 import 'package:widget_layout_example/modules/filled_button_page.dart';
 import 'package:widget_layout_example/modules/fl_chart_page.dart';
 import 'package:widget_layout_example/modules/font_awesome_flutter_page.dart';
+import 'package:widget_layout_example/modules/flutter_svg_page.dart';
 import 'package:widget_layout_example/modules/constrained_box_page.dart';
 import 'package:widget_layout_example/modules/row_expanded_page.dart';
 import 'package:widget_layout_example/modules/gesturedetector.dart';
@@ -249,6 +250,13 @@ class AppRouter {
             path: 'tween-sequence-interval-page',
             builder: (BuildContext context, GoRouterState state) {
               return const TweenSequenceIntervalPage();
+            },
+          ),
+
+          GoRoute(
+            path: 'flutter-svg-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const FlutterSvgPage();
             },
           ),
         ],

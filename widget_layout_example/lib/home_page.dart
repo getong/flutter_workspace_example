@@ -179,6 +179,11 @@ class HomePage extends StatelessWidget {
                     onPressed: () => context.go('/font-awesome-flutter-page'),
                     child: const Text('font_awesome_flutter Module'),
                   ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => context.go('/flutter-svg-page'),
+                    child: const Text('flutter_svg Module'),
+                  ),
                 ],
               ),
             ),
