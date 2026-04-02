@@ -1,0 +1,39 @@
+import 'package:flutter_test/flutter_test.dart';
+
+import 'package:widget_layout_example2/main.dart';
+
+void main() {
+  testWidgets('Home page shows module list', (WidgetTester tester) async {
+    await tester.pumpWidget(const MyApp());
+    await tester.pumpAndSettle();
+
+    expect(find.text('Widget Layout Modules'), findsOneWidget);
+    expect(find.text('Center Box Module'), findsOneWidget);
+    expect(find.text('Constrained Box Module'), findsOneWidget);
+    expect(find.text('Table Module'), findsOneWidget);
+    expect(find.text('Intl Module'), findsOneWidget);
+    expect(find.text('Text.rich Module'), findsOneWidget);
+    expect(find.text('SingleChildScrollView Module'), findsOneWidget);
+    expect(find.text('Scrollbar Module'), findsOneWidget);
+    expect(find.text('FilledButton Module'), findsOneWidget);
+    expect(find.text('DecoratedBox Module'), findsOneWidget);
+    expect(find.text('Semantics Module'), findsOneWidget);
+    expect(find.text('ExcludeSemantics Module'), findsOneWidget);
+    expect(find.text('MergeSemantics Module'), findsOneWidget);
+    expect(find.text('shared_preferences Module'), findsOneWidget);
+    expect(
+      find.text('TextField + TextEditingController Module'),
+      findsOneWidget,
+    );
+    expect(find.text('DataTable + PaginatedDataTable Module'), findsOneWidget);
+    expect(find.text('fl_chart Module'), findsOneWidget);
+    expect(find.text('AnimatedSwitcher Module'), findsOneWidget);
+    expect(find.text('AnimatedDefaultTextStyle Module'), findsOneWidget);
+    expect(find.text('CustomPaint Module'), findsOneWidget);
+    expect(find.text('TweenAnimationBuilder Module'), findsOneWidget);
+    expect(find.text('AnimationController Module'), findsOneWidget);
+    expect(find.text('SingleTickerProviderStateMixin Module'), findsOneWidget);
+    expect(find.text('Tween Module'), findsOneWidget);
+    expect(find.text('TweenSequence + Interval Module'), findsOneWidget);
+  });
+}
