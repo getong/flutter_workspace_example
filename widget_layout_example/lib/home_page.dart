@@ -174,6 +174,11 @@ class HomePage extends StatelessWidget {
                         context.go('/tween-sequence-interval-page'),
                     child: const Text('TweenSequence + Interval Module'),
                   ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => context.go('/font-awesome-flutter-page'),
+                    child: const Text('font_awesome_flutter Module'),
+                  ),
                 ],
               ),
             ),

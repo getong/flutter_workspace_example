@@ -11,6 +11,7 @@ import 'package:widget_layout_example/modules/decorated_box_page.dart';
 import 'package:widget_layout_example/modules/exclude_semantics_page.dart';
 import 'package:widget_layout_example/modules/filled_button_page.dart';
 import 'package:widget_layout_example/modules/fl_chart_page.dart';
+import 'package:widget_layout_example/modules/font_awesome_flutter_page.dart';
 import 'package:widget_layout_example/modules/constrained_box_page.dart';
 import 'package:widget_layout_example/modules/row_expanded_page.dart';
 import 'package:widget_layout_example/modules/gesturedetector.dart';
@@ -185,6 +186,13 @@ class AppRouter {
             path: 'fl-chart-page',
             builder: (BuildContext context, GoRouterState state) {
               return const FlChartPage();
+            },
+          ),
+
+          GoRoute(
+            path: 'font-awesome-flutter-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const FontAwesomeFlutterPage();
             },
           ),
 
