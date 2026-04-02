@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:widget_layout_example/modules/align_page.dart';
 import 'package:widget_layout_example/modules/animation_controller_page.dart';
 import 'package:widget_layout_example/modules/animated_default_text_style_page.dart';
 import 'package:widget_layout_example/modules/center_box_page.dart';
@@ -20,6 +21,7 @@ import 'package:widget_layout_example/modules/image_widget_page.dart';
 import 'package:widget_layout_example/modules/column_page.dart';
 import 'package:widget_layout_example/modules/column_saved_page.dart';
 import 'package:widget_layout_example/modules/intl_page.dart';
+import 'package:widget_layout_example/modules/media_query_page.dart';
 import 'package:widget_layout_example/modules/merge_semantics_page.dart';
 import 'package:widget_layout_example/modules/padding_page.dart';
 import 'package:widget_layout_example/modules/scrollbar_page.dart';
@@ -94,6 +96,13 @@ class AppRouter {
           ),
 
           GoRoute(
+            path: 'align-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const AlignPage();
+            },
+          ),
+
+          GoRoute(
             path: 'table-page',
             builder: (BuildContext context, GoRouterState state) {
               return const TablePage();
@@ -104,6 +113,13 @@ class AppRouter {
             path: 'intl-page',
             builder: (BuildContext context, GoRouterState state) {
               return const IntlPage();
+            },
+          ),
+
+          GoRoute(
+            path: 'media-query-page',
+            builder: (BuildContext context, GoRouterState state) {
+              return const MediaQueryPage();
             },
           ),
 

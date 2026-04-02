@@ -59,6 +59,11 @@ class HomePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
+                    onPressed: () => context.go('/align-page'),
+                    child: const Text('Align Module'),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
                     onPressed: () => context.go('/table-page'),
                     child: const Text('Table Module'),
                   ),
@@ -66,6 +71,11 @@ class HomePage extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () => context.go('/intl-page'),
                     child: const Text('Intl Module'),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => context.go('/media-query-page'),
+                    child: const Text('MediaQuery Module'),
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
