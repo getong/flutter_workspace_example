@@ -95,6 +95,13 @@ class HomePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
+                    onPressed: () => context.go('/sliver-widgets-page'),
+                    child: const Text(
+                      'SliverToBoxAdapter + SliverList + SliverPadding + SliverFillRemaining Module',
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
                     onPressed: () => context.go('/scrollbar-page'),
                     child: const Text('Scrollbar Module'),
                   ),
