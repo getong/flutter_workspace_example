@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
+@RoutePage(name: 'MergeSemanticsRoute')
 class MergeSemanticsPage extends StatelessWidget {
   const MergeSemanticsPage({super.key});
 

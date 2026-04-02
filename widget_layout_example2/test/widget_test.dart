@@ -4,7 +4,7 @@ import 'package:widget_layout_example2/main.dart';
 
 void main() {
   testWidgets('Home page shows module list', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(MyApp());
     await tester.pumpAndSettle();
 
     expect(find.text('Widget Layout Modules'), findsOneWidget);

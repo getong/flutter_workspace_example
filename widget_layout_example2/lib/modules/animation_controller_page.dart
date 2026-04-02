@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
+@RoutePage(name: 'AnimationControllerRoute')
 class AnimationControllerPage extends StatefulWidget {
   const AnimationControllerPage({super.key});
 

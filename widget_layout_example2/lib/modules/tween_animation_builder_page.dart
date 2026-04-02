@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
+@RoutePage(name: 'TweenAnimationBuilderRoute')
 class TweenAnimationBuilderPage extends StatefulWidget {
   const TweenAnimationBuilderPage({super.key});
 

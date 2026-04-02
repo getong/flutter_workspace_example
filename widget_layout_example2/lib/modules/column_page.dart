@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
+@RoutePage(name: 'ColumnRoute')
 class ColumnPage extends StatefulWidget {
   const ColumnPage({super.key});
 

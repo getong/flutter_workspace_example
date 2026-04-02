@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:auto_route/auto_route.dart';
 
+@RoutePage(name: 'FontAwesomeFlutterRoute')
 class FontAwesomeFlutterPage extends StatelessWidget {
   const FontAwesomeFlutterPage({super.key});
 
