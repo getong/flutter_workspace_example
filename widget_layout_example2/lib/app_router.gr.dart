@@ -91,6 +91,22 @@ class AnimationTabRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AutoRouteUsagePage]
+class AutoRouteUsageRoute extends PageRouteInfo<void> {
+  const AutoRouteUsageRoute({List<PageRouteInfo>? children})
+    : super(AutoRouteUsageRoute.name, initialChildren: children);
+
+  static const String name = 'AutoRouteUsageRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AutoRouteUsagePage();
+    },
+  );
+}
+
+/// generated route for
 /// [CachedNetworkImageCePage]
 class CachedNetworkImageCeRoute extends PageRouteInfo<void> {
   const CachedNetworkImageCeRoute({List<PageRouteInfo>? children})

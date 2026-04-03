@@ -5,6 +5,7 @@ import 'package:widget_layout_example2/modules/align_page.dart';
 import 'package:widget_layout_example2/modules/animated_default_text_style_page.dart';
 import 'package:widget_layout_example2/modules/animated_switcher_page.dart';
 import 'package:widget_layout_example2/modules/animation_controller_page.dart';
+import 'package:widget_layout_example2/modules/auto_route_usage_page.dart';
 import 'package:widget_layout_example2/modules/center_box_page.dart';
 import 'package:widget_layout_example2/modules/cached_network_image_ce_page.dart';
 import 'package:widget_layout_example2/modules/column_page.dart';
@@ -75,6 +76,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: PositionedRoute.page, path: '/positioned-page'),
     AutoRoute(page: AlignRoute.page, path: '/align-page'),
     AutoRoute(page: TableRoute.page, path: '/table-page'),
+    AutoRoute(page: AutoRouteUsageRoute.page, path: '/auto-route-page'),
     AutoRoute(page: IntlRoute.page, path: '/intl-page'),
     AutoRoute(page: FutureBuilderRoute.page, path: '/future-builder-page'),
     AutoRoute(page: StreamBuilderRoute.page, path: '/stream-builder-page'),

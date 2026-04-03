@@ -29,6 +29,7 @@ const List<_ModuleLink> _layoutModules = <_ModuleLink>[
 ];
 
 const List<_ModuleLink> _contentModules = <_ModuleLink>[
+  _ModuleLink(label: 'auto_route Module', path: '/auto-route-page'),
   _ModuleLink(label: 'Intl Module', path: '/intl-page'),
   _ModuleLink(label: 'Text.rich Module', path: '/text-rich-page'),
   _ModuleLink(label: 'FutureBuilder Module', path: '/future-builder-page'),

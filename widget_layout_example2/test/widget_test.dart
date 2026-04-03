@@ -21,6 +21,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Content Modules'), findsOneWidget);
+    expect(find.text('auto_route Module'), findsOneWidget);
     expect(find.text('Intl Module'), findsOneWidget);
     expect(find.text('Text.rich Module'), findsOneWidget);
     expect(find.text('FutureBuilder Module'), findsOneWidget);
