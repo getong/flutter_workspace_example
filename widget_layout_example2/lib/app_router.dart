@@ -13,6 +13,7 @@ import 'package:widget_layout_example2/modules/constrained_box_page.dart';
 import 'package:widget_layout_example2/modules/custom_paint_page.dart';
 import 'package:widget_layout_example2/modules/data_table_page.dart';
 import 'package:widget_layout_example2/modules/decorated_box_page.dart';
+import 'package:widget_layout_example2/modules/drift_flutter_page.dart';
 import 'package:widget_layout_example2/modules/exclude_semantics_page.dart';
 import 'package:widget_layout_example2/modules/filled_button_page.dart';
 import 'package:widget_layout_example2/modules/fl_chart_page.dart';
@@ -71,6 +72,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: AlignRoute.page, path: '/align-page'),
     AutoRoute(page: TableRoute.page, path: '/table-page'),
     AutoRoute(page: IntlRoute.page, path: '/intl-page'),
+    AutoRoute(page: DriftFlutterRoute.page, path: '/drift-flutter-page'),
     AutoRoute(
       page: KeyboardListenerRoute.page,
       path: '/keyboard-listener-page',

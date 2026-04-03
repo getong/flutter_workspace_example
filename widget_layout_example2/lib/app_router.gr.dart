@@ -235,6 +235,22 @@ class DecoratedBoxRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [DriftFlutterPage]
+class DriftFlutterRoute extends PageRouteInfo<void> {
+  const DriftFlutterRoute({List<PageRouteInfo>? children})
+    : super(DriftFlutterRoute.name, initialChildren: children);
+
+  static const String name = 'DriftFlutterRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DriftFlutterPage();
+    },
+  );
+}
+
+/// generated route for
 /// [ExcludeSemanticsPage]
 class ExcludeSemanticsRoute extends PageRouteInfo<void> {
   const ExcludeSemanticsRoute({List<PageRouteInfo>? children})
