@@ -732,3 +732,19 @@ class TweenSequenceIntervalRoute extends PageRouteInfo<void> {
     },
   );
 }
+
+/// generated route for
+/// [WrapPage]
+class WrapRoute extends PageRouteInfo<void> {
+  const WrapRoute({List<PageRouteInfo>? children})
+    : super(WrapRoute.name, initialChildren: children);
+
+  static const String name = 'WrapRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const WrapPage();
+    },
+  );
+}

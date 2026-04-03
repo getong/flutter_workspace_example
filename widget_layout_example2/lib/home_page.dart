@@ -9,6 +9,7 @@ const List<_ModuleLink> _layoutModules = <_ModuleLink>[
   _ModuleLink(label: 'Column Module', path: '/column-page'),
   _ModuleLink(label: 'Column Saved Module', path: '/column-saved-page'),
   _ModuleLink(label: 'Padding Module', path: '/padding-page'),
+  _ModuleLink(label: 'Wrap Module', path: '/wrap-page'),
   _ModuleLink(label: 'Positioned Module', path: '/positioned-page'),
   _ModuleLink(label: 'Align Module', path: '/align-page'),
   _ModuleLink(label: 'Table Module', path: '/table-page'),

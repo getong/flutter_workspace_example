@@ -42,6 +42,7 @@ import 'package:widget_layout_example2/modules/text_rich_page.dart';
 import 'package:widget_layout_example2/modules/tween_animation_builder_page.dart';
 import 'package:widget_layout_example2/modules/tween_page.dart';
 import 'package:widget_layout_example2/modules/tween_sequence_interval_page.dart';
+import 'package:widget_layout_example2/modules/wrap_page.dart';
 
 part 'app_router.gr.dart';
 
@@ -68,6 +69,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: ColumnRoute.page, path: '/column-page'),
     AutoRoute(page: ColumnSavedRoute.page, path: '/column-saved-page'),
     AutoRoute(page: PaddingRoute.page, path: '/padding-page'),
+    AutoRoute(page: WrapRoute.page, path: '/wrap-page'),
     AutoRoute(page: PositionedRoute.page, path: '/positioned-page'),
     AutoRoute(page: AlignRoute.page, path: '/align-page'),
     AutoRoute(page: TableRoute.page, path: '/table-page'),
