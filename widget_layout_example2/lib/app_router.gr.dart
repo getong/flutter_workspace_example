@@ -347,6 +347,22 @@ class FontAwesomeFlutterRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FutureBuilderPage]
+class FutureBuilderRoute extends PageRouteInfo<void> {
+  const FutureBuilderRoute({List<PageRouteInfo>? children})
+    : super(FutureBuilderRoute.name, initialChildren: children);
+
+  static const String name = 'FutureBuilderRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FutureBuilderPage();
+    },
+  );
+}
+
+/// generated route for
 /// [GesturedetectorPage]
 class GesturedetectorRoute extends PageRouteInfo<void> {
   const GesturedetectorRoute({List<PageRouteInfo>? children})

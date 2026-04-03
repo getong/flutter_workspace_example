@@ -20,6 +20,7 @@ import 'package:widget_layout_example2/modules/fl_chart_page.dart';
 import 'package:widget_layout_example2/modules/flutter_svg_page.dart';
 import 'package:widget_layout_example2/modules/flutter_auto_size_text_page.dart';
 import 'package:widget_layout_example2/modules/font_awesome_flutter_page.dart';
+import 'package:widget_layout_example2/modules/future_builder_page.dart';
 import 'package:widget_layout_example2/modules/gesturedetector.dart';
 import 'package:widget_layout_example2/modules/image_widget_page.dart';
 import 'package:widget_layout_example2/modules/ink_widgets_page.dart';
@@ -74,6 +75,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: AlignRoute.page, path: '/align-page'),
     AutoRoute(page: TableRoute.page, path: '/table-page'),
     AutoRoute(page: IntlRoute.page, path: '/intl-page'),
+    AutoRoute(page: FutureBuilderRoute.page, path: '/future-builder-page'),
     AutoRoute(page: DriftFlutterRoute.page, path: '/drift-flutter-page'),
     AutoRoute(
       page: KeyboardListenerRoute.page,
