@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 
+import 'package:widget_layout_example2/auto_route_demo_support.dart';
 import 'package:widget_layout_example2/home_page.dart';
 import 'package:widget_layout_example2/modules/align_page.dart';
 import 'package:widget_layout_example2/modules/animated_default_text_style_page.dart';
@@ -55,6 +57,30 @@ class AppRouter extends RootStackRouter {
   RouteType get defaultRouteType => RouteType.material();
 
   @override
+  late final List<AutoRouteGuard> guards = <AutoRouteGuard>[
+    AutoRouteGuard.simple((NavigationResolver resolver, StackRouter router) {
+      if (resolver.routeName != AutoRouteGlobalProtectedRoute.name ||
+          demoAuthController.isLoggedIn ||
+          resolver.routeName == AutoRouteLoginRoute.name) {
+        resolver.next();
+        return;
+      }
+
+      demoNavigationLog.add('global guard blocked ${resolver.routeName}');
+      resolver.redirectUntil(
+        AutoRouteLoginRoute(
+          onResult: (bool didLogin) {
+            demoNavigationLog.add(
+              'global guard resume ${resolver.routeName}: $didLogin',
+            );
+            resolver.resolveNext(didLogin, reevaluateNext: false);
+          },
+        ),
+      );
+    }, debugLabel: 'DemoGlobalGuard'),
+  ];
+
+  @override
   List<AutoRoute> get routes => <AutoRoute>[
     AutoRoute(
       page: HomeRoute.page,
@@ -77,6 +103,85 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: AlignRoute.page, path: '/align-page'),
     AutoRoute(page: TableRoute.page, path: '/table-page'),
     AutoRoute(page: AutoRouteUsageRoute.page, path: '/auto-route-page'),
+    RedirectRoute(
+      path: '/auto-route-page/legacy',
+      redirectTo: '/auto-route-page/books',
+    ),
+    AutoRoute(page: AutoRouteBooksRoute.page, path: '/auto-route-page/books'),
+    RedirectRoute(
+      path: '/auto-route-page/books/:id/legacy',
+      redirectTo: '/auto-route-page/books/:id',
+    ),
+    AutoRoute(
+      page: AutoRouteBookDetailsRoute.page,
+      path: '/auto-route-page/books/:id',
+    ),
+    AutoRoute(
+      page: AutoRouteNestedRoute.page,
+      path: '/auto-route-page/nested',
+      children: <AutoRoute>[
+        AutoRoute(
+          page: AutoRouteBooksTabRoute.page,
+          path: 'books',
+          initial: true,
+        ),
+        AutoRoute(page: AutoRouteProfileTabRoute.page, path: 'profile'),
+        AutoRoute(page: AutoRouteSettingsTabRoute.page, path: 'settings'),
+      ],
+    ),
+    AutoRoute(
+      page: AutoRouteProductRoute.page,
+      path: '/auto-route-page/products/:id',
+      children: <AutoRoute>[
+        AutoRoute(
+          page: AutoRouteProductOverviewRoute.page,
+          path: '',
+          initial: true,
+        ),
+        AutoRoute(page: AutoRouteProductReviewRoute.page, path: 'review'),
+      ],
+    ),
+    AutoRoute(
+      page: AutoRouteProtectedRoute.page,
+      path: '/auto-route-page/protected',
+      guards: <AutoRouteGuard>[
+        AutoRouteGuard.simple((
+          NavigationResolver resolver,
+          StackRouter router,
+        ) {
+          if (demoAuthController.isLoggedIn) {
+            resolver.next();
+            return;
+          }
+
+          demoNavigationLog.add('route guard blocked ${resolver.routeName}');
+          resolver.redirectUntil(
+            AutoRouteLoginRoute(
+              onResult: (bool didLogin) {
+                demoNavigationLog.add(
+                  'route guard resume ${resolver.routeName}: $didLogin',
+                );
+                resolver.resolveNext(didLogin, reevaluateNext: false);
+              },
+            ),
+          );
+        }, debugLabel: 'DemoRouteGuard'),
+      ],
+    ),
+    AutoRoute(
+      page: AutoRouteGlobalProtectedRoute.page,
+      path: '/auto-route-page/global-protected',
+    ),
+    AutoRoute(
+      page: AutoRouteWrappedRoute.page,
+      path: '/auto-route-page/wrapped',
+    ),
+    AutoRoute(
+      page: AutoRouteObserverRoute.page,
+      path: '/auto-route-page/observer',
+    ),
+    AutoRoute(page: AutoRouteLoginRoute.page, path: '/auto-route-page/login'),
+    AutoRoute(page: AutoRouteUnknownRoute.page, path: '/auto-route-page/*'),
     AutoRoute(page: IntlRoute.page, path: '/intl-page'),
     AutoRoute(page: FutureBuilderRoute.page, path: '/future-builder-page'),
     AutoRoute(page: StreamBuilderRoute.page, path: '/stream-builder-page'),

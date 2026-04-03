@@ -91,6 +91,416 @@ class AnimationTabRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AutoRouteBookDetailsPage]
+class AutoRouteBookDetailsRoute
+    extends PageRouteInfo<AutoRouteBookDetailsRouteArgs> {
+  AutoRouteBookDetailsRoute({
+    Key? key,
+    required int id,
+    String? tab,
+    String? filter,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AutoRouteBookDetailsRoute.name,
+         args: AutoRouteBookDetailsRouteArgs(
+           key: key,
+           id: id,
+           tab: tab,
+           filter: filter,
+         ),
+         rawPathParams: {'id': id},
+         rawQueryParams: {'tab': tab, 'filter': filter},
+         initialChildren: children,
+       );
+
+  static const String name = 'AutoRouteBookDetailsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final pathParams = data.inheritedPathParams;
+      final queryParams = data.queryParams;
+      final args = data.argsAs<AutoRouteBookDetailsRouteArgs>(
+        orElse: () => AutoRouteBookDetailsRouteArgs(
+          id: pathParams.getInt('id'),
+          tab: queryParams.optString('tab'),
+          filter: queryParams.optString('filter'),
+        ),
+      );
+      return AutoRouteBookDetailsPage(
+        key: args.key,
+        id: args.id,
+        tab: args.tab,
+        filter: args.filter,
+      );
+    },
+  );
+}
+
+class AutoRouteBookDetailsRouteArgs {
+  const AutoRouteBookDetailsRouteArgs({
+    this.key,
+    required this.id,
+    this.tab,
+    this.filter,
+  });
+
+  final Key? key;
+
+  final int id;
+
+  final String? tab;
+
+  final String? filter;
+
+  @override
+  String toString() {
+    return 'AutoRouteBookDetailsRouteArgs{key: $key, id: $id, tab: $tab, filter: $filter}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AutoRouteBookDetailsRouteArgs) return false;
+    return key == other.key &&
+        id == other.id &&
+        tab == other.tab &&
+        filter == other.filter;
+  }
+
+  @override
+  int get hashCode =>
+      key.hashCode ^ id.hashCode ^ tab.hashCode ^ filter.hashCode;
+}
+
+/// generated route for
+/// [AutoRouteBooksPage]
+class AutoRouteBooksRoute extends PageRouteInfo<void> {
+  const AutoRouteBooksRoute({List<PageRouteInfo>? children})
+    : super(AutoRouteBooksRoute.name, initialChildren: children);
+
+  static const String name = 'AutoRouteBooksRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AutoRouteBooksPage();
+    },
+  );
+}
+
+/// generated route for
+/// [AutoRouteBooksTabPage]
+class AutoRouteBooksTabRoute extends PageRouteInfo<void> {
+  const AutoRouteBooksTabRoute({List<PageRouteInfo>? children})
+    : super(AutoRouteBooksTabRoute.name, initialChildren: children);
+
+  static const String name = 'AutoRouteBooksTabRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AutoRouteBooksTabPage();
+    },
+  );
+}
+
+/// generated route for
+/// [AutoRouteGlobalProtectedPage]
+class AutoRouteGlobalProtectedRoute extends PageRouteInfo<void> {
+  const AutoRouteGlobalProtectedRoute({List<PageRouteInfo>? children})
+    : super(AutoRouteGlobalProtectedRoute.name, initialChildren: children);
+
+  static const String name = 'AutoRouteGlobalProtectedRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AutoRouteGlobalProtectedPage();
+    },
+  );
+}
+
+/// generated route for
+/// [AutoRouteLoginPage]
+class AutoRouteLoginRoute extends PageRouteInfo<AutoRouteLoginRouteArgs> {
+  AutoRouteLoginRoute({
+    Key? key,
+    void Function(bool)? onResult,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AutoRouteLoginRoute.name,
+         args: AutoRouteLoginRouteArgs(key: key, onResult: onResult),
+         initialChildren: children,
+       );
+
+  static const String name = 'AutoRouteLoginRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<AutoRouteLoginRouteArgs>(
+        orElse: () => const AutoRouteLoginRouteArgs(),
+      );
+      return AutoRouteLoginPage(key: args.key, onResult: args.onResult);
+    },
+  );
+}
+
+class AutoRouteLoginRouteArgs {
+  const AutoRouteLoginRouteArgs({this.key, this.onResult});
+
+  final Key? key;
+
+  final void Function(bool)? onResult;
+
+  @override
+  String toString() {
+    return 'AutoRouteLoginRouteArgs{key: $key, onResult: $onResult}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AutoRouteLoginRouteArgs) return false;
+    return key == other.key;
+  }
+
+  @override
+  int get hashCode => key.hashCode;
+}
+
+/// generated route for
+/// [AutoRouteNestedPage]
+class AutoRouteNestedRoute extends PageRouteInfo<void> {
+  const AutoRouteNestedRoute({List<PageRouteInfo>? children})
+    : super(AutoRouteNestedRoute.name, initialChildren: children);
+
+  static const String name = 'AutoRouteNestedRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AutoRouteNestedPage();
+    },
+  );
+}
+
+/// generated route for
+/// [AutoRouteObserverPage]
+class AutoRouteObserverRoute extends PageRouteInfo<void> {
+  const AutoRouteObserverRoute({List<PageRouteInfo>? children})
+    : super(AutoRouteObserverRoute.name, initialChildren: children);
+
+  static const String name = 'AutoRouteObserverRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AutoRouteObserverPage();
+    },
+  );
+}
+
+/// generated route for
+/// [AutoRouteProductOverviewPage]
+class AutoRouteProductOverviewRoute extends PageRouteInfo<void> {
+  const AutoRouteProductOverviewRoute({List<PageRouteInfo>? children})
+    : super(AutoRouteProductOverviewRoute.name, initialChildren: children);
+
+  static const String name = 'AutoRouteProductOverviewRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AutoRouteProductOverviewPage();
+    },
+  );
+}
+
+/// generated route for
+/// [AutoRouteProductPage]
+class AutoRouteProductRoute extends PageRouteInfo<AutoRouteProductRouteArgs> {
+  AutoRouteProductRoute({
+    Key? key,
+    required String id,
+    String? tab,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AutoRouteProductRoute.name,
+         args: AutoRouteProductRouteArgs(key: key, id: id, tab: tab),
+         rawPathParams: {'id': id},
+         rawQueryParams: {'tab': tab},
+         initialChildren: children,
+       );
+
+  static const String name = 'AutoRouteProductRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final pathParams = data.inheritedPathParams;
+      final queryParams = data.queryParams;
+      final args = data.argsAs<AutoRouteProductRouteArgs>(
+        orElse: () => AutoRouteProductRouteArgs(
+          id: pathParams.getString('id'),
+          tab: queryParams.optString('tab'),
+        ),
+      );
+      return AutoRouteProductPage(key: args.key, id: args.id, tab: args.tab);
+    },
+  );
+}
+
+class AutoRouteProductRouteArgs {
+  const AutoRouteProductRouteArgs({this.key, required this.id, this.tab});
+
+  final Key? key;
+
+  final String id;
+
+  final String? tab;
+
+  @override
+  String toString() {
+    return 'AutoRouteProductRouteArgs{key: $key, id: $id, tab: $tab}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AutoRouteProductRouteArgs) return false;
+    return key == other.key && id == other.id && tab == other.tab;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ id.hashCode ^ tab.hashCode;
+}
+
+/// generated route for
+/// [AutoRouteProductReviewPage]
+class AutoRouteProductReviewRoute
+    extends PageRouteInfo<AutoRouteProductReviewRouteArgs> {
+  AutoRouteProductReviewRoute({
+    Key? key,
+    String? source,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AutoRouteProductReviewRoute.name,
+         args: AutoRouteProductReviewRouteArgs(key: key, source: source),
+         rawQueryParams: {'source': source},
+         initialChildren: children,
+       );
+
+  static const String name = 'AutoRouteProductReviewRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final pathParams = data.inheritedPathParams;
+      final queryParams = data.queryParams;
+      final args = data.argsAs<AutoRouteProductReviewRouteArgs>(
+        orElse: () => AutoRouteProductReviewRouteArgs(
+          source: queryParams.optString('source'),
+        ),
+      );
+      return AutoRouteProductReviewPage(
+        key: args.key,
+        productId: pathParams.getString('id'),
+        source: args.source,
+      );
+    },
+  );
+}
+
+class AutoRouteProductReviewRouteArgs {
+  const AutoRouteProductReviewRouteArgs({this.key, this.source});
+
+  final Key? key;
+
+  final String? source;
+
+  @override
+  String toString() {
+    return 'AutoRouteProductReviewRouteArgs{key: $key, source: $source}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AutoRouteProductReviewRouteArgs) return false;
+    return key == other.key && source == other.source;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ source.hashCode;
+}
+
+/// generated route for
+/// [AutoRouteProfileTabPage]
+class AutoRouteProfileTabRoute extends PageRouteInfo<void> {
+  const AutoRouteProfileTabRoute({List<PageRouteInfo>? children})
+    : super(AutoRouteProfileTabRoute.name, initialChildren: children);
+
+  static const String name = 'AutoRouteProfileTabRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AutoRouteProfileTabPage();
+    },
+  );
+}
+
+/// generated route for
+/// [AutoRouteProtectedPage]
+class AutoRouteProtectedRoute extends PageRouteInfo<void> {
+  const AutoRouteProtectedRoute({List<PageRouteInfo>? children})
+    : super(AutoRouteProtectedRoute.name, initialChildren: children);
+
+  static const String name = 'AutoRouteProtectedRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AutoRouteProtectedPage();
+    },
+  );
+}
+
+/// generated route for
+/// [AutoRouteSettingsTabPage]
+class AutoRouteSettingsTabRoute extends PageRouteInfo<void> {
+  const AutoRouteSettingsTabRoute({List<PageRouteInfo>? children})
+    : super(AutoRouteSettingsTabRoute.name, initialChildren: children);
+
+  static const String name = 'AutoRouteSettingsTabRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AutoRouteSettingsTabPage();
+    },
+  );
+}
+
+/// generated route for
+/// [AutoRouteUnknownPage]
+class AutoRouteUnknownRoute extends PageRouteInfo<void> {
+  const AutoRouteUnknownRoute({List<PageRouteInfo>? children})
+    : super(AutoRouteUnknownRoute.name, initialChildren: children);
+
+  static const String name = 'AutoRouteUnknownRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AutoRouteUnknownPage();
+    },
+  );
+}
+
+/// generated route for
 /// [AutoRouteUsagePage]
 class AutoRouteUsageRoute extends PageRouteInfo<void> {
   const AutoRouteUsageRoute({List<PageRouteInfo>? children})
@@ -102,6 +512,22 @@ class AutoRouteUsageRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const AutoRouteUsagePage();
+    },
+  );
+}
+
+/// generated route for
+/// [AutoRouteWrappedPage]
+class AutoRouteWrappedRoute extends PageRouteInfo<void> {
+  const AutoRouteWrappedRoute({List<PageRouteInfo>? children})
+    : super(AutoRouteWrappedRoute.name, initialChildren: children);
+
+  static const String name = 'AutoRouteWrappedRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return WrappedRoute(child: const AutoRouteWrappedPage());
     },
   );
 }
