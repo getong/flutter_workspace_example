@@ -16,6 +16,7 @@ import 'package:widget_layout_example2/modules/exclude_semantics_page.dart';
 import 'package:widget_layout_example2/modules/filled_button_page.dart';
 import 'package:widget_layout_example2/modules/fl_chart_page.dart';
 import 'package:widget_layout_example2/modules/flutter_svg_page.dart';
+import 'package:widget_layout_example2/modules/flutter_auto_size_text_page.dart';
 import 'package:widget_layout_example2/modules/font_awesome_flutter_page.dart';
 import 'package:widget_layout_example2/modules/gesturedetector.dart';
 import 'package:widget_layout_example2/modules/image_widget_page.dart';
@@ -90,6 +91,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: TextFieldControllerRoute.page,
       path: '/text-field-controller-page',
+    ),
+    AutoRoute(
+      page: FlutterAutoSizeTextRoute.page,
+      path: '/flutter-auto-size-text-page',
     ),
     AutoRoute(page: DataTableRoute.page, path: '/data-table-page'),
     AutoRoute(page: FlChartRoute.page, path: '/fl-chart-page'),

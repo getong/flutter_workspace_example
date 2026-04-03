@@ -45,6 +45,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/text-field-controller-page',
   ),
   _ModuleLink(
+    label: 'flutter_auto_size_text Module',
+    path: '/flutter-auto-size-text-page',
+  ),
+  _ModuleLink(
     label: 'DataTable + PaginatedDataTable Module',
     path: '/data-table-page',
   ),

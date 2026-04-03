@@ -267,6 +267,22 @@ class FlChartRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterAutoSizeTextPage]
+class FlutterAutoSizeTextRoute extends PageRouteInfo<void> {
+  const FlutterAutoSizeTextRoute({List<PageRouteInfo>? children})
+    : super(FlutterAutoSizeTextRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterAutoSizeTextRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterAutoSizeTextPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterSvgPage]
 class FlutterSvgRoute extends PageRouteInfo<void> {
   const FlutterSvgRoute({List<PageRouteInfo>? children})
