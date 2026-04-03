@@ -137,10 +137,381 @@ class _DriftFlutterPageState extends State<DriftFlutterPage> {
     );
   }
 
+  Widget _buildIntro(ThemeData theme) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'A local SQLite-backed demo powered by drift and drift_flutter.',
+          style: theme.textTheme.headlineSmall?.copyWith(
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Text(
+          'This module demonstrates real Drift usage without Provider or Riverpod: '
+          'table definitions, generated companions, inserts, updates, deletes, '
+          'filtered watches, custom SQL summaries, and transactions.',
+          style: theme.textTheme.bodyLarge,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildInsertSection(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
+    return _SectionCard(
+      title: 'Insert Rows',
+      description:
+          'Create data with generated companions and write directly into a local drift database.',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          TextField(
+            controller: _titleController,
+            decoration: const InputDecoration(
+              labelText: 'Task title',
+              hintText: 'Add a drift demo item',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 12),
+          TextField(
+            controller: _notesController,
+            maxLines: 3,
+            decoration: const InputDecoration(
+              labelText: 'Notes',
+              hintText: 'Optional note stored in SQLite',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'Category',
+            style: theme.textTheme.titleSmall?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: _categories.map((String category) {
+              final bool selected = _category == category;
+              return ChoiceChip(
+                label: Text(category),
+                selected: selected,
+                onSelected: (_) {
+                  setState(() {
+                    _category = category;
+                  });
+                },
+              );
+            }).toList(),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'Priority: $_priority',
+            style: theme.textTheme.titleSmall?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          Slider(
+            value: _priority.toDouble(),
+            min: 1,
+            max: 5,
+            divisions: 4,
+            label: '$_priority',
+            onChanged: (double value) {
+              setState(() {
+                _priority = value.round();
+              });
+            },
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            children: <Widget>[
+              FilledButton.icon(
+                onPressed: _addTodo,
+                icon: const Icon(Icons.add_task),
+                label: const Text('Insert Row'),
+              ),
+              OutlinedButton.icon(
+                onPressed: () => _driftShowcaseDatabase.seedDemoData(),
+                icon: const Icon(Icons.playlist_add_check_circle_outlined),
+                label: const Text('Seed Demo Data'),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSummarySection() {
+    return StreamBuilder<DriftTodoSummary>(
+      stream: _driftShowcaseDatabase.watchSummary(),
+      builder: (BuildContext context, AsyncSnapshot<DriftTodoSummary> snapshot) {
+        final DriftTodoSummary summary =
+            snapshot.data ??
+            const DriftTodoSummary(
+              total: 0,
+              completed: 0,
+              pending: 0,
+              highPriority: 0,
+            );
+
+        return _SectionCard(
+          title: 'Reactive Summary',
+          description:
+              'This summary comes from a watched custom SQL query over the same drift table.',
+          child: Wrap(
+            spacing: 16,
+            runSpacing: 16,
+            children: <Widget>[
+              _StatTile(
+                label: 'Total',
+                value: summary.total.toString(),
+                accentColor: const Color(0xFF1D4ED8),
+              ),
+              _StatTile(
+                label: 'Pending',
+                value: summary.pending.toString(),
+                accentColor: const Color(0xFFC2410C),
+              ),
+              _StatTile(
+                label: 'Completed',
+                value: summary.completed.toString(),
+                accentColor: const Color(0xFF0F766E),
+              ),
+              _StatTile(
+                label: 'Priority >= 4',
+                value: summary.highPriority.toString(),
+                accentColor: const Color(0xFF7C3AED),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildCategorySection() {
+    return StreamBuilder<List<DriftCategoryCount>>(
+      stream: _driftShowcaseDatabase.watchCategoryCounts(),
+      builder:
+          (
+            BuildContext context,
+            AsyncSnapshot<List<DriftCategoryCount>> snapshot,
+          ) {
+            final List<DriftCategoryCount> categories =
+                snapshot.data ?? const <DriftCategoryCount>[];
+
+            return _SectionCard(
+              title: 'Category Aggregation',
+              description:
+                  'Another watched query using grouped SQL output from Drift.',
+              child: categories.isEmpty
+                  ? const Text('No categories yet.')
+                  : Wrap(
+                      spacing: 12,
+                      runSpacing: 12,
+                      children: categories.map((DriftCategoryCount category) {
+                        return ActionChip(
+                          avatar: const Icon(Icons.done_all, size: 18),
+                          label: Text(
+                            '${category.category}  ${category.completedCount}/${category.itemCount}',
+                          ),
+                          onPressed: () => _markCategoryDone(category.category),
+                        );
+                      }).toList(),
+                    ),
+            );
+          },
+    );
+  }
+
+  Widget _buildWatchSection(BuildContext context) {
+    return _SectionCard(
+      title: 'Watch And Filter Rows',
+      description:
+          'This list is backed by a StreamBuilder watching a filtered drift select query.',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          TextField(
+            controller: _searchController,
+            decoration: const InputDecoration(
+              labelText: 'Search title, category, or notes',
+              prefixIcon: Icon(Icons.search),
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 12),
+          SwitchListTile(
+            contentPadding: EdgeInsets.zero,
+            value: _hideCompleted,
+            title: const Text('Hide completed rows'),
+            subtitle: const Text('Filters the watched select query'),
+            onChanged: (bool value) {
+              setState(() {
+                _hideCompleted = value;
+              });
+            },
+          ),
+          const SizedBox(height: 12),
+          _buildWatchedTodoList(context),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWatchedTodoList(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+
+    return StreamBuilder<List<DriftTodoEntry>>(
+      stream: _driftShowcaseDatabase.watchTodos(
+        search: _searchController.text,
+        hideCompleted: _hideCompleted,
+      ),
+      builder:
+          (BuildContext context, AsyncSnapshot<List<DriftTodoEntry>> snapshot) {
+            final List<DriftTodoEntry> rows =
+                snapshot.data ?? const <DriftTodoEntry>[];
+
+            if (rows.isEmpty) {
+              return Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                  color: colorScheme.surfaceContainerHighest.withValues(
+                    alpha: 0.42,
+                  ),
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                child: const Text(
+                  'No rows match the current filter. Insert a row or reset the demo data.',
+                ),
+              );
+            }
+
+            return Column(
+              children: rows
+                  .map((DriftTodoEntry entry) => _buildTodoCard(context, entry))
+                  .toList(),
+            );
+          },
+    );
+  }
+
+  Widget _buildTodoCard(BuildContext context, DriftTodoEntry entry) {
+    final ThemeData theme = Theme.of(context);
+
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12),
+      clipBehavior: Clip.antiAlias,
+      child: ListTile(
+        contentPadding: const EdgeInsets.all(16),
+        leading: Checkbox(
+          value: entry.completed,
+          onChanged: (_) {
+            _driftShowcaseDatabase.toggleCompleted(entry);
+          },
+        ),
+        title: Text(
+          entry.title,
+          style: theme.textTheme.titleSmall?.copyWith(
+            fontWeight: FontWeight.w700,
+            decoration: entry.completed ? TextDecoration.lineThrough : null,
+          ),
+        ),
+        subtitle: Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: <Widget>[
+                  Chip(label: Text(entry.category)),
+                  Chip(label: Text('Priority ${entry.priority}')),
+                  Chip(
+                    label: Text(
+                      entry.createdAt.toLocal().toString().split('.').first,
+                    ),
+                  ),
+                ],
+              ),
+              if ((entry.notes ?? '').isNotEmpty) ...<Widget>[
+                const SizedBox(height: 8),
+                Text(entry.notes!),
+              ],
+            ],
+          ),
+        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            IconButton(
+              tooltip: 'Increase priority',
+              onPressed: () {
+                _driftShowcaseDatabase.increasePriority(
+                  entry.id,
+                  entry.priority,
+                );
+              },
+              icon: const Icon(Icons.arrow_upward),
+            ),
+            IconButton(
+              tooltip: 'Delete row',
+              onPressed: () {
+                _driftShowcaseDatabase.deleteTodo(entry.id);
+              },
+              icon: const Icon(Icons.delete_outline),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMutationSection() {
+    return _SectionCard(
+      title: 'Mutation Actions',
+      description:
+          'These buttons demonstrate updates, deletes, and a transaction-based reset on the same database instance.',
+      child: Wrap(
+        spacing: 12,
+        runSpacing: 12,
+        children: <Widget>[
+          FilledButton.tonalIcon(
+            onPressed: _runRenamePending,
+            icon: const Icon(Icons.edit_note),
+            label: const Text('Rename First Pending'),
+          ),
+          FilledButton.tonalIcon(
+            onPressed: _clearCompleted,
+            icon: const Icon(Icons.cleaning_services_outlined),
+            label: const Text('Clear Completed'),
+          ),
+          FilledButton.tonalIcon(
+            onPressed: _resetDemo,
+            icon: const Icon(Icons.restart_alt),
+            label: const Text('Reset Demo'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
 
     return Scaffold(
       appBar: AppBar(title: const Text('drift + drift_flutter Module')),
@@ -148,375 +519,19 @@ class _DriftFlutterPageState extends State<DriftFlutterPage> {
         child: ListView(
           padding: const EdgeInsets.all(24),
           children: <Widget>[
-            Text(
-              'A local SQLite-backed demo powered by drift and drift_flutter.',
-              style: theme.textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              'This module demonstrates real Drift usage without Provider or Riverpod: '
-              'table definitions, generated companions, inserts, updates, deletes, '
-              'filtered watches, custom SQL summaries, and transactions.',
-              style: theme.textTheme.bodyLarge,
-            ),
+            _buildIntro(theme),
             const SizedBox(height: 24),
             const _CodeSampleCard(),
             const SizedBox(height: 16),
-            _SectionCard(
-              title: 'Insert Rows',
-              description:
-                  'Create data with generated companions and write directly into a local drift database.',
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  TextField(
-                    controller: _titleController,
-                    decoration: const InputDecoration(
-                      labelText: 'Task title',
-                      hintText: 'Add a drift demo item',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  TextField(
-                    controller: _notesController,
-                    maxLines: 3,
-                    decoration: const InputDecoration(
-                      labelText: 'Notes',
-                      hintText: 'Optional note stored in SQLite',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Category',
-                    style: theme.textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: _categories.map((String category) {
-                      final bool selected = _category == category;
-                      return ChoiceChip(
-                        label: Text(category),
-                        selected: selected,
-                        onSelected: (_) {
-                          setState(() {
-                            _category = category;
-                          });
-                        },
-                      );
-                    }).toList(),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Priority: $_priority',
-                    style: theme.textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  Slider(
-                    value: _priority.toDouble(),
-                    min: 1,
-                    max: 5,
-                    divisions: 4,
-                    label: '$_priority',
-                    onChanged: (double value) {
-                      setState(() {
-                        _priority = value.round();
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 8),
-                  Wrap(
-                    spacing: 12,
-                    runSpacing: 12,
-                    children: <Widget>[
-                      FilledButton.icon(
-                        onPressed: _addTodo,
-                        icon: const Icon(Icons.add_task),
-                        label: const Text('Insert Row'),
-                      ),
-                      OutlinedButton.icon(
-                        onPressed: () => _driftShowcaseDatabase.seedDemoData(),
-                        icon: const Icon(
-                          Icons.playlist_add_check_circle_outlined,
-                        ),
-                        label: const Text('Seed Demo Data'),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            _buildInsertSection(context),
             const SizedBox(height: 16),
-            StreamBuilder<DriftTodoSummary>(
-              stream: _driftShowcaseDatabase.watchSummary(),
-              builder:
-                  (
-                    BuildContext context,
-                    AsyncSnapshot<DriftTodoSummary> snapshot,
-                  ) {
-                    final DriftTodoSummary summary =
-                        snapshot.data ??
-                        const DriftTodoSummary(
-                          total: 0,
-                          completed: 0,
-                          pending: 0,
-                          highPriority: 0,
-                        );
-
-                    return _SectionCard(
-                      title: 'Reactive Summary',
-                      description:
-                          'This summary comes from a watched custom SQL query over the same drift table.',
-                      child: Wrap(
-                        spacing: 16,
-                        runSpacing: 16,
-                        children: <Widget>[
-                          _StatTile(
-                            label: 'Total',
-                            value: summary.total.toString(),
-                            accentColor: const Color(0xFF1D4ED8),
-                          ),
-                          _StatTile(
-                            label: 'Pending',
-                            value: summary.pending.toString(),
-                            accentColor: const Color(0xFFC2410C),
-                          ),
-                          _StatTile(
-                            label: 'Completed',
-                            value: summary.completed.toString(),
-                            accentColor: const Color(0xFF0F766E),
-                          ),
-                          _StatTile(
-                            label: 'Priority >= 4',
-                            value: summary.highPriority.toString(),
-                            accentColor: const Color(0xFF7C3AED),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-            ),
+            _buildSummarySection(),
             const SizedBox(height: 16),
-            StreamBuilder<List<DriftCategoryCount>>(
-              stream: _driftShowcaseDatabase.watchCategoryCounts(),
-              builder:
-                  (
-                    BuildContext context,
-                    AsyncSnapshot<List<DriftCategoryCount>> snapshot,
-                  ) {
-                    final List<DriftCategoryCount> categories =
-                        snapshot.data ?? const <DriftCategoryCount>[];
-
-                    return _SectionCard(
-                      title: 'Category Aggregation',
-                      description:
-                          'Another watched query using grouped SQL output from Drift.',
-                      child: categories.isEmpty
-                          ? const Text('No categories yet.')
-                          : Wrap(
-                              spacing: 12,
-                              runSpacing: 12,
-                              children: categories.map((
-                                DriftCategoryCount category,
-                              ) {
-                                return ActionChip(
-                                  avatar: const Icon(Icons.done_all, size: 18),
-                                  label: Text(
-                                    '${category.category}  ${category.completedCount}/${category.itemCount}',
-                                  ),
-                                  onPressed: () =>
-                                      _markCategoryDone(category.category),
-                                );
-                              }).toList(),
-                            ),
-                    );
-                  },
-            ),
+            _buildCategorySection(),
             const SizedBox(height: 16),
-            _SectionCard(
-              title: 'Watch And Filter Rows',
-              description:
-                  'This list is backed by a StreamBuilder watching a filtered drift select query.',
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  TextField(
-                    controller: _searchController,
-                    decoration: const InputDecoration(
-                      labelText: 'Search title, category, or notes',
-                      prefixIcon: Icon(Icons.search),
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  SwitchListTile(
-                    contentPadding: EdgeInsets.zero,
-                    value: _hideCompleted,
-                    title: const Text('Hide completed rows'),
-                    subtitle: const Text('Filters the watched select query'),
-                    onChanged: (bool value) {
-                      setState(() {
-                        _hideCompleted = value;
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 12),
-                  StreamBuilder<List<DriftTodoEntry>>(
-                    stream: _driftShowcaseDatabase.watchTodos(
-                      search: _searchController.text,
-                      hideCompleted: _hideCompleted,
-                    ),
-                    builder:
-                        (
-                          BuildContext context,
-                          AsyncSnapshot<List<DriftTodoEntry>> snapshot,
-                        ) {
-                          final List<DriftTodoEntry> rows =
-                              snapshot.data ?? const <DriftTodoEntry>[];
-
-                          if (rows.isEmpty) {
-                            return Container(
-                              width: double.infinity,
-                              padding: const EdgeInsets.all(18),
-                              decoration: BoxDecoration(
-                                color: colorScheme.surfaceContainerHighest
-                                    .withValues(alpha: 0.42),
-                                borderRadius: BorderRadius.circular(18),
-                              ),
-                              child: const Text(
-                                'No rows match the current filter. Insert a row or reset the demo data.',
-                              ),
-                            );
-                          }
-
-                          return Column(
-                            children: rows.map((DriftTodoEntry entry) {
-                              return Card(
-                                margin: const EdgeInsets.only(bottom: 12),
-                                clipBehavior: Clip.antiAlias,
-                                child: ListTile(
-                                  contentPadding: const EdgeInsets.all(16),
-                                  leading: Checkbox(
-                                    value: entry.completed,
-                                    onChanged: (_) {
-                                      _driftShowcaseDatabase.toggleCompleted(
-                                        entry,
-                                      );
-                                    },
-                                  ),
-                                  title: Text(
-                                    entry.title,
-                                    style: theme.textTheme.titleSmall?.copyWith(
-                                      fontWeight: FontWeight.w700,
-                                      decoration: entry.completed
-                                          ? TextDecoration.lineThrough
-                                          : null,
-                                    ),
-                                  ),
-                                  subtitle: Padding(
-                                    padding: const EdgeInsets.only(top: 8),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Wrap(
-                                          spacing: 8,
-                                          runSpacing: 8,
-                                          children: <Widget>[
-                                            Chip(label: Text(entry.category)),
-                                            Chip(
-                                              label: Text(
-                                                'Priority ${entry.priority}',
-                                              ),
-                                            ),
-                                            Chip(
-                                              label: Text(
-                                                entry.createdAt
-                                                    .toLocal()
-                                                    .toString()
-                                                    .split('.')
-                                                    .first,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        if ((entry.notes ?? '')
-                                            .isNotEmpty) ...<Widget>[
-                                          const SizedBox(height: 8),
-                                          Text(entry.notes!),
-                                        ],
-                                      ],
-                                    ),
-                                  ),
-                                  trailing: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      IconButton(
-                                        tooltip: 'Increase priority',
-                                        onPressed: () {
-                                          _driftShowcaseDatabase
-                                              .increasePriority(
-                                                entry.id,
-                                                entry.priority,
-                                              );
-                                        },
-                                        icon: const Icon(Icons.arrow_upward),
-                                      ),
-                                      IconButton(
-                                        tooltip: 'Delete row',
-                                        onPressed: () {
-                                          _driftShowcaseDatabase.deleteTodo(
-                                            entry.id,
-                                          );
-                                        },
-                                        icon: const Icon(Icons.delete_outline),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }).toList(),
-                          );
-                        },
-                  ),
-                ],
-              ),
-            ),
+            _buildWatchSection(context),
             const SizedBox(height: 16),
-            _SectionCard(
-              title: 'Mutation Actions',
-              description:
-                  'These buttons demonstrate updates, deletes, and a transaction-based reset on the same database instance.',
-              child: Wrap(
-                spacing: 12,
-                runSpacing: 12,
-                children: <Widget>[
-                  FilledButton.tonalIcon(
-                    onPressed: _runRenamePending,
-                    icon: const Icon(Icons.edit_note),
-                    label: const Text('Rename First Pending'),
-                  ),
-                  FilledButton.tonalIcon(
-                    onPressed: _clearCompleted,
-                    icon: const Icon(Icons.cleaning_services_outlined),
-                    label: const Text('Clear Completed'),
-                  ),
-                  FilledButton.tonalIcon(
-                    onPressed: _resetDemo,
-                    icon: const Icon(Icons.restart_alt),
-                    label: const Text('Reset Demo'),
-                  ),
-                ],
-              ),
-            ),
+            _buildMutationSection(),
           ],
         ),
       ),
