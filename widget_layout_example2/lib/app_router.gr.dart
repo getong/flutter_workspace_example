@@ -411,6 +411,22 @@ class IntlRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [KeyboardListenerPage]
+class KeyboardListenerRoute extends PageRouteInfo<void> {
+  const KeyboardListenerRoute({List<PageRouteInfo>? children})
+    : super(KeyboardListenerRoute.name, initialChildren: children);
+
+  static const String name = 'KeyboardListenerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const KeyboardListenerPage();
+    },
+  );
+}
+
+/// generated route for
 /// [LayoutTabPage]
 class LayoutTabRoute extends PageRouteInfo<void> {
   const LayoutTabRoute({List<PageRouteInfo>? children})
