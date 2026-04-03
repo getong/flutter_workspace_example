@@ -14,14 +14,11 @@ class CachedNetworkImageCePage extends StatefulWidget {
 class _CachedNetworkImageCePageState extends State<CachedNetworkImageCePage> {
   static const String _heroUrl =
       'https://www.baidu.com/img/flexible/logo/pc/result.png';
-  static const String _altHeroUrl =
-      'https://www.baidu.com/img/bd_logo1.png';
-  static const String _avatarUrl =
-      'https://www.baidu.com/img/bd_logo1.png';
+  static const String _altHeroUrl = 'https://www.baidu.com/img/bd_logo1.png';
+  static const String _avatarUrl = 'https://www.baidu.com/img/bd_logo1.png';
   static const String _cardUrl =
       'https://www.baidu.com/img/flexible/logo/pc/result.png';
-  static const String _errorDemoUrl =
-      'https://www.baidu.com/img/bd_logo1.png';
+  static const String _errorDemoUrl = 'https://www.baidu.com/img/bd_logo1.png';
   static const String _brokenUrl =
       'https://www.baidu.com/img/this-image-does-not-exist.png';
 

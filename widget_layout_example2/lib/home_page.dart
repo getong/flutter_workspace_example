@@ -30,6 +30,10 @@ const List<_ModuleLink> _layoutModules = <_ModuleLink>[
 const List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(label: 'Intl Module', path: '/intl-page'),
   _ModuleLink(label: 'Text.rich Module', path: '/text-rich-page'),
+  _ModuleLink(
+    label: 'Ink + InkWell + InkResponse Module',
+    path: '/ink-widgets-page',
+  ),
   _ModuleLink(label: 'Semantics Module', path: '/semantics-page'),
   _ModuleLink(
     label: 'ExcludeSemantics Module',

@@ -21,6 +21,7 @@ import 'package:widget_layout_example2/modules/flutter_auto_size_text_page.dart'
 import 'package:widget_layout_example2/modules/font_awesome_flutter_page.dart';
 import 'package:widget_layout_example2/modules/gesturedetector.dart';
 import 'package:widget_layout_example2/modules/image_widget_page.dart';
+import 'package:widget_layout_example2/modules/ink_widgets_page.dart';
 import 'package:widget_layout_example2/modules/intl_page.dart';
 import 'package:widget_layout_example2/modules/media_query_page.dart';
 import 'package:widget_layout_example2/modules/merge_semantics_page.dart';
@@ -69,6 +70,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: AlignRoute.page, path: '/align-page'),
     AutoRoute(page: TableRoute.page, path: '/table-page'),
     AutoRoute(page: IntlRoute.page, path: '/intl-page'),
+    AutoRoute(page: InkWidgetsRoute.page, path: '/ink-widgets-page'),
     AutoRoute(page: MediaQueryRoute.page, path: '/media-query-page'),
     AutoRoute(page: TextRichRoute.page, path: '/text-rich-page'),
     AutoRoute(

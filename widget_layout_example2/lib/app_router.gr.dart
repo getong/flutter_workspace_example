@@ -379,6 +379,22 @@ class ImageWidgetRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [InkWidgetsPage]
+class InkWidgetsRoute extends PageRouteInfo<void> {
+  const InkWidgetsRoute({List<PageRouteInfo>? children})
+    : super(InkWidgetsRoute.name, initialChildren: children);
+
+  static const String name = 'InkWidgetsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const InkWidgetsPage();
+    },
+  );
+}
+
+/// generated route for
 /// [IntlPage]
 class IntlRoute extends PageRouteInfo<void> {
   const IntlRoute({List<PageRouteInfo>? children})
