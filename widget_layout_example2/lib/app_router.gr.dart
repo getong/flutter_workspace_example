@@ -91,6 +91,22 @@ class AnimationTabRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CachedNetworkImageCePage]
+class CachedNetworkImageCeRoute extends PageRouteInfo<void> {
+  const CachedNetworkImageCeRoute({List<PageRouteInfo>? children})
+    : super(CachedNetworkImageCeRoute.name, initialChildren: children);
+
+  static const String name = 'CachedNetworkImageCeRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CachedNetworkImageCePage();
+    },
+  );
+}
+
+/// generated route for
 /// [CenterBoxPage]
 class CenterBoxRoute extends PageRouteInfo<void> {
   const CenterBoxRoute({List<PageRouteInfo>? children})

@@ -6,6 +6,7 @@ import 'package:widget_layout_example2/modules/animated_default_text_style_page.
 import 'package:widget_layout_example2/modules/animated_switcher_page.dart';
 import 'package:widget_layout_example2/modules/animation_controller_page.dart';
 import 'package:widget_layout_example2/modules/center_box_page.dart';
+import 'package:widget_layout_example2/modules/cached_network_image_ce_page.dart';
 import 'package:widget_layout_example2/modules/column_page.dart';
 import 'package:widget_layout_example2/modules/column_saved_page.dart';
 import 'package:widget_layout_example2/modules/constrained_box_page.dart';
@@ -95,6 +96,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: FlutterAutoSizeTextRoute.page,
       path: '/flutter-auto-size-text-page',
+    ),
+    AutoRoute(
+      page: CachedNetworkImageCeRoute.page,
+      path: '/cached-network-image-ce-page',
     ),
     AutoRoute(page: DataTableRoute.page, path: '/data-table-page'),
     AutoRoute(page: FlChartRoute.page, path: '/fl-chart-page'),

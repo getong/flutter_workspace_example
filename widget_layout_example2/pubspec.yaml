@@ -41,6 +41,7 @@ dependencies:
   intl: ^0.20.2
   shared_preferences: ^2.5.5
   flutter_auto_size_text: ^5.0.0
+  cached_network_image_ce: ^4.6.4
 
 dev_dependencies:
   flutter_test:

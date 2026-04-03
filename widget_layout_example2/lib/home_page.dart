@@ -49,6 +49,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/flutter-auto-size-text-page',
   ),
   _ModuleLink(
+    label: 'cached_network_image_ce Module',
+    path: '/cached-network-image-ce-page',
+  ),
+  _ModuleLink(
     label: 'DataTable + PaginatedDataTable Module',
     path: '/data-table-page',
   ),
