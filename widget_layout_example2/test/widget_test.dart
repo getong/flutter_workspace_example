@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:widget_layout_example2/main.dart';
@@ -22,6 +23,13 @@ void main() {
     expect(find.text('Content Modules'), findsOneWidget);
     expect(find.text('Intl Module'), findsOneWidget);
     expect(find.text('Text.rich Module'), findsOneWidget);
+    expect(find.text('FutureBuilder Module'), findsOneWidget);
+    expect(find.text('StreamBuilder Module'), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.text('Semantics Module'),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
     expect(find.text('Semantics Module'), findsOneWidget);
 
     await tester.tap(find.text('Animation'));

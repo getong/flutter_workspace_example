@@ -654,6 +654,22 @@ class SliverExamplesRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [StreamBuilderPage]
+class StreamBuilderRoute extends PageRouteInfo<void> {
+  const StreamBuilderRoute({List<PageRouteInfo>? children})
+    : super(StreamBuilderRoute.name, initialChildren: children);
+
+  static const String name = 'StreamBuilderRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const StreamBuilderPage();
+    },
+  );
+}
+
+/// generated route for
 /// [TablePage]
 class TableRoute extends PageRouteInfo<void> {
   const TableRoute({List<PageRouteInfo>? children})

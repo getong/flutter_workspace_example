@@ -37,6 +37,7 @@ import 'package:widget_layout_example2/modules/shared_preferences_page.dart';
 import 'package:widget_layout_example2/modules/single_child_scroll_view_page.dart';
 import 'package:widget_layout_example2/modules/single_ticker_provider_state_mixin_page.dart';
 import 'package:widget_layout_example2/modules/sliver_examples_page.dart';
+import 'package:widget_layout_example2/modules/stream_builder_page.dart';
 import 'package:widget_layout_example2/modules/table_page.dart';
 import 'package:widget_layout_example2/modules/text_field_controller_page.dart';
 import 'package:widget_layout_example2/modules/text_rich_page.dart';
@@ -76,6 +77,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: TableRoute.page, path: '/table-page'),
     AutoRoute(page: IntlRoute.page, path: '/intl-page'),
     AutoRoute(page: FutureBuilderRoute.page, path: '/future-builder-page'),
+    AutoRoute(page: StreamBuilderRoute.page, path: '/stream-builder-page'),
     AutoRoute(page: DriftFlutterRoute.page, path: '/drift-flutter-page'),
     AutoRoute(
       page: KeyboardListenerRoute.page,
