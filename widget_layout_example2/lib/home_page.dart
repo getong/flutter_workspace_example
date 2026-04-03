@@ -1,248 +1,205 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
+const List<_ModuleLink> _layoutModules = <_ModuleLink>[
+  _ModuleLink(label: 'Center Box Module', path: '/center-box'),
+  _ModuleLink(label: 'Constrained Box Module', path: '/constrained-box'),
+  _ModuleLink(label: 'Row Expanded Module', path: '/row-expand-page'),
+  _ModuleLink(label: 'gesturedector Module', path: '/gesturedector-page'),
+  _ModuleLink(label: 'Column Module', path: '/column-page'),
+  _ModuleLink(label: 'Column Saved Module', path: '/column-saved-page'),
+  _ModuleLink(label: 'Padding Module', path: '/padding-page'),
+  _ModuleLink(label: 'Positioned Module', path: '/positioned-page'),
+  _ModuleLink(label: 'Align Module', path: '/align-page'),
+  _ModuleLink(label: 'Table Module', path: '/table-page'),
+  _ModuleLink(label: 'MediaQuery Module', path: '/media-query-page'),
+  _ModuleLink(
+    label: 'SingleChildScrollView Module',
+    path: '/single-child-scroll-view-page',
+  ),
+  _ModuleLink(
+    label:
+        'SliverToBoxAdapter + SliverList + SliverPadding + SliverFillRemaining Module',
+    path: '/sliver-widgets-page',
+  ),
+  _ModuleLink(label: 'Scrollbar Module', path: '/scrollbar-page'),
+  _ModuleLink(label: 'FilledButton Module', path: '/filled-button-page'),
+  _ModuleLink(label: 'DecoratedBox Module', path: '/decorated-box-page'),
+];
+
+const List<_ModuleLink> _contentModules = <_ModuleLink>[
+  _ModuleLink(label: 'Intl Module', path: '/intl-page'),
+  _ModuleLink(label: 'Text.rich Module', path: '/text-rich-page'),
+  _ModuleLink(label: 'Semantics Module', path: '/semantics-page'),
+  _ModuleLink(
+    label: 'ExcludeSemantics Module',
+    path: '/exclude-semantics-page',
+  ),
+  _ModuleLink(label: 'MergeSemantics Module', path: '/merge-semantics-page'),
+  _ModuleLink(
+    label: 'shared_preferences Module',
+    path: '/shared-preferences-page',
+  ),
+  _ModuleLink(
+    label: 'TextField + TextEditingController Module',
+    path: '/text-field-controller-page',
+  ),
+  _ModuleLink(
+    label: 'DataTable + PaginatedDataTable Module',
+    path: '/data-table-page',
+  ),
+  _ModuleLink(label: 'fl_chart Module', path: '/fl-chart-page'),
+  _ModuleLink(
+    label: 'font_awesome_flutter Module',
+    path: '/font-awesome-flutter-page',
+  ),
+  _ModuleLink(label: 'flutter_svg Module', path: '/flutter-svg-page'),
+  _ModuleLink(label: 'Image Module', path: '/image-widget-page'),
+];
+
+const List<_ModuleLink> _animationModules = <_ModuleLink>[
+  _ModuleLink(
+    label: 'AnimatedSwitcher Module',
+    path: '/animated-switcher-page',
+  ),
+  _ModuleLink(
+    label: 'AnimatedDefaultTextStyle Module',
+    path: '/animated-default-text-style-page',
+  ),
+  _ModuleLink(label: 'CustomPaint Module', path: '/custom-paint-page'),
+  _ModuleLink(
+    label: 'TweenAnimationBuilder Module',
+    path: '/tween-animation-builder-page',
+  ),
+  _ModuleLink(
+    label: 'AnimationController Module',
+    path: '/animation-controller-page',
+  ),
+  _ModuleLink(
+    label: 'SingleTickerProviderStateMixin Module',
+    path: '/single-ticker-provider-state-mixin-page',
+  ),
+  _ModuleLink(label: 'Tween Module', path: '/tween-page'),
+  _ModuleLink(
+    label: 'TweenSequence + Interval Module',
+    path: '/tween-sequence-interval-page',
+  ),
+];
+
 @RoutePage(name: 'HomeRoute')
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+  static const List<String> _titles = <String>[
+    'Layout Modules',
+    'Content Modules',
+    'Animation Modules',
+  ];
+
+  List<PageRouteInfo<void>> _routes() {
+    return const <PageRouteInfo<void>>[
+      NamedRoute<void>('LayoutTabRoute'),
+      NamedRoute<void>('ContentTabRoute'),
+      NamedRoute<void>('AnimationTabRoute'),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Widget Layout Modules')),
-      body: SelectionArea(
-        child: ListView(
-          padding: const EdgeInsets.all(24),
-          children: <Widget>[
-            SizedBox(
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  ElevatedButton(
-                    onPressed: () => context.router.pushPath('/center-box'),
-                    child: const Text('Center Box Module'),
-                  ),
-
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () =>
-                        context.router.pushPath('/constrained-box'),
-                    child: const Text('Constrained Box Module'),
-                  ),
-
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () =>
-                        context.router.pushPath('/row-expand-page'),
-                    child: const Text('Row Expanded Module'),
-                  ),
-
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () =>
-                        context.router.pushPath('/gesturedector-page'),
-                    child: const Text('gesturedector Module'),
-                  ),
-
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => context.router.pushPath('/column-page'),
-                    child: const Text('Column Module'),
-                  ),
-
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () =>
-                        context.router.pushPath('/column-saved-page'),
-                    child: const Text('Column Saved Module'),
-                  ),
-
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => context.router.pushPath('/padding-page'),
-                    child: const Text('Padding Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () =>
-                        context.router.pushPath('/positioned-page'),
-                    child: const Text('Positioned Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => context.router.pushPath('/align-page'),
-                    child: const Text('Align Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => context.router.pushPath('/table-page'),
-                    child: const Text('Table Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => context.router.pushPath('/intl-page'),
-                    child: const Text('Intl Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () =>
-                        context.router.pushPath('/media-query-page'),
-                    child: const Text('MediaQuery Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => context.router.pushPath('/text-rich-page'),
-                    child: const Text('Text.rich Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => context.router.pushPath(
-                      '/single-child-scroll-view-page',
-                    ),
-                    child: const Text('SingleChildScrollView Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () =>
-                        context.router.pushPath('/sliver-widgets-page'),
-                    child: const Text(
-                      'SliverToBoxAdapter + SliverList + SliverPadding + SliverFillRemaining Module',
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => context.router.pushPath('/scrollbar-page'),
-                    child: const Text('Scrollbar Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () =>
-                        context.router.pushPath('/filled-button-page'),
-                    child: const Text('FilledButton Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () =>
-                        context.router.pushPath('/decorated-box-page'),
-                    child: const Text('DecoratedBox Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => context.router.pushPath('/semantics-page'),
-                    child: const Text('Semantics Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () =>
-                        context.router.pushPath('/exclude-semantics-page'),
-                    child: const Text('ExcludeSemantics Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () =>
-                        context.router.pushPath('/merge-semantics-page'),
-                    child: const Text('MergeSemantics Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () =>
-                        context.router.pushPath('/shared-preferences-page'),
-                    child: const Text('shared_preferences Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () =>
-                        context.router.pushPath('/text-field-controller-page'),
-                    child: const Text(
-                      'TextField + TextEditingController Module',
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () =>
-                        context.router.pushPath('/data-table-page'),
-                    child: const Text('DataTable + PaginatedDataTable Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => context.router.pushPath('/fl-chart-page'),
-                    child: const Text('fl_chart Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () =>
-                        context.router.pushPath('/animated-switcher-page'),
-                    child: const Text('AnimatedSwitcher Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => context.router.pushPath(
-                      '/animated-default-text-style-page',
-                    ),
-                    child: const Text('AnimatedDefaultTextStyle Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () =>
-                        context.router.pushPath('/custom-paint-page'),
-                    child: const Text('CustomPaint Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => context.router.pushPath(
-                      '/tween-animation-builder-page',
-                    ),
-                    child: const Text('TweenAnimationBuilder Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () =>
-                        context.router.pushPath('/animation-controller-page'),
-                    child: const Text('AnimationController Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => context.router.pushPath(
-                      '/single-ticker-provider-state-mixin-page',
-                    ),
-                    child: const Text('SingleTickerProviderStateMixin Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => context.router.pushPath('/tween-page'),
-                    child: const Text('Tween Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => context.router.pushPath(
-                      '/tween-sequence-interval-page',
-                    ),
-                    child: const Text('TweenSequence + Interval Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () =>
-                        context.router.pushPath('/font-awesome-flutter-page'),
-                    child: const Text('font_awesome_flutter Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () =>
-                        context.router.pushPath('/flutter-svg-page'),
-                    child: const Text('flutter_svg Module'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () =>
-                        context.router.pushPath('/image-widget-page'),
-                    child: const Text('Image Module'),
-                  ),
-                ],
-              ),
+    return AutoTabsScaffold(
+      routes: _routes(),
+      appBarBuilder: (BuildContext context, TabsRouter tabsRouter) {
+        return AppBar(title: Text(_titles[tabsRouter.activeIndex]));
+      },
+      bottomNavigationBuilder: (BuildContext context, TabsRouter tabsRouter) {
+        return NavigationBar(
+          selectedIndex: tabsRouter.activeIndex,
+          onDestinationSelected: tabsRouter.setActiveIndex,
+          destinations: const <NavigationDestination>[
+            NavigationDestination(
+              icon: Icon(Icons.view_quilt_outlined),
+              selectedIcon: Icon(Icons.view_quilt),
+              label: 'Layout',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.widgets_outlined),
+              selectedIcon: Icon(Icons.widgets),
+              label: 'Content',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.animation_outlined),
+              selectedIcon: Icon(Icons.animation),
+              label: 'Animation',
             ),
           ],
-        ),
+        );
+      },
+    );
+  }
+}
+
+@RoutePage(name: 'LayoutTabRoute')
+class LayoutTabPage extends StatelessWidget {
+  const LayoutTabPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const _ModuleTabView(modules: _layoutModules);
+  }
+}
+
+@RoutePage(name: 'ContentTabRoute')
+class ContentTabPage extends StatelessWidget {
+  const ContentTabPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const _ModuleTabView(modules: _contentModules);
+  }
+}
+
+@RoutePage(name: 'AnimationTabRoute')
+class AnimationTabPage extends StatelessWidget {
+  const AnimationTabPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const _ModuleTabView(modules: _animationModules);
+  }
+}
+
+class _ModuleTabView extends StatelessWidget {
+  const _ModuleTabView({required this.modules});
+
+  final List<_ModuleLink> modules;
+
+  @override
+  Widget build(BuildContext context) {
+    return SelectionArea(
+      child: ListView.separated(
+        padding: const EdgeInsets.all(24),
+        itemCount: modules.length,
+        separatorBuilder: (BuildContext context, int index) {
+          return const SizedBox(height: 16);
+        },
+        itemBuilder: (BuildContext context, int index) {
+          final _ModuleLink module = modules[index];
+          return SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () => context.router.root.pushPath(module.path),
+              child: Text(module.label),
+            ),
+          );
+        },
       ),
     );
   }
+}
+
+class _ModuleLink {
+  const _ModuleLink({required this.label, required this.path});
+
+  final String label;
+  final String path;
 }

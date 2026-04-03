@@ -75,6 +75,22 @@ class AnimationControllerRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AnimationTabPage]
+class AnimationTabRoute extends PageRouteInfo<void> {
+  const AnimationTabRoute({List<PageRouteInfo>? children})
+    : super(AnimationTabRoute.name, initialChildren: children);
+
+  static const String name = 'AnimationTabRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AnimationTabPage();
+    },
+  );
+}
+
+/// generated route for
 /// [CenterBoxPage]
 class CenterBoxRoute extends PageRouteInfo<void> {
   const CenterBoxRoute({List<PageRouteInfo>? children})
@@ -134,6 +150,22 @@ class ConstrainedBoxRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const ConstrainedBoxPage();
+    },
+  );
+}
+
+/// generated route for
+/// [ContentTabPage]
+class ContentTabRoute extends PageRouteInfo<void> {
+  const ContentTabRoute({List<PageRouteInfo>? children})
+    : super(ContentTabRoute.name, initialChildren: children);
+
+  static const String name = 'ContentTabRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ContentTabPage();
     },
   );
 }
@@ -326,6 +358,22 @@ class IntlRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const IntlPage();
+    },
+  );
+}
+
+/// generated route for
+/// [LayoutTabPage]
+class LayoutTabRoute extends PageRouteInfo<void> {
+  const LayoutTabRoute({List<PageRouteInfo>? children})
+    : super(LayoutTabRoute.name, initialChildren: children);
+
+  static const String name = 'LayoutTabRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const LayoutTabPage();
     },
   );
 }

@@ -47,7 +47,15 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => <AutoRoute>[
-    AutoRoute(page: HomeRoute.page, path: '/'),
+    AutoRoute(
+      page: HomeRoute.page,
+      path: '/',
+      children: <AutoRoute>[
+        AutoRoute(page: LayoutTabRoute.page, path: 'layout', initial: true),
+        AutoRoute(page: ContentTabRoute.page, path: 'content'),
+        AutoRoute(page: AnimationTabRoute.page, path: 'animation'),
+      ],
+    ),
     AutoRoute(page: CenterBoxRoute.page, path: '/center-box'),
     AutoRoute(page: ConstrainedBoxRoute.page, path: '/constrained-box'),
     AutoRoute(page: RowExpandedRoute.page, path: '/row-expand-page'),
