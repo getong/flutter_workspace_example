@@ -5,6 +5,7 @@ const List<_ModuleLink> _layoutModules = <_ModuleLink>[
   _ModuleLink(label: 'Center Box Module', path: '/center-box'),
   _ModuleLink(label: 'Constrained Box Module', path: '/constrained-box'),
   _ModuleLink(label: 'Row Expanded Module', path: '/row-expand-page'),
+  _ModuleLink(label: 'Flexible Module', path: '/flexible-page'),
   _ModuleLink(label: 'gesturedector Module', path: '/gesturedector-page'),
   _ModuleLink(label: 'Column Module', path: '/column-page'),
   _ModuleLink(label: 'Column Saved Module', path: '/column-saved-page'),

@@ -741,6 +741,22 @@ class FlChartRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlexiblePage]
+class FlexibleRoute extends PageRouteInfo<void> {
+  const FlexibleRoute({List<PageRouteInfo>? children})
+    : super(FlexibleRoute.name, initialChildren: children);
+
+  static const String name = 'FlexibleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlexiblePage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterAutoSizeTextPage]
 class FlutterAutoSizeTextRoute extends PageRouteInfo<void> {
   const FlutterAutoSizeTextRoute({List<PageRouteInfo>? children})

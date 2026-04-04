@@ -20,6 +20,7 @@ import 'package:widget_layout_example2/modules/drift_flutter_page.dart';
 import 'package:widget_layout_example2/modules/exclude_semantics_page.dart';
 import 'package:widget_layout_example2/modules/filled_button_page.dart';
 import 'package:widget_layout_example2/modules/fl_chart_page.dart';
+import 'package:widget_layout_example2/modules/flexible_page.dart';
 import 'package:widget_layout_example2/modules/flutter_svg_page.dart';
 import 'package:widget_layout_example2/modules/flutter_auto_size_text_page.dart';
 import 'package:widget_layout_example2/modules/font_awesome_flutter_page.dart';
@@ -94,6 +95,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: CenterBoxRoute.page, path: '/center-box'),
     AutoRoute(page: ConstrainedBoxRoute.page, path: '/constrained-box'),
     AutoRoute(page: RowExpandedRoute.page, path: '/row-expand-page'),
+    AutoRoute(page: FlexibleRoute.page, path: '/flexible-page'),
     AutoRoute(page: GesturedetectorRoute.page, path: '/gesturedector-page'),
     AutoRoute(page: ColumnRoute.page, path: '/column-page'),
     AutoRoute(page: ColumnSavedRoute.page, path: '/column-saved-page'),
