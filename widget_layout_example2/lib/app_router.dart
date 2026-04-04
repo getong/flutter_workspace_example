@@ -24,6 +24,8 @@ import 'package:widget_layout_example2/modules/flexible_page.dart';
 import 'package:widget_layout_example2/modules/flutter_svg_page.dart';
 import 'package:widget_layout_example2/modules/flutter_auto_size_text_page.dart';
 import 'package:widget_layout_example2/modules/font_awesome_flutter_page.dart';
+import 'package:widget_layout_example2/modules/form_page.dart';
+import 'package:widget_layout_example2/modules/form_field_page.dart';
 import 'package:widget_layout_example2/modules/future_builder_page.dart';
 import 'package:widget_layout_example2/modules/gesturedetector.dart';
 import 'package:widget_layout_example2/modules/image_widget_page.dart';
@@ -34,6 +36,7 @@ import 'package:widget_layout_example2/modules/media_query_page.dart';
 import 'package:widget_layout_example2/modules/merge_semantics_page.dart';
 import 'package:widget_layout_example2/modules/padding_page.dart';
 import 'package:widget_layout_example2/modules/positioned_page.dart';
+import 'package:widget_layout_example2/modules/rich_text_page.dart';
 import 'package:widget_layout_example2/modules/row_expanded_page.dart';
 import 'package:widget_layout_example2/modules/scrollbar_page.dart';
 import 'package:widget_layout_example2/modules/semantics_page.dart';
@@ -185,6 +188,9 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: AutoRouteLoginRoute.page, path: '/auto-route-page/login'),
     AutoRoute(page: AutoRouteUnknownRoute.page, path: '/auto-route-page/*'),
     AutoRoute(page: IntlRoute.page, path: '/intl-page'),
+    AutoRoute(page: FormRoute.page, path: '/form-page'),
+    AutoRoute(page: FormFieldRoute.page, path: '/form-field-page'),
+    AutoRoute(page: RichTextRoute.page, path: '/rich-text-page'),
     AutoRoute(page: FutureBuilderRoute.page, path: '/future-builder-page'),
     AutoRoute(page: StreamBuilderRoute.page, path: '/stream-builder-page'),
     AutoRoute(page: DriftFlutterRoute.page, path: '/drift-flutter-page'),

@@ -805,6 +805,38 @@ class FontAwesomeFlutterRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FormFieldPage]
+class FormFieldRoute extends PageRouteInfo<void> {
+  const FormFieldRoute({List<PageRouteInfo>? children})
+    : super(FormFieldRoute.name, initialChildren: children);
+
+  static const String name = 'FormFieldRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FormFieldPage();
+    },
+  );
+}
+
+/// generated route for
+/// [FormPage]
+class FormRoute extends PageRouteInfo<void> {
+  const FormRoute({List<PageRouteInfo>? children})
+    : super(FormRoute.name, initialChildren: children);
+
+  static const String name = 'FormRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FormPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FutureBuilderPage]
 class FutureBuilderRoute extends PageRouteInfo<void> {
   const FutureBuilderRoute({List<PageRouteInfo>? children})
@@ -992,6 +1024,22 @@ class PositionedRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const PositionedPage();
+    },
+  );
+}
+
+/// generated route for
+/// [RichTextPage]
+class RichTextRoute extends PageRouteInfo<void> {
+  const RichTextRoute({List<PageRouteInfo>? children})
+    : super(RichTextRoute.name, initialChildren: children);
+
+  static const String name = 'RichTextRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const RichTextPage();
     },
   );
 }

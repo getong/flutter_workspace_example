@@ -25,6 +25,11 @@ void main() {
     expect(find.text('Intl Module'), findsOneWidget);
     expect(find.text('Text.rich Module'), findsOneWidget);
     expect(find.text('FutureBuilder Module'), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.text('StreamBuilder Module'),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
     expect(find.text('StreamBuilder Module'), findsOneWidget);
     await tester.scrollUntilVisible(
       find.text('Semantics Module'),

@@ -32,6 +32,9 @@ const List<_ModuleLink> _layoutModules = <_ModuleLink>[
 const List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(label: 'auto_route Module', path: '/auto-route-page'),
   _ModuleLink(label: 'Intl Module', path: '/intl-page'),
+  _ModuleLink(label: 'Form Module', path: '/form-page'),
+  _ModuleLink(label: 'FormField Module', path: '/form-field-page'),
+  _ModuleLink(label: 'RichText Module', path: '/rich-text-page'),
   _ModuleLink(label: 'Text.rich Module', path: '/text-rich-page'),
   _ModuleLink(label: 'FutureBuilder Module', path: '/future-builder-page'),
   _ModuleLink(label: 'StreamBuilder Module', path: '/stream-builder-page'),
