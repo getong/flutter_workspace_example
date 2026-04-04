@@ -20,21 +20,37 @@ void main() {
     await tester.tap(find.text('Content'));
     await tester.pumpAndSettle();
 
+    final Finder contentListView = find.byType(ListView).last;
+    final Finder contentScrollable = find.descendant(
+      of: contentListView,
+      matching: find.byType(Scrollable),
+    );
+
     expect(find.text('Content Modules'), findsOneWidget);
     expect(find.text('auto_route Module'), findsOneWidget);
     expect(find.text('Intl Module'), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.text('Text.rich Module'),
+      300,
+      scrollable: contentScrollable,
+    );
     expect(find.text('Text.rich Module'), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.text('FutureBuilder Module'),
+      300,
+      scrollable: contentScrollable,
+    );
     expect(find.text('FutureBuilder Module'), findsOneWidget);
     await tester.scrollUntilVisible(
       find.text('StreamBuilder Module'),
       300,
-      scrollable: find.byType(Scrollable).first,
+      scrollable: contentScrollable,
     );
     expect(find.text('StreamBuilder Module'), findsOneWidget);
     await tester.scrollUntilVisible(
       find.text('Semantics Module'),
       300,
-      scrollable: find.byType(Scrollable).first,
+      scrollable: contentScrollable,
     );
     expect(find.text('Semantics Module'), findsOneWidget);
 

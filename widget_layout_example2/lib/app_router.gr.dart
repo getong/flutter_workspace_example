@@ -11,6 +11,22 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [AlertDialogExamplePage]
+class AlertDialogExampleRoute extends PageRouteInfo<void> {
+  const AlertDialogExampleRoute({List<PageRouteInfo>? children})
+    : super(AlertDialogExampleRoute.name, initialChildren: children);
+
+  static const String name = 'AlertDialogExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AlertDialogExamplePage();
+    },
+  );
+}
+
+/// generated route for
 /// [AlignPage]
 class AlignRoute extends PageRouteInfo<void> {
   const AlignRoute({List<PageRouteInfo>? children})
@@ -533,6 +549,38 @@ class AutoRouteWrappedRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [BottomNavigationBarExamplePage]
+class BottomNavigationBarExampleRoute extends PageRouteInfo<void> {
+  const BottomNavigationBarExampleRoute({List<PageRouteInfo>? children})
+    : super(BottomNavigationBarExampleRoute.name, initialChildren: children);
+
+  static const String name = 'BottomNavigationBarExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const BottomNavigationBarExamplePage();
+    },
+  );
+}
+
+/// generated route for
+/// [ButtonShowcasePage]
+class ButtonShowcaseRoute extends PageRouteInfo<void> {
+  const ButtonShowcaseRoute({List<PageRouteInfo>? children})
+    : super(ButtonShowcaseRoute.name, initialChildren: children);
+
+  static const String name = 'ButtonShowcaseRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ButtonShowcasePage();
+    },
+  );
+}
+
+/// generated route for
 /// [CachedNetworkImageCePage]
 class CachedNetworkImageCeRoute extends PageRouteInfo<void> {
   const CachedNetworkImageCeRoute({List<PageRouteInfo>? children})
@@ -560,6 +608,105 @@ class CenterBoxRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const CenterBoxPage();
+    },
+  );
+}
+
+/// generated route for
+/// [CheckboxExamplePage]
+class CheckboxExampleRoute extends PageRouteInfo<void> {
+  const CheckboxExampleRoute({List<PageRouteInfo>? children})
+    : super(CheckboxExampleRoute.name, initialChildren: children);
+
+  static const String name = 'CheckboxExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CheckboxExamplePage();
+    },
+  );
+}
+
+/// generated route for
+/// [CircularProgressIndicatorExamplePage]
+class CircularProgressIndicatorExampleRoute extends PageRouteInfo<void> {
+  const CircularProgressIndicatorExampleRoute({List<PageRouteInfo>? children})
+    : super(
+        CircularProgressIndicatorExampleRoute.name,
+        initialChildren: children,
+      );
+
+  static const String name = 'CircularProgressIndicatorExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CircularProgressIndicatorExamplePage();
+    },
+  );
+}
+
+/// generated route for
+/// [ClipOvalExamplePage]
+class ClipOvalExampleRoute extends PageRouteInfo<void> {
+  const ClipOvalExampleRoute({List<PageRouteInfo>? children})
+    : super(ClipOvalExampleRoute.name, initialChildren: children);
+
+  static const String name = 'ClipOvalExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ClipOvalExamplePage();
+    },
+  );
+}
+
+/// generated route for
+/// [ClipPathExamplePage]
+class ClipPathExampleRoute extends PageRouteInfo<void> {
+  const ClipPathExampleRoute({List<PageRouteInfo>? children})
+    : super(ClipPathExampleRoute.name, initialChildren: children);
+
+  static const String name = 'ClipPathExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ClipPathExamplePage();
+    },
+  );
+}
+
+/// generated route for
+/// [ClipRRectExamplePage]
+class ClipRRectExampleRoute extends PageRouteInfo<void> {
+  const ClipRRectExampleRoute({List<PageRouteInfo>? children})
+    : super(ClipRRectExampleRoute.name, initialChildren: children);
+
+  static const String name = 'ClipRRectExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ClipRRectExamplePage();
+    },
+  );
+}
+
+/// generated route for
+/// [ClipRectExamplePage]
+class ClipRectExampleRoute extends PageRouteInfo<void> {
+  const ClipRectExampleRoute({List<PageRouteInfo>? children})
+    : super(ClipRectExampleRoute.name, initialChildren: children);
+
+  static const String name = 'ClipRectExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ClipRectExamplePage();
     },
   );
 }
@@ -629,6 +776,22 @@ class ContentTabRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CustomClipperExamplePage]
+class CustomClipperExampleRoute extends PageRouteInfo<void> {
+  const CustomClipperExampleRoute({List<PageRouteInfo>? children})
+    : super(CustomClipperExampleRoute.name, initialChildren: children);
+
+  static const String name = 'CustomClipperExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CustomClipperExamplePage();
+    },
+  );
+}
+
+/// generated route for
 /// [CustomPaintPage]
 class CustomPaintRoute extends PageRouteInfo<void> {
   const CustomPaintRoute({List<PageRouteInfo>? children})
@@ -672,6 +835,54 @@ class DecoratedBoxRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const DecoratedBoxPage();
+    },
+  );
+}
+
+/// generated route for
+/// [DialogExamplePage]
+class DialogExampleRoute extends PageRouteInfo<void> {
+  const DialogExampleRoute({List<PageRouteInfo>? children})
+    : super(DialogExampleRoute.name, initialChildren: children);
+
+  static const String name = 'DialogExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DialogExamplePage();
+    },
+  );
+}
+
+/// generated route for
+/// [DragTargetExamplePage]
+class DragTargetExampleRoute extends PageRouteInfo<void> {
+  const DragTargetExampleRoute({List<PageRouteInfo>? children})
+    : super(DragTargetExampleRoute.name, initialChildren: children);
+
+  static const String name = 'DragTargetExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DragTargetExamplePage();
+    },
+  );
+}
+
+/// generated route for
+/// [DraggableExamplePage]
+class DraggableExampleRoute extends PageRouteInfo<void> {
+  const DraggableExampleRoute({List<PageRouteInfo>? children})
+    : super(DraggableExampleRoute.name, initialChildren: children);
+
+  static const String name = 'DraggableExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DraggableExamplePage();
     },
   );
 }
@@ -752,6 +963,38 @@ class FlexibleRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const FlexiblePage();
+    },
+  );
+}
+
+/// generated route for
+/// [FloatingActionButtonExamplePage]
+class FloatingActionButtonExampleRoute extends PageRouteInfo<void> {
+  const FloatingActionButtonExampleRoute({List<PageRouteInfo>? children})
+    : super(FloatingActionButtonExampleRoute.name, initialChildren: children);
+
+  static const String name = 'FloatingActionButtonExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FloatingActionButtonExamplePage();
+    },
+  );
+}
+
+/// generated route for
+/// [FlowExamplePage]
+class FlowExampleRoute extends PageRouteInfo<void> {
+  const FlowExampleRoute({List<PageRouteInfo>? children})
+    : super(FlowExampleRoute.name, initialChildren: children);
+
+  static const String name = 'FlowExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlowExamplePage();
     },
   );
 }
@@ -949,6 +1192,22 @@ class KeyboardListenerRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [LayoutBuilderExamplePage]
+class LayoutBuilderExampleRoute extends PageRouteInfo<void> {
+  const LayoutBuilderExampleRoute({List<PageRouteInfo>? children})
+    : super(LayoutBuilderExampleRoute.name, initialChildren: children);
+
+  static const String name = 'LayoutBuilderExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const LayoutBuilderExamplePage();
+    },
+  );
+}
+
+/// generated route for
 /// [LayoutTabPage]
 class LayoutTabRoute extends PageRouteInfo<void> {
   const LayoutTabRoute({List<PageRouteInfo>? children})
@@ -960,6 +1219,25 @@ class LayoutTabRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const LayoutTabPage();
+    },
+  );
+}
+
+/// generated route for
+/// [LinearProgressIndicatorExamplePage]
+class LinearProgressIndicatorExampleRoute extends PageRouteInfo<void> {
+  const LinearProgressIndicatorExampleRoute({List<PageRouteInfo>? children})
+    : super(
+        LinearProgressIndicatorExampleRoute.name,
+        initialChildren: children,
+      );
+
+  static const String name = 'LinearProgressIndicatorExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const LinearProgressIndicatorExamplePage();
     },
   );
 }
@@ -1029,6 +1307,22 @@ class PositionedRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [RadioExamplePage]
+class RadioExampleRoute extends PageRouteInfo<void> {
+  const RadioExampleRoute({List<PageRouteInfo>? children})
+    : super(RadioExampleRoute.name, initialChildren: children);
+
+  static const String name = 'RadioExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const RadioExamplePage();
+    },
+  );
+}
+
+/// generated route for
 /// [RichTextPage]
 class RichTextRoute extends PageRouteInfo<void> {
   const RichTextRoute({List<PageRouteInfo>? children})
@@ -1040,6 +1334,22 @@ class RichTextRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const RichTextPage();
+    },
+  );
+}
+
+/// generated route for
+/// [RotatedBoxExamplePage]
+class RotatedBoxExampleRoute extends PageRouteInfo<void> {
+  const RotatedBoxExampleRoute({List<PageRouteInfo>? children})
+    : super(RotatedBoxExampleRoute.name, initialChildren: children);
+
+  static const String name = 'RotatedBoxExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const RotatedBoxExamplePage();
     },
   );
 }
@@ -1109,6 +1419,38 @@ class SharedPreferencesRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ShowDialogExamplePage]
+class ShowDialogExampleRoute extends PageRouteInfo<void> {
+  const ShowDialogExampleRoute({List<PageRouteInfo>? children})
+    : super(ShowDialogExampleRoute.name, initialChildren: children);
+
+  static const String name = 'ShowDialogExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ShowDialogExamplePage();
+    },
+  );
+}
+
+/// generated route for
+/// [SimpleDialogExamplePage]
+class SimpleDialogExampleRoute extends PageRouteInfo<void> {
+  const SimpleDialogExampleRoute({List<PageRouteInfo>? children})
+    : super(SimpleDialogExampleRoute.name, initialChildren: children);
+
+  static const String name = 'SimpleDialogExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SimpleDialogExamplePage();
+    },
+  );
+}
+
+/// generated route for
 /// [SingleChildScrollViewPage]
 class SingleChildScrollViewRoute extends PageRouteInfo<void> {
   const SingleChildScrollViewRoute({List<PageRouteInfo>? children})
@@ -1144,6 +1486,22 @@ class SingleTickerProviderStateMixinRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [SliderExamplePage]
+class SliderExampleRoute extends PageRouteInfo<void> {
+  const SliderExampleRoute({List<PageRouteInfo>? children})
+    : super(SliderExampleRoute.name, initialChildren: children);
+
+  static const String name = 'SliderExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SliderExamplePage();
+    },
+  );
+}
+
+/// generated route for
 /// [SliverExamplesPage]
 class SliverExamplesRoute extends PageRouteInfo<void> {
   const SliverExamplesRoute({List<PageRouteInfo>? children})
@@ -1160,6 +1518,22 @@ class SliverExamplesRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [SnackBarExamplePage]
+class SnackBarExampleRoute extends PageRouteInfo<void> {
+  const SnackBarExampleRoute({List<PageRouteInfo>? children})
+    : super(SnackBarExampleRoute.name, initialChildren: children);
+
+  static const String name = 'SnackBarExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SnackBarExamplePage();
+    },
+  );
+}
+
+/// generated route for
 /// [StreamBuilderPage]
 class StreamBuilderRoute extends PageRouteInfo<void> {
   const StreamBuilderRoute({List<PageRouteInfo>? children})
@@ -1171,6 +1545,22 @@ class StreamBuilderRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const StreamBuilderPage();
+    },
+  );
+}
+
+/// generated route for
+/// [SwitchExamplePage]
+class SwitchExampleRoute extends PageRouteInfo<void> {
+  const SwitchExampleRoute({List<PageRouteInfo>? children})
+    : super(SwitchExampleRoute.name, initialChildren: children);
+
+  static const String name = 'SwitchExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SwitchExamplePage();
     },
   );
 }
@@ -1224,6 +1614,38 @@ class TextRichRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [TextStylePage]
+class TextStyleRoute extends PageRouteInfo<void> {
+  const TextStyleRoute({List<PageRouteInfo>? children})
+    : super(TextStyleRoute.name, initialChildren: children);
+
+  static const String name = 'TextStyleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TextStylePage();
+    },
+  );
+}
+
+/// generated route for
+/// [TransformExamplePage]
+class TransformExampleRoute extends PageRouteInfo<void> {
+  const TransformExampleRoute({List<PageRouteInfo>? children})
+    : super(TransformExampleRoute.name, initialChildren: children);
+
+  static const String name = 'TransformExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TransformExamplePage();
+    },
+  );
+}
+
+/// generated route for
 /// [TweenAnimationBuilderPage]
 class TweenAnimationBuilderRoute extends PageRouteInfo<void> {
   const TweenAnimationBuilderRoute({List<PageRouteInfo>? children})
@@ -1267,6 +1689,22 @@ class TweenSequenceIntervalRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const TweenSequenceIntervalPage();
+    },
+  );
+}
+
+/// generated route for
+/// [UnconstrainedBoxExamplePage]
+class UnconstrainedBoxExampleRoute extends PageRouteInfo<void> {
+  const UnconstrainedBoxExampleRoute({List<PageRouteInfo>? children})
+    : super(UnconstrainedBoxExampleRoute.name, initialChildren: children);
+
+  static const String name = 'UnconstrainedBoxExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const UnconstrainedBoxExamplePage();
     },
   );
 }
