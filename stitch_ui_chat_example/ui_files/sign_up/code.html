@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Azure Stream - Create Account</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#f5f6ff",
+                    "on-error-container": "#570008",
+                    "primary-container": "#44a5ff",
+                    "on-background": "#1a2f50",
+                    "surface-container-high": "#d7e3ff",
+                    "tertiary": "#7c40a2",
+                    "on-tertiary-fixed": "#2a0044",
+                    "background": "#f5f6ff",
+                    "surface-container-low": "#ecf0ff",
+                    "surface-container": "#dfe8ff",
+                    "surface": "#f5f6ff",
+                    "primary-fixed-dim": "#2498f5",
+                    "on-secondary-fixed-variant": "#004fa1",
+                    "secondary-fixed-dim": "#a6c4ff",
+                    "on-primary": "#edf3ff",
+                    "on-primary-container": "#002442",
+                    "on-secondary-container": "#004690",
+                    "outline-variant": "#9aadd6",
+                    "secondary-fixed": "#bcd2ff",
+                    "on-surface": "#1a2f50",
+                    "error-dim": "#9f0519",
+                    "tertiary-container": "#d797ff",
+                    "surface-dim": "#c1d5ff",
+                    "on-error": "#ffefee",
+                    "on-tertiary-fixed-variant": "#56187d",
+                    "inverse-primary": "#2498f5",
+                    "error-container": "#fb5151",
+                    "on-primary-fixed": "#000000",
+                    "on-primary-fixed-variant": "#002e51",
+                    "inverse-surface": "#000e26",
+                    "error": "#b31b25",
+                    "outline": "#63779d",
+                    "on-tertiary": "#fdeeff",
+                    "secondary": "#0059b5",
+                    "on-surface-variant": "#485c80",
+                    "secondary-container": "#bcd2ff",
+                    "secondary-dim": "#004e9f",
+                    "on-tertiary-container": "#4c0a73",
+                    "primary-fixed": "#44a5ff",
+                    "tertiary-fixed-dim": "#c989f0",
+                    "surface-tint": "#005e9f",
+                    "primary-dim": "#00528b",
+                    "surface-variant": "#ceddff",
+                    "on-secondary-fixed": "#00336c",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-dim": "#6f3395",
+                    "primary": "#005e9f",
+                    "inverse-on-surface": "#899dc5",
+                    "tertiary-fixed": "#d797ff",
+                    "on-secondary": "#eff2ff",
+                    "surface-container-highest": "#ceddff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container">
+<header class="bg-surface/90 dark:bg-background-dark/90 backdrop-blur-xl fixed top-0 w-full z-50 flex items-center justify-between px-4 h-16">
+<button class="flex items-center justify-center w-12 h-12 rounded-full hover:bg-surface-container-high dark:hover:bg-white/10 transition-colors"><span class="material-symbols-outlined text-primary">arrow_back</span></button>
+<h1 class="text-lg font-semibold text-on-surface">Create Account</h1>
+<div class="w-10"></div>
+</header>
+<main class="min-h-screen pt-24 pb-32 px-6 max-w-md mx-auto flex flex-col justify-center">
+<div class="mb-12 text-center">
+<div class="inline-flex items-center justify-center w-20 h-20 mb-6 rounded-3xl bg-gradient-to-br from-primary to-primary-container shadow-[0px_12px_32px_rgba(0,94,159,0.15)] transform rotate-12 scale-102 transition-transform duration-200">
+<span class="material-symbols-outlined text-on-primary text-4xl" style="font-variation-settings: 'FILL' 1;">bubble_chart</span>
+</div>
+<h2 class="text-3xl font-extrabold text-on-surface tracking-tight mb-2">Create Account</h2>
+<p class="text-on-surface-variant font-body leading-relaxed">Join our community today</p>
+</div>
+<form class="space-y-6">
+<div class="group">
+<label class="block text-[11px] font-medium tracking-wide uppercase text-on-surface-variant mb-2 ml-4">Full Name</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">person</span>
+<input class="w-full h-14 pl-12 pr-6 bg-surface-container-low border-none rounded-xl text-on-surface placeholder:text-outline/50 focus:ring-2 focus:ring-primary/40 focus:bg-surface-container-lowest transition-all" placeholder="John Doe" type="text"/>
+</div>
+</div>
+<div class="group">
+<label class="block text-[11px] font-medium tracking-wide uppercase text-on-surface-variant mb-2 ml-4">Email Address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">email</span>
+<input class="w-full h-14 pl-12 pr-6 bg-surface-container-low border-none rounded-xl text-on-surface placeholder:text-outline/50 focus:ring-2 focus:ring-primary/40 focus:bg-surface-container-lowest transition-all" placeholder="name@example.com" type="email"/>
+</div>
+</div>
+<div class="group">
+<label class="block text-[11px] font-medium tracking-wide uppercase text-on-surface-variant mb-2 ml-4">Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">lock</span>
+<input class="w-full h-14 pl-12 pr-6 bg-surface-container-low border-none rounded-xl text-on-surface placeholder:text-outline/50 focus:ring-2 focus:ring-primary/40 focus:bg-surface-container-lowest transition-all" placeholder="••••••••" type="password"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline cursor-pointer hover:text-primary transition-colors">visibility</span>
+</div>
+</div>
+<div class="group">
+<label class="block text-[11px] font-medium tracking-wide uppercase text-on-surface-variant mb-2 ml-4">Confirm Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">lock_reset</span>
+<input class="w-full h-14 pl-12 pr-6 bg-surface-container-low border-none rounded-xl text-on-surface placeholder:text-outline/50 focus:ring-2 focus:ring-primary/40 focus:bg-surface-container-lowest transition-all" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<div class="flex items-start gap-3 px-1">
+<div class="relative flex items-center">
+<input class="w-5 h-5 rounded border-outline-variant bg-surface-container-low text-primary focus:ring-primary/40 transition-all cursor-pointer" id="terms" type="checkbox"/>
+</div>
+<label class="text-sm text-on-surface-variant leading-snug cursor-pointer" for="terms">
+                    I agree to the <span class="text-primary font-semibold hover:underline">Terms and Conditions</span> and Privacy Policy.
+                </label>
+</div>
+<button class="w-full h-14 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold rounded-xl shadow-[0px_12px_32px_rgba(0,94,159,0.12)] hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2 mt-4" type="submit">
+                Sign Up
+                <span class="material-symbols-outlined text-xl">arrow_forward</span>
+</button>
+</form>
+<div class="mt-10 text-center">
+<p class="text-on-surface-variant text-sm">
+                Already have an account? 
+                <a class="text-primary font-bold hover:underline ml-1" href="#">Log In</a>
+</p>
+</div>
+<div class="mt-12 flex items-center gap-4">
+<div class="h-px flex-1 bg-gradient-to-r from-transparent to-outline-variant/30"></div>
+<span class="text-[10px] uppercase tracking-[0.2em] font-bold text-outline/60">Or join with</span>
+<div class="h-px flex-1 bg-gradient-to-l from-transparent to-outline-variant/30"></div>
+</div>
+<div class="mt-8 flex justify-center gap-6">
+<button class="w-14 h-14 rounded-full bg-surface-container-lowest shadow-[0px_4px_16px_rgba(0,0,0,0.04)] flex items-center justify-center hover:scale-110 active:scale-90 transition-all">
+<img alt="Google" class="w-6 h-6" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzJdCdi6NTv-c_SZL-1XP9Yuvc0t0l3g3H005vQFVLUWY-Es9DrGKXGEiLUKy7rXbjGH_kz7HCej-rjIAH-B-4QZfan-QTOieX6r9xN3iHWLTxfEqatlPbmD31veOR-amSD_XTsMgebhs8rZ7OghUQZYq8milw5B7v4F9FZd6YwIjMUnJU1uUJHg8gzFdpx3GKNP1nV7PAqgtU4X2oc9NRFw8BUBPNJ5rcJ_KM1g2jiKAIGJqcO2PCagZ3yKlQDd4i10m6zGUsDyWr"/>
+</button>
+<button class="w-14 h-14 rounded-full bg-surface-container-lowest shadow-[0px_4px_16px_rgba(0,0,0,0.04)] flex items-center justify-center hover:scale-110 active:scale-90 transition-all">
+<img alt="Apple" class="w-6 h-6" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhf4y75YziN20MGYHgy0E9uE2gU7NetMkM2yXkHaT8nCWwKcz1ivJlnp3kgHoU5zygcM9LqDKRliXFnTvssLqPqQU4rZh_8-lFLZbV6ZPT3XUY5NL3LjnnbYYVHg5SwY6DN0xVkI0ZnSwg3Mj9S30X-MqLldwSikHnlW2YnzJKrHnUvWp0VuMXWrg1j8yImV4O1kfFsfEGHWnrQ6_ifUHmMNIufZiuDbbEcE8PnQaMgS2Y-zQq5jVpTvpmWC7IBS0CJNQjfO8djDpn"/>
+</button>
+</div>
+</main>
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl rounded-t-3xl z-50 shadow-[0px_-12px_32px_rgba(33,150,243,0.08)]">
+<a class="flex flex-col items-center justify-center bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-200 rounded-2xl px-5 py-1.5 transition-all scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person_add</span>
+<span class="text-[11px] font-medium tracking-wide uppercase font-inter mt-1">Sign Up</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-5 py-1.5 hover:opacity-80 transition-opacity scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">login</span>
+<span class="text-[11px] font-medium tracking-wide uppercase font-inter mt-1">Login</span>
+</a>
+</nav>
+<div class="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none opacity-30 overflow-hidden">
+<div class="absolute -top-[10%] -left-[10%] w-[50%] h-[50%] bg-primary-container/20 rounded-full blur-[100px]"></div>
+<div class="absolute top-[60%] -right-[10%] w-[40%] h-[40%] bg-tertiary-container/10 rounded-full blur-[80px]"></div>
+</div>
+</body></html>

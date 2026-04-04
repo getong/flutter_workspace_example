@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Welcome Back - Chat App</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#485c80",
+                        "inverse-primary": "#2498f5",
+                        "on-secondary-fixed-variant": "#004fa1",
+                        "error-dim": "#9f0519",
+                        "error-container": "#fb5151",
+                        "primary-container": "#44a5ff",
+                        "on-tertiary-container": "#4c0a73",
+                        "surface-bright": "#f5f6ff",
+                        "on-primary-fixed": "#000000",
+                        "secondary": "#0059b5",
+                        "on-background": "#1a2f50",
+                        "primary": "#005e9f",
+                        "tertiary-container": "#d797ff",
+                        "on-surface": "#1a2f50",
+                        "surface-dim": "#c1d5ff",
+                        "on-primary-container": "#002442",
+                        "primary-fixed": "#44a5ff",
+                        "on-tertiary-fixed-variant": "#56187d",
+                        "outline": "#63779d",
+                        "tertiary-dim": "#6f3395",
+                        "surface-container-highest": "#ceddff",
+                        "on-error-container": "#570008",
+                        "primary-dim": "#00528b",
+                        "primary-fixed-dim": "#2498f5",
+                        "surface-variant": "#ceddff",
+                        "secondary-dim": "#004e9f",
+                        "on-secondary-container": "#004690",
+                        "on-tertiary": "#fdeeff",
+                        "tertiary-fixed": "#d797ff",
+                        "surface-container-high": "#d7e3ff",
+                        "on-primary-fixed-variant": "#002e51",
+                        "on-tertiary-fixed": "#2a0044",
+                        "inverse-on-surface": "#899dc5",
+                        "tertiary": "#7c40a2",
+                        "on-secondary-fixed": "#00336c",
+                        "tertiary-fixed-dim": "#c989f0",
+                        "surface-tint": "#005e9f",
+                        "on-error": "#ffefee",
+                        "surface": "#f5f6ff",
+                        "inverse-surface": "#000e26",
+                        "on-secondary": "#eff2ff",
+                        "surface-container": "#dfe8ff",
+                        "surface-container-low": "#ecf0ff",
+                        "secondary-fixed-dim": "#a6c4ff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#bcd2ff",
+                        "background": "#f5f6ff",
+                        "outline-variant": "#9aadd6",
+                        "secondary-container": "#bcd2ff",
+                        "on-primary": "#edf3ff",
+                        "error": "#b31b25"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "16px",
+                        "xl": "24px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>body {
+    font-family: "Inter", sans-serif
+    }
+.glass-panel {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px)
+    }
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }
+.bg-waves {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuChrIVCG5q2BlHHaRBMeO0IocPRIRq4SKhJZuyVnqU0XJzdMdjaO9l2G9rTvzkVqP8lN_rfTdoV0B4rJF7nii7Vr8lG10mBoGWhXgjOdRPt50vSpnjmOEhMuDzRr03pCkCr6uNUwPBCikNaeZau-zRaeAEHOa0g5sbGbIPm-n9sbWvQ05HhAdC8cK-1e4N-sdb7M_UF4iS1gOMrpDTLEY7koOogrp-sWc9GcaOITRjKECgUahQ_6Z6O7NmDTnECTdvQh9ZfD9KDKrGT);
+    background-size: cover;
+    background-position: center
+    }</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+<!-- Background Abstract Image -->
+<div class="absolute inset-0 z-0 bg-waves opacity-40" data-alt="abstract fluid waves in various shades of cerulean and electric blue with soft gradients and organic flowing motion on a white background">
+</div>
+<!-- Main Login Container -->
+<main class="relative z-10 w-full max-w-md">
+<div class="glass-panel rounded-xl shadow-blue-500/10 p-8 md:p-10 flex flex-col items-center"><div class="w-full flex justify-start mb-4">
+<button class="p-2 -ml-2 rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+</div>
+<!-- Logo Section -->
+<div class="w-16 h-16 bg-gradient-to-br from-primary to-primary-container rounded-xl flex items-center justify-center mb-8 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-white text-4xl" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+</div>
+<!-- Header -->
+<div class="text-center mb-10">
+<h1 class="text-3xl font-extrabold tracking-tight text-on-surface mb-2">Welcome Back</h1>
+<p class="text-on-surface-variant font-medium">Please enter your details to sign in</p>
+</div>
+<!-- Social Login Buttons -->
+<div class="w-full flex flex-col gap-4 mb-8">
+<button class="w-full flex items-center justify-center gap-3 bg-surface-container-lowest text-on-surface font-semibold py-3.5 px-6 rounded-lg transition-all duration-200 active:scale-95 border border-outline-variant/20 hover:bg-white shadow-sm">
+<img alt="Google" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVjWkVE7hdCEVhfdsts9f9WN_ou6UWGXTjK_wD8iakorwmslfXUT7U4gXDoP0FqA7ohSb9hWzuDd08UEP8sYh6NwiDWNOXfF8tqPxylrDoeELSEwcu74apUXNRY0_54ENxtWUzlkMUWEJWjAYfPaYJcu3NYx_6jkw4TAGEsMMH-jydZQaLzZ-BUou7G0u5lD3MNfJoLmDvi66G_hX92GlsbyOsChIWz0uTTEvqyfD-znMARM3WtpEkAu-tPxbtzQtm_h249ThkdNrV"/>
+<span>Continue with Google</span>
+</button>
+<button class="w-full flex items-center justify-center gap-3 bg-[#1877F2] text-white font-semibold py-3.5 px-6 rounded-lg transition-all duration-200 active:scale-95 hover:brightness-110 shadow-sm">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg>
+<span>Continue with Facebook</span>
+</button>
+</div>
+<!-- Divider -->
+<div class="w-full flex items-center gap-4 mb-8">
+<div class="h-[1px] flex-1 bg-outline-variant/30"></div>
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">OR</span>
+<div class="h-[1px] flex-1 bg-outline-variant/30"></div>
+</div>
+<!-- Login Form -->
+<form class="w-full flex flex-col gap-5">
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant px-1" for="email">Email Address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-xl">mail</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary/40 focus:bg-surface-container-lowest transition-all text-on-surface placeholder:text-outline/60" id="email" placeholder="name@example.com" type="email"/>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between items-center px-1">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant" for="password">Password</label>
+<a class="text-xs font-bold text-primary hover:underline" href="#">Forgot?</a>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-xl">lock</span>
+<input class="w-full pl-12 pr-12 py-4 bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary/40 focus:bg-surface-container-lowest transition-all text-on-surface placeholder:text-outline/60" id="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-xl">visibility</span>
+</button>
+</div>
+</div>
+<button class="w-full bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold py-4 rounded-lg mt-4 shadow-lg shadow-blue-500/20 active:scale-[0.98] transition-all duration-200" type="submit">
+                    Sign In
+                </button>
+</form>
+<!-- Footer Links -->
+<p class="mt-8 text-on-surface-variant text-sm font-medium">
+                Don't have an account? 
+                <a class="text-primary font-bold hover:underline" href="#">Create Account</a>
+</p>
+</div>
+<!-- System UI Hint (Simplified) -->
+<div class="mt-8 flex justify-center gap-8 opacity-60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">security</span>
+<span class="text-xs font-semibold tracking-wide">SECURE ACCESS</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">language</span>
+<span class="text-xs font-semibold tracking-wide">ENGLISH (US)</span>
+</div>
+</div>
+</main>
+</body></html>
