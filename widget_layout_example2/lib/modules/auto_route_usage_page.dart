@@ -230,7 +230,7 @@ AutoRoute(
               const _SectionHeader(
                 title: 'Route Guards And Reevaluate Listenable',
                 subtitle:
-                    'One route uses a per-route guard and another is protected through the router-level global guards list.',
+                    'This demo now shows an inline per-route guard, a reusable AuthGuard class, and a router-level global guard.',
               ),
               const SizedBox(height: 12),
               const _CodeCard(
@@ -277,6 +277,35 @@ late final List<AutoRouteGuard> guards = <AutoRouteGuard>[
 ''',
               ),
               const SizedBox(height: 12),
+              const _CodeCard(
+                title: 'Reusable AuthGuard on ProfileRoute',
+                code: '''
+class AuthGuard extends AutoRouteGuard {
+  @override
+  void onNavigation(NavigationResolver resolver, StackRouter router) {
+    if (demoAuthController.isLoggedIn) {
+      resolver.next(true);
+      return;
+    }
+
+    resolver.redirectUntil(
+      AutoRouteLoginRoute(
+        onResult: (didLogin) {
+          resolver.resolveNext(didLogin, reevaluateNext: false);
+        },
+      ),
+    );
+  }
+}
+
+AutoRoute(
+  page: ProfileRoute.page,
+  path: '/auto-route-page/profile',
+  guards: <AutoRouteGuard>[AuthGuard()],
+)
+''',
+              ),
+              const SizedBox(height: 12),
               Wrap(
                 spacing: 12,
                 runSpacing: 12,
@@ -296,6 +325,11 @@ late final List<AutoRouteGuard> guards = <AutoRouteGuard>[
                         context.pushRoute(const AutoRouteProtectedRoute()),
                     icon: const Icon(Icons.verified_user_outlined),
                     label: const Text('Route Guard Demo'),
+                  ),
+                  OutlinedButton.icon(
+                    onPressed: () => context.pushRoute(const ProfileRoute()),
+                    icon: const Icon(Icons.person_outline),
+                    label: const Text('Profile Guard Demo'),
                   ),
                   OutlinedButton.icon(
                     onPressed: () => context.pushRoute(
@@ -837,6 +871,20 @@ class AutoRouteGlobalProtectedPage extends StatelessWidget {
       title: 'Global Guard Demo',
       description:
           'This page is protected by the router-level global guards list. The guard only enforces auth for this route so the rest of the app keeps normal behavior.',
+    );
+  }
+}
+
+@RoutePage()
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return _GuardedDemoScaffold(
+      title: 'Profile Route Demo',
+      description:
+          'This page is protected by the reusable AuthGuard class attached directly to ProfileRoute in app_router.dart.',
     );
   }
 }

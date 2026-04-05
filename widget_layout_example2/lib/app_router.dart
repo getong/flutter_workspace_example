@@ -99,6 +99,28 @@ import 'package:widget_layout_example2/modules/sliver_to_box_adapter_page.dart';
 
 part 'app_router.gr.dart';
 
+class AuthGuard extends AutoRouteGuard {
+  @override
+  void onNavigation(NavigationResolver resolver, StackRouter router) {
+    if (demoAuthController.isLoggedIn) {
+      resolver.next(true);
+      return;
+    }
+
+    demoNavigationLog.add('AuthGuard blocked ${resolver.routeName}');
+    resolver.redirectUntil(
+      AutoRouteLoginRoute(
+        onResult: (bool didLogin) {
+          demoNavigationLog.add(
+            'AuthGuard resume ${resolver.routeName}: $didLogin',
+          );
+          resolver.resolveNext(didLogin, reevaluateNext: false);
+        },
+      ),
+    );
+  }
+}
+
 @AutoRouterConfig()
 class AppRouter extends RootStackRouter {
   @override
@@ -250,6 +272,11 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: AutoRouteGlobalProtectedRoute.page,
       path: '/auto-route-page/global-protected',
+    ),
+    AutoRoute(
+      page: ProfileRoute.page,
+      path: '/auto-route-page/profile',
+      guards: <AutoRouteGuard>[AuthGuard()],
     ),
     AutoRoute(
       page: AutoRouteWrappedRoute.page,
