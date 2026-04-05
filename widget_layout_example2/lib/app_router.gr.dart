@@ -1224,6 +1224,22 @@ class ImageWidgetRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [IndexedStackPage]
+class IndexedStackRoute extends PageRouteInfo<void> {
+  const IndexedStackRoute({List<PageRouteInfo>? children})
+    : super(IndexedStackRoute.name, initialChildren: children);
+
+  static const String name = 'IndexedStackRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const IndexedStackPage();
+    },
+  );
+}
+
+/// generated route for
 /// [InkWidgetsPage]
 class InkWidgetsRoute extends PageRouteInfo<void> {
   const InkWidgetsRoute({List<PageRouteInfo>? children})
@@ -1630,6 +1646,22 @@ class SliderExampleRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [SliverAppBarPage]
+class SliverAppBarRoute extends PageRouteInfo<void> {
+  const SliverAppBarRoute({List<PageRouteInfo>? children})
+    : super(SliverAppBarRoute.name, initialChildren: children);
+
+  static const String name = 'SliverAppBarRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SliverAppBarPage();
+    },
+  );
+}
+
+/// generated route for
 /// [SliverExamplesPage]
 class SliverExamplesRoute extends PageRouteInfo<void> {
   const SliverExamplesRoute({List<PageRouteInfo>? children})
@@ -1641,6 +1673,70 @@ class SliverExamplesRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const SliverExamplesPage();
+    },
+  );
+}
+
+/// generated route for
+/// [SliverGridPage]
+class SliverGridRoute extends PageRouteInfo<void> {
+  const SliverGridRoute({List<PageRouteInfo>? children})
+    : super(SliverGridRoute.name, initialChildren: children);
+
+  static const String name = 'SliverGridRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SliverGridPage();
+    },
+  );
+}
+
+/// generated route for
+/// [SliverListPage]
+class SliverListRoute extends PageRouteInfo<void> {
+  const SliverListRoute({List<PageRouteInfo>? children})
+    : super(SliverListRoute.name, initialChildren: children);
+
+  static const String name = 'SliverListRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SliverListPage();
+    },
+  );
+}
+
+/// generated route for
+/// [SliverPaddingPage]
+class SliverPaddingRoute extends PageRouteInfo<void> {
+  const SliverPaddingRoute({List<PageRouteInfo>? children})
+    : super(SliverPaddingRoute.name, initialChildren: children);
+
+  static const String name = 'SliverPaddingRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SliverPaddingPage();
+    },
+  );
+}
+
+/// generated route for
+/// [SliverToBoxAdapterPage]
+class SliverToBoxAdapterRoute extends PageRouteInfo<void> {
+  const SliverToBoxAdapterRoute({List<PageRouteInfo>? children})
+    : super(SliverToBoxAdapterRoute.name, initialChildren: children);
+
+  static const String name = 'SliverToBoxAdapterRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SliverToBoxAdapterPage();
     },
   );
 }

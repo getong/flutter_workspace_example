@@ -49,6 +49,7 @@ import 'package:widget_layout_example2/modules/future_builder_page.dart';
 import 'package:widget_layout_example2/modules/gesturedetector.dart';
 import 'package:widget_layout_example2/modules/image_widget_page.dart';
 import 'package:widget_layout_example2/modules/ink_widgets_page.dart';
+import 'package:widget_layout_example2/modules/indexed_stack_page.dart';
 import 'package:widget_layout_example2/modules/input_chip_page.dart';
 import 'package:widget_layout_example2/modules/intl_page.dart';
 import 'package:widget_layout_example2/modules/keyboard_listener_page.dart';
@@ -72,7 +73,11 @@ import 'package:widget_layout_example2/modules/single_child_scroll_view_page.dar
 import 'package:widget_layout_example2/modules/single_ticker_provider_state_mixin_page.dart';
 import 'package:widget_layout_example2/modules/simple_dialog_page.dart';
 import 'package:widget_layout_example2/modules/slider_page.dart';
+import 'package:widget_layout_example2/modules/sliver_app_bar_page.dart';
 import 'package:widget_layout_example2/modules/sliver_examples_page.dart';
+import 'package:widget_layout_example2/modules/sliver_grid_page.dart';
+import 'package:widget_layout_example2/modules/sliver_list_page.dart';
+import 'package:widget_layout_example2/modules/sliver_padding_page.dart';
 import 'package:widget_layout_example2/modules/snack_bar_page.dart';
 import 'package:widget_layout_example2/modules/stream_builder_page.dart';
 import 'package:widget_layout_example2/modules/switch_page.dart';
@@ -88,6 +93,7 @@ import 'package:widget_layout_example2/modules/tween_sequence_interval_page.dart
 import 'package:widget_layout_example2/modules/unconstrained_box_page.dart';
 import 'package:widget_layout_example2/modules/wrap_page.dart';
 import 'package:widget_layout_example2/modules/choice_chip_page.dart';
+import 'package:widget_layout_example2/modules/sliver_to_box_adapter_page.dart';
 
 part 'app_router.gr.dart';
 
@@ -154,6 +160,15 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: TransformExampleRoute.page, path: '/transform-page'),
     AutoRoute(page: RotatedBoxExampleRoute.page, path: '/rotated-box-page'),
     AutoRoute(page: SafeAreaRoute.page, path: '/safe-area-page'),
+    AutoRoute(page: IndexedStackRoute.page, path: '/indexed-stack-page'),
+    AutoRoute(page: SliverListRoute.page, path: '/sliver-list-page'),
+    AutoRoute(page: SliverGridRoute.page, path: '/sliver-grid-page'),
+    AutoRoute(page: SliverAppBarRoute.page, path: '/sliver-app-bar-page'),
+    AutoRoute(
+      page: SliverToBoxAdapterRoute.page,
+      path: '/sliver-to-box-adapter-page',
+    ),
+    AutoRoute(page: SliverPaddingRoute.page, path: '/sliver-padding-page'),
     AutoRoute(page: ClipOvalExampleRoute.page, path: '/clip-oval-page'),
     AutoRoute(page: ClipRRectExampleRoute.page, path: '/clip-r-rect-page'),
     AutoRoute(page: ClipRectExampleRoute.page, path: '/clip-rect-page'),
