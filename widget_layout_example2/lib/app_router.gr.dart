@@ -1483,6 +1483,22 @@ class RowExpandedRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [SafeAreaPage]
+class SafeAreaRoute extends PageRouteInfo<void> {
+  const SafeAreaRoute({List<PageRouteInfo>? children})
+    : super(SafeAreaRoute.name, initialChildren: children);
+
+  static const String name = 'SafeAreaRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SafeAreaPage();
+    },
+  );
+}
+
+/// generated route for
 /// [ScrollbarPage]
 class ScrollbarRoute extends PageRouteInfo<void> {
   const ScrollbarRoute({List<PageRouteInfo>? children})

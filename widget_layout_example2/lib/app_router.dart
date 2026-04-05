@@ -63,6 +63,7 @@ import 'package:widget_layout_example2/modules/radio_page.dart';
 import 'package:widget_layout_example2/modules/rich_text_page.dart';
 import 'package:widget_layout_example2/modules/row_expanded_page.dart';
 import 'package:widget_layout_example2/modules/rotated_box_page.dart';
+import 'package:widget_layout_example2/modules/safe_area_page.dart';
 import 'package:widget_layout_example2/modules/scrollbar_page.dart';
 import 'package:widget_layout_example2/modules/semantics_page.dart';
 import 'package:widget_layout_example2/modules/shared_preferences_page.dart';
@@ -152,6 +153,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: AlignRoute.page, path: '/align-page'),
     AutoRoute(page: TransformExampleRoute.page, path: '/transform-page'),
     AutoRoute(page: RotatedBoxExampleRoute.page, path: '/rotated-box-page'),
+    AutoRoute(page: SafeAreaRoute.page, path: '/safe-area-page'),
     AutoRoute(page: ClipOvalExampleRoute.page, path: '/clip-oval-page'),
     AutoRoute(page: ClipRRectExampleRoute.page, path: '/clip-r-rect-page'),
     AutoRoute(page: ClipRectExampleRoute.page, path: '/clip-rect-page'),

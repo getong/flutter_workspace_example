@@ -21,6 +21,7 @@ const List<_ModuleLink> _layoutModules = <_ModuleLink>[
   _ModuleLink(label: 'Align Module', path: '/align-page'),
   _ModuleLink(label: 'Transform Module', path: '/transform-page'),
   _ModuleLink(label: 'RotatedBox Module', path: '/rotated-box-page'),
+  _ModuleLink(label: 'SafeArea Module', path: '/safe-area-page'),
   _ModuleLink(label: 'ClipOval Module', path: '/clip-oval-page'),
   _ModuleLink(label: 'ClipRRect Module', path: '/clip-r-rect-page'),
   _ModuleLink(label: 'ClipRect Module', path: '/clip-rect-page'),
