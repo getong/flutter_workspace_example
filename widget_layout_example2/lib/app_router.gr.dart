@@ -1208,6 +1208,22 @@ class GesturedetectorRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [GraphqlFlutterPage]
+class GraphqlFlutterRoute extends PageRouteInfo<void> {
+  const GraphqlFlutterRoute({List<PageRouteInfo>? children})
+    : super(GraphqlFlutterRoute.name, initialChildren: children);
+
+  static const String name = 'GraphqlFlutterRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const GraphqlFlutterPage();
+    },
+  );
+}
+
+/// generated route for
 /// [HomePage]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})

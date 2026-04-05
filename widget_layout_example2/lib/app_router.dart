@@ -48,6 +48,7 @@ import 'package:widget_layout_example2/modules/form_page.dart';
 import 'package:widget_layout_example2/modules/form_field_page.dart';
 import 'package:widget_layout_example2/modules/future_builder_page.dart';
 import 'package:widget_layout_example2/modules/gesturedetector.dart';
+import 'package:widget_layout_example2/modules/graphql_flutter_page.dart';
 import 'package:widget_layout_example2/modules/image_widget_page.dart';
 import 'package:widget_layout_example2/modules/ink_widgets_page.dart';
 import 'package:widget_layout_example2/modules/indexed_stack_page.dart';
@@ -299,6 +300,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: SimpleDialogExampleRoute.page, path: '/simple-dialog-page'),
     AutoRoute(page: DialogExampleRoute.page, path: '/dialog-page'),
     AutoRoute(page: FutureBuilderRoute.page, path: '/future-builder-page'),
+    AutoRoute(page: GraphqlFlutterRoute.page, path: '/graphql-flutter-page'),
     AutoRoute(page: StreamBuilderRoute.page, path: '/stream-builder-page'),
     AutoRoute(page: DriftFlutterRoute.page, path: '/drift-flutter-page'),
     AutoRoute(
