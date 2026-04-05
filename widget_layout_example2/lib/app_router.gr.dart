@@ -1112,6 +1112,22 @@ class FlutterSvgRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterVideoCachingFvpPage]
+class FlutterVideoCachingFvpRoute extends PageRouteInfo<void> {
+  const FlutterVideoCachingFvpRoute({List<PageRouteInfo>? children})
+    : super(FlutterVideoCachingFvpRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterVideoCachingFvpRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterVideoCachingFvpPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FontAwesomeFlutterPage]
 class FontAwesomeFlutterRoute extends PageRouteInfo<void> {
   const FontAwesomeFlutterRoute({List<PageRouteInfo>? children})

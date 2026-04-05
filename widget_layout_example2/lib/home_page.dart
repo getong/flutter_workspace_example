@@ -99,6 +99,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   ),
   _ModuleLink(label: 'flutter_svg Module', path: '/flutter-svg-page'),
   _ModuleLink(
+    label: 'flutter_video_caching + fvp Module',
+    path: '/flutter-video-caching-fvp-page',
+  ),
+  _ModuleLink(
     label: 'font_awesome_flutter Module',
     path: '/font-awesome-flutter-page',
   ),
