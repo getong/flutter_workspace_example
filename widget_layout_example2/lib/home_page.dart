@@ -133,6 +133,10 @@ const List<_ModuleLink> _animationModules = <_ModuleLink>[
     path: '/animated-switcher-page',
   ),
   _ModuleLink(
+    label: 'animated_toggle_switch Module',
+    path: '/animated-toggle-switch-page',
+  ),
+  _ModuleLink(
     label: 'AnimatedDefaultTextStyle Module',
     path: '/animated-default-text-style-page',
   ),

@@ -75,6 +75,22 @@ class AnimatedSwitcherRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AnimatedToggleSwitchPage]
+class AnimatedToggleSwitchRoute extends PageRouteInfo<void> {
+  const AnimatedToggleSwitchRoute({List<PageRouteInfo>? children})
+    : super(AnimatedToggleSwitchRoute.name, initialChildren: children);
+
+  static const String name = 'AnimatedToggleSwitchRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AnimatedToggleSwitchPage();
+    },
+  );
+}
+
+/// generated route for
 /// [AnimationControllerPage]
 class AnimationControllerRoute extends PageRouteInfo<void> {
   const AnimationControllerRoute({List<PageRouteInfo>? children})

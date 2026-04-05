@@ -6,6 +6,7 @@ import 'package:widget_layout_example2/home_page.dart';
 import 'package:widget_layout_example2/modules/align_page.dart';
 import 'package:widget_layout_example2/modules/animated_default_text_style_page.dart';
 import 'package:widget_layout_example2/modules/animated_switcher_page.dart';
+import 'package:widget_layout_example2/modules/animated_toggle_switch_page.dart';
 import 'package:widget_layout_example2/modules/animation_controller_page.dart';
 import 'package:widget_layout_example2/modules/alert_dialog_page.dart';
 import 'package:widget_layout_example2/modules/auto_route_usage_page.dart';
@@ -316,6 +317,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: AnimatedSwitcherRoute.page,
       path: '/animated-switcher-page',
+    ),
+    AutoRoute(
+      page: AnimatedToggleSwitchRoute.page,
+      path: '/animated-toggle-switch-page',
     ),
     AutoRoute(
       page: AnimatedDefaultTextStyleRoute.page,
