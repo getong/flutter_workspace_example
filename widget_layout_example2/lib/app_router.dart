@@ -23,6 +23,7 @@ import 'package:widget_layout_example2/modules/clip_r_rect_page.dart';
 import 'package:widget_layout_example2/modules/clip_rect_page.dart';
 import 'package:widget_layout_example2/modules/column_page.dart';
 import 'package:widget_layout_example2/modules/column_saved_page.dart';
+import 'package:widget_layout_example2/modules/column_saved_stateless_page.dart';
 import 'package:widget_layout_example2/modules/constrained_box_page.dart';
 import 'package:widget_layout_example2/modules/custom_clipper_page.dart';
 import 'package:widget_layout_example2/modules/custom_paint_page.dart';
@@ -172,6 +173,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: GesturedetectorRoute.page, path: '/gesturedector-page'),
     AutoRoute(page: ColumnRoute.page, path: '/column-page'),
     AutoRoute(page: ColumnSavedRoute.page, path: '/column-saved-page'),
+    AutoRoute(
+      page: ColumnSavedStatelessRoute.page,
+      path: '/column-saved-stateless-page',
+    ),
     AutoRoute(page: FlowExampleRoute.page, path: '/flow-page'),
     AutoRoute(
       page: LayoutBuilderExampleRoute.page,

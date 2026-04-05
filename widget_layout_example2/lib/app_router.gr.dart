@@ -792,6 +792,22 @@ class ColumnSavedRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ColumnSavedStatelessPage]
+class ColumnSavedStatelessRoute extends PageRouteInfo<void> {
+  const ColumnSavedStatelessRoute({List<PageRouteInfo>? children})
+    : super(ColumnSavedStatelessRoute.name, initialChildren: children);
+
+  static const String name = 'ColumnSavedStatelessRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ColumnSavedStatelessPage();
+    },
+  );
+}
+
+/// generated route for
 /// [ConstrainedBoxPage]
 class ConstrainedBoxRoute extends PageRouteInfo<void> {
   const ConstrainedBoxRoute({List<PageRouteInfo>? children})

@@ -11,6 +11,10 @@ const List<_ModuleLink> _layoutModules = <_ModuleLink>[
   _ModuleLink(label: 'ClipRRect Module', path: '/clip-r-rect-page'),
   _ModuleLink(label: 'Column Module', path: '/column-page'),
   _ModuleLink(label: 'Column Saved Module', path: '/column-saved-page'),
+  _ModuleLink(
+    label: 'Column Saved Stateless Module',
+    path: '/column-saved-stateless-page',
+  ),
   _ModuleLink(label: 'Constrained Box Module', path: '/constrained-box'),
   _ModuleLink(label: 'CustomClipper Module', path: '/custom-clipper-page'),
   _ModuleLink(label: 'DecoratedBox Module', path: '/decorated-box-page'),
