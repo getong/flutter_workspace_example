@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -146,6 +147,8 @@ class _FlutterSecureStoragePageState extends State<FlutterSecureStoragePage> {
   late final ValueChanged<String?> _listener = _listenerCallback;
 
   _StoragePreset _selectedPreset = _StoragePreset.defaultSecure;
+  final Map<_StoragePreset, Map<String, String>> _fallbackStores =
+      <_StoragePreset, Map<String, String>>{};
   Map<String, String> _entries = <String, String>{};
   List<String> _eventLog = <String>[];
   String _result =
@@ -153,10 +156,13 @@ class _FlutterSecureStoragePageState extends State<FlutterSecureStoragePage> {
   String _cupertinoStatus =
       'Protected-data availability has not been checked yet.';
   bool _listenerRegistered = false;
+  bool _macOsFallbackEnabled = false;
   bool _busy = false;
 
   _StoragePresetConfig get _activePreset => _storagePresets[_selectedPreset]!;
   FlutterSecureStorage get _activeStorage => _activePreset.storage;
+  bool get _useMacOsFallback =>
+      _macOsFallbackEnabled && defaultTargetPlatform == TargetPlatform.macOS;
 
   @override
   void initState() {
@@ -201,6 +207,89 @@ class _FlutterSecureStoragePageState extends State<FlutterSecureStoragePage> {
     );
   }
 
+  Map<String, String> _fallbackStoreFor(_StoragePreset preset) {
+    return _fallbackStores.putIfAbsent(preset, () => <String, String>{});
+  }
+
+  bool _isMissingMacOsKeychainEntitlement(Object error) {
+    return defaultTargetPlatform == TargetPlatform.macOS &&
+        error is PlatformException &&
+        error.code == 'Unexpected security result code' &&
+        (error.details == -34018 ||
+            (error.message?.contains('-34018') ?? false));
+  }
+
+  void _enableMacOsFallback() {
+    if (_useMacOsFallback) {
+      return;
+    }
+
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      _macOsFallbackEnabled = true;
+      _result =
+          'macOS denied keychain access with error -34018, so this demo switched to an in-memory fallback for interactive examples. Signed Apple builds can still use flutter_secure_storage normally.';
+      _cupertinoStatus =
+          'Fallback active on macOS debug build because the keychain entitlement is unavailable to this running app.';
+    });
+    _addLog('Activated macOS fallback after keychain error -34018');
+  }
+
+  void _notifyFallbackListener({required String key, required String? value}) {
+    if (!_listenerRegistered || key != _listenerKey) {
+      return;
+    }
+
+    _listenerCallback(value);
+  }
+
+  String _fallbackWrite({required String key, required String? value}) {
+    final Map<String, String> store = _fallbackStoreFor(_selectedPreset);
+    if (value == null) {
+      store.remove(key);
+    } else {
+      store[key] = value;
+    }
+    _notifyFallbackListener(key: key, value: value);
+    return value == null
+        ? 'Fallback write(key: "$key", value: null) deleted the value for that key.'
+        : 'Fallback write(key: "$key") succeeded. read(...) returned "$value".';
+  }
+
+  String _fallbackRead({required String key}) {
+    final String? value = _fallbackStoreFor(_selectedPreset)[key];
+    return 'Fallback read(key: "$key") -> ${value == null ? 'null' : '"$value"'}.';
+  }
+
+  String _fallbackContainsKey({required String key}) {
+    final bool exists = _fallbackStoreFor(_selectedPreset).containsKey(key);
+    return 'Fallback containsKey(key: "$key") -> $exists.';
+  }
+
+  String _fallbackDelete({required String key}) {
+    _fallbackStoreFor(_selectedPreset).remove(key);
+    _notifyFallbackListener(key: key, value: null);
+    return 'Fallback delete(key: "$key") completed.';
+  }
+
+  String _fallbackReadAll() {
+    final int count = _fallbackStoreFor(_selectedPreset).length;
+    return 'Fallback readAll() returned $count entr${count == 1 ? 'y' : 'ies'}.';
+  }
+
+  String _fallbackDeleteAll() {
+    final Map<String, String> store = _fallbackStoreFor(_selectedPreset);
+    final bool removedListenerKey = store.containsKey(_listenerKey);
+    store.clear();
+    if (removedListenerKey) {
+      _notifyFallbackListener(key: _listenerKey, value: null);
+    }
+    return 'Fallback deleteAll() completed for the active demo store.';
+  }
+
   void _addLog(String message) {
     final DateTime now = DateTime.now();
     final String timestamp =
@@ -219,6 +308,17 @@ class _FlutterSecureStoragePageState extends State<FlutterSecureStoragePage> {
   }
 
   Future<void> _refreshEntries() async {
+    if (_useMacOsFallback) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _entries = Map<String, String>.from(_fallbackStoreFor(_selectedPreset))
+          ..removeWhere((String key, String value) => false);
+      });
+      return;
+    }
+
     try {
       final Map<String, String> snapshot = await _activeStorage.readAll();
       final List<MapEntry<String, String>> sortedEntries =
@@ -239,6 +339,18 @@ class _FlutterSecureStoragePageState extends State<FlutterSecureStoragePage> {
       setState(() {
         _entries = <String, String>{};
       });
+      if (_isMissingMacOsKeychainEntitlement(error)) {
+        _enableMacOsFallback();
+        if (!mounted) {
+          return;
+        }
+        setState(() {
+          _entries = Map<String, String>.from(
+            _fallbackStoreFor(_selectedPreset),
+          );
+        });
+        return;
+      }
       _addLog('readAll failed during refresh: $error');
     }
   }
@@ -246,6 +358,7 @@ class _FlutterSecureStoragePageState extends State<FlutterSecureStoragePage> {
   Future<void> _runOperation({
     required String label,
     required Future<String> Function() action,
+    required String Function() fallbackAction,
   }) async {
     if (_busy) {
       return;
@@ -256,7 +369,9 @@ class _FlutterSecureStoragePageState extends State<FlutterSecureStoragePage> {
     });
 
     try {
-      final String message = await action();
+      final String message = _useMacOsFallback
+          ? fallbackAction()
+          : await action();
       if (!mounted) {
         return;
       }
@@ -265,6 +380,18 @@ class _FlutterSecureStoragePageState extends State<FlutterSecureStoragePage> {
       });
       _addLog('${_activePreset.label}: $label');
     } on PlatformException catch (error) {
+      if (_isMissingMacOsKeychainEntitlement(error)) {
+        _enableMacOsFallback();
+        if (!mounted) {
+          return;
+        }
+        final String fallbackMessage = fallbackAction();
+        setState(() {
+          _result = fallbackMessage;
+        });
+        _addLog('${_activePreset.label}: $label (fallback)');
+        return;
+      }
       if (!mounted) {
         return;
       }
@@ -307,6 +434,7 @@ class _FlutterSecureStoragePageState extends State<FlutterSecureStoragePage> {
         final String? readBack = await _activeStorage.read(key: _key);
         return 'write(key: "$_key") succeeded. read(...) returned ${readBack == null ? 'null' : '"$readBack"'}.';
       },
+      fallbackAction: () => _fallbackWrite(key: _key, value: _value),
     );
   }
 
@@ -317,6 +445,7 @@ class _FlutterSecureStoragePageState extends State<FlutterSecureStoragePage> {
         final String? value = await _activeStorage.read(key: _key);
         return 'read(key: "$_key") -> ${value == null ? 'null' : '"$value"'}.';
       },
+      fallbackAction: () => _fallbackRead(key: _key),
     );
   }
 
@@ -327,6 +456,7 @@ class _FlutterSecureStoragePageState extends State<FlutterSecureStoragePage> {
         final bool exists = await _activeStorage.containsKey(key: _key);
         return 'containsKey(key: "$_key") -> $exists.';
       },
+      fallbackAction: () => _fallbackContainsKey(key: _key),
     );
   }
 
@@ -337,6 +467,7 @@ class _FlutterSecureStoragePageState extends State<FlutterSecureStoragePage> {
         await _activeStorage.delete(key: _key);
         return 'delete(key: "$_key") completed.';
       },
+      fallbackAction: () => _fallbackDelete(key: _key),
     );
   }
 
@@ -347,6 +478,7 @@ class _FlutterSecureStoragePageState extends State<FlutterSecureStoragePage> {
         await _activeStorage.write(key: _key, value: null);
         return 'write(key: "$_key", value: null) deleted the value for that key.';
       },
+      fallbackAction: () => _fallbackWrite(key: _key, value: null),
     );
   }
 
@@ -357,6 +489,7 @@ class _FlutterSecureStoragePageState extends State<FlutterSecureStoragePage> {
         final Map<String, String> values = await _activeStorage.readAll();
         return 'readAll() returned ${values.length} entr${values.length == 1 ? 'y' : 'ies'}.';
       },
+      fallbackAction: _fallbackReadAll,
     );
   }
 
@@ -367,6 +500,7 @@ class _FlutterSecureStoragePageState extends State<FlutterSecureStoragePage> {
         await _activeStorage.deleteAll();
         return 'deleteAll() completed for the active storage configuration.';
       },
+      fallbackAction: _fallbackDeleteAll,
     );
   }
 
@@ -389,6 +523,15 @@ class _FlutterSecureStoragePageState extends State<FlutterSecureStoragePage> {
         }
         return status;
       },
+      fallbackAction: () {
+        if (mounted) {
+          setState(() {
+            _cupertinoStatus =
+                'Fallback active on macOS debug build, so Cupertino protected-data status is not queried from the native plugin.';
+          });
+        }
+        return _cupertinoStatus;
+      },
     );
   }
 
@@ -402,6 +545,10 @@ class _FlutterSecureStoragePageState extends State<FlutterSecureStoragePage> {
         );
         return 'Wrote a value for the listener demo key "$_listenerKey".';
       },
+      fallbackAction: () => _fallbackWrite(
+        key: _listenerKey,
+        value: 'listener_value_${DateTime.now().millisecondsSinceEpoch}',
+      ),
     );
   }
 
@@ -412,6 +559,7 @@ class _FlutterSecureStoragePageState extends State<FlutterSecureStoragePage> {
         await _activeStorage.delete(key: _listenerKey);
         return 'Deleted the listener demo key "$_listenerKey".';
       },
+      fallbackAction: () => _fallbackDelete(key: _listenerKey),
     );
   }
 
@@ -438,6 +586,14 @@ class _FlutterSecureStoragePageState extends State<FlutterSecureStoragePage> {
               title: 'Active preset',
               description: _activePreset.description,
             ),
+            if (_useMacOsFallback) ...<Widget>[
+              const SizedBox(height: 16),
+              const _InfoCard(
+                title: 'macOS Fallback Active',
+                description:
+                    'This unsigned macOS debug build hit Apple keychain error -34018. The page now uses an in-memory fallback so the example stays interactive. Signed Apple builds still use flutter_secure_storage directly.',
+              ),
+            ],
             const SizedBox(height: 16),
             Wrap(
               spacing: 12,
