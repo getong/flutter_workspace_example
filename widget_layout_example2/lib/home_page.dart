@@ -101,6 +101,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'flutter_auto_size_text Module',
     path: '/flutter-auto-size-text-page',
   ),
+  _ModuleLink(
+    label: 'flutter_secure_storage Module',
+    path: '/flutter-secure-storage-page',
+  ),
   _ModuleLink(label: 'flutter_svg Module', path: '/flutter-svg-page'),
   _ModuleLink(
     label: 'flutter_video_caching + fvp Module',

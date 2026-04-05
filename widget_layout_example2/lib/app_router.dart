@@ -43,6 +43,7 @@ import 'package:widget_layout_example2/modules/floating_action_button_page.dart'
 import 'package:widget_layout_example2/modules/flow_page.dart';
 import 'package:widget_layout_example2/modules/flutter_svg_page.dart';
 import 'package:widget_layout_example2/modules/flutter_auto_size_text_page.dart';
+import 'package:widget_layout_example2/modules/flutter_secure_storage_page.dart';
 import 'package:widget_layout_example2/modules/flutter_video_caching_fvp_page.dart';
 import 'package:widget_layout_example2/modules/font_awesome_flutter_page.dart';
 import 'package:widget_layout_example2/modules/form_page.dart';
@@ -367,6 +368,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: FlutterAutoSizeTextRoute.page,
       path: '/flutter-auto-size-text-page',
+    ),
+    AutoRoute(
+      page: FlutterSecureStorageRoute.page,
+      path: '/flutter-secure-storage-page',
     ),
     AutoRoute(
       page: FlutterVideoCachingFvpRoute.page,

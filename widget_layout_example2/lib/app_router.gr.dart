@@ -1112,6 +1112,22 @@ class FlutterAutoSizeTextRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterSecureStoragePage]
+class FlutterSecureStorageRoute extends PageRouteInfo<void> {
+  const FlutterSecureStorageRoute({List<PageRouteInfo>? children})
+    : super(FlutterSecureStorageRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterSecureStorageRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterSecureStoragePage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterSvgPage]
 class FlutterSvgRoute extends PageRouteInfo<void> {
   const FlutterSvgRoute({List<PageRouteInfo>? children})
