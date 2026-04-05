@@ -49,6 +49,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(label: 'Switch Module', path: '/switch-page'),
   _ModuleLink(label: 'Checkbox Module', path: '/checkbox-page'),
   _ModuleLink(label: 'Radio Module', path: '/radio-page'),
+  _ModuleLink(label: 'InputChip Module', path: '/input-chip-page'),
+  _ModuleLink(label: 'ChoiceChip Module', path: '/choice-chip-page'),
+  _ModuleLink(label: 'FilterChip Module', path: '/filter-chip-page'),
+  _ModuleLink(label: 'ActionChip Module', path: '/action-chip-page'),
   _ModuleLink(
     label: 'LinearProgressIndicator Module',
     path: '/linear-progress-indicator-page',
@@ -58,6 +62,8 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/circular-progress-indicator-page',
   ),
   _ModuleLink(label: 'Slider Module', path: '/slider-page'),
+  _ModuleLink(label: 'DatePicker Module', path: '/date-picker-page'),
+  _ModuleLink(label: 'TimePicker Module', path: '/time-picker-page'),
   _ModuleLink(label: 'Form Module', path: '/form-page'),
   _ModuleLink(label: 'FormField Module', path: '/form-field-page'),
   _ModuleLink(label: 'Draggable Module', path: '/draggable-page'),
@@ -122,6 +128,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(
     label: 'font_awesome_flutter Module',
     path: '/font-awesome-flutter-page',
+  ),
+  _ModuleLink(
+    label: 'material_symbols_icons Module',
+    path: '/material-symbols-icons-page',
   ),
   _ModuleLink(label: 'flutter_svg Module', path: '/flutter-svg-page'),
   _ModuleLink(label: 'Image Module', path: '/image-widget-page'),

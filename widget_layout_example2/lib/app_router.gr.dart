@@ -11,6 +11,22 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [ActionChipPage]
+class ActionChipRoute extends PageRouteInfo<void> {
+  const ActionChipRoute({List<PageRouteInfo>? children})
+    : super(ActionChipRoute.name, initialChildren: children);
+
+  static const String name = 'ActionChipRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ActionChipPage();
+    },
+  );
+}
+
+/// generated route for
 /// [AlertDialogExamplePage]
 class AlertDialogExampleRoute extends PageRouteInfo<void> {
   const AlertDialogExampleRoute({List<PageRouteInfo>? children})
@@ -645,6 +661,22 @@ class CheckboxExampleRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ChoiceChipPage]
+class ChoiceChipRoute extends PageRouteInfo<void> {
+  const ChoiceChipRoute({List<PageRouteInfo>? children})
+    : super(ChoiceChipRoute.name, initialChildren: children);
+
+  static const String name = 'ChoiceChipRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ChoiceChipPage();
+    },
+  );
+}
+
+/// generated route for
 /// [CircularProgressIndicatorExamplePage]
 class CircularProgressIndicatorExampleRoute extends PageRouteInfo<void> {
   const CircularProgressIndicatorExampleRoute({List<PageRouteInfo>? children})
@@ -840,6 +872,22 @@ class DataTableRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [DatePickerPage]
+class DatePickerRoute extends PageRouteInfo<void> {
+  const DatePickerRoute({List<PageRouteInfo>? children})
+    : super(DatePickerRoute.name, initialChildren: children);
+
+  static const String name = 'DatePickerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DatePickerPage();
+    },
+  );
+}
+
+/// generated route for
 /// [DecoratedBoxPage]
 class DecoratedBoxRoute extends PageRouteInfo<void> {
   const DecoratedBoxRoute({List<PageRouteInfo>? children})
@@ -947,6 +995,22 @@ class FilledButtonRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const FilledButtonPage();
+    },
+  );
+}
+
+/// generated route for
+/// [FilterChipPage]
+class FilterChipRoute extends PageRouteInfo<void> {
+  const FilterChipRoute({List<PageRouteInfo>? children})
+    : super(FilterChipRoute.name, initialChildren: children);
+
+  static const String name = 'FilterChipRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FilterChipPage();
     },
   );
 }
@@ -1176,6 +1240,22 @@ class InkWidgetsRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [InputChipPage]
+class InputChipRoute extends PageRouteInfo<void> {
+  const InputChipRoute({List<PageRouteInfo>? children})
+    : super(InputChipRoute.name, initialChildren: children);
+
+  static const String name = 'InputChipRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const InputChipPage();
+    },
+  );
+}
+
+/// generated route for
 /// [IntlPage]
 class IntlRoute extends PageRouteInfo<void> {
   const IntlRoute({List<PageRouteInfo>? children})
@@ -1254,6 +1334,22 @@ class LinearProgressIndicatorExampleRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const LinearProgressIndicatorExamplePage();
+    },
+  );
+}
+
+/// generated route for
+/// [MaterialSymbolsIconsPage]
+class MaterialSymbolsIconsRoute extends PageRouteInfo<void> {
+  const MaterialSymbolsIconsRoute({List<PageRouteInfo>? children})
+    : super(MaterialSymbolsIconsRoute.name, initialChildren: children);
+
+  static const String name = 'MaterialSymbolsIconsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const MaterialSymbolsIconsPage();
     },
   );
 }
@@ -1641,6 +1737,22 @@ class TextStyleRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const TextStylePage();
+    },
+  );
+}
+
+/// generated route for
+/// [TimePickerPage]
+class TimePickerRoute extends PageRouteInfo<void> {
+  const TimePickerRoute({List<PageRouteInfo>? children})
+    : super(TimePickerRoute.name, initialChildren: children);
+
+  static const String name = 'TimePickerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TimePickerPage();
     },
   );
 }

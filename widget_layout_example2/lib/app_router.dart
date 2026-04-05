@@ -10,6 +10,7 @@ import 'package:widget_layout_example2/modules/animated_toggle_switch_page.dart'
 import 'package:widget_layout_example2/modules/animation_controller_page.dart';
 import 'package:widget_layout_example2/modules/alert_dialog_page.dart';
 import 'package:widget_layout_example2/modules/auto_route_usage_page.dart';
+import 'package:widget_layout_example2/modules/action_chip_page.dart';
 import 'package:widget_layout_example2/modules/center_box_page.dart';
 import 'package:widget_layout_example2/modules/cached_network_image_ce_page.dart';
 import 'package:widget_layout_example2/modules/checkbox_page.dart';
@@ -31,8 +32,10 @@ import 'package:widget_layout_example2/modules/dialog_page.dart';
 import 'package:widget_layout_example2/modules/draggable_page.dart';
 import 'package:widget_layout_example2/modules/drag_target_page.dart';
 import 'package:widget_layout_example2/modules/drift_flutter_page.dart';
+import 'package:widget_layout_example2/modules/date_picker_page.dart';
 import 'package:widget_layout_example2/modules/exclude_semantics_page.dart';
 import 'package:widget_layout_example2/modules/filled_button_page.dart';
+import 'package:widget_layout_example2/modules/filter_chip_page.dart';
 import 'package:widget_layout_example2/modules/fl_chart_page.dart';
 import 'package:widget_layout_example2/modules/flexible_page.dart';
 import 'package:widget_layout_example2/modules/floating_action_button_page.dart';
@@ -46,10 +49,12 @@ import 'package:widget_layout_example2/modules/future_builder_page.dart';
 import 'package:widget_layout_example2/modules/gesturedetector.dart';
 import 'package:widget_layout_example2/modules/image_widget_page.dart';
 import 'package:widget_layout_example2/modules/ink_widgets_page.dart';
+import 'package:widget_layout_example2/modules/input_chip_page.dart';
 import 'package:widget_layout_example2/modules/intl_page.dart';
 import 'package:widget_layout_example2/modules/keyboard_listener_page.dart';
 import 'package:widget_layout_example2/modules/layout_builder_page.dart';
 import 'package:widget_layout_example2/modules/linear_progress_indicator_page.dart';
+import 'package:widget_layout_example2/modules/material_symbols_icons_page.dart';
 import 'package:widget_layout_example2/modules/media_query_page.dart';
 import 'package:widget_layout_example2/modules/merge_semantics_page.dart';
 import 'package:widget_layout_example2/modules/padding_page.dart';
@@ -74,12 +79,14 @@ import 'package:widget_layout_example2/modules/table_page.dart';
 import 'package:widget_layout_example2/modules/text_field_controller_page.dart';
 import 'package:widget_layout_example2/modules/text_rich_page.dart';
 import 'package:widget_layout_example2/modules/text_style_page.dart';
+import 'package:widget_layout_example2/modules/time_picker_page.dart';
 import 'package:widget_layout_example2/modules/transform_page.dart';
 import 'package:widget_layout_example2/modules/tween_animation_builder_page.dart';
 import 'package:widget_layout_example2/modules/tween_page.dart';
 import 'package:widget_layout_example2/modules/tween_sequence_interval_page.dart';
 import 'package:widget_layout_example2/modules/unconstrained_box_page.dart';
 import 'package:widget_layout_example2/modules/wrap_page.dart';
+import 'package:widget_layout_example2/modules/choice_chip_page.dart';
 
 part 'app_router.gr.dart';
 
@@ -239,6 +246,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: SwitchExampleRoute.page, path: '/switch-page'),
     AutoRoute(page: CheckboxExampleRoute.page, path: '/checkbox-page'),
     AutoRoute(page: RadioExampleRoute.page, path: '/radio-page'),
+    AutoRoute(page: InputChipRoute.page, path: '/input-chip-page'),
+    AutoRoute(page: ChoiceChipRoute.page, path: '/choice-chip-page'),
+    AutoRoute(page: FilterChipRoute.page, path: '/filter-chip-page'),
+    AutoRoute(page: ActionChipRoute.page, path: '/action-chip-page'),
     AutoRoute(
       page: LinearProgressIndicatorExampleRoute.page,
       path: '/linear-progress-indicator-page',
@@ -248,6 +259,8 @@ class AppRouter extends RootStackRouter {
       path: '/circular-progress-indicator-page',
     ),
     AutoRoute(page: SliderExampleRoute.page, path: '/slider-page'),
+    AutoRoute(page: DatePickerRoute.page, path: '/date-picker-page'),
+    AutoRoute(page: TimePickerRoute.page, path: '/time-picker-page'),
     AutoRoute(page: FormRoute.page, path: '/form-page'),
     AutoRoute(page: FormFieldRoute.page, path: '/form-field-page'),
     AutoRoute(page: DraggableExampleRoute.page, path: '/draggable-page'),
@@ -312,6 +325,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: FontAwesomeFlutterRoute.page,
       path: '/font-awesome-flutter-page',
+    ),
+    AutoRoute(
+      page: MaterialSymbolsIconsRoute.page,
+      path: '/material-symbols-icons-page',
     ),
     AutoRoute(page: ImageWidgetRoute.page, path: '/image-widget-page'),
     AutoRoute(
