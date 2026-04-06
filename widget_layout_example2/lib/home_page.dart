@@ -102,6 +102,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/flutter-auto-size-text-page',
   ),
   _ModuleLink(
+    label: 'flutter_local_notifications Module',
+    path: '/flutter-local-notifications-page',
+  ),
+  _ModuleLink(
     label: 'flutter_secure_storage Module',
     path: '/flutter-secure-storage-page',
   ),
