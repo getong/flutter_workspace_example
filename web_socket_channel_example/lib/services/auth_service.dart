@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
+import '../service_locator.dart';
+
 enum AuthBackend { custom, supabase }
 
 class AuthResult {
@@ -12,7 +14,7 @@ class AuthResult {
 }
 
 class AuthService {
-  AuthService({Dio? dio}) : _dio = dio ?? Dio();
+  AuthService() : _dio = getIt<Dio>();
 
   final Dio _dio;
 
@@ -58,10 +60,6 @@ class AuthService {
     final response = await _dio.post<String>(
       url.toString(),
       data: {'email': email.trim(), 'password': password},
-      options: Options(
-        contentType: Headers.jsonContentType,
-        responseType: ResponseType.plain,
-      ),
     );
 
     final responseBody = response.data ?? '';

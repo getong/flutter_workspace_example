@@ -6,12 +6,14 @@ import 'config/server_defaults.dart';
 import 'models/connection_state.dart';
 import 'models/websocket_message.dart';
 import 'pages/auth_page.dart';
+import 'service_locator.dart';
 import 'services/websocket_service.dart';
 import 'widgets/connection_widget.dart';
 import 'widgets/message_input_widget.dart';
 import 'widgets/message_list_widget.dart';
 
 void main() {
+  setupServiceLocator();
   runApp(const MyApp());
 }
 
