@@ -1128,6 +1128,22 @@ class FlutterSecureStorageRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterSlidablePage]
+class FlutterSlidableRoute extends PageRouteInfo<void> {
+  const FlutterSlidableRoute({List<PageRouteInfo>? children})
+    : super(FlutterSlidableRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterSlidableRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterSlidablePage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterSvgPage]
 class FlutterSvgRoute extends PageRouteInfo<void> {
   const FlutterSvgRoute({List<PageRouteInfo>? children})

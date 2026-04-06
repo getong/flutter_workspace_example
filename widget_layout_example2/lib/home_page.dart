@@ -105,6 +105,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'flutter_secure_storage Module',
     path: '/flutter-secure-storage-page',
   ),
+  _ModuleLink(label: 'flutter_slidable Module', path: '/flutter-slidable-page'),
   _ModuleLink(label: 'flutter_svg Module', path: '/flutter-svg-page'),
   _ModuleLink(
     label: 'flutter_video_caching + fvp Module',

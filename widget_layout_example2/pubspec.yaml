@@ -42,6 +42,7 @@ dependencies:
   fl_chart: ^1.2.0
   flutter_auto_size_text: ^5.0.0
   flutter_secure_storage: ^10.0.0
+  flutter_slidable: ^4.0.3
   flutter_svg: ^2.2.4
   flutter_video_caching: ^1.1.2
   font_awesome_flutter: ^11.0.0
