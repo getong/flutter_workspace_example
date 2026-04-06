@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 enum AuthBackend { custom, supabase }
 
@@ -12,6 +12,10 @@ class AuthResult {
 }
 
 class AuthService {
+  AuthService({Dio? dio}) : _dio = dio ?? Dio();
+
+  final Dio _dio;
+
   Future<AuthResult> signUp({
     required String baseUrl,
     required String email,
@@ -51,16 +55,20 @@ class AuthService {
     required String password,
   }) async {
     final url = Uri.parse('${baseUrl.trim()}$path');
-    final response = await http.post(
-      url,
-      headers: {'content-type': 'application/json'},
-      body: jsonEncode({'email': email.trim(), 'password': password}),
+    final response = await _dio.post<String>(
+      url.toString(),
+      data: {'email': email.trim(), 'password': password},
+      options: Options(
+        contentType: Headers.jsonContentType,
+        responseType: ResponseType.plain,
+      ),
     );
 
-    final decoded = response.body.isEmpty
+    final responseBody = response.data ?? '';
+    final decoded = responseBody.isEmpty
         ? <String, dynamic>{}
-        : jsonDecode(response.body) as Map<String, dynamic>;
+        : jsonDecode(responseBody) as Map<String, dynamic>;
 
-    return AuthResult(statusCode: response.statusCode, body: decoded);
+    return AuthResult(statusCode: response.statusCode ?? 0, body: decoded);
   }
 }
