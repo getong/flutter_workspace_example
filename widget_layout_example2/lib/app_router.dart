@@ -27,6 +27,7 @@ import 'package:widget_layout_example2/modules/column_saved_stateless_page.dart'
 import 'package:widget_layout_example2/modules/constrained_box_page.dart';
 import 'package:widget_layout_example2/modules/custom_clipper_page.dart';
 import 'package:widget_layout_example2/modules/custom_paint_page.dart';
+import 'package:widget_layout_example2/modules/crypto_page.dart';
 import 'package:widget_layout_example2/modules/data_table_page.dart';
 import 'package:widget_layout_example2/modules/decorated_box_page.dart';
 import 'package:widget_layout_example2/modules/dialog_page.dart';
@@ -312,6 +313,7 @@ class AppRouter extends RootStackRouter {
       page: CircularProgressIndicatorExampleRoute.page,
       path: '/circular-progress-indicator-page',
     ),
+    AutoRoute(page: CryptoRoute.page, path: '/crypto-page'),
     AutoRoute(page: SliderExampleRoute.page, path: '/slider-page'),
     AutoRoute(page: DatePickerRoute.page, path: '/date-picker-page'),
     AutoRoute(page: TimePickerRoute.page, path: '/time-picker-page'),

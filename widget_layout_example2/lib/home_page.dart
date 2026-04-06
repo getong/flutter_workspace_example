@@ -75,6 +75,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'CircularProgressIndicator Module',
     path: '/circular-progress-indicator-page',
   ),
+  _ModuleLink(label: 'crypto Module', path: '/crypto-page'),
   _ModuleLink(
     label: 'DataTable + PaginatedDataTable Module',
     path: '/data-table-page',

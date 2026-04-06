@@ -840,6 +840,22 @@ class ContentTabRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CryptoPage]
+class CryptoRoute extends PageRouteInfo<void> {
+  const CryptoRoute({List<PageRouteInfo>? children})
+    : super(CryptoRoute.name, initialChildren: children);
+
+  static const String name = 'CryptoRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CryptoPage();
+    },
+  );
+}
+
+/// generated route for
 /// [CustomClipperExamplePage]
 class CustomClipperExampleRoute extends PageRouteInfo<void> {
   const CustomClipperExampleRoute({List<PageRouteInfo>? children})
