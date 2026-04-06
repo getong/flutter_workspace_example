@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:web_socket_channel/status.dart' as status;
 import '../models/websocket_message.dart';
@@ -58,6 +59,12 @@ class WebSocketService {
         onError: _onError,
         onDone: _onConnectionClosed,
       );
+
+      sendJsonMessage('hello', {
+        'message': 'Hello from Flutter web_socket_channel example',
+        'sentAt': DateTime.now().toIso8601String(),
+        'client': 'flutter',
+      });
     } catch (e) {
       _updateState(WebSocketConnectionState.error);
       _addMessage(WebSocketMessage.error('Connection failed: $e'));
@@ -87,12 +94,39 @@ class WebSocketService {
       throw Exception('Message cannot be empty');
     }
 
-    _channel?.sink.add(message);
-    _addMessage(WebSocketMessage.sent(message));
+    sendJsonMessage('manual_text', {
+      'message': message,
+      'sentAt': DateTime.now().toIso8601String(),
+      'client': 'flutter',
+    });
+  }
+
+  void sendJsonMessage(String event, Map<String, Object?> payload) {
+    if (!isConnected) {
+      throw Exception('Not connected to WebSocket server');
+    }
+
+    final encoded = const JsonEncoder.withIndent(
+      '  ',
+    ).convert({'event': event, 'payload': payload});
+
+    _channel?.sink.add(encoded);
+    _addMessage(WebSocketMessage.sent(encoded));
   }
 
   /// Handle incoming messages
   void _onMessageReceived(dynamic message) {
+    if (message is String) {
+      try {
+        final decoded = jsonDecode(message);
+        final formatted = const JsonEncoder.withIndent('  ').convert(decoded);
+        _addMessage(WebSocketMessage.received(formatted));
+        return;
+      } catch (_) {
+        // Fall back to raw text when the frame is not JSON.
+      }
+    }
+
     _addMessage(WebSocketMessage.received(message.toString()));
   }
 

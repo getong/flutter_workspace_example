@@ -58,7 +58,7 @@ class _MessageInputWidgetState extends State<MessageInputWidget> {
                     minLines: 1,
                     decoration: const InputDecoration(
                       labelText: 'Message',
-                      hintText: 'Type your message here...',
+                      hintText: 'Type a message to send as JSON payload...',
                       border: OutlineInputBorder(),
                       prefixIcon: Icon(Icons.message),
                     ),
@@ -99,7 +99,7 @@ class _MessageInputWidgetState extends State<MessageInputWidget> {
               const Padding(
                 padding: EdgeInsets.only(top: 8.0),
                 child: Text(
-                  'Connect to a WebSocket server to send messages',
+                  'Connect to the Axum websocket server to send JSON messages',
                   style: TextStyle(color: Colors.grey, fontSize: 12),
                 ),
               ),

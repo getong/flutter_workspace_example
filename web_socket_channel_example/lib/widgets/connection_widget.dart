@@ -39,10 +39,15 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
               enabled: !isConnected,
               decoration: const InputDecoration(
                 labelText: 'WebSocket URL',
-                hintText: 'wss://echo.websocket.org',
+                hintText: 'ws://127.0.0.1:3000/ws',
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.link),
               ),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'Axum endpoint: use ws://127.0.0.1:3000/ws on desktop, iOS simulator, and web. Use ws://10.0.2.2:3000/ws on the Android emulator.',
+              style: TextStyle(color: Colors.grey, fontSize: 12),
             ),
             const SizedBox(height: 8),
             Row(

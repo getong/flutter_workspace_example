@@ -1,11 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'services/websocket_service.dart';
-import 'models/websocket_message.dart';
+
+import 'config/server_defaults.dart';
 import 'models/connection_state.dart';
+import 'models/websocket_message.dart';
+import 'pages/auth_page.dart';
+import 'services/websocket_service.dart';
 import 'widgets/connection_widget.dart';
 import 'widgets/message_input_widget.dart';
 import 'widgets/message_list_widget.dart';
-import 'dart:async';
 
 void main() {
   runApp(const MyApp());
@@ -17,12 +21,51 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'WebSocket Channel Example',
+      title: 'Axum Client Example',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const WebSocketExample(),
+      home: const HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _currentIndex = 0;
+
+  static const _titles = ['Auth', 'WebSocket'];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Axum ${_titles[_currentIndex]}'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
+      body: IndexedStack(
+        index: _currentIndex,
+        children: const [AuthPage(), WebSocketExample()],
+      ),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _currentIndex,
+        onDestinationSelected: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        destinations: const [
+          NavigationDestination(icon: Icon(Icons.login), label: 'Auth'),
+          NavigationDestination(icon: Icon(Icons.wifi), label: 'WebSocket'),
+        ],
+      ),
     );
   }
 }
@@ -37,7 +80,7 @@ class WebSocketExample extends StatefulWidget {
 class _WebSocketExampleState extends State<WebSocketExample> {
   late final WebSocketService _webSocketService;
   final TextEditingController _urlController = TextEditingController(
-    text: 'wss://echo.websocket.org', // Free WebSocket testing service
+    text: defaultWebSocketUrl(),
   );
   final TextEditingController _messageController = TextEditingController();
   final List<WebSocketMessage> _messages = [];
@@ -141,50 +184,31 @@ class _WebSocketExampleState extends State<WebSocketExample> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('WebSocket Channel Example'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        actions: [
-          IconButton(
-            onPressed: _clearMessages,
-            icon: const Icon(Icons.clear_all),
-            tooltip: 'Clear messages',
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ConnectionWidget(
+            urlController: _urlController,
+            connectionState: _connectionState,
+            onConnect: _connect,
+            onDisconnect: _disconnect,
+          ),
+          const SizedBox(height: 16),
+          MessageInputWidget(
+            messageController: _messageController,
+            isConnected: _connectionState == WebSocketConnectionState.connected,
+            onSendMessage: _sendMessage,
+          ),
+          const SizedBox(height: 16),
+          Flexible(
+            child: MessageListWidget(
+              messages: _messages,
+              onClearMessages: _clearMessages,
+            ),
           ),
         ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Connection section
-            ConnectionWidget(
-              urlController: _urlController,
-              connectionState: _connectionState,
-              onConnect: _connect,
-              onDisconnect: _disconnect,
-            ),
-            const SizedBox(height: 16),
-
-            // Message sending section
-            MessageInputWidget(
-              messageController: _messageController,
-              isConnected:
-                  _connectionState == WebSocketConnectionState.connected,
-              onSendMessage: _sendMessage,
-            ),
-            const SizedBox(height: 16),
-
-            // Messages section
-            Flexible(
-              child: MessageListWidget(
-                messages: _messages,
-                onClearMessages: _clearMessages,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
