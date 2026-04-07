@@ -5,6 +5,7 @@ import 'services/dio_platform_config.dart'
     if (dart.library.io) 'services/dio_platform_config_io.dart'
     as dio_platform;
 import 'services/session_store.dart';
+import 'services/supabase_session_store.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -14,6 +15,9 @@ void setupServiceLocator() {
   }
   if (!getIt.isRegistered<SessionStore>()) {
     getIt.registerLazySingleton<SessionStore>(SessionStore.new);
+  }
+  if (!getIt.isRegistered<SupabaseSessionStore>()) {
+    getIt.registerLazySingleton<SupabaseSessionStore>(SupabaseSessionStore.new);
   }
 }
 

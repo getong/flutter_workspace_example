@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../service_locator.dart';
 import '../services/auth_service.dart';
 import '../services/session_store.dart';
+import '../services/supabase_session_store.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -16,6 +17,7 @@ class AuthPage extends StatefulWidget {
 class _AuthPageState extends State<AuthPage> {
   final AuthService _authService = AuthService();
   late final SessionStore _sessionStore;
+  late final SupabaseSessionStore _supabaseSessionStore;
   late final TextEditingController _baseUrlController;
   final TextEditingController _emailController = TextEditingController(
     text: 'demo@example.com',
@@ -32,6 +34,7 @@ class _AuthPageState extends State<AuthPage> {
   void initState() {
     super.initState();
     _sessionStore = getIt<SessionStore>();
+    _supabaseSessionStore = getIt<SupabaseSessionStore>();
     _baseUrlController = TextEditingController(text: _sessionStore.httpBaseUrl);
     _baseUrlController.addListener(_handleBaseUrlChanged);
   }
@@ -87,10 +90,9 @@ class _AuthPageState extends State<AuthPage> {
         if (_backend == AuthBackend.supabase) {
           final accessToken = result.body['access_token'];
           if (accessToken is String && accessToken.trim().isNotEmpty) {
-            _sessionStore.storeSupabaseSession(
+            _supabaseSessionStore.storeSession(
               accessToken: accessToken,
               email: result.body['email'] as String?,
-              httpBaseUrl: baseUrl,
             );
           }
         }
@@ -214,12 +216,12 @@ class _AuthPageState extends State<AuthPage> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  if (_sessionStore.hasSupabaseAccessToken)
+                  if (_supabaseSessionStore.hasAccessToken)
                     Text(
-                      'Saved Supabase session for ${_sessionStore.supabaseEmail ?? 'current user'}. The WebSocket page will reuse that access token.',
+                      'Saved Supabase session for ${_supabaseSessionStore.email ?? 'current user'}. The WebSocket page will reuse that access token.',
                       style: const TextStyle(color: Colors.green),
                     ),
-                  if (_sessionStore.hasSupabaseAccessToken)
+                  if (_supabaseSessionStore.hasAccessToken)
                     const SizedBox(height: 12),
                   Row(
                     children: [

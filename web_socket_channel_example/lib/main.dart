@@ -7,6 +7,7 @@ import 'models/websocket_message.dart';
 import 'pages/auth_page.dart';
 import 'service_locator.dart';
 import 'services/session_store.dart';
+import 'services/supabase_session_store.dart';
 import 'services/websocket_service.dart';
 import 'widgets/connection_widget.dart';
 import 'widgets/message_input_widget.dart';
@@ -85,6 +86,7 @@ class _WebSocketExampleState extends State<WebSocketExample> {
 
   late final WebSocketService _webSocketService;
   late final SessionStore _sessionStore;
+  late final SupabaseSessionStore _supabaseSessionStore;
   late final TextEditingController _urlController;
   late final TextEditingController _tokenController;
   final TextEditingController _messageController = TextEditingController();
@@ -100,11 +102,13 @@ class _WebSocketExampleState extends State<WebSocketExample> {
   void initState() {
     super.initState();
     _sessionStore = getIt<SessionStore>();
+    _supabaseSessionStore = getIt<SupabaseSessionStore>();
     _urlController = TextEditingController(text: _sessionStore.webSocketUrl);
     _tokenController = TextEditingController(
-      text: _sessionStore.supabaseAccessToken ?? '',
+      text: _supabaseSessionStore.accessToken ?? '',
     );
     _sessionStore.addListener(_syncFromSessionStore);
+    _supabaseSessionStore.addListener(_syncFromSupabaseSessionStore);
     _urlController.addListener(_handleUrlChanged);
     _tokenController.addListener(_handleTokenChanged);
     _webSocketService = WebSocketService();
@@ -115,8 +119,10 @@ class _WebSocketExampleState extends State<WebSocketExample> {
     if (_urlController.text != _sessionStore.webSocketUrl) {
       _urlController.text = _sessionStore.webSocketUrl;
     }
+  }
 
-    final token = _sessionStore.supabaseAccessToken ?? '';
+  void _syncFromSupabaseSessionStore() {
+    final token = _supabaseSessionStore.accessToken ?? '';
     if (_tokenController.text != token) {
       _tokenController.text = token;
     }
@@ -127,7 +133,7 @@ class _WebSocketExampleState extends State<WebSocketExample> {
   }
 
   void _handleTokenChanged() {
-    _sessionStore.updateSupabaseAccessToken(_tokenController.text);
+    _supabaseSessionStore.updateAccessToken(_tokenController.text);
   }
 
   void _setupSubscriptions() {
@@ -165,6 +171,7 @@ class _WebSocketExampleState extends State<WebSocketExample> {
     _connectionStateSubscription.cancel();
     _errorSubscription.cancel();
     _sessionStore.removeListener(_syncFromSessionStore);
+    _supabaseSessionStore.removeListener(_syncFromSupabaseSessionStore);
     _urlController.removeListener(_handleUrlChanged);
     _tokenController.removeListener(_handleTokenChanged);
     _webSocketService.dispose();
