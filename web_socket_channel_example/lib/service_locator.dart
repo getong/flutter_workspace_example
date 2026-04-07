@@ -1,14 +1,19 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
-import 'package:dio/io.dart';
 import 'package:get_it/get_it.dart';
+
+import 'services/dio_platform_config.dart'
+    if (dart.library.io) 'services/dio_platform_config_io.dart'
+    as dio_platform;
+import 'services/session_store.dart';
 
 final GetIt getIt = GetIt.instance;
 
 void setupServiceLocator() {
   if (!getIt.isRegistered<Dio>()) {
     getIt.registerLazySingleton<Dio>(() => _createDio());
+  }
+  if (!getIt.isRegistered<SessionStore>()) {
+    getIt.registerLazySingleton<SessionStore>(SessionStore.new);
   }
 }
 
@@ -21,32 +26,16 @@ Dio _createDio() {
       receiveTimeout: const Duration(seconds: 15),
       sendTimeout: const Duration(seconds: 15),
       headers: {
-        HttpHeaders.acceptHeader: 'application/json',
-        // Prevent MIME sniffing
+        'accept': 'application/json',
         'X-Content-Type-Options': 'nosniff',
       },
-      // Only allow 2xx and 3xx status codes as success
       validateStatus: (status) =>
-          status != null && status >= 200 && status < 400,
+          status != null && status >= 200 && status < 500,
     ),
   );
 
-  // Configure HTTP client with keep-alive and security settings
-  dio.httpClientAdapter = IOHttpClientAdapter(
-    createHttpClient: () {
-      final client = HttpClient();
-      // Enable keep-alive for connection reuse
-      client.idleTimeout = const Duration(seconds: 30);
-      client.connectionTimeout = const Duration(seconds: 15);
-      // Limit max connections per host to avoid resource exhaustion
-      client.maxConnectionsPerHost = 5;
-      // Auto-decompress response
-      client.autoUncompress = true;
-      return client;
-    },
-  );
+  dio_platform.configureDioForPlatform(dio);
 
-  // Log interceptor for debug builds only
   assert(() {
     dio.interceptors.add(
       LogInterceptor(requestBody: true, responseBody: true, error: true),
@@ -54,11 +43,9 @@ Dio _createDio() {
     return true;
   }());
 
-  // Retry & error-handling interceptor
   dio.interceptors.add(
     InterceptorsWrapper(
       onError: (error, handler) async {
-        // Retry once on connection timeout
         if (error.type == DioExceptionType.connectionTimeout &&
             (error.requestOptions.extra['retried'] != true)) {
           error.requestOptions.extra['retried'] = true;

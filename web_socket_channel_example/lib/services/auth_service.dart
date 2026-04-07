@@ -56,17 +56,37 @@ class AuthService {
     required String email,
     required String password,
   }) async {
-    final url = Uri.parse('${baseUrl.trim()}$path');
-    final response = await _dio.post<String>(
-      url.toString(),
-      data: {'email': email.trim(), 'password': password},
-    );
+    final baseUri = Uri.parse(baseUrl.trim());
+    final requestUri = baseUri.resolve(path);
 
-    final responseBody = response.data ?? '';
-    final decoded = responseBody.isEmpty
-        ? <String, dynamic>{}
-        : jsonDecode(responseBody) as Map<String, dynamic>;
+    try {
+      final response = await _dio.post<String>(
+        requestUri.toString(),
+        data: {'email': email.trim(), 'password': password},
+      );
 
-    return AuthResult(statusCode: response.statusCode ?? 0, body: decoded);
+      return AuthResult(
+        statusCode: response.statusCode ?? 0,
+        body: _decodeBody(response.data),
+      );
+    } on DioException catch (error) {
+      final response = error.response;
+      if (response != null) {
+        return AuthResult(
+          statusCode: response.statusCode ?? 0,
+          body: _decodeBody(response.data as String?),
+        );
+      }
+      rethrow;
+    }
+  }
+
+  Map<String, dynamic> _decodeBody(String? responseBody) {
+    final body = responseBody ?? '';
+    if (body.isEmpty) {
+      return <String, dynamic>{};
+    }
+
+    return jsonDecode(body) as Map<String, dynamic>;
   }
 }

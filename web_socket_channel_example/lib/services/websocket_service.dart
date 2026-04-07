@@ -1,9 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:web_socket_channel/status.dart' as status;
+
+import '../config/server_defaults.dart';
 import '../models/websocket_message.dart';
 import '../models/connection_state.dart';
+import 'websocket_channel_factory.dart'
+    if (dart.library.io) 'websocket_channel_factory_io.dart'
+    as websocket_channel_factory;
 
 /// Service class to handle WebSocket connections and messaging
 class WebSocketService {
@@ -33,7 +39,7 @@ class WebSocketService {
   bool get isConnected => _currentState == WebSocketConnectionState.connected;
 
   /// Connect to a WebSocket server
-  Future<void> connect(String url) async {
+  Future<void> connect(String url, {String? accessToken}) async {
     if (_currentState == WebSocketConnectionState.connected) {
       throw Exception('Already connected. Disconnect first.');
     }
@@ -41,11 +47,10 @@ class WebSocketService {
     try {
       _updateState(WebSocketConnectionState.connecting);
 
-      final wsUrl = Uri.parse(url.trim());
-      _channel = WebSocketChannel.connect(wsUrl);
-      _currentUrl = url;
+      final wsUrl = authenticatedWebSocketUri(url, accessToken: accessToken);
+      _channel = websocket_channel_factory.connectWebSocketChannel(wsUrl);
+      _currentUrl = wsUrl.toString();
 
-      // Wait for the connection to be ready
       await _channel!.ready;
 
       _updateState(WebSocketConnectionState.connected);
@@ -53,7 +58,6 @@ class WebSocketService {
         WebSocketMessage.connection('Connected to ${wsUrl.toString()}'),
       );
 
-      // Listen to incoming messages
       _streamSubscription = _channel!.stream.listen(
         _onMessageReceived,
         onError: _onError,
@@ -114,7 +118,6 @@ class WebSocketService {
     _addMessage(WebSocketMessage.sent(encoded));
   }
 
-  /// Handle incoming messages
   void _onMessageReceived(dynamic message) {
     if (message is String) {
       try {
@@ -122,40 +125,33 @@ class WebSocketService {
         final formatted = const JsonEncoder.withIndent('  ').convert(decoded);
         _addMessage(WebSocketMessage.received(formatted));
         return;
-      } catch (_) {
-        // Fall back to raw text when the frame is not JSON.
-      }
+      } catch (_) {}
     }
 
     _addMessage(WebSocketMessage.received(message.toString()));
   }
 
-  /// Handle connection errors
   void _onError(dynamic error) {
     _updateState(WebSocketConnectionState.error);
     _addMessage(WebSocketMessage.error(error.toString()));
     _errorController.add(error.toString());
   }
 
-  /// Handle connection closure
   void _onConnectionClosed() {
     _updateState(WebSocketConnectionState.disconnected);
     _addMessage(WebSocketMessage.info('Connection closed'));
     _currentUrl = null;
   }
 
-  /// Update connection state and notify listeners
   void _updateState(WebSocketConnectionState newState) {
     _currentState = newState;
     _connectionStateController.add(newState);
   }
 
-  /// Add a message and notify listeners
   void _addMessage(WebSocketMessage message) {
     _messageController.add(message);
   }
 
-  /// Dispose of resources
   void dispose() {
     disconnect();
     _messageController.close();

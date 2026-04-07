@@ -11,14 +11,16 @@ The app now has two sections:
 - `Auth`: signup and signin UI for the Rust Axum auth handlers
 - `WebSocket`: websocket client for the Rust `/ws` endpoint
 
-## Target WebSocket Endpoint
+## Target Endpoints
 
 The Rust server exposes:
 
-- `ws://127.0.0.1:3000/ws` for desktop, iOS simulator, and Flutter web
-- `ws://10.0.2.2:3000/ws` for the Android emulator
+- `https://127.0.0.1:3000` and `wss://127.0.0.1:3000/ws` for desktop, iOS simulator, and Flutter web
+- `https://10.0.2.2:3000` and `wss://10.0.2.2:3000/ws` for the Android emulator
 
 The app now defaults to those URLs automatically.
+
+The Rust `/ws` endpoint now requires a Supabase Auth access token. Sign in from the `Auth` tab with the `Supabase` backend first, then connect from the `WebSocket` tab.
 
 ## Behavior
 
@@ -49,5 +51,9 @@ flutter pub get
 flutter run
 ```
 
+For native Flutter targets, this sample accepts the Rust app's self-signed local development certificate only for `127.0.0.1`, `localhost`, and `10.0.2.2`.
+
+For Flutter web, open `https://127.0.0.1:3000/ws/demo` or `https://127.0.0.1:3000/health` in the browser once and trust the local certificate before the app tries to call the backend.
+
 If you are testing on a physical device, replace the default URL with your
-computer's LAN IP and port `3000`.
+computer's LAN IP and port `3000`, and use a certificate the device trusts.

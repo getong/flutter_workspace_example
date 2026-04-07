@@ -4,6 +4,7 @@ import '../models/connection_state.dart';
 /// Widget for managing WebSocket connection
 class ConnectionWidget extends StatefulWidget {
   final TextEditingController urlController;
+  final TextEditingController tokenController;
   final WebSocketConnectionState connectionState;
   final VoidCallback onConnect;
   final VoidCallback onDisconnect;
@@ -11,6 +12,7 @@ class ConnectionWidget extends StatefulWidget {
   const ConnectionWidget({
     super.key,
     required this.urlController,
+    required this.tokenController,
     required this.connectionState,
     required this.onConnect,
     required this.onDisconnect,
@@ -39,14 +41,27 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
               enabled: !isConnected,
               decoration: const InputDecoration(
                 labelText: 'WebSocket URL',
-                hintText: 'ws://127.0.0.1:3000/ws',
+                hintText: 'wss://127.0.0.1:3000/ws',
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.link),
               ),
             ),
             const SizedBox(height: 8),
+            TextField(
+              controller: widget.tokenController,
+              enabled: !isConnected,
+              maxLines: 2,
+              minLines: 1,
+              decoration: const InputDecoration(
+                labelText: 'Supabase Access Token',
+                hintText: 'Paste the access_token from /auth/supabase/signin',
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.vpn_key),
+              ),
+            ),
+            const SizedBox(height: 8),
             const Text(
-              'Axum endpoint: use ws://127.0.0.1:3000/ws on desktop, iOS simulator, and web. Use ws://10.0.2.2:3000/ws on the Android emulator.',
+              'Secure Axum endpoint: use wss://127.0.0.1:3000/ws on desktop, iOS simulator, and web. Use wss://10.0.2.2:3000/ws on the Android emulator. The token is appended as ?access_token=... when connecting.',
               style: TextStyle(color: Colors.grey, fontSize: 12),
             ),
             const SizedBox(height: 8),

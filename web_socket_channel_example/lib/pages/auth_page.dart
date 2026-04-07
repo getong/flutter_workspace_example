@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
-import '../config/server_defaults.dart';
+import '../service_locator.dart';
 import '../services/auth_service.dart';
+import '../services/session_store.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -14,9 +15,8 @@ class AuthPage extends StatefulWidget {
 
 class _AuthPageState extends State<AuthPage> {
   final AuthService _authService = AuthService();
-  final TextEditingController _baseUrlController = TextEditingController(
-    text: defaultHttpBaseUrl(),
-  );
+  late final SessionStore _sessionStore;
+  late final TextEditingController _baseUrlController;
   final TextEditingController _emailController = TextEditingController(
     text: 'demo@example.com',
   );
@@ -24,16 +24,29 @@ class _AuthPageState extends State<AuthPage> {
     text: 'super-secret-password',
   );
 
-  AuthBackend _backend = AuthBackend.custom;
+  AuthBackend _backend = AuthBackend.supabase;
   bool _isLoading = false;
   String _lastResponse = 'No auth requests sent yet.';
 
   @override
+  void initState() {
+    super.initState();
+    _sessionStore = getIt<SessionStore>();
+    _baseUrlController = TextEditingController(text: _sessionStore.httpBaseUrl);
+    _baseUrlController.addListener(_handleBaseUrlChanged);
+  }
+
+  @override
   void dispose() {
+    _baseUrlController.removeListener(_handleBaseUrlChanged);
     _baseUrlController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  void _handleBaseUrlChanged() {
+    _sessionStore.updateHttpBaseUrl(_baseUrlController.text);
   }
 
   Future<void> _submit(bool isSignup) async {
@@ -68,9 +81,31 @@ class _AuthPageState extends State<AuthPage> {
       final prettyBody = const JsonEncoder.withIndent(
         '  ',
       ).convert(result.body);
+
+      if (result.statusCode >= 200 && result.statusCode < 300) {
+        _sessionStore.updateHttpBaseUrl(baseUrl);
+        if (_backend == AuthBackend.supabase) {
+          final accessToken = result.body['access_token'];
+          if (accessToken is String && accessToken.trim().isNotEmpty) {
+            _sessionStore.storeSupabaseSession(
+              accessToken: accessToken,
+              email: result.body['email'] as String?,
+              httpBaseUrl: baseUrl,
+            );
+          }
+        }
+      }
+
       setState(() {
         _lastResponse = 'HTTP ${result.statusCode}\n$prettyBody';
       });
+
+      if (result.statusCode >= 400) {
+        _showSnackBar('Auth request returned HTTP ${result.statusCode}.');
+      } else if (_backend == AuthBackend.supabase &&
+          result.body['access_token'] is String) {
+        _showSnackBar('Supabase access token saved for the WebSocket page.');
+      }
     } catch (error) {
       setState(() {
         _lastResponse = 'Request failed\n$error';
@@ -120,7 +155,7 @@ class _AuthPageState extends State<AuthPage> {
                   ),
                   const SizedBox(height: 8),
                   const Text(
-                    'Use this page to call the Rust signup/signin handlers directly.',
+                    'Use this page to call the Rust signup/signin handlers directly. The WebSocket page expects a Supabase Auth access token, so sign in with the Supabase backend before opening WSS.',
                   ),
                   const SizedBox(height: 16),
                   SegmentedButton<AuthBackend>(
@@ -153,7 +188,7 @@ class _AuthPageState extends State<AuthPage> {
                     controller: _baseUrlController,
                     decoration: const InputDecoration(
                       labelText: 'Base URL',
-                      hintText: 'http://127.0.0.1:3000',
+                      hintText: 'https://127.0.0.1:3000',
                       border: OutlineInputBorder(),
                       prefixIcon: Icon(Icons.link),
                     ),
@@ -179,6 +214,13 @@ class _AuthPageState extends State<AuthPage> {
                     ),
                   ),
                   const SizedBox(height: 16),
+                  if (_sessionStore.hasSupabaseAccessToken)
+                    Text(
+                      'Saved Supabase session for ${_sessionStore.supabaseEmail ?? 'current user'}. The WebSocket page will reuse that access token.',
+                      style: const TextStyle(color: Colors.green),
+                    ),
+                  if (_sessionStore.hasSupabaseAccessToken)
+                    const SizedBox(height: 12),
                   Row(
                     children: [
                       Expanded(
