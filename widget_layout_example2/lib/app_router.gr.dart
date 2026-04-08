@@ -139,6 +139,88 @@ class AnimationTabRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AutoRouteArticlePage]
+class AutoRouteArticleRoute extends PageRouteInfo<AutoRouteArticleRouteArgs> {
+  AutoRouteArticleRoute({
+    Key? key,
+    required String category,
+    required String slug,
+    String? ref,
+    List<PageRouteInfo>? children,
+  }) : super(
+         AutoRouteArticleRoute.name,
+         args: AutoRouteArticleRouteArgs(
+           key: key,
+           category: category,
+           slug: slug,
+           ref: ref,
+         ),
+         rawPathParams: {'category': category, 'slug': slug},
+         rawQueryParams: {'ref': ref},
+         initialChildren: children,
+       );
+
+  static const String name = 'AutoRouteArticleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final pathParams = data.inheritedPathParams;
+      final queryParams = data.queryParams;
+      final args = data.argsAs<AutoRouteArticleRouteArgs>(
+        orElse: () => AutoRouteArticleRouteArgs(
+          category: pathParams.getString('category'),
+          slug: pathParams.getString('slug'),
+          ref: queryParams.optString('ref'),
+        ),
+      );
+      return AutoRouteArticlePage(
+        key: args.key,
+        category: args.category,
+        slug: args.slug,
+        ref: args.ref,
+      );
+    },
+  );
+}
+
+class AutoRouteArticleRouteArgs {
+  const AutoRouteArticleRouteArgs({
+    this.key,
+    required this.category,
+    required this.slug,
+    this.ref,
+  });
+
+  final Key? key;
+
+  final String category;
+
+  final String slug;
+
+  final String? ref;
+
+  @override
+  String toString() {
+    return 'AutoRouteArticleRouteArgs{key: $key, category: $category, slug: $slug, ref: $ref}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AutoRouteArticleRouteArgs) return false;
+    return key == other.key &&
+        category == other.category &&
+        slug == other.slug &&
+        ref == other.ref;
+  }
+
+  @override
+  int get hashCode =>
+      key.hashCode ^ category.hashCode ^ slug.hashCode ^ ref.hashCode;
+}
+
+/// generated route for
 /// [AutoRouteBookDetailsPage]
 class AutoRouteBookDetailsRoute
     extends PageRouteInfo<AutoRouteBookDetailsRouteArgs> {

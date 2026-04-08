@@ -182,6 +182,26 @@ class AutoRouteProductReviewPage extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(height: 16),
+              const _CodeCard(
+                title: 'User-driven dynamic route',
+                code: '''
+AutoRoute(
+  page: AutoRouteArticleRoute.page,
+  path: '/auto-route-page/articles/:category/:slug',
+)
+
+context.pushRoute(
+  AutoRouteArticleRoute(
+    category: 'flutter',
+    slug: 'auto-route-playground',
+    ref: 'typed-route',
+  ),
+);
+''',
+              ),
+              const SizedBox(height: 12),
+              const _DynamicRoutePlaygroundCard(),
               const SizedBox(height: 24),
               const _SectionHeader(
                 title: 'Redirects And Wildcards',
@@ -848,6 +868,63 @@ class AutoRouteProductReviewPage extends StatelessWidget {
 }
 
 @RoutePage()
+class AutoRouteArticlePage extends StatelessWidget {
+  const AutoRouteArticlePage({
+    super.key,
+    @PathParam('category') required this.category,
+    @PathParam('slug') required this.slug,
+    @QueryParam('ref') this.ref,
+  });
+
+  final String category;
+  final String slug;
+  final String? ref;
+
+  String get _title {
+    final List<String> parts = slug
+        .split('-')
+        .where((String part) => part.isNotEmpty)
+        .map(
+          (String part) =>
+              '${part.substring(0, 1).toUpperCase()}${part.substring(1)}',
+        )
+        .toList();
+    return parts.isEmpty ? slug : parts.join(' ');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final Parameters pathParams = context.routeData.params;
+    final Parameters queryParams = context.routeData.queryParams;
+
+    return Scaffold(
+      appBar: AppBar(title: Text(_title)),
+      body: ListView(
+        padding: const EdgeInsets.all(24),
+        children: <Widget>[
+          _InfoCard(
+            title: 'Resolved dynamic article route',
+            description: 'category=$category, slug=$slug, ref=${ref ?? '-'}',
+          ),
+          const SizedBox(height: 12),
+          _InfoCard(
+            title: 'RouteData values',
+            description:
+                'pathParams=${pathParams.rawMap}, queryParams=${queryParams.rawMap}',
+          ),
+          const SizedBox(height: 12),
+          _InfoCard(
+            title: 'Matched URL',
+            description:
+                '/auto-route-page/articles/$category/$slug${ref == null || ref!.isEmpty ? '' : '?ref=$ref'}',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+@RoutePage()
 class AutoRouteProtectedPage extends StatelessWidget {
   const AutoRouteProtectedPage({super.key});
 
@@ -1131,6 +1208,149 @@ class _WrappedMessageScopeData {
   const _WrappedMessageScopeData({required this.message});
 
   final String message;
+}
+
+class _DynamicRoutePlaygroundCard extends StatefulWidget {
+  const _DynamicRoutePlaygroundCard();
+
+  @override
+  State<_DynamicRoutePlaygroundCard> createState() =>
+      _DynamicRoutePlaygroundCardState();
+}
+
+class _DynamicRoutePlaygroundCardState
+    extends State<_DynamicRoutePlaygroundCard> {
+  late final TextEditingController _categoryController;
+  late final TextEditingController _slugController;
+  late final TextEditingController _refController;
+
+  @override
+  void initState() {
+    super.initState();
+    _categoryController = TextEditingController(text: 'flutter');
+    _slugController = TextEditingController(text: 'auto-route-playground');
+    _refController = TextEditingController(text: 'hub');
+  }
+
+  @override
+  void dispose() {
+    _categoryController.dispose();
+    _slugController.dispose();
+    _refController.dispose();
+    super.dispose();
+  }
+
+  String _normalizeSegment(String value) {
+    final String normalized = value
+        .trim()
+        .toLowerCase()
+        .replaceAll(RegExp(r'[^a-z0-9]+'), '-')
+        .replaceAll(RegExp(r'-{2,}'), '-')
+        .replaceAll(RegExp(r'^-+|-+$'), '');
+    return normalized.isEmpty ? 'demo' : normalized;
+  }
+
+  String get _normalizedCategory => _normalizeSegment(_categoryController.text);
+
+  String get _normalizedSlug => _normalizeSegment(_slugController.text);
+
+  String? get _normalizedRef {
+    final String value = _refController.text.trim();
+    return value.isEmpty ? null : value;
+  }
+
+  AutoRouteArticleRoute _typedRoute() {
+    return AutoRouteArticleRoute(
+      category: _normalizedCategory,
+      slug: _normalizedSlug,
+      ref: _normalizedRef,
+    );
+  }
+
+  String _pathPreview() {
+    final StringBuffer buffer = StringBuffer(
+      '/auto-route-page/articles/$_normalizedCategory/$_normalizedSlug',
+    );
+    if (_normalizedRef != null) {
+      buffer.write('?ref=${Uri.encodeQueryComponent(_normalizedRef!)}');
+    }
+    return buffer.toString();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final String pathPreview = _pathPreview();
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Dynamic route playground',
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Enter values to generate a real `/articles/:category/:slug` route. The path segments are normalized to URL-safe slugs before navigation.',
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _categoryController,
+              decoration: const InputDecoration(
+                labelText: 'Category',
+                border: OutlineInputBorder(),
+              ),
+              onChanged: (_) => setState(() {}),
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: _slugController,
+              decoration: const InputDecoration(
+                labelText: 'Slug',
+                border: OutlineInputBorder(),
+              ),
+              onChanged: (_) => setState(() {}),
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: _refController,
+              decoration: const InputDecoration(
+                labelText: 'Query Param: ref',
+                border: OutlineInputBorder(),
+              ),
+              onChanged: (_) => setState(() {}),
+            ),
+            const SizedBox(height: 16),
+            _InfoCard(title: 'Preview', description: pathPreview),
+            const SizedBox(height: 12),
+            Wrap(
+              spacing: 12,
+              runSpacing: 12,
+              children: <Widget>[
+                FilledButton.icon(
+                  onPressed: () => context.pushRoute(_typedRoute()),
+                  icon: const Icon(Icons.route_outlined),
+                  label: const Text('Push Typed Route'),
+                ),
+                OutlinedButton.icon(
+                  onPressed: () => context.navigateToPath(
+                    pathPreview,
+                    includePrefixMatches: true,
+                  ),
+                  icon: const Icon(Icons.link),
+                  label: const Text('Navigate By Path'),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class _StatusCard extends StatelessWidget {

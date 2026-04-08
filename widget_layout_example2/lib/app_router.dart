@@ -252,6 +252,10 @@ class AppRouter extends RootStackRouter {
       ],
     ),
     AutoRoute(
+      page: AutoRouteArticleRoute.page,
+      path: '/auto-route-page/articles/:category/:slug',
+    ),
+    AutoRoute(
       page: AutoRouteProtectedRoute.page,
       path: '/auto-route-page/protected',
       guards: <AutoRouteGuard>[
