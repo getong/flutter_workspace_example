@@ -8,9 +8,32 @@ import 'package:fvp/fvp.dart';
 import 'package:video_player/video_player.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
+Future<void>? _configureFlutterVideoCachingAndFvpFuture;
+
 Future<void> configureFlutterVideoCachingAndFvp() async {
-  registerWith();
-  await VideoProxy.init(logPrint: false);
+  final Future<void>? existingFuture =
+      _configureFlutterVideoCachingAndFvpFuture;
+  if (existingFuture != null) {
+    return existingFuture;
+  }
+
+  final Completer<void> completer = Completer<void>();
+  _configureFlutterVideoCachingAndFvpFuture = completer.future;
+
+  unawaited(() async {
+    try {
+      registerWith();
+      if (!await VideoProxy.isRunning()) {
+        await VideoProxy.init(logPrint: false);
+      }
+      completer.complete();
+    } catch (error, stackTrace) {
+      _configureFlutterVideoCachingAndFvpFuture = null;
+      completer.completeError(error, stackTrace);
+    }
+  }());
+
+  return completer.future;
 }
 
 class FlutterVideoCachingFvpRuntimePanel extends StatefulWidget {
@@ -73,7 +96,8 @@ class _FlutterVideoCachingFvpRuntimePanelState
     setState(() {
       _loadingPlayer = true;
       _usingProxyPlayback = true;
-      _status = 'Resolving a playable YouTube stream for ${_sample.label}...';
+      _status =
+          'Configuring fvp and the flutter_video_caching proxy for ${_sample.label}...';
       _snapshotBytes = null;
       _resolvedMediaUrl = null;
       _mediaInfoSummary =
@@ -86,6 +110,16 @@ class _FlutterVideoCachingFvpRuntimePanelState
     final VideoPlayerController? previousController = _controller;
 
     try {
+      await configureFlutterVideoCachingAndFvp();
+
+      if (!mounted) {
+        return;
+      }
+
+      setState(() {
+        _status = 'Resolving a playable YouTube stream for ${_sample.label}...';
+      });
+
       final ({String resolvedMediaUrl, String resolvedStreamSummary})
       resolvedVideo = await _resolveYouTubeStream();
 
@@ -129,9 +163,11 @@ class _FlutterVideoCachingFvpRuntimePanelState
       setState(() {
         _controller = null;
         _loadingPlayer = false;
-        _status = 'Failed to initialize player: $error';
+        _status = 'Failed to initialize the video runtime: $error';
         _mediaInfoSummary =
             'Playback setup failed before media info became available.';
+        _resolvedStreamSummary =
+            'Runtime setup did not complete, so the YouTube stream was not resolved.';
       });
     }
   }

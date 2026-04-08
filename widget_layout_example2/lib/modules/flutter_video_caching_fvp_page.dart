@@ -24,16 +24,18 @@ class FlutterVideoCachingFvpPage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             _ExampleCard(
-              title: 'App Startup Setup',
+              title: 'Lazy Runtime Setup',
               description:
-                  'Both packages work best when configured before any video controller is created.',
+                  'Initialize fvp and the flutter_video_caching proxy right before the first video controller is created for this module. That keeps app launch isolated from optional video runtime failures.',
               child: _CodeBlock(
                 code:
-                    'Future<void> main() async {\n'
-                    '  WidgetsFlutterBinding.ensureInitialized();\n'
-                    '  fvp.registerWith();\n'
-                    '  await VideoProxy.init(logPrint: false);\n'
-                    '  runApp(MyApp());\n'
+                    'Future<void> openVideoDemo() async {\n'
+                    '  await configureFlutterVideoCachingAndFvp();\n'
+                    '\n'
+                    '  final controller = VideoPlayerController.networkUrl(\n'
+                    '    mediaUrl.toLocalUri(),\n'
+                    '  );\n'
+                    '  await controller.initialize();\n'
                     '}',
               ),
             ),
