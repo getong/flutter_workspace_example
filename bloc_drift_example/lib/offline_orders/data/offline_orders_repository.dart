@@ -4,6 +4,7 @@ import 'package:bloc_drift_example/offline_orders/data/app_database.dart';
 import 'package:bloc_drift_example/offline_orders/data/fake_orders_api.dart';
 import 'package:bloc_drift_example/offline_orders/data/network_info.dart';
 import 'package:bloc_drift_example/offline_orders/data/offline_order_item.dart';
+import 'package:bloc_drift_example/offline_orders/data/offline_orders_snapshot_cache.dart';
 import 'package:bloc_drift_example/offline_orders/data/sync_queue_item.dart';
 
 class OfflineOrdersRepository {
@@ -11,22 +12,38 @@ class OfflineOrdersRepository {
     required AppDatabase database,
     required FakeOrdersApi api,
     required NetworkInfo networkInfo,
+    OfflineOrdersSnapshotCache? snapshotCache,
   }) : _database = database,
        _api = api,
-       _networkInfo = networkInfo;
+       _networkInfo = networkInfo,
+       _snapshotCache = snapshotCache ?? OfflineOrdersSnapshotCache();
 
   final AppDatabase _database;
   final FakeOrdersApi _api;
   final NetworkInfo _networkInfo;
+  final OfflineOrdersSnapshotCache _snapshotCache;
 
-  Stream<List<OfflineOrderItem>> watchOrders() => _database.watchOrders();
+  Stream<List<OfflineOrderItem>> watchOrders() {
+    return _database.watchOrders().asyncMap((orders) async {
+      await _snapshotCache.saveOrders(orders);
+      return orders;
+    });
+  }
 
-  Stream<List<SyncQueueItem>> watchSyncQueue() =>
-      _database.watchPendingSyncOperations();
+  Stream<List<SyncQueueItem>> watchSyncQueue() {
+    return _database.watchPendingSyncOperations().asyncMap((queue) async {
+      await _snapshotCache.saveQueue(queue);
+      return queue;
+    });
+  }
 
   Stream<bool> get connectivityChanges => _networkInfo.onStatusChange;
 
   Future<bool> get isOnline => _networkInfo.isConnected;
+
+  Future<OfflineOrdersSnapshot> loadCachedSnapshot() {
+    return _snapshotCache.loadSnapshot();
+  }
 
   Future<SaveOrderResult> createOrder({
     required String customerName,

@@ -34,6 +34,19 @@ class OfflineOrdersBloc extends Bloc<OfflineOrdersEvent, OfflineOrdersState> {
     await _queueSubscription?.cancel();
     await _connectivitySubscription?.cancel();
 
+    final cachedSnapshot = await _repository.loadCachedSnapshot();
+    if (cachedSnapshot.hasData) {
+      emit(
+        state.copyWith(
+          status: OfflineOrdersStatus.ready,
+          orders: cachedSnapshot.orders,
+          queue: cachedSnapshot.queue,
+          clearError: true,
+          clearMessage: true,
+        ),
+      );
+    }
+
     _ordersSubscription = _repository.watchOrders().listen(
       (orders) => add(OfflineOrdersChanged(orders)),
     );

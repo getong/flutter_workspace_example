@@ -15,6 +15,26 @@ class OfflineOrderItem extends Equatable {
   final bool isSynced;
   final DateTime createdAt;
 
+  factory OfflineOrderItem.fromJson(Map<String, dynamic> json) {
+    return OfflineOrderItem(
+      id: json['id'] as String,
+      customerName: json['customerName'] as String,
+      total: (json['total'] as num).toDouble(),
+      isSynced: json['isSynced'] as bool,
+      createdAt: DateTime.parse(json['createdAt'] as String),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'customerName': customerName,
+      'total': total,
+      'isSynced': isSynced,
+      'createdAt': createdAt.toIso8601String(),
+    };
+  }
+
   @override
   List<Object> get props => [id, customerName, total, isSynced, createdAt];
 }
