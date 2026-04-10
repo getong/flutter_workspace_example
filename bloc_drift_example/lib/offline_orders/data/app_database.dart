@@ -103,6 +103,16 @@ class AppDatabase extends _$AppDatabase {
         .get();
   }
 
+  Future<int> getPendingSyncCount() async {
+    final countExpression = syncOperations.id.count();
+    final query = selectOnly(syncOperations)
+      ..addColumns([countExpression])
+      ..where(syncOperations.processed.equals(false));
+
+    final row = await query.getSingle();
+    return row.read(countExpression) ?? 0;
+  }
+
   Stream<List<SyncQueueItem>> watchPendingSyncOperations() {
     final query = select(syncOperations)
       ..where((table) => table.processed.equals(false))

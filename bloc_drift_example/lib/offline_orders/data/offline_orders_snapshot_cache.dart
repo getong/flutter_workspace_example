@@ -5,15 +5,17 @@ import 'package:bloc_drift_example/offline_orders/data/sync_queue_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OfflineOrdersSnapshotCache {
+  OfflineOrdersSnapshotCache({required SharedPreferences preferences})
+    : _preferences = preferences;
+
   static const _ordersKey = 'offline_orders.cached_orders';
   static const _queueKey = 'offline_orders.cached_queue';
+  final SharedPreferences _preferences;
 
   Future<OfflineOrdersSnapshot> loadSnapshot() async {
-    final preferences = await SharedPreferences.getInstance();
-
     try {
-      final ordersJson = preferences.getString(_ordersKey);
-      final queueJson = preferences.getString(_queueKey);
+      final ordersJson = _preferences.getString(_ordersKey);
+      final queueJson = _preferences.getString(_queueKey);
 
       return OfflineOrdersSnapshot(
         orders: ordersJson == null ? const [] : _decodeOrders(ordersJson),
@@ -26,25 +28,22 @@ class OfflineOrdersSnapshotCache {
   }
 
   Future<void> saveOrders(List<OfflineOrderItem> orders) async {
-    final preferences = await SharedPreferences.getInstance();
-    await preferences.setString(
+    await _preferences.setString(
       _ordersKey,
       jsonEncode(orders.map((order) => order.toJson()).toList()),
     );
   }
 
   Future<void> saveQueue(List<SyncQueueItem> queue) async {
-    final preferences = await SharedPreferences.getInstance();
-    await preferences.setString(
+    await _preferences.setString(
       _queueKey,
       jsonEncode(queue.map((item) => item.toJson()).toList()),
     );
   }
 
   Future<void> clear() async {
-    final preferences = await SharedPreferences.getInstance();
-    await preferences.remove(_ordersKey);
-    await preferences.remove(_queueKey);
+    await _preferences.remove(_ordersKey);
+    await _preferences.remove(_queueKey);
   }
 
   List<OfflineOrderItem> _decodeOrders(String rawJson) {

@@ -1,5 +1,3 @@
-import 'package:bloc_drift_example/offline_orders/data/offline_order_item.dart';
-import 'package:bloc_drift_example/offline_orders/data/sync_queue_item.dart';
 import 'package:equatable/equatable.dart';
 
 enum OfflineOrdersStatus { initial, loading, ready, failure }
@@ -7,8 +5,6 @@ enum OfflineOrdersStatus { initial, loading, ready, failure }
 class OfflineOrdersState extends Equatable {
   const OfflineOrdersState({
     this.status = OfflineOrdersStatus.initial,
-    this.orders = const [],
-    this.queue = const [],
     this.isOnline = false,
     this.isSaving = false,
     this.isSyncing = false,
@@ -17,22 +13,17 @@ class OfflineOrdersState extends Equatable {
   });
 
   final OfflineOrdersStatus status;
-  final List<OfflineOrderItem> orders;
-  final List<SyncQueueItem> queue;
   final bool isOnline;
   final bool isSaving;
   final bool isSyncing;
   final String? message;
   final String? errorMessage;
 
-  int get pendingCount => queue.length;
   bool get isBusy =>
       status == OfflineOrdersStatus.loading || isSaving || isSyncing;
 
   OfflineOrdersState copyWith({
     OfflineOrdersStatus? status,
-    List<OfflineOrderItem>? orders,
-    List<SyncQueueItem>? queue,
     bool? isOnline,
     bool? isSaving,
     bool? isSyncing,
@@ -43,8 +34,6 @@ class OfflineOrdersState extends Equatable {
   }) {
     return OfflineOrdersState(
       status: status ?? this.status,
-      orders: orders ?? this.orders,
-      queue: queue ?? this.queue,
       isOnline: isOnline ?? this.isOnline,
       isSaving: isSaving ?? this.isSaving,
       isSyncing: isSyncing ?? this.isSyncing,
@@ -56,8 +45,6 @@ class OfflineOrdersState extends Equatable {
   @override
   List<Object?> get props => [
     status,
-    orders,
-    queue,
     isOnline,
     isSaving,
     isSyncing,

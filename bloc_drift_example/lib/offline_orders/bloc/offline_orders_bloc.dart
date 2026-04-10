@@ -3,25 +3,19 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:bloc_drift_example/offline_orders/bloc/offline_orders_event.dart';
 import 'package:bloc_drift_example/offline_orders/bloc/offline_orders_state.dart';
-import 'package:bloc_drift_example/offline_orders/data/offline_order_item.dart';
 import 'package:bloc_drift_example/offline_orders/data/offline_orders_repository.dart';
-import 'package:bloc_drift_example/offline_orders/data/sync_queue_item.dart';
 
 class OfflineOrdersBloc extends Bloc<OfflineOrdersEvent, OfflineOrdersState> {
   OfflineOrdersBloc({required OfflineOrdersRepository repository})
     : _repository = repository,
       super(const OfflineOrdersState()) {
     on<OfflineOrdersStarted>(_onStarted);
-    on<OfflineOrdersChanged>(_onOrdersChanged);
-    on<OfflineOrdersQueueChanged>(_onQueueChanged);
     on<OfflineOrdersConnectivityChanged>(_onConnectivityChanged);
     on<OfflineOrderSubmitted>(_onOrderSubmitted);
     on<OfflineOrdersSyncRequested>(_onSyncRequested);
   }
 
   final OfflineOrdersRepository _repository;
-  StreamSubscription<List<OfflineOrderItem>>? _ordersSubscription;
-  StreamSubscription<List<SyncQueueItem>>? _queueSubscription;
   StreamSubscription<bool>? _connectivitySubscription;
 
   Future<void> _onStarted(
@@ -30,29 +24,7 @@ class OfflineOrdersBloc extends Bloc<OfflineOrdersEvent, OfflineOrdersState> {
   ) async {
     emit(state.copyWith(status: OfflineOrdersStatus.loading, clearError: true));
 
-    await _ordersSubscription?.cancel();
-    await _queueSubscription?.cancel();
     await _connectivitySubscription?.cancel();
-
-    final cachedSnapshot = await _repository.loadCachedSnapshot();
-    if (cachedSnapshot.hasData) {
-      emit(
-        state.copyWith(
-          status: OfflineOrdersStatus.ready,
-          orders: cachedSnapshot.orders,
-          queue: cachedSnapshot.queue,
-          clearError: true,
-          clearMessage: true,
-        ),
-      );
-    }
-
-    _ordersSubscription = _repository.watchOrders().listen(
-      (orders) => add(OfflineOrdersChanged(orders)),
-    );
-    _queueSubscription = _repository.watchSyncQueue().listen(
-      (queue) => add(OfflineOrdersQueueChanged(queue)),
-    );
     _connectivitySubscription = _repository.connectivityChanges.listen(
       (isOnline) => add(OfflineOrdersConnectivityChanged(isOnline)),
     );
@@ -65,30 +37,6 @@ class OfflineOrdersBloc extends Bloc<OfflineOrdersEvent, OfflineOrdersState> {
         isOnline: isOnline,
         clearMessage: true,
         clearError: true,
-      ),
-    );
-  }
-
-  void _onOrdersChanged(
-    OfflineOrdersChanged event,
-    Emitter<OfflineOrdersState> emit,
-  ) {
-    emit(
-      state.copyWith(
-        status: OfflineOrdersStatus.ready,
-        orders: event.orders.cast<OfflineOrderItem>(),
-      ),
-    );
-  }
-
-  void _onQueueChanged(
-    OfflineOrdersQueueChanged event,
-    Emitter<OfflineOrdersState> emit,
-  ) {
-    emit(
-      state.copyWith(
-        status: OfflineOrdersStatus.ready,
-        queue: event.queue.cast<SyncQueueItem>(),
       ),
     );
   }
@@ -107,7 +55,9 @@ class OfflineOrdersBloc extends Bloc<OfflineOrdersEvent, OfflineOrdersState> {
       ),
     );
 
-    if (event.isOnline && wasOffline && state.pendingCount > 0) {
+    if (event.isOnline &&
+        wasOffline &&
+        await _repository.hasPendingSyncOperations()) {
       add(const OfflineOrdersSyncRequested());
     }
   }
@@ -163,8 +113,6 @@ class OfflineOrdersBloc extends Bloc<OfflineOrdersEvent, OfflineOrdersState> {
 
   @override
   Future<void> close() async {
-    await _ordersSubscription?.cancel();
-    await _queueSubscription?.cancel();
     await _connectivitySubscription?.cancel();
     return super.close();
   }

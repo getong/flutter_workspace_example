@@ -1,8 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-import '../data/offline_order_item.dart';
-import '../data/sync_queue_item.dart';
-
 sealed class OfflineOrdersEvent extends Equatable {
   const OfflineOrdersEvent();
 
@@ -12,24 +9,6 @@ sealed class OfflineOrdersEvent extends Equatable {
 
 final class OfflineOrdersStarted extends OfflineOrdersEvent {
   const OfflineOrdersStarted();
-}
-
-final class OfflineOrdersChanged extends OfflineOrdersEvent {
-  const OfflineOrdersChanged(this.orders);
-
-  final List<OfflineOrderItem> orders;
-
-  @override
-  List<Object?> get props => [orders];
-}
-
-final class OfflineOrdersQueueChanged extends OfflineOrdersEvent {
-  const OfflineOrdersQueueChanged(this.queue);
-
-  final List<SyncQueueItem> queue;
-
-  @override
-  List<Object?> get props => [queue];
 }
 
 final class OfflineOrdersConnectivityChanged extends OfflineOrdersEvent {

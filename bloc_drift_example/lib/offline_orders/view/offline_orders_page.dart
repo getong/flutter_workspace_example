@@ -3,6 +3,7 @@ import 'package:bloc_drift_example/offline_orders/bloc/offline_orders_event.dart
 import 'package:bloc_drift_example/offline_orders/bloc/offline_orders_state.dart';
 import 'package:bloc_drift_example/offline_orders/data/offline_order_item.dart';
 import 'package:bloc_drift_example/offline_orders/data/offline_orders_repository.dart';
+import 'package:bloc_drift_example/offline_orders/data/offline_orders_snapshot_cache.dart';
 import 'package:bloc_drift_example/offline_orders/data/sync_queue_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +34,19 @@ class _OfflineOrdersView extends StatefulWidget {
 class _OfflineOrdersViewState extends State<_OfflineOrdersView> {
   final _customerController = TextEditingController();
   final _totalController = TextEditingController(text: '149.99');
+  late final OfflineOrdersRepository _repository;
+  late final Future<OfflineOrdersSnapshot> _snapshotFuture;
+  late final Stream<List<OfflineOrderItem>> _ordersStream;
+  late final Stream<List<SyncQueueItem>> _queueStream;
+
+  @override
+  void initState() {
+    super.initState();
+    _repository = context.read<OfflineOrdersRepository>();
+    _snapshotFuture = _repository.loadCachedSnapshot();
+    _ordersStream = _repository.watchOrders();
+    _queueStream = _repository.watchSyncQueue();
+  }
 
   @override
   void dispose() {
@@ -79,36 +93,70 @@ class _OfflineOrdersViewState extends State<_OfflineOrdersView> {
         ),
         body: BlocBuilder<OfflineOrdersBloc, OfflineOrdersState>(
           builder: (context, state) {
-            if (state.status == OfflineOrdersStatus.loading &&
-                state.orders.isEmpty &&
-                state.queue.isEmpty) {
-              return const Center(child: CircularProgressIndicator());
-            }
+            return FutureBuilder<OfflineOrdersSnapshot>(
+              future: _snapshotFuture,
+              initialData: const OfflineOrdersSnapshot.empty(),
+              builder: (context, snapshot) {
+                final cachedSnapshot =
+                    snapshot.data ?? const OfflineOrdersSnapshot.empty();
 
-            return ListView(
-              padding: const EdgeInsets.all(20),
-              children: [
-                _FlowCard(state: state),
-                const SizedBox(height: 16),
-                _ComposerCard(
-                  customerController: _customerController,
-                  totalController: _totalController,
-                  isSaving: state.isSaving,
-                ),
-                const SizedBox(height: 16),
-                _SummaryRow(state: state),
-                const SizedBox(height: 16),
-                _SyncQueueCard(
-                  queue: state.queue,
-                  isSyncing: state.isSyncing,
-                  isOnline: state.isOnline,
-                ),
-                const SizedBox(height: 12),
-                if (state.orders.isEmpty)
-                  const _EmptyOrders()
-                else
-                  ...state.orders.map((order) => _OrderTile(order: order)),
-              ],
+                return StreamBuilder<List<SyncQueueItem>>(
+                  stream: _queueStream,
+                  initialData: cachedSnapshot.queue,
+                  builder: (context, queueSnapshot) {
+                    final queue = queueSnapshot.data ?? cachedSnapshot.queue;
+
+                    return StreamBuilder<List<OfflineOrderItem>>(
+                      stream: _ordersStream,
+                      initialData: cachedSnapshot.orders,
+                      builder: (context, ordersSnapshot) {
+                        final orders =
+                            ordersSnapshot.data ?? cachedSnapshot.orders;
+
+                        if (state.status == OfflineOrdersStatus.loading &&
+                            orders.isEmpty &&
+                            queue.isEmpty) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+
+                        return ListView(
+                          padding: const EdgeInsets.all(20),
+                          children: [
+                            _FlowCard(state: state),
+                            const SizedBox(height: 16),
+                            _ComposerCard(
+                              customerController: _customerController,
+                              totalController: _totalController,
+                              isSaving: state.isSaving,
+                            ),
+                            const SizedBox(height: 16),
+                            _SummaryRow(
+                              orderCount: orders.length,
+                              pendingCount: queue.length,
+                              isSyncing: state.isSyncing,
+                            ),
+                            const SizedBox(height: 16),
+                            _SyncQueueCard(
+                              queue: queue,
+                              isSyncing: state.isSyncing,
+                              isOnline: state.isOnline,
+                            ),
+                            const SizedBox(height: 12),
+                            if (orders.isEmpty)
+                              const _EmptyOrders()
+                            else
+                              ...orders.map(
+                                (order) => _OrderTile(order: order),
+                              ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                );
+              },
             );
           },
         ),
@@ -271,9 +319,15 @@ class _ComposerCard extends StatelessWidget {
 }
 
 class _SummaryRow extends StatelessWidget {
-  const _SummaryRow({required this.state});
+  const _SummaryRow({
+    required this.orderCount,
+    required this.pendingCount,
+    required this.isSyncing,
+  });
 
-  final OfflineOrdersState state;
+  final int orderCount;
+  final int pendingCount;
+  final bool isSyncing;
 
   @override
   Widget build(BuildContext context) {
@@ -281,9 +335,9 @@ class _SummaryRow extends StatelessWidget {
       spacing: 12,
       runSpacing: 12,
       children: [
-        _SummaryChip(label: 'Orders', value: '${state.orders.length}'),
-        _SummaryChip(label: 'Pending sync', value: '${state.pendingCount}'),
-        _SummaryChip(label: 'Syncing', value: state.isSyncing ? 'Yes' : 'No'),
+        _SummaryChip(label: 'Orders', value: '$orderCount'),
+        _SummaryChip(label: 'Pending sync', value: '$pendingCount'),
+        _SummaryChip(label: 'Syncing', value: isSyncing ? 'Yes' : 'No'),
       ],
     );
   }

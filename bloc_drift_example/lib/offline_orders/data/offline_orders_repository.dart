@@ -12,11 +12,11 @@ class OfflineOrdersRepository {
     required AppDatabase database,
     required FakeOrdersApi api,
     required NetworkInfo networkInfo,
-    OfflineOrdersSnapshotCache? snapshotCache,
+    required OfflineOrdersSnapshotCache snapshotCache,
   }) : _database = database,
        _api = api,
        _networkInfo = networkInfo,
-       _snapshotCache = snapshotCache ?? OfflineOrdersSnapshotCache();
+       _snapshotCache = snapshotCache;
 
   final AppDatabase _database;
   final FakeOrdersApi _api;
@@ -43,6 +43,10 @@ class OfflineOrdersRepository {
 
   Future<OfflineOrdersSnapshot> loadCachedSnapshot() {
     return _snapshotCache.loadSnapshot();
+  }
+
+  Future<bool> hasPendingSyncOperations() async {
+    return await _database.getPendingSyncCount() > 0;
   }
 
   Future<SaveOrderResult> createOrder({
