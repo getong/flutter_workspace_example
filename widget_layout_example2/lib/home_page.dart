@@ -112,6 +112,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   ),
   _ModuleLink(label: 'flutter_slidable Module', path: '/flutter-slidable-page'),
   _ModuleLink(label: 'flutter_svg Module', path: '/flutter-svg-page'),
+  _ModuleLink(label: 'fluttertoast Module', path: '/fluttertoast-page'),
   _ModuleLink(
     label: 'flutter_video_caching + fvp Module',
     path: '/flutter-video-caching-fvp-page',
@@ -164,6 +165,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   ),
   _ModuleLink(label: 'TextStyle Module', path: '/text-style-page'),
   _ModuleLink(label: 'TimePicker Module', path: '/time-picker-page'),
+  _ModuleLink(label: 'url_launcher Module', path: '/url-launcher-page'),
   _ModuleLink(label: 'webview_flutter Module', path: '/webview-flutter-page'),
 ];
 

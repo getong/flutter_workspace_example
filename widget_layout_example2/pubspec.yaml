@@ -57,6 +57,8 @@ dependencies:
   youtube_explode_dart: ^3.0.5
   crypto: ^3.0.7
   webview_flutter: ^4.13.1
+  fluttertoast: ^9.0.0
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   flutter_test:

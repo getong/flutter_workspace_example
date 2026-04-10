@@ -1290,6 +1290,22 @@ class FlutterVideoCachingFvpRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FluttertoastPage]
+class FluttertoastRoute extends PageRouteInfo<void> {
+  const FluttertoastRoute({List<PageRouteInfo>? children})
+    : super(FluttertoastRoute.name, initialChildren: children);
+
+  static const String name = 'FluttertoastRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FluttertoastPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FontAwesomeFlutterPage]
 class FontAwesomeFlutterRoute extends PageRouteInfo<void> {
   const FontAwesomeFlutterRoute({List<PageRouteInfo>? children})
@@ -2155,6 +2171,22 @@ class UnconstrainedBoxExampleRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const UnconstrainedBoxExamplePage();
+    },
+  );
+}
+
+/// generated route for
+/// [UrlLauncherPage]
+class UrlLauncherRoute extends PageRouteInfo<void> {
+  const UrlLauncherRoute({List<PageRouteInfo>? children})
+    : super(UrlLauncherRoute.name, initialChildren: children);
+
+  static const String name = 'UrlLauncherRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const UrlLauncherPage();
     },
   );
 }

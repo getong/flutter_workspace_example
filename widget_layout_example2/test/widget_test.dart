@@ -34,6 +34,8 @@ void main() {
 
     expect(find.text('Content Modules'), findsOneWidget);
     expect(find.text('auto_route Module'), findsOneWidget);
+    await dragUntilTextVisible('fluttertoast Module');
+    expect(find.text('fluttertoast Module'), findsOneWidget);
     await dragUntilTextVisible('FutureBuilder Module');
     expect(find.text('FutureBuilder Module'), findsOneWidget);
     await dragUntilTextVisible('Intl Module');
@@ -44,6 +46,8 @@ void main() {
     expect(find.text('StreamBuilder Module'), findsOneWidget);
     await dragUntilTextVisible('Text.rich Module');
     expect(find.text('Text.rich Module'), findsOneWidget);
+    await dragUntilTextVisible('url_launcher Module');
+    expect(find.text('url_launcher Module'), findsOneWidget);
     await dragUntilTextVisible('webview_flutter Module');
     expect(find.text('webview_flutter Module'), findsOneWidget);
 
