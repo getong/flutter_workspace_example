@@ -18,6 +18,8 @@ class _CachedNetworkImageCePageState extends State<CachedNetworkImageCePage> {
   static const String _avatarUrl = 'https://www.baidu.com/img/bd_logo1.png';
   static const String _cardUrl =
       'https://www.baidu.com/img/flexible/logo/pc/result.png';
+  static const String _transparentPngUrl =
+      'https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png';
   static const String _errorDemoUrl = 'https://www.baidu.com/img/bd_logo1.png';
   static const String _brokenUrl =
       'https://www.baidu.com/img/this-image-does-not-exist.png';
@@ -348,6 +350,56 @@ class _CachedNetworkImageCePageState extends State<CachedNetworkImageCePage> {
               ),
               const SizedBox(height: 16),
               _SectionCard(
+                title: 'Transparent Images',
+                description:
+                    'A checkerboard background makes transparent PNG edges '
+                    'obvious while `cached_network_image_ce` still handles the '
+                    'fetch, cache, placeholder, and failure states.',
+                child: Wrap(
+                  spacing: 16,
+                  runSpacing: 16,
+                  children: <Widget>[
+                    _DemoTile(
+                      width: 280,
+                      title: 'Transparent PNG + Checkerboard',
+                      subtitle:
+                          'Keep alpha visible by placing the network image '
+                          'above a custom background instead of flattening it '
+                          'into an opaque box.',
+                      child: _TransparentImageDemo(
+                        imageUrl: _transparentPngUrl,
+                        cacheManager: _customCacheManager,
+                      ),
+                    ),
+                    _DemoTile(
+                      width: 280,
+                      title: 'When To Use It',
+                      subtitle:
+                          'This pattern works well for logos, stickers, and '
+                          'product cutouts that need to sit on different card '
+                          'or theme colors.',
+                      child: Container(
+                        width: 240,
+                        padding: const EdgeInsets.all(14),
+                        decoration: BoxDecoration(
+                          color: colorScheme.surfaceContainerHighest.withValues(
+                            alpha: 0.55,
+                          ),
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                        child: Text(
+                          'Use `imageBuilder` or a `Stack` when the alpha '
+                          'channel matters. That gives you control over the '
+                          'surface behind the downloaded image.',
+                          style: theme.textTheme.bodyMedium,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+              _SectionCard(
                 title: 'CachedNetworkImageProvider Reuse',
                 description:
                     'The provider API is useful when Flutter expects an '
@@ -620,13 +672,15 @@ class _CodeSampleCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text('CachedNetworkImage('),
-              Text("  imageUrl: url,"),
-              Text('  progressIndicatorBuilder: (...),'),
+              Text("  imageUrl: transparentPngUrl,"),
+              Text('  imageBuilder: (context, provider) {'),
+              Text(
+                '    return Stack(children: [checkerboard, Image(image: provider)]);',
+              ),
+              Text('  },'),
+              Text('  placeholder: (...),'),
               Text('  errorBuilder: (...),'),
               Text(')'),
-              SizedBox(height: 8),
-              Text('final provider = CachedNetworkImageProvider(url);'),
-              Text('Image(image: provider, errorBuilder: (...))'),
             ],
           ),
         ),
@@ -776,6 +830,149 @@ class _ProviderAvatar extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _TransparentImageDemo extends StatelessWidget {
+  const _TransparentImageDemo({
+    required this.imageUrl,
+    required this.cacheManager,
+  });
+
+  final String imageUrl;
+  final DefaultCacheManager cacheManager;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: CachedNetworkImage(
+        imageUrl: imageUrl,
+        cacheManager: cacheManager,
+        width: 240,
+        height: 180,
+        fit: BoxFit.contain,
+        imageBuilder: (BuildContext context, ImageProvider imageProvider) {
+          return Stack(
+            children: <Widget>[
+              const Positioned.fill(child: _CheckerboardBackground()),
+              Positioned.fill(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: <Color>[
+                        Theme.of(
+                          context,
+                        ).colorScheme.primaryContainer.withValues(alpha: 0.26),
+                        Theme.of(
+                          context,
+                        ).colorScheme.tertiaryContainer.withValues(alpha: 0.36),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                  ),
+                ),
+              ),
+              Positioned.fill(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Image(image: imageProvider, fit: BoxFit.contain),
+                ),
+              ),
+            ],
+          );
+        },
+        placeholder: (BuildContext context, String url) {
+          return Stack(
+            children: <Widget>[
+              const Positioned.fill(child: _CheckerboardBackground()),
+              Positioned.fill(
+                child: Container(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.surface.withValues(alpha: 0.72),
+                  alignment: Alignment.center,
+                  child: const CircularProgressIndicator(),
+                ),
+              ),
+            ],
+          );
+        },
+        errorBuilder:
+            (BuildContext context, Object error, StackTrace? stackTrace) {
+              return Stack(
+                children: <Widget>[
+                  const Positioned.fill(child: _CheckerboardBackground()),
+                  const Positioned.fill(
+                    child: _ImageErrorBox(
+                      width: 240,
+                      height: 180,
+                      message: 'Transparent image failed',
+                    ),
+                  ),
+                ],
+              );
+            },
+      ),
+    );
+  }
+}
+
+class _CheckerboardBackground extends StatelessWidget {
+  const _CheckerboardBackground();
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      painter: _CheckerboardPainter(
+        lightColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+        darkColor: Theme.of(
+          context,
+        ).colorScheme.surfaceContainerHigh.withValues(alpha: 0.92),
+      ),
+      child: const SizedBox.expand(),
+    );
+  }
+}
+
+class _CheckerboardPainter extends CustomPainter {
+  const _CheckerboardPainter({
+    required this.lightColor,
+    required this.darkColor,
+  });
+
+  final Color lightColor;
+  final Color darkColor;
+  static const double _squareSize = 18;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint lightPaint = Paint()..color = lightColor;
+    final Paint darkPaint = Paint()..color = darkColor;
+
+    canvas.drawRect(Offset.zero & size, lightPaint);
+
+    for (double y = 0; y < size.height; y += _squareSize) {
+      for (double x = 0; x < size.width; x += _squareSize) {
+        final int row = (y / _squareSize).floor();
+        final int column = (x / _squareSize).floor();
+        if ((row + column).isEven) {
+          continue;
+        }
+
+        canvas.drawRect(
+          Rect.fromLTWH(x, y, _squareSize, _squareSize),
+          darkPaint,
+        );
+      }
+    }
+  }
+
+  @override
+  bool shouldRepaint(_CheckerboardPainter oldDelegate) {
+    return oldDelegate.lightColor != lightColor ||
+        oldDelegate.darkColor != darkColor;
   }
 }
 
