@@ -570,11 +570,18 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $CatalogEntriesTable catalogEntries = $CatalogEntriesTable(this);
+  late final Index idxCatalogPopularTitle = Index(
+    'idx_catalog_popular_title',
+    'CREATE INDEX idx_catalog_popular_title ON catalog_entries (is_popular, title)',
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [catalogEntries];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+    catalogEntries,
+    idxCatalogPopularTitle,
+  ];
 }
 
 typedef $$CatalogEntriesTableCreateCompanionBuilder =

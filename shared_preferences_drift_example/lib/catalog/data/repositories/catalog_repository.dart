@@ -46,12 +46,19 @@ class CatalogRepositoryImpl implements CatalogRepository {
       );
     }
 
-    return refresh(force: true);
+    // Pass snapshot so refresh() doesn't recompute it.
+    return _refreshInternal(force: true, precomputedSnapshot: snapshot);
   }
 
   @override
-  Future<CatalogRefreshResult> refresh({bool force = false}) async {
-    final snapshot = await getCacheSnapshot();
+  Future<CatalogRefreshResult> refresh({bool force = false}) =>
+      _refreshInternal(force: force);
+
+  Future<CatalogRefreshResult> _refreshInternal({
+    bool force = false,
+    CatalogCacheSnapshot? precomputedSnapshot,
+  }) async {
+    final snapshot = precomputedSnapshot ?? await getCacheSnapshot();
     if (!force && snapshot.localItemCount > 0 && !snapshot.isExpired) {
       return CatalogRefreshResult(
         didRefresh: false,
@@ -67,7 +74,11 @@ class CatalogRepositoryImpl implements CatalogRepository {
           .map((CatalogItem item) => item.copyWith(cachedAt: syncedAt))
           .toList(growable: false);
 
-      await _localDataSource.replaceAll(cachedItems);
+      await _localDataSource.upsertAll(cachedItems);
+      // Prune items that disappeared from the remote source.
+      await _localDataSource.pruneExcept(
+        cachedItems.map((CatalogItem i) => i.id).toSet(),
+      );
       await _syncPreferences.markSyncedAt(syncedAt);
 
       return CatalogRefreshResult(
@@ -91,7 +102,7 @@ class CatalogRepositoryImpl implements CatalogRepository {
 
   @override
   Future<CatalogCacheSnapshot> getCacheSnapshot() async {
-    await _syncPreferences.reload();
+    // getLastSyncAt() reads from the in-memory cache — no disk I/O.
     final lastSyncAt = _syncPreferences.getLastSyncAt();
     final localItemCount = await _localDataSource.countItems();
     final isExpired = lastSyncAt == null

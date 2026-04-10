@@ -4,16 +4,19 @@ import '../app_database.dart';
 import '../models/catalog_item.dart';
 
 class CatalogLocalDataSource {
-  const CatalogLocalDataSource(this._database);
+  CatalogLocalDataSource(this._database);
 
   final AppDatabase _database;
 
+  /// Shared ordering clause reused by both watch and one-shot queries.
+  static final _defaultOrder = <OrderingTerm Function(CatalogEntries)>[
+    (CatalogEntries t) => OrderingTerm.desc(t.isPopular),
+    (CatalogEntries t) => OrderingTerm.asc(t.title),
+  ];
+
   Stream<List<CatalogItem>> watchItems() {
     final query = _database.select(_database.catalogEntries)
-      ..orderBy(<OrderingTerm Function(CatalogEntries)>[
-        (CatalogEntries table) => OrderingTerm.desc(table.isPopular),
-        (CatalogEntries table) => OrderingTerm.asc(table.title),
-      ]);
+      ..orderBy(_defaultOrder);
 
     return query.watch().map(
       (List<CatalogEntry> rows) =>
@@ -23,10 +26,7 @@ class CatalogLocalDataSource {
 
   Future<List<CatalogItem>> getItems() async {
     final query = _database.select(_database.catalogEntries)
-      ..orderBy(<OrderingTerm Function(CatalogEntries)>[
-        (CatalogEntries table) => OrderingTerm.desc(table.isPopular),
-        (CatalogEntries table) => OrderingTerm.asc(table.title),
-      ]);
+      ..orderBy(_defaultOrder);
 
     final rows = await query.get();
     return rows.map(CatalogItem.fromRow).toList(growable: false);
@@ -40,16 +40,29 @@ class CatalogLocalDataSource {
     return row.read(countExpression) ?? 0;
   }
 
-  Future<void> replaceAll(List<CatalogItem> items) async {
-    await _database.transaction(() async {
-      await _database.delete(_database.catalogEntries).go();
-      await _database.batch((Batch batch) {
-        batch.insertAll(
-          _database.catalogEntries,
-          items.map((CatalogItem item) => item.toCompanion()).toList(),
-        );
-      });
+  /// Upserts items instead of delete-all + re-insert.
+  ///
+  /// This avoids destroying every row and triggering a full stream rebuild
+  /// when only a subset of fields changed. Drift's stream query system can
+  /// detect that untouched rows are unchanged and skip unnecessary UI rebuilds.
+  Future<void> upsertAll(List<CatalogItem> items) async {
+    await _database.batch((Batch batch) {
+      batch.insertAllOnConflictUpdate(
+        _database.catalogEntries,
+        items.map((CatalogItem item) => item.toCompanion()).toList(),
+      );
     });
+  }
+
+  /// Removes rows whose IDs are NOT in [retainIds].
+  ///
+  /// Call after [upsertAll] to prune items that vanished from the remote
+  /// source without deleting rows that are still current.
+  Future<void> pruneExcept(Set<String> retainIds) async {
+    if (retainIds.isEmpty) return;
+    await (_database.delete(_database.catalogEntries)
+          ..where(($CatalogEntriesTable t) => t.id.isNotIn(retainIds.toList())))
+        .go();
   }
 
   Future<void> close() => _database.close();
