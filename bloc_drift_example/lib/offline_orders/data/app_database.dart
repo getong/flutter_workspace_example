@@ -41,7 +41,7 @@ class SyncOperations extends Table {
 
 @DriftDatabase(tables: [Orders, SyncOperations])
 class AppDatabase extends _$AppDatabase {
-  AppDatabase() : super(driftDatabase(name: 'offline_orders_demo'));
+  AppDatabase() : super(driftDatabase(name: 'offline_orders_v2'));
 
   @override
   int get schemaVersion => 1;
@@ -68,51 +68,6 @@ class AppDatabase extends _$AppDatabase {
     );
   }
 
-  Future<void> upsertOrder({
-    required String id,
-    required String customerName,
-    required double total,
-    required bool isSynced,
-    required DateTime createdAt,
-  }) {
-    final now = DateTime.now();
-
-    return into(orders).insertOnConflictUpdate(
-      OrdersCompanion(
-        id: Value(id),
-        customerName: Value(customerName),
-        total: Value(total),
-        isSynced: Value(isSynced),
-        createdAt: Value(createdAt),
-        updatedAt: Value(now),
-      ),
-    );
-  }
-
-  Future<List<SyncOperation>> getPendingSyncOperations() {
-    return (select(syncOperations)
-          ..where((table) => table.processed.equals(false))
-          ..orderBy([
-            (table) => OrderingTerm(
-              expression: table.createdAt,
-              mode: OrderingMode.asc,
-            ),
-            (table) =>
-                OrderingTerm(expression: table.id, mode: OrderingMode.asc),
-          ]))
-        .get();
-  }
-
-  Future<int> getPendingSyncCount() async {
-    final countExpression = syncOperations.id.count();
-    final query = selectOnly(syncOperations)
-      ..addColumns([countExpression])
-      ..where(syncOperations.processed.equals(false));
-
-    final row = await query.getSingle();
-    return row.read(countExpression) ?? 0;
-  }
-
   Stream<List<SyncQueueItem>> watchPendingSyncOperations() {
     final query = select(syncOperations)
       ..where((table) => table.processed.equals(false))
@@ -137,42 +92,122 @@ class AppDatabase extends _$AppDatabase {
     );
   }
 
-  Future<void> enqueueCreateOrder({
-    required String operationId,
+  Future<bool> hasPendingSyncOperations() async {
+    final countExpression = syncOperations.id.count();
+    final query = selectOnly(syncOperations)
+      ..addColumns([countExpression])
+      ..where(syncOperations.processed.equals(false));
+
+    final row = await query.getSingle();
+    return (row.read(countExpression) ?? 0) > 0;
+  }
+
+  /// Saves an order and enqueues a sync operation in a single transaction.
+  Future<void> saveOrderLocallyAndEnqueue({
     required String orderId,
+    required String operationId,
     required String customerName,
     required double total,
     required DateTime createdAt,
   }) {
-    final payload = jsonEncode({
-      'orderId': orderId,
-      'customerName': customerName,
-      'total': total,
-      'createdAt': createdAt.toIso8601String(),
+    return transaction(() async {
+      final now = DateTime.now();
+      await into(orders).insertOnConflictUpdate(
+        OrdersCompanion(
+          id: Value(orderId),
+          customerName: Value(customerName),
+          total: Value(total),
+          isSynced: const Value(false),
+          createdAt: Value(createdAt),
+          updatedAt: Value(now),
+        ),
+      );
+
+      final payload = jsonEncode({
+        'orderId': orderId,
+        'customerName': customerName,
+        'total': total,
+        'createdAt': createdAt.toIso8601String(),
+      });
+
+      await into(syncOperations).insertOnConflictUpdate(
+        SyncOperationsCompanion(
+          id: Value(operationId),
+          type: const Value('create_order'),
+          payload: Value(payload),
+          processed: const Value(false),
+          createdAt: Value(now),
+        ),
+      );
     });
-
-    return into(syncOperations).insertOnConflictUpdate(
-      SyncOperationsCompanion(
-        id: Value(operationId),
-        type: const Value('create_order'),
-        payload: Value(payload),
-        processed: const Value(false),
-        createdAt: Value(DateTime.now()),
-      ),
-    );
   }
 
-  Future<void> markOrderSynced(String orderId) {
-    return (update(orders)..where((table) => table.id.equals(orderId))).write(
+  /// Saves an already-synced order (online path).
+  Future<void> saveOnlineOrder({
+    required String id,
+    required String customerName,
+    required double total,
+    required DateTime createdAt,
+  }) {
+    final now = DateTime.now();
+    return into(orders).insertOnConflictUpdate(
       OrdersCompanion(
+        id: Value(id),
+        customerName: Value(customerName),
+        total: Value(total),
         isSynced: const Value(true),
-        updatedAt: Value(DateTime.now()),
+        createdAt: Value(createdAt),
+        updatedAt: Value(now),
       ),
     );
   }
 
-  Future<void> markOperationProcessed(String id) {
-    return (update(syncOperations)..where((table) => table.id.equals(id)))
-        .write(const SyncOperationsCompanion(processed: Value(true)));
+  /// Returns pending sync operations in FIFO order.
+  Future<List<SyncOperation>> getPendingSyncOperations() {
+    return (select(syncOperations)
+          ..where((table) => table.processed.equals(false))
+          ..orderBy([
+            (table) => OrderingTerm(
+              expression: table.createdAt,
+              mode: OrderingMode.asc,
+            ),
+            (table) =>
+                OrderingTerm(expression: table.id, mode: OrderingMode.asc),
+          ]))
+        .get();
+  }
+
+  /// Marks an order as synced and its sync operation as processed atomically.
+  Future<void> completeSyncOperation({
+    required String orderId,
+    required String operationId,
+  }) {
+    return transaction(() async {
+      final now = DateTime.now();
+      await (update(orders)..where((t) => t.id.equals(orderId))).write(
+        OrdersCompanion(isSynced: const Value(true), updatedAt: Value(now)),
+      );
+      await (update(syncOperations)..where((t) => t.id.equals(operationId)))
+          .write(const SyncOperationsCompanion(processed: Value(true)));
+    });
+  }
+
+  /// Batch-completes multiple sync operations in one transaction.
+  /// Only triggers Drift stream watchers once for the whole batch.
+  Future<void> completeSyncOperationsBatch(
+    List<({String orderId, String operationId})> completed,
+  ) {
+    if (completed.isEmpty) return Future.value();
+    return transaction(() async {
+      final now = DateTime.now();
+      for (final item in completed) {
+        await (update(orders)..where((t) => t.id.equals(item.orderId))).write(
+          OrdersCompanion(isSynced: const Value(true), updatedAt: Value(now)),
+        );
+        await (update(syncOperations)
+              ..where((t) => t.id.equals(item.operationId)))
+            .write(const SyncOperationsCompanion(processed: Value(true)));
+      }
+    });
   }
 }

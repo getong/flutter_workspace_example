@@ -1,12 +1,18 @@
 import 'package:bloc_drift_example/app/app_router.dart';
 import 'package:bloc_drift_example/offline_orders/data/offline_orders_repository.dart';
+import 'package:bloc_drift_example/offline_orders/data/offline_orders_snapshot_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BlocDriftExampleApp extends StatefulWidget {
-  const BlocDriftExampleApp({super.key, required this.repository});
+  const BlocDriftExampleApp({
+    super.key,
+    required this.repository,
+    required this.snapshotCache,
+  });
 
   final OfflineOrdersRepository repository;
+  final OfflineOrdersSnapshotCache snapshotCache;
 
   @override
   State<BlocDriftExampleApp> createState() => _BlocDriftExampleAppState();
@@ -18,7 +24,10 @@ class _BlocDriftExampleAppState extends State<BlocDriftExampleApp> {
   @override
   void initState() {
     super.initState();
-    _appRouter = AppRouter(repository: widget.repository);
+    _appRouter = AppRouter(
+      repository: widget.repository,
+      snapshotCache: widget.snapshotCache,
+    );
   }
 
   @override

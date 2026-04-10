@@ -25,8 +25,10 @@ Future<void> main() async {
     database: AppDatabase(),
     api: const FakeOrdersApi(),
     networkInfo: networkInfo,
-    snapshotCache: OfflineOrdersSnapshotCache(preferences: preferences),
   );
+  final snapshotCache = OfflineOrdersSnapshotCache(preferences: preferences);
 
-  runApp(BlocDriftExampleApp(repository: repository));
+  runApp(
+    BlocDriftExampleApp(repository: repository, snapshotCache: snapshotCache),
+  );
 }

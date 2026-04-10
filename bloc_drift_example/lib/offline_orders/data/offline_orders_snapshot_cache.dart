@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:bloc_drift_example/offline_orders/data/offline_order_item.dart';
@@ -12,7 +13,11 @@ class OfflineOrdersSnapshotCache {
   static const queueKey = 'offline_orders.cached_queue';
   static const preferenceKeys = <String>{ordersKey, queueKey};
 
+  static const _debounceDuration = Duration(milliseconds: 500);
+
   final SharedPreferencesWithCache _preferences;
+  Timer? _ordersDebounce;
+  Timer? _queueDebounce;
 
   Future<OfflineOrdersSnapshot> loadSnapshot() async {
     try {
@@ -29,23 +34,57 @@ class OfflineOrdersSnapshotCache {
     }
   }
 
-  Future<void> saveOrders(List<OfflineOrderItem> orders) async {
-    await _preferences.setString(
-      ordersKey,
-      jsonEncode(orders.map((order) => order.toJson()).toList()),
-    );
+  /// Debounced save — only the last call within the window actually writes.
+  void saveOrdersDebounced(List<OfflineOrderItem> orders) {
+    _ordersDebounce?.cancel();
+    _ordersDebounce = Timer(_debounceDuration, () {
+      _preferences.setString(
+        ordersKey,
+        jsonEncode(orders.map((order) => order.toJson()).toList()),
+      );
+    });
   }
 
-  Future<void> saveQueue(List<SyncQueueItem> queue) async {
-    await _preferences.setString(
-      queueKey,
-      jsonEncode(queue.map((item) => item.toJson()).toList()),
-    );
+  /// Debounced save — only the last call within the window actually writes.
+  void saveQueueDebounced(List<SyncQueueItem> queue) {
+    _queueDebounce?.cancel();
+    _queueDebounce = Timer(_debounceDuration, () {
+      _preferences.setString(
+        queueKey,
+        jsonEncode(queue.map((item) => item.toJson()).toList()),
+      );
+    });
+  }
+
+  /// Force-flush any pending debounced writes (call on app pause/dispose).
+  Future<void> flush(
+    List<OfflineOrderItem> orders,
+    List<SyncQueueItem> queue,
+  ) async {
+    _ordersDebounce?.cancel();
+    _queueDebounce?.cancel();
+    await Future.wait([
+      _preferences.setString(
+        ordersKey,
+        jsonEncode(orders.map((o) => o.toJson()).toList()),
+      ),
+      _preferences.setString(
+        queueKey,
+        jsonEncode(queue.map((q) => q.toJson()).toList()),
+      ),
+    ]);
   }
 
   Future<void> clear() async {
+    _ordersDebounce?.cancel();
+    _queueDebounce?.cancel();
     await _preferences.remove(ordersKey);
     await _preferences.remove(queueKey);
+  }
+
+  void dispose() {
+    _ordersDebounce?.cancel();
+    _queueDebounce?.cancel();
   }
 
   List<OfflineOrderItem> _decodeOrders(String rawJson) {

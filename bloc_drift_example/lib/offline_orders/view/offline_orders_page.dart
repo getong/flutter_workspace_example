@@ -9,16 +9,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OfflineOrdersPage extends StatelessWidget {
-  const OfflineOrdersPage({super.key, required this.repository});
+  const OfflineOrdersPage({
+    super.key,
+    required this.repository,
+    required this.snapshotCache,
+  });
 
   final OfflineOrdersRepository repository;
+  final OfflineOrdersSnapshotCache snapshotCache;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) =>
-          OfflineOrdersBloc(repository: repository)
-            ..add(const OfflineOrdersStarted()),
+      create: (_) => OfflineOrdersBloc(
+        repository: repository,
+        snapshotCache: snapshotCache,
+      )..add(const OfflineOrdersStarted()),
       child: const _OfflineOrdersView(),
     );
   }
@@ -34,19 +40,6 @@ class _OfflineOrdersView extends StatefulWidget {
 class _OfflineOrdersViewState extends State<_OfflineOrdersView> {
   final _customerController = TextEditingController();
   final _totalController = TextEditingController(text: '149.99');
-  late final OfflineOrdersRepository _repository;
-  late final Future<OfflineOrdersSnapshot> _snapshotFuture;
-  late final Stream<List<OfflineOrderItem>> _ordersStream;
-  late final Stream<List<SyncQueueItem>> _queueStream;
-
-  @override
-  void initState() {
-    super.initState();
-    _repository = context.read<OfflineOrdersRepository>();
-    _snapshotFuture = _repository.loadCachedSnapshot();
-    _ordersStream = _repository.watchOrders();
-    _queueStream = _repository.watchSyncQueue();
-  }
 
   @override
   void dispose() {
@@ -93,70 +86,43 @@ class _OfflineOrdersViewState extends State<_OfflineOrdersView> {
         ),
         body: BlocBuilder<OfflineOrdersBloc, OfflineOrdersState>(
           builder: (context, state) {
-            return FutureBuilder<OfflineOrdersSnapshot>(
-              future: _snapshotFuture,
-              initialData: const OfflineOrdersSnapshot.empty(),
-              builder: (context, snapshot) {
-                final cachedSnapshot =
-                    snapshot.data ?? const OfflineOrdersSnapshot.empty();
+            final orders = state.orders;
+            final queue = state.syncQueue;
 
-                return StreamBuilder<List<SyncQueueItem>>(
-                  stream: _queueStream,
-                  initialData: cachedSnapshot.queue,
-                  builder: (context, queueSnapshot) {
-                    final queue = queueSnapshot.data ?? cachedSnapshot.queue;
+            if (state.status == OfflineOrdersStatus.loading &&
+                orders.isEmpty &&
+                queue.isEmpty) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
-                    return StreamBuilder<List<OfflineOrderItem>>(
-                      stream: _ordersStream,
-                      initialData: cachedSnapshot.orders,
-                      builder: (context, ordersSnapshot) {
-                        final orders =
-                            ordersSnapshot.data ?? cachedSnapshot.orders;
-
-                        if (state.status == OfflineOrdersStatus.loading &&
-                            orders.isEmpty &&
-                            queue.isEmpty) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-
-                        return ListView(
-                          padding: const EdgeInsets.all(20),
-                          children: [
-                            _FlowCard(state: state),
-                            const SizedBox(height: 16),
-                            _ComposerCard(
-                              customerController: _customerController,
-                              totalController: _totalController,
-                              isSaving: state.isSaving,
-                            ),
-                            const SizedBox(height: 16),
-                            _SummaryRow(
-                              orderCount: orders.length,
-                              pendingCount: queue.length,
-                              isSyncing: state.isSyncing,
-                            ),
-                            const SizedBox(height: 16),
-                            _SyncQueueCard(
-                              queue: queue,
-                              isSyncing: state.isSyncing,
-                              isOnline: state.isOnline,
-                            ),
-                            const SizedBox(height: 12),
-                            if (orders.isEmpty)
-                              const _EmptyOrders()
-                            else
-                              ...orders.map(
-                                (order) => _OrderTile(order: order),
-                              ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                );
-              },
+            return ListView(
+              padding: const EdgeInsets.all(20),
+              children: [
+                _FlowCard(state: state),
+                const SizedBox(height: 16),
+                _ComposerCard(
+                  customerController: _customerController,
+                  totalController: _totalController,
+                  isSaving: state.isSaving,
+                ),
+                const SizedBox(height: 16),
+                _SummaryRow(
+                  orderCount: orders.length,
+                  pendingCount: queue.length,
+                  isSyncing: state.isSyncing,
+                ),
+                const SizedBox(height: 16),
+                _SyncQueueCard(
+                  queue: queue,
+                  isSyncing: state.isSyncing,
+                  isOnline: state.isOnline,
+                ),
+                const SizedBox(height: 12),
+                if (orders.isEmpty)
+                  const _EmptyOrders()
+                else
+                  ...orders.map((order) => _OrderTile(order: order)),
+              ],
             );
           },
         ),

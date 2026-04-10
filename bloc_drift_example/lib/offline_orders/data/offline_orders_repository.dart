@@ -4,67 +4,53 @@ import 'package:bloc_drift_example/offline_orders/data/app_database.dart';
 import 'package:bloc_drift_example/offline_orders/data/fake_orders_api.dart';
 import 'package:bloc_drift_example/offline_orders/data/network_info.dart';
 import 'package:bloc_drift_example/offline_orders/data/offline_order_item.dart';
-import 'package:bloc_drift_example/offline_orders/data/offline_orders_snapshot_cache.dart';
 import 'package:bloc_drift_example/offline_orders/data/sync_queue_item.dart';
+import 'package:uuid/uuid.dart';
+
+const _uuid = Uuid();
 
 class OfflineOrdersRepository {
   OfflineOrdersRepository({
     required AppDatabase database,
     required FakeOrdersApi api,
     required NetworkInfo networkInfo,
-    required OfflineOrdersSnapshotCache snapshotCache,
   }) : _database = database,
        _api = api,
-       _networkInfo = networkInfo,
-       _snapshotCache = snapshotCache;
+       _networkInfo = networkInfo;
 
   final AppDatabase _database;
   final FakeOrdersApi _api;
   final NetworkInfo _networkInfo;
-  final OfflineOrdersSnapshotCache _snapshotCache;
 
-  Stream<List<OfflineOrderItem>> watchOrders() {
-    return _database.watchOrders().asyncMap((orders) async {
-      await _snapshotCache.saveOrders(orders);
-      return orders;
-    });
-  }
+  /// Pure Drift stream — no side-effect caching. BLoC handles snapshot.
+  Stream<List<OfflineOrderItem>> watchOrders() => _database.watchOrders();
 
-  Stream<List<SyncQueueItem>> watchSyncQueue() {
-    return _database.watchPendingSyncOperations().asyncMap((queue) async {
-      await _snapshotCache.saveQueue(queue);
-      return queue;
-    });
-  }
+  /// Pure Drift stream — no side-effect caching.
+  Stream<List<SyncQueueItem>> watchSyncQueue() =>
+      _database.watchPendingSyncOperations();
 
   Stream<bool> get connectivityChanges => _networkInfo.onStatusChange;
 
   Future<bool> get isOnline => _networkInfo.isConnected;
 
-  Future<OfflineOrdersSnapshot> loadCachedSnapshot() {
-    return _snapshotCache.loadSnapshot();
-  }
-
-  Future<bool> hasPendingSyncOperations() async {
-    return await _database.getPendingSyncCount() > 0;
-  }
+  Future<bool> hasPendingSyncOperations() =>
+      _database.hasPendingSyncOperations();
 
   Future<SaveOrderResult> createOrder({
     required String customerName,
     required double total,
   }) async {
-    final orderId = _newId('order');
+    final orderId = _uuid.v4();
     final createdAt = DateTime.now();
     final online = await _networkInfo.isConnected;
 
     if (online) {
       try {
         await _api.createOrder(customerName: customerName, total: total);
-        await _database.upsertOrder(
+        await _database.saveOnlineOrder(
           id: orderId,
           customerName: customerName,
           total: total,
-          isSynced: true,
           createdAt: createdAt,
         );
 
@@ -75,14 +61,14 @@ class OfflineOrdersRepository {
       } on FakeOrdersApiException {
         rethrow;
       } on Exception {
-        if (await _networkInfo.isConnected) {
-          rethrow;
-        }
+        // Network may have dropped between the check and the API call.
+        // Fall through to offline path.
       }
     }
 
-    await _saveOrderLocally(
+    await _database.saveOrderLocallyAndEnqueue(
       orderId: orderId,
+      operationId: _uuid.v4(),
       customerName: customerName,
       total: total,
       createdAt: createdAt,
@@ -103,71 +89,50 @@ class OfflineOrdersRepository {
     }
 
     final pending = await _database.getPendingSyncOperations();
-    var processedCount = 0;
+    final completed = <({String orderId, String operationId})>[];
 
     for (final operation in pending) {
-      if (operation.type != 'create_order') {
-        continue;
-      }
+      if (operation.type != 'create_order') continue;
 
+      final payload = jsonDecode(operation.payload) as Map<String, dynamic>;
       try {
-        final payload = jsonDecode(operation.payload) as Map<String, dynamic>;
         await _api.createOrder(
           customerName: payload['customerName'] as String,
           total: (payload['total'] as num).toDouble(),
         );
-        await _database.markOrderSynced(payload['orderId'] as String);
-        await _database.markOperationProcessed(operation.id);
-        processedCount++;
+        completed.add((
+          orderId: payload['orderId'] as String,
+          operationId: operation.id,
+        ));
       } on FakeOrdersApiException {
-        rethrow;
-      } on Exception catch (error) {
-        return SyncOrdersResult(
-          processedCount: processedCount,
-          message: processedCount == 0
-              ? 'Sync stopped before completing the queue: $error'
-              : 'Synced $processedCount queued operation(s) before sync stopped: $error',
-        );
+        // API validation error — stop immediately, don't retry.
+        break;
+      } on Exception {
+        // Network / transient error — stop and keep remaining queued.
+        break;
       }
     }
 
+    // Batch-update DB in a single transaction → one Drift stream notification.
+    await _database.completeSyncOperationsBatch(completed);
+
+    final count = completed.length;
+    final remaining = pending.length - count;
+
     return SyncOrdersResult(
-      processedCount: processedCount,
-      message: processedCount == 0
-          ? 'Nothing to sync, local data is already up to date.'
-          : 'Synced $processedCount queued operation(s) to the API.',
+      processedCount: count,
+      message: switch ((count, remaining)) {
+        (0, _) => 'Nothing to sync, local data is already up to date.',
+        (_, 0) => 'Synced $count queued operation(s) to the API.',
+        _ =>
+          'Synced $count of ${pending.length} operation(s). $remaining remain queued.',
+      },
     );
   }
 
   Future<void> dispose() async {
     _networkInfo.dispose();
     await _database.close();
-  }
-
-  Future<void> _saveOrderLocally({
-    required String orderId,
-    required String customerName,
-    required double total,
-    required DateTime createdAt,
-  }) async {
-    await _database.upsertOrder(
-      id: orderId,
-      customerName: customerName,
-      total: total,
-      isSynced: false,
-      createdAt: createdAt,
-    );
-    await _database.enqueueCreateOrder(
-      operationId: _newId('sync'),
-      orderId: orderId,
-      customerName: customerName,
-      total: total,
-      createdAt: createdAt,
-    );
-  }
-
-  String _newId(String prefix) {
-    return '$prefix-${DateTime.now().microsecondsSinceEpoch}';
   }
 }
 
