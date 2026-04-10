@@ -477,12 +477,17 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CURRENT_PROJECT_VERSION = 1;
+				DRIVERKIT_DEPLOYMENT_TARGET = "";
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = "";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.sharedPreferencesDriftExample.RunnerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/shared_preferences_drift_example.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/shared_preferences_drift_example";
+				TVOS_DEPLOYMENT_TARGET = "";
+				WATCHOS_DEPLOYMENT_TARGET = "";
+				XROS_DEPLOYMENT_TARGET = "";
 			};
 			name = Debug;
 		};
@@ -492,12 +497,17 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CURRENT_PROJECT_VERSION = 1;
+				DRIVERKIT_DEPLOYMENT_TARGET = "";
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = "";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.sharedPreferencesDriftExample.RunnerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/shared_preferences_drift_example.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/shared_preferences_drift_example";
+				TVOS_DEPLOYMENT_TARGET = "";
+				WATCHOS_DEPLOYMENT_TARGET = "";
+				XROS_DEPLOYMENT_TARGET = "";
 			};
 			name = Release;
 		};
@@ -507,12 +517,17 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CURRENT_PROJECT_VERSION = 1;
+				DRIVERKIT_DEPLOYMENT_TARGET = "";
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = "";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.sharedPreferencesDriftExample.RunnerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/shared_preferences_drift_example.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/shared_preferences_drift_example";
+				TVOS_DEPLOYMENT_TARGET = "";
+				WATCHOS_DEPLOYMENT_TARGET = "";
+				XROS_DEPLOYMENT_TARGET = "";
 			};
 			name = Profile;
 		};
@@ -588,7 +603,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
+				DRIVERKIT_DEPLOYMENT_TARGET = "";
+				IPHONEOS_DEPLOYMENT_TARGET = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TVOS_DEPLOYMENT_TARGET = "";
+				WATCHOS_DEPLOYMENT_TARGET = "";
+				XROS_DEPLOYMENT_TARGET = "";
 			};
 			name = Profile;
 		};
@@ -740,7 +760,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
+				DRIVERKIT_DEPLOYMENT_TARGET = "";
+				IPHONEOS_DEPLOYMENT_TARGET = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TVOS_DEPLOYMENT_TARGET = "";
+				WATCHOS_DEPLOYMENT_TARGET = "";
+				XROS_DEPLOYMENT_TARGET = "";
 			};
 			name = Debug;
 		};
@@ -748,7 +773,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DRIVERKIT_DEPLOYMENT_TARGET = "";
+				IPHONEOS_DEPLOYMENT_TARGET = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TVOS_DEPLOYMENT_TARGET = "";
+				WATCHOS_DEPLOYMENT_TARGET = "";
+				XROS_DEPLOYMENT_TARGET = "";
 			};
 			name = Release;
 		};

@@ -12,3 +12,12 @@ PRODUCT_BUNDLE_IDENTIFIER = com.example.sharedPreferencesDriftExample
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2026 com.example. All rights reserved.
+
+// Xcode 26 injects default deployment target environment variables for
+// non-macOS platforms into clang invocations unless they are overridden.
+// Clearing them here avoids conflicting target triples for this macOS app.
+IPHONEOS_DEPLOYMENT_TARGET =
+TVOS_DEPLOYMENT_TARGET =
+WATCHOS_DEPLOYMENT_TARGET =
+XROS_DEPLOYMENT_TARGET =
+DRIVERKIT_DEPLOYMENT_TARGET =
