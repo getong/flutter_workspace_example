@@ -2160,6 +2160,22 @@ class UnconstrainedBoxExampleRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [WebviewFlutterPage]
+class WebviewFlutterRoute extends PageRouteInfo<void> {
+  const WebviewFlutterRoute({List<PageRouteInfo>? children})
+    : super(WebviewFlutterRoute.name, initialChildren: children);
+
+  static const String name = 'WebviewFlutterRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const WebviewFlutterPage();
+    },
+  );
+}
+
+/// generated route for
 /// [WrapPage]
 class WrapRoute extends PageRouteInfo<void> {
   const WrapRoute({List<PageRouteInfo>? children})

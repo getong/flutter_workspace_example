@@ -7,11 +7,23 @@ void main() {
   testWidgets('Home page shows tabbed module lists', (
     WidgetTester tester,
   ) async {
+    Future<void> dragUntilTextVisible(String text) async {
+      for (int i = 0; i < 20; i += 1) {
+        if (find.text(text).evaluate().isNotEmpty) {
+          return;
+        }
+
+        await tester.drag(find.byType(ListView).last, const Offset(0, -300));
+        await tester.pumpAndSettle();
+      }
+    }
+
     await tester.pumpWidget(MyApp());
     await tester.pumpAndSettle();
 
     expect(find.text('Layout Modules'), findsOneWidget);
     expect(find.text('Center Box Module'), findsOneWidget);
+    await dragUntilTextVisible('Constrained Box Module');
     expect(find.text('Constrained Box Module'), findsOneWidget);
     expect(find.text('Layout'), findsOneWidget);
     expect(find.text('Content'), findsOneWidget);
@@ -20,39 +32,20 @@ void main() {
     await tester.tap(find.text('Content'));
     await tester.pumpAndSettle();
 
-    final Finder contentListView = find.byType(ListView).last;
-    final Finder contentScrollable = find.descendant(
-      of: contentListView,
-      matching: find.byType(Scrollable),
-    );
-
     expect(find.text('Content Modules'), findsOneWidget);
     expect(find.text('auto_route Module'), findsOneWidget);
-    expect(find.text('Intl Module'), findsOneWidget);
-    await tester.scrollUntilVisible(
-      find.text('Text.rich Module'),
-      300,
-      scrollable: contentScrollable,
-    );
-    expect(find.text('Text.rich Module'), findsOneWidget);
-    await tester.scrollUntilVisible(
-      find.text('FutureBuilder Module'),
-      300,
-      scrollable: contentScrollable,
-    );
+    await dragUntilTextVisible('FutureBuilder Module');
     expect(find.text('FutureBuilder Module'), findsOneWidget);
-    await tester.scrollUntilVisible(
-      find.text('StreamBuilder Module'),
-      300,
-      scrollable: contentScrollable,
-    );
-    expect(find.text('StreamBuilder Module'), findsOneWidget);
-    await tester.scrollUntilVisible(
-      find.text('Semantics Module'),
-      300,
-      scrollable: contentScrollable,
-    );
+    await dragUntilTextVisible('Intl Module');
+    expect(find.text('Intl Module'), findsOneWidget);
+    await dragUntilTextVisible('Semantics Module');
     expect(find.text('Semantics Module'), findsOneWidget);
+    await dragUntilTextVisible('StreamBuilder Module');
+    expect(find.text('StreamBuilder Module'), findsOneWidget);
+    await dragUntilTextVisible('Text.rich Module');
+    expect(find.text('Text.rich Module'), findsOneWidget);
+    await dragUntilTextVisible('webview_flutter Module');
+    expect(find.text('webview_flutter Module'), findsOneWidget);
 
     await tester.tap(find.text('Animation'));
     await tester.pumpAndSettle();

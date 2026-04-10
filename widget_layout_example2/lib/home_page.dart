@@ -164,6 +164,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   ),
   _ModuleLink(label: 'TextStyle Module', path: '/text-style-page'),
   _ModuleLink(label: 'TimePicker Module', path: '/time-picker-page'),
+  _ModuleLink(label: 'webview_flutter Module', path: '/webview-flutter-page'),
 ];
 
 const List<_ModuleLink> _animationModules = <_ModuleLink>[

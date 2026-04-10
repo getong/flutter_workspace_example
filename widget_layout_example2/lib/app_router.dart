@@ -98,6 +98,7 @@ import 'package:widget_layout_example2/modules/tween_animation_builder_page.dart
 import 'package:widget_layout_example2/modules/tween_page.dart';
 import 'package:widget_layout_example2/modules/tween_sequence_interval_page.dart';
 import 'package:widget_layout_example2/modules/unconstrained_box_page.dart';
+import 'package:widget_layout_example2/modules/webview_flutter_page.dart';
 import 'package:widget_layout_example2/modules/wrap_page.dart';
 import 'package:widget_layout_example2/modules/choice_chip_page.dart';
 import 'package:widget_layout_example2/modules/sliver_to_box_adapter_page.dart';
@@ -321,6 +322,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: SliderExampleRoute.page, path: '/slider-page'),
     AutoRoute(page: DatePickerRoute.page, path: '/date-picker-page'),
     AutoRoute(page: TimePickerRoute.page, path: '/time-picker-page'),
+    AutoRoute(page: WebviewFlutterRoute.page, path: '/webview-flutter-page'),
     AutoRoute(page: FormRoute.page, path: '/form-page'),
     AutoRoute(page: FormFieldRoute.page, path: '/form-field-page'),
     AutoRoute(page: DraggableExampleRoute.page, path: '/draggable-page'),
