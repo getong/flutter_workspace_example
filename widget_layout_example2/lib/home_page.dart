@@ -88,6 +88,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'drift + drift_flutter Module',
     path: '/drift-flutter-page',
   ),
+  _ModuleLink(label: 'encrypter_plus Module', path: '/encrypter-plus-page'),
   _ModuleLink(
     label: 'ExcludeSemantics Module',
     path: '/exclude-semantics-page',
@@ -103,6 +104,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/flutter-auto-size-text-page',
   ),
   _ModuleLink(label: 'flutter_bloc Module', path: '/flutter-bloc-page'),
+  _ModuleLink(label: 'flutter_hooks Module', path: '/flutter-hooks-page'),
   _ModuleLink(
     label: 'flutter_local_notifications Module',
     path: '/flutter-local-notifications-page',
@@ -119,6 +121,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/flutter-video-caching-fvp-page',
   ),
   _ModuleLink(
+    label: 'freezed_annotation Module',
+    path: '/freezed-annotation-page',
+  ),
+  _ModuleLink(
     label: 'font_awesome_flutter Module',
     path: '/font-awesome-flutter-page',
   ),
@@ -132,7 +138,12 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/ink-widgets-page',
   ),
   _ModuleLink(label: 'InputChip Module', path: '/input-chip-page'),
+  _ModuleLink(
+    label: 'introduction_screen Module',
+    path: '/introduction-screen-page',
+  ),
   _ModuleLink(label: 'Intl Module', path: '/intl-page'),
+  _ModuleLink(label: 'json_annotation Module', path: '/json-annotation-page'),
   _ModuleLink(
     label: 'KeyboardListener Module',
     path: '/keyboard-listener-page',
@@ -146,6 +157,11 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/material-symbols-icons-page',
   ),
   _ModuleLink(label: 'MergeSemantics Module', path: '/merge-semantics-page'),
+  _ModuleLink(label: 'open_file Module', path: '/open-file-page'),
+  _ModuleLink(
+    label: 'permission_handler Module',
+    path: '/permission-handler-page',
+  ),
   _ModuleLink(label: 'Radio Module', path: '/radio-page'),
   _ModuleLink(label: 'RichText Module', path: '/rich-text-page'),
   _ModuleLink(label: 'Semantics Module', path: '/semantics-page'),

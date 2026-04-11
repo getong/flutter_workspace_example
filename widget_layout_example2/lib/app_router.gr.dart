@@ -1082,6 +1082,22 @@ class DriftFlutterRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [EncrypterPlusPage]
+class EncrypterPlusRoute extends PageRouteInfo<void> {
+  const EncrypterPlusRoute({List<PageRouteInfo>? children})
+    : super(EncrypterPlusRoute.name, initialChildren: children);
+
+  static const String name = 'EncrypterPlusRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const EncrypterPlusPage();
+    },
+  );
+}
+
+/// generated route for
 /// [ExcludeSemanticsPage]
 class ExcludeSemanticsRoute extends PageRouteInfo<void> {
   const ExcludeSemanticsRoute({List<PageRouteInfo>? children})
@@ -1221,6 +1237,22 @@ class FlutterBlocRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const FlutterBlocPage();
+    },
+  );
+}
+
+/// generated route for
+/// [FlutterHooksPage]
+class FlutterHooksRoute extends PageRouteInfo<void> {
+  const FlutterHooksRoute({List<PageRouteInfo>? children})
+    : super(FlutterHooksRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterHooksRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterHooksPage();
     },
   );
 }
@@ -1370,6 +1402,22 @@ class FormRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FreezedAnnotationPage]
+class FreezedAnnotationRoute extends PageRouteInfo<void> {
+  const FreezedAnnotationRoute({List<PageRouteInfo>? children})
+    : super(FreezedAnnotationRoute.name, initialChildren: children);
+
+  static const String name = 'FreezedAnnotationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FreezedAnnotationPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FutureBuilderPage]
 class FutureBuilderRoute extends PageRouteInfo<void> {
   const FutureBuilderRoute({List<PageRouteInfo>? children})
@@ -1514,6 +1562,38 @@ class IntlRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [IntroductionScreenPage]
+class IntroductionScreenRoute extends PageRouteInfo<void> {
+  const IntroductionScreenRoute({List<PageRouteInfo>? children})
+    : super(IntroductionScreenRoute.name, initialChildren: children);
+
+  static const String name = 'IntroductionScreenRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const IntroductionScreenPage();
+    },
+  );
+}
+
+/// generated route for
+/// [JsonAnnotationPage]
+class JsonAnnotationRoute extends PageRouteInfo<void> {
+  const JsonAnnotationRoute({List<PageRouteInfo>? children})
+    : super(JsonAnnotationRoute.name, initialChildren: children);
+
+  static const String name = 'JsonAnnotationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const JsonAnnotationPage();
+    },
+  );
+}
+
+/// generated route for
 /// [KeyboardListenerPage]
 class KeyboardListenerRoute extends PageRouteInfo<void> {
   const KeyboardListenerRoute({List<PageRouteInfo>? children})
@@ -1629,6 +1709,22 @@ class MergeSemanticsRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [OpenFilePage]
+class OpenFileRoute extends PageRouteInfo<void> {
+  const OpenFileRoute({List<PageRouteInfo>? children})
+    : super(OpenFileRoute.name, initialChildren: children);
+
+  static const String name = 'OpenFileRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const OpenFilePage();
+    },
+  );
+}
+
+/// generated route for
 /// [PaddingPage]
 class PaddingRoute extends PageRouteInfo<void> {
   const PaddingRoute({List<PageRouteInfo>? children})
@@ -1640,6 +1736,22 @@ class PaddingRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const PaddingPage();
+    },
+  );
+}
+
+/// generated route for
+/// [PermissionHandlerPage]
+class PermissionHandlerRoute extends PageRouteInfo<void> {
+  const PermissionHandlerRoute({List<PageRouteInfo>? children})
+    : super(PermissionHandlerRoute.name, initialChildren: children);
+
+  static const String name = 'PermissionHandlerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const PermissionHandlerPage();
     },
   );
 }

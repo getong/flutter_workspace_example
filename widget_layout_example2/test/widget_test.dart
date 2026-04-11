@@ -34,14 +34,28 @@ void main() {
 
     expect(find.text('Content Modules'), findsOneWidget);
     expect(find.text('auto_route Module'), findsOneWidget);
+    await dragUntilTextVisible('encrypter_plus Module');
+    expect(find.text('encrypter_plus Module'), findsOneWidget);
     await dragUntilTextVisible('flutter_bloc Module');
     expect(find.text('flutter_bloc Module'), findsOneWidget);
+    await dragUntilTextVisible('flutter_hooks Module');
+    expect(find.text('flutter_hooks Module'), findsOneWidget);
     await dragUntilTextVisible('fluttertoast Module');
     expect(find.text('fluttertoast Module'), findsOneWidget);
+    await dragUntilTextVisible('freezed_annotation Module');
+    expect(find.text('freezed_annotation Module'), findsOneWidget);
     await dragUntilTextVisible('FutureBuilder Module');
     expect(find.text('FutureBuilder Module'), findsOneWidget);
+    await dragUntilTextVisible('introduction_screen Module');
+    expect(find.text('introduction_screen Module'), findsOneWidget);
     await dragUntilTextVisible('Intl Module');
     expect(find.text('Intl Module'), findsOneWidget);
+    await dragUntilTextVisible('json_annotation Module');
+    expect(find.text('json_annotation Module'), findsOneWidget);
+    await dragUntilTextVisible('open_file Module');
+    expect(find.text('open_file Module'), findsOneWidget);
+    await dragUntilTextVisible('permission_handler Module');
+    expect(find.text('permission_handler Module'), findsOneWidget);
     await dragUntilTextVisible('Semantics Module');
     expect(find.text('Semantics Module'), findsOneWidget);
     await dragUntilTextVisible('StreamBuilder Module');

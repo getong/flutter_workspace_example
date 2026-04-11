@@ -34,6 +34,7 @@ import 'package:widget_layout_example2/modules/dialog_page.dart';
 import 'package:widget_layout_example2/modules/draggable_page.dart';
 import 'package:widget_layout_example2/modules/drag_target_page.dart';
 import 'package:widget_layout_example2/modules/drift_flutter_page.dart';
+import 'package:widget_layout_example2/modules/encrypter_plus_page.dart';
 import 'package:widget_layout_example2/modules/date_picker_page.dart';
 import 'package:widget_layout_example2/modules/exclude_semantics_page.dart';
 import 'package:widget_layout_example2/modules/filled_button_page.dart';
@@ -45,11 +46,13 @@ import 'package:widget_layout_example2/modules/flow_page.dart';
 import 'package:widget_layout_example2/modules/flutter_svg_page.dart';
 import 'package:widget_layout_example2/modules/flutter_auto_size_text_page.dart';
 import 'package:widget_layout_example2/modules/flutter_bloc_page.dart';
+import 'package:widget_layout_example2/modules/flutter_hooks_page.dart';
 import 'package:widget_layout_example2/modules/flutter_local_notifications_page.dart';
 import 'package:widget_layout_example2/modules/flutter_secure_storage_page.dart';
 import 'package:widget_layout_example2/modules/flutter_slidable_page.dart';
 import 'package:widget_layout_example2/modules/flutter_video_caching_fvp_page.dart';
 import 'package:widget_layout_example2/modules/fluttertoast_page.dart';
+import 'package:widget_layout_example2/modules/freezed_annotation_page.dart';
 import 'package:widget_layout_example2/modules/font_awesome_flutter_page.dart';
 import 'package:widget_layout_example2/modules/form_page.dart';
 import 'package:widget_layout_example2/modules/form_field_page.dart';
@@ -58,16 +61,20 @@ import 'package:widget_layout_example2/modules/gesturedetector.dart';
 import 'package:widget_layout_example2/modules/graphql_flutter_page.dart';
 import 'package:widget_layout_example2/modules/image_widget_page.dart';
 import 'package:widget_layout_example2/modules/ink_widgets_page.dart';
+import 'package:widget_layout_example2/modules/introduction_screen_page.dart';
 import 'package:widget_layout_example2/modules/indexed_stack_page.dart';
 import 'package:widget_layout_example2/modules/input_chip_page.dart';
 import 'package:widget_layout_example2/modules/intl_page.dart';
+import 'package:widget_layout_example2/modules/json_annotation_page.dart';
 import 'package:widget_layout_example2/modules/keyboard_listener_page.dart';
 import 'package:widget_layout_example2/modules/layout_builder_page.dart';
 import 'package:widget_layout_example2/modules/linear_progress_indicator_page.dart';
 import 'package:widget_layout_example2/modules/material_symbols_icons_page.dart';
 import 'package:widget_layout_example2/modules/media_query_page.dart';
 import 'package:widget_layout_example2/modules/merge_semantics_page.dart';
+import 'package:widget_layout_example2/modules/open_file_page.dart';
 import 'package:widget_layout_example2/modules/padding_page.dart';
+import 'package:widget_layout_example2/modules/permission_handler_page.dart';
 import 'package:widget_layout_example2/modules/positioned_page.dart';
 import 'package:widget_layout_example2/modules/radio_page.dart';
 import 'package:widget_layout_example2/modules/rich_text_page.dart';
@@ -348,9 +355,20 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: DialogExampleRoute.page, path: '/dialog-page'),
     AutoRoute(page: FutureBuilderRoute.page, path: '/future-builder-page'),
     AutoRoute(page: FlutterBlocRoute.page, path: '/flutter-bloc-page'),
+    AutoRoute(page: FlutterHooksRoute.page, path: '/flutter-hooks-page'),
+    AutoRoute(
+      page: FreezedAnnotationRoute.page,
+      path: '/freezed-annotation-page',
+    ),
     AutoRoute(page: GraphqlFlutterRoute.page, path: '/graphql-flutter-page'),
+    AutoRoute(
+      page: IntroductionScreenRoute.page,
+      path: '/introduction-screen-page',
+    ),
+    AutoRoute(page: JsonAnnotationRoute.page, path: '/json-annotation-page'),
     AutoRoute(page: StreamBuilderRoute.page, path: '/stream-builder-page'),
     AutoRoute(page: DriftFlutterRoute.page, path: '/drift-flutter-page'),
+    AutoRoute(page: EncrypterPlusRoute.page, path: '/encrypter-plus-page'),
     AutoRoute(page: FluttertoastRoute.page, path: '/fluttertoast-page'),
     AutoRoute(
       page: KeyboardListenerRoute.page,
@@ -373,6 +391,11 @@ class AppRouter extends RootStackRouter {
       path: '/exclude-semantics-page',
     ),
     AutoRoute(page: MergeSemanticsRoute.page, path: '/merge-semantics-page'),
+    AutoRoute(page: OpenFileRoute.page, path: '/open-file-page'),
+    AutoRoute(
+      page: PermissionHandlerRoute.page,
+      path: '/permission-handler-page',
+    ),
     AutoRoute(
       page: SharedPreferencesRoute.page,
       path: '/shared-preferences-page',
