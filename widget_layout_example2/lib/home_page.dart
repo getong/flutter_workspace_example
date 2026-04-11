@@ -133,6 +133,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(label: 'Form Module', path: '/form-page'),
   _ModuleLink(label: 'FormField Module', path: '/form-field-page'),
   _ModuleLink(label: 'FutureBuilder Module', path: '/future-builder-page'),
+  _ModuleLink(label: 'genui Module', path: '/genui-page'),
   _ModuleLink(label: 'graphql_flutter Module', path: '/graphql-flutter-page'),
   _ModuleLink(label: 'Image Module', path: '/image-widget-page'),
   _ModuleLink(

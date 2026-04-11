@@ -1466,6 +1466,22 @@ class FutureBuilderRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [GenuiPage]
+class GenuiRoute extends PageRouteInfo<void> {
+  const GenuiRoute({List<PageRouteInfo>? children})
+    : super(GenuiRoute.name, initialChildren: children);
+
+  static const String name = 'GenuiRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const GenuiPage();
+    },
+  );
+}
+
+/// generated route for
 /// [GesturedetectorPage]
 class GesturedetectorRoute extends PageRouteInfo<void> {
   const GesturedetectorRoute({List<PageRouteInfo>? children})

@@ -60,6 +60,7 @@ import 'package:widget_layout_example2/modules/form_page.dart';
 import 'package:widget_layout_example2/modules/form_field_page.dart';
 import 'package:widget_layout_example2/modules/future_builder_page.dart';
 import 'package:widget_layout_example2/modules/gesturedetector.dart';
+import 'package:widget_layout_example2/modules/genui_page.dart';
 import 'package:widget_layout_example2/modules/graphql_flutter_page.dart';
 import 'package:widget_layout_example2/modules/image_widget_page.dart';
 import 'package:widget_layout_example2/modules/ink_widgets_page.dart';
@@ -357,6 +358,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: SimpleDialogExampleRoute.page, path: '/simple-dialog-page'),
     AutoRoute(page: DialogExampleRoute.page, path: '/dialog-page'),
     AutoRoute(page: FutureBuilderRoute.page, path: '/future-builder-page'),
+    AutoRoute(page: GenuiRoute.page, path: '/genui-page'),
     AutoRoute(page: FlutterBlocRoute.page, path: '/flutter-bloc-page'),
     AutoRoute(page: FlutterDotenvRoute.page, path: '/flutter-dotenv-page'),
     AutoRoute(page: FlutterHooksRoute.page, path: '/flutter-hooks-page'),
