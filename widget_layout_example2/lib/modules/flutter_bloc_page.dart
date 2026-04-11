@@ -339,6 +339,8 @@ class _FlutterBlocView extends StatelessWidget {
               SizedBox(height: 16),
               _ActivityFilterCard(),
               SizedBox(height: 16),
+              _MultiBlocWidgetListenerCard(),
+              SizedBox(height: 16),
               _SaveConsumerCard(),
               SizedBox(height: 16),
               _CodeSampleCard(),
@@ -815,6 +817,220 @@ class _ActivityFilterCard extends StatelessWidget {
   }
 }
 
+class _MultiBlocWidgetListenerCard extends StatelessWidget {
+  const _MultiBlocWidgetListenerCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'UI Widget Listening To Multiple Blocs',
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'This panel is wrapped with `MultiBlocListener`. It listens to '
+              'three different blocs and updates a local widget log whenever '
+              'counter, filter, or save status changes. This is the focused '
+              'widget-level pattern for reacting to multiple bloc streams in one place.',
+            ),
+            const SizedBox(height: 16),
+            const _MultiBlocStatusWidget(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _MultiBlocStatusWidget extends StatefulWidget {
+  const _MultiBlocStatusWidget();
+
+  @override
+  State<_MultiBlocStatusWidget> createState() => _MultiBlocStatusWidgetState();
+}
+
+class _MultiBlocStatusWidgetState extends State<_MultiBlocStatusWidget> {
+  final List<String> _events = <String>[];
+  Color _accentColor = const Color(0xFF1D4ED8);
+
+  void _record(String message, Color color) {
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      _accentColor = color;
+      _events.insert(0, message);
+      if (_events.length > 6) {
+        _events.removeRange(6, _events.length);
+      }
+    });
+  }
+
+  void _cycleFilter(BuildContext context) {
+    final _ActivityFilter current = context.read<_ActivityFilterBloc>().state;
+    final List<_ActivityFilter> filters = _ActivityFilter.values;
+    final int nextIndex = (filters.indexOf(current) + 1) % filters.length;
+    context.read<_ActivityFilterBloc>().add(
+      _ActivityFilterChanged(filters[nextIndex]),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocListener(
+      listeners: <BlocListener<dynamic, dynamic>>[
+        BlocListener<_CounterBloc, _CounterState>(
+          listenWhen: (_CounterState previous, _CounterState current) =>
+              previous.count != current.count,
+          listener: (BuildContext context, _CounterState state) {
+            _record(
+              'Counter listener fired: count=${state.count}, step=${state.step}',
+              const Color(0xFF7C3AED),
+            );
+          },
+        ),
+        BlocListener<_ActivityFilterBloc, _ActivityFilter>(
+          listener: (BuildContext context, _ActivityFilter state) {
+            _record(
+              'Filter listener fired: ${state.name}',
+              const Color(0xFFB45309),
+            );
+          },
+        ),
+        BlocListener<_SaveSnapshotBloc, _SaveSnapshotState>(
+          listenWhen:
+              (_SaveSnapshotState previous, _SaveSnapshotState current) =>
+                  previous.status != current.status,
+          listener: (BuildContext context, _SaveSnapshotState state) {
+            _record(
+              'Save listener fired: ${state.status.name}',
+              switch (state.status) {
+                _SaveSnapshotStatus.success => const Color(0xFF15803D),
+                _SaveSnapshotStatus.failure => const Color(0xFFDC2626),
+                _SaveSnapshotStatus.saving => const Color(0xFF0F766E),
+                _SaveSnapshotStatus.idle => const Color(0xFF1D4ED8),
+              },
+            );
+          },
+        ),
+      ],
+      child: Builder(
+        builder: (BuildContext context) {
+          final int count = context.select<_CounterBloc, int>(
+            (_CounterBloc bloc) => bloc.state.count,
+          );
+          final int step = context.select<_CounterBloc, int>(
+            (_CounterBloc bloc) => bloc.state.step,
+          );
+          final _ActivityFilter filter = context
+              .watch<_ActivityFilterBloc>()
+              .state;
+          final _SaveSnapshotStatus saveStatus = context
+              .select<_SaveSnapshotBloc, _SaveSnapshotStatus>(
+                (_SaveSnapshotBloc bloc) => bloc.state.status,
+              );
+
+          return Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+              color: _accentColor.withValues(alpha: 0.08),
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(color: _accentColor.withValues(alpha: 0.45)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Wrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  children: <Widget>[
+                    Chip(label: Text('Count: $count')),
+                    Chip(label: Text('Step: $step')),
+                    Chip(label: Text('Filter: ${_filterLabel(filter)}')),
+                    Chip(label: Text('Save: ${saveStatus.name}')),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Wrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  children: <Widget>[
+                    FilledButton.tonalIcon(
+                      onPressed: () => context.read<_CounterBloc>().add(
+                        const _CounterIncrementPressed(),
+                      ),
+                      icon: const Icon(Icons.add),
+                      label: const Text('Trigger Counter'),
+                    ),
+                    FilledButton.tonalIcon(
+                      onPressed: () => _cycleFilter(context),
+                      icon: const Icon(Icons.filter_alt_outlined),
+                      label: const Text('Cycle Filter'),
+                    ),
+                    FilledButton.tonalIcon(
+                      onPressed: saveStatus == _SaveSnapshotStatus.saving
+                          ? null
+                          : () => context.read<_SaveSnapshotBloc>().add(
+                              _SaveSnapshotRequested(
+                                context.read<_CounterBloc>().state.count,
+                              ),
+                            ),
+                      icon: const Icon(Icons.save_outlined),
+                      label: const Text('Trigger Save'),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Widget-local listener log',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                if (_events.isEmpty)
+                  const Text(
+                    'No listener events yet. Use the buttons above to trigger multiple blocs.',
+                  )
+                else
+                  ..._events.map(
+                    (String event) => Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: Text(event),
+                    ),
+                  ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  String _filterLabel(_ActivityFilter filter) {
+    switch (filter) {
+      case _ActivityFilter.all:
+        return 'All';
+      case _ActivityFilter.evenOnly:
+        return 'Even Counts';
+      case _ActivityFilter.oddOnly:
+        return 'Odd Counts';
+    }
+  }
+}
+
 class _SaveConsumerCard extends StatelessWidget {
   const _SaveConsumerCard();
 
@@ -935,8 +1151,18 @@ RepositoryProvider(
         ),
       ),
     ],
-    child: BlocListener<SaveSnapshotBloc, SaveSnapshotState>(
-      listener: (context, state) {},
+    child: MultiBlocListener(
+      listeners: [
+        BlocListener<CounterBloc, CounterState>(
+          listener: (context, state) {},
+        ),
+        BlocListener<ActivityFilterBloc, ActivityFilter>(
+          listener: (context, state) {},
+        ),
+        BlocListener<SaveSnapshotBloc, SaveSnapshotState>(
+          listener: (context, state) {},
+        ),
+      ],
       child: BlocConsumer<SaveSnapshotBloc, SaveSnapshotState>(
         listener: (context, state) {},
         builder: (context, state) {
