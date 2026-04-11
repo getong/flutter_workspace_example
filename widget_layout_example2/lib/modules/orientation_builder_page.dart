@@ -142,17 +142,15 @@ class _HeroBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: Colors.indigo,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: const Center(
-          child: Text(
-            'Hero content',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
-          ),
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: Colors.indigo,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: const Center(
+        child: Text(
+          'Hero content',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
         ),
       ),
     );
