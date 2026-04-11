@@ -1162,6 +1162,22 @@ class ExcludeSemanticsRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FfigenPage]
+class FfigenRoute extends PageRouteInfo<void> {
+  const FfigenRoute({List<PageRouteInfo>? children})
+    : super(FfigenRoute.name, initialChildren: children);
+
+  static const String name = 'FfigenRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FfigenPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FilledButtonPage]
 class FilledButtonRoute extends PageRouteInfo<void> {
   const FilledButtonRoute({List<PageRouteInfo>? children})
@@ -1754,6 +1770,22 @@ class IntroductionScreenRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [JnigenPage]
+class JnigenRoute extends PageRouteInfo<void> {
+  const JnigenRoute({List<PageRouteInfo>? children})
+    : super(JnigenRoute.name, initialChildren: children);
+
+  static const String name = 'JnigenRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const JnigenPage();
+    },
+  );
+}
+
+/// generated route for
 /// [JsonAnnotationPage]
 class JsonAnnotationRoute extends PageRouteInfo<void> {
   const JsonAnnotationRoute({List<PageRouteInfo>? children})
@@ -1992,6 +2024,22 @@ class PermissionHandlerRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const PermissionHandlerPage();
+    },
+  );
+}
+
+/// generated route for
+/// [PigeonPage]
+class PigeonRoute extends PageRouteInfo<void> {
+  const PigeonRoute({List<PageRouteInfo>? children})
+    : super(PigeonRoute.name, initialChildren: children);
+
+  static const String name = 'PigeonRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const PigeonPage();
     },
   );
 }

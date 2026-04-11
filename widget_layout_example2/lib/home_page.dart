@@ -109,6 +109,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/exclude-semantics-page',
   ),
   _ModuleLink(label: 'FilterChip Module', path: '/filter-chip-page'),
+  _ModuleLink(label: 'ffigen Module', path: '/ffigen-page'),
   _ModuleLink(label: 'flex_seed_scheme Module', path: '/flex-seed-scheme-page'),
   _ModuleLink(label: 'fl_chart Module', path: '/fl-chart-page'),
   _ModuleLink(
@@ -170,6 +171,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/introduction-screen-page',
   ),
   _ModuleLink(label: 'Intl Module', path: '/intl-page'),
+  _ModuleLink(label: 'jnigen Module', path: '/jnigen-page'),
   _ModuleLink(label: 'json_annotation Module', path: '/json-annotation-page'),
   _ModuleLink(
     label: 'KeyboardListener Module',
@@ -198,6 +200,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'permission_handler Module',
     path: '/permission-handler-page',
   ),
+  _ModuleLink(label: 'pigeon Module', path: '/pigeon-page'),
   _ModuleLink(label: 'Radio Module', path: '/radio-page'),
   _ModuleLink(label: 'RichText Module', path: '/rich-text-page'),
   _ModuleLink(label: 'Semantics Module', path: '/semantics-page'),
