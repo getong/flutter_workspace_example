@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 
 @RoutePage(name: 'ExcludeSemanticsRoute')
 class ExcludeSemanticsPage extends StatelessWidget {
@@ -22,6 +22,7 @@ class ExcludeSemanticsPage extends StatelessWidget {
               title: 'Replace Repeated Labels',
               description:
                   'The visible icon and text stay on screen, but ExcludeSemantics lets a parent Semantics widget provide a single cleaner label.',
+              api: 'Uses: Semantics(label, hint, button) + ExcludeSemantics',
               child: Semantics(
                 label: 'Favorite button',
                 hint: 'Double tap to mark this item as favorite',
@@ -58,6 +59,7 @@ class ExcludeSemanticsPage extends StatelessWidget {
               title: 'Hide Decorative Icon',
               description:
                   'Decorative visuals often do not need to be announced, so ExcludeSemantics keeps the spoken output focused.',
+              api: 'Uses: ExcludeSemantics for decorative-only content',
               child: Row(
                 children: <Widget>[
                   const ExcludeSemantics(
@@ -81,6 +83,7 @@ class ExcludeSemanticsPage extends StatelessWidget {
               title: 'Readable Summary',
               description:
                   'A parent Semantics node can provide a concise summary while the detailed visual row is excluded from accessibility output.',
+              api: 'Uses: Semantics(label) wrapping an excluded visual row',
               child: Semantics(
                 label: 'Order status shipped, expected Tuesday',
                 child: const ExcludeSemantics(
@@ -95,6 +98,55 @@ class ExcludeSemanticsPage extends StatelessWidget {
                         ),
                       ),
                     ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            _ExcludeSemanticsExampleCard(
+              title: 'Unread Messages Badge',
+              description:
+                  'Badge counts are useful visually, but a single parent label can be easier for assistive technology to announce.',
+              api: 'Uses: container, label, value + ExcludeSemantics',
+              child: Semantics(
+                container: true,
+                label: 'Inbox',
+                value: '3 unread messages',
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 14,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.blue.shade50,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: Colors.blue.shade100),
+                  ),
+                  child: const ExcludeSemantics(
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.inbox_rounded, color: Colors.blue),
+                        SizedBox(width: 12),
+                        Expanded(
+                          child: Text(
+                            'Inbox',
+                            style: TextStyle(fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                        CircleAvatar(
+                          radius: 14,
+                          backgroundColor: Colors.blue,
+                          child: Text(
+                            '3',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -115,11 +167,13 @@ class _ExcludeSemanticsExampleCard extends StatelessWidget {
   const _ExcludeSemanticsExampleCard({
     required this.title,
     required this.description,
+    required this.api,
     required this.child,
   });
 
   final String title;
   final String description;
+  final String api;
   final Widget child;
 
   @override
@@ -141,6 +195,13 @@ class _ExcludeSemanticsExampleCard extends StatelessWidget {
             Text(description),
             const SizedBox(height: 16),
             child,
+            const SizedBox(height: 12),
+            Text(
+              api,
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: Colors.blueGrey.shade700),
+            ),
           ],
         ),
       ),

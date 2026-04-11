@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 
 @RoutePage(name: 'SemanticsRoute')
 class SemanticsPage extends StatelessWidget {
@@ -22,10 +22,12 @@ class SemanticsPage extends StatelessWidget {
               title: 'Labeled Icon',
               description:
                   'A visual icon can expose a clearer spoken label through Semantics.',
+              api: 'Uses: label, hint, image',
               child: Center(
                 child: Semantics(
                   label: 'Favorite item',
                   hint: 'Marks this item as a favorite',
+                  image: true,
                   child: const Icon(
                     Icons.favorite,
                     size: 48,
@@ -39,8 +41,10 @@ class SemanticsPage extends StatelessWidget {
               title: 'Button Role',
               description:
                   'Semantics can describe custom UI as a button even when the visual is not a Material button.',
+              api: 'Uses: button, enabled, label, hint',
               child: Semantics(
                 button: true,
+                enabled: true,
                 label: 'Custom checkout button',
                 hint: 'Double tap to continue to checkout',
                 child: Container(
@@ -68,12 +72,15 @@ class SemanticsPage extends StatelessWidget {
             _SemanticsExampleCard(
               title: 'Value And State',
               description:
-                  'You can expose current values and toggled state for richer accessibility feedback.',
+                  'You can expose current values and dynamic state for richer accessibility feedback.',
+              api:
+                  'Uses: label, value, increasedValue, decreasedValue, liveRegion',
               child: Semantics(
                 label: 'Volume control',
                 value: '75 percent',
                 increasedValue: '80 percent',
                 decreasedValue: '70 percent',
+                liveRegion: true,
                 child: Row(
                   children: <Widget>[
                     const Icon(Icons.volume_up, size: 28),
@@ -94,6 +101,45 @@ class SemanticsPage extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 16),
+            _SemanticsExampleCard(
+              title: 'Toggleable Setting',
+              description:
+                  'A custom setting row can communicate a toggled state even when the visual layout is not a stock ListTile.',
+              api: 'Uses: container, toggled, enabled, label, hint',
+              child: Semantics(
+                container: true,
+                toggled: true,
+                enabled: true,
+                label: 'Airplane mode',
+                hint: 'Double tap to turn airplane mode off',
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 14,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.indigo.shade50,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: Colors.indigo.shade100),
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      const Icon(Icons.flight_takeoff, color: Colors.indigo),
+                      const SizedBox(width: 12),
+                      const Expanded(
+                        child: Text(
+                          'Airplane Mode',
+                          style: TextStyle(fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                      Switch.adaptive(value: true, onChanged: (_) {}),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -110,11 +156,13 @@ class _SemanticsExampleCard extends StatelessWidget {
   const _SemanticsExampleCard({
     required this.title,
     required this.description,
+    required this.api,
     required this.child,
   });
 
   final String title;
   final String description;
+  final String api;
   final Widget child;
 
   @override
@@ -136,6 +184,13 @@ class _SemanticsExampleCard extends StatelessWidget {
             Text(description),
             const SizedBox(height: 16),
             child,
+            const SizedBox(height: 12),
+            Text(
+              api,
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: Colors.blueGrey.shade700),
+            ),
           ],
         ),
       ),

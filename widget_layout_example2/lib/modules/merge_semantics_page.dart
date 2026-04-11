@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 
 @RoutePage(name: 'MergeSemanticsRoute')
 class MergeSemanticsPage extends StatelessWidget {
@@ -22,6 +22,7 @@ class MergeSemanticsPage extends StatelessWidget {
               title: 'Checkbox Row',
               description:
                   'A checkbox and its label can be merged so assistive technology reads them as one control instead of separate elements.',
+              api: 'Uses: MergeSemantics + Checkbox + Text',
               child: MergeSemantics(
                 child: Row(
                   children: <Widget>[
@@ -42,6 +43,7 @@ class MergeSemanticsPage extends StatelessWidget {
               title: 'Profile Summary',
               description:
                   'An avatar, title, and subtitle can be merged into one concise accessibility node for simpler navigation.',
+              api: 'Uses: MergeSemantics + CircleAvatar + Column',
               child: MergeSemantics(
                 child: Row(
                   children: <Widget>[
@@ -69,6 +71,7 @@ class MergeSemanticsPage extends StatelessWidget {
               title: 'Setting Tile',
               description:
                   'Leading icons, labels, and state text can be merged so the whole tile reads like one setting row.',
+              api: 'Uses: MergeSemantics + Row + state text',
               child: MergeSemantics(
                 child: Container(
                   padding: const EdgeInsets.all(16),
@@ -93,6 +96,42 @@ class MergeSemanticsPage extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 16),
+            _MergeSemanticsExampleCard(
+              title: 'Rating Summary',
+              description:
+                  'A star icon, score, and review count can be merged so the summary is announced as one compact item.',
+              api: 'Uses: MergeSemantics + Icon + Rich summary text',
+              child: MergeSemantics(
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 14,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.amber.shade50,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: Colors.amber.shade200),
+                  ),
+                  child: const Row(
+                    children: <Widget>[
+                      Icon(Icons.star_rounded, color: Colors.amber, size: 28),
+                      SizedBox(width: 10),
+                      Text(
+                        '4.8',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      Text('(248 reviews)'),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -109,11 +148,13 @@ class _MergeSemanticsExampleCard extends StatelessWidget {
   const _MergeSemanticsExampleCard({
     required this.title,
     required this.description,
+    required this.api,
     required this.child,
   });
 
   final String title;
   final String description;
+  final String api;
   final Widget child;
 
   @override
@@ -135,6 +176,13 @@ class _MergeSemanticsExampleCard extends StatelessWidget {
             Text(description),
             const SizedBox(height: 16),
             child,
+            const SizedBox(height: 12),
+            Text(
+              api,
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: Colors.blueGrey.shade700),
+            ),
           ],
         ),
       ),

@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 
 const List<_ModuleLink> _layoutModules = <_ModuleLink>[
   _ModuleLink(label: 'Align Module', path: '/align-page'),
+  _ModuleLink(label: 'AspectRatio Module', path: '/aspect-ratio-page'),
   _ModuleLink(label: 'Center Box Module', path: '/center-box'),
   _ModuleLink(label: 'Classic Buttons Module', path: '/classic-buttons-page'),
   _ModuleLink(label: 'ClipOval Module', path: '/clip-oval-page'),
@@ -17,14 +18,27 @@ const List<_ModuleLink> _layoutModules = <_ModuleLink>[
   ),
   _ModuleLink(label: 'Constrained Box Module', path: '/constrained-box'),
   _ModuleLink(label: 'CustomClipper Module', path: '/custom-clipper-page'),
+  _ModuleLink(
+    label: 'CustomMultiChildLayout Module',
+    path: '/custom-multi-child-layout-page',
+  ),
   _ModuleLink(label: 'DecoratedBox Module', path: '/decorated-box-page'),
   _ModuleLink(label: 'FilledButton Module', path: '/filled-button-page'),
+  _ModuleLink(label: 'FittedBox Module', path: '/fitted-box-page'),
   _ModuleLink(label: 'Flexible Module', path: '/flexible-page'),
   _ModuleLink(label: 'Flow Module', path: '/flow-page'),
+  _ModuleLink(
+    label: 'FractionallySizedBox Module',
+    path: '/fractionally-sized-box-page',
+  ),
   _ModuleLink(label: 'gesturedector Module', path: '/gesturedector-page'),
   _ModuleLink(label: 'IndexedStack Module', path: '/indexed-stack-page'),
   _ModuleLink(label: 'LayoutBuilder Module', path: '/layout-builder-page'),
   _ModuleLink(label: 'MediaQuery Module', path: '/media-query-page'),
+  _ModuleLink(
+    label: 'OrientationBuilder Module',
+    path: '/orientation-builder-page',
+  ),
   _ModuleLink(label: 'Padding Module', path: '/padding-page'),
   _ModuleLink(label: 'Positioned Module', path: '/positioned-page'),
   _ModuleLink(label: 'RotatedBox Module', path: '/rotated-box-page'),
@@ -61,6 +75,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(label: 'ActionChip Module', path: '/action-chip-page'),
   _ModuleLink(label: 'AlertDialog Module', path: '/alert-dialog-page'),
   _ModuleLink(label: 'auto_route Module', path: '/auto-route-page'),
+  _ModuleLink(label: 'BlockSemantics Module', path: '/block-semantics-page'),
   _ModuleLink(
     label: 'BottomNavigationBar Module',
     path: '/bottom-navigation-bar-page',
@@ -94,10 +109,19 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/exclude-semantics-page',
   ),
   _ModuleLink(label: 'FilterChip Module', path: '/filter-chip-page'),
+  _ModuleLink(label: 'flex_seed_scheme Module', path: '/flex-seed-scheme-page'),
   _ModuleLink(label: 'fl_chart Module', path: '/fl-chart-page'),
   _ModuleLink(
     label: 'FloatingActionButton Module',
     path: '/floating-action-button-page',
+  ),
+  _ModuleLink(
+    label: 'FocusableActionDetector Module',
+    path: '/focusable-action-detector-page',
+  ),
+  _ModuleLink(
+    label: 'FocusTraversalGroup Module',
+    path: '/focus-traversal-group-page',
   ),
   _ModuleLink(
     label: 'flutter_auto_size_text Module',
@@ -156,10 +180,19 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/linear-progress-indicator-page',
   ),
   _ModuleLink(
+    label: 'material_color_utilities Module',
+    path: '/material-color-utilities-page',
+  ),
+  _ModuleLink(
+    label: 'MaterialStateProperty Module',
+    path: '/material-state-property-page',
+  ),
+  _ModuleLink(
     label: 'material_symbols_icons Module',
     path: '/material-symbols-icons-page',
   ),
   _ModuleLink(label: 'MergeSemantics Module', path: '/merge-semantics-page'),
+  _ModuleLink(label: 'MouseRegion Module', path: '/mouse-region-page'),
   _ModuleLink(label: 'open_file Module', path: '/open-file-page'),
   _ModuleLink(
     label: 'permission_handler Module',
@@ -185,7 +218,12 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/text-field-controller-page',
   ),
   _ModuleLink(label: 'TextStyle Module', path: '/text-style-page'),
+  _ModuleLink(
+    label: 'ThemeData VisualDensity Module',
+    path: '/theme-data-visual-density-page',
+  ),
   _ModuleLink(label: 'TimePicker Module', path: '/time-picker-page'),
+  _ModuleLink(label: 'Tooltip Module', path: '/tooltip-page'),
   _ModuleLink(label: 'url_launcher Module', path: '/url-launcher-page'),
   _ModuleLink(label: 'webview_flutter Module', path: '/webview-flutter-page'),
 ];

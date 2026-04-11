@@ -139,6 +139,22 @@ class AnimationTabRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AspectRatioPage]
+class AspectRatioRoute extends PageRouteInfo<void> {
+  const AspectRatioRoute({List<PageRouteInfo>? children})
+    : super(AspectRatioRoute.name, initialChildren: children);
+
+  static const String name = 'AspectRatioRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AspectRatioPage();
+    },
+  );
+}
+
+/// generated route for
 /// [AutoRouteArticlePage]
 class AutoRouteArticleRoute extends PageRouteInfo<AutoRouteArticleRouteArgs> {
   AutoRouteArticleRoute({
@@ -663,6 +679,22 @@ class AutoRouteWrappedRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [BlockSemanticsPage]
+class BlockSemanticsRoute extends PageRouteInfo<void> {
+  const BlockSemanticsRoute({List<PageRouteInfo>? children})
+    : super(BlockSemanticsRoute.name, initialChildren: children);
+
+  static const String name = 'BlockSemanticsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const BlockSemanticsPage();
+    },
+  );
+}
+
+/// generated route for
 /// [BottomNavigationBarExamplePage]
 class BottomNavigationBarExampleRoute extends PageRouteInfo<void> {
   const BottomNavigationBarExampleRoute({List<PageRouteInfo>? children})
@@ -954,6 +986,22 @@ class CustomClipperExampleRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CustomMultiChildLayoutPage]
+class CustomMultiChildLayoutRoute extends PageRouteInfo<void> {
+  const CustomMultiChildLayoutRoute({List<PageRouteInfo>? children})
+    : super(CustomMultiChildLayoutRoute.name, initialChildren: children);
+
+  static const String name = 'CustomMultiChildLayoutRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CustomMultiChildLayoutPage();
+    },
+  );
+}
+
+/// generated route for
 /// [CustomPaintPage]
 class CustomPaintRoute extends PageRouteInfo<void> {
   const CustomPaintRoute({List<PageRouteInfo>? children})
@@ -1146,6 +1194,22 @@ class FilterChipRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FittedBoxPage]
+class FittedBoxRoute extends PageRouteInfo<void> {
+  const FittedBoxRoute({List<PageRouteInfo>? children})
+    : super(FittedBoxRoute.name, initialChildren: children);
+
+  static const String name = 'FittedBoxRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FittedBoxPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlChartPage]
 class FlChartRoute extends PageRouteInfo<void> {
   const FlChartRoute({List<PageRouteInfo>? children})
@@ -1157,6 +1221,22 @@ class FlChartRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const FlChartPage();
+    },
+  );
+}
+
+/// generated route for
+/// [FlexSeedSchemePage]
+class FlexSeedSchemeRoute extends PageRouteInfo<void> {
+  const FlexSeedSchemeRoute({List<PageRouteInfo>? children})
+    : super(FlexSeedSchemeRoute.name, initialChildren: children);
+
+  static const String name = 'FlexSeedSchemeRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlexSeedSchemePage();
     },
   );
 }
@@ -1386,6 +1466,38 @@ class FluttertoastRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FocusTraversalGroupPage]
+class FocusTraversalGroupRoute extends PageRouteInfo<void> {
+  const FocusTraversalGroupRoute({List<PageRouteInfo>? children})
+    : super(FocusTraversalGroupRoute.name, initialChildren: children);
+
+  static const String name = 'FocusTraversalGroupRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FocusTraversalGroupPage();
+    },
+  );
+}
+
+/// generated route for
+/// [FocusableActionDetectorPage]
+class FocusableActionDetectorRoute extends PageRouteInfo<void> {
+  const FocusableActionDetectorRoute({List<PageRouteInfo>? children})
+    : super(FocusableActionDetectorRoute.name, initialChildren: children);
+
+  static const String name = 'FocusableActionDetectorRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FocusableActionDetectorPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FontAwesomeFlutterPage]
 class FontAwesomeFlutterRoute extends PageRouteInfo<void> {
   const FontAwesomeFlutterRoute({List<PageRouteInfo>? children})
@@ -1429,6 +1541,22 @@ class FormRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const FormPage();
+    },
+  );
+}
+
+/// generated route for
+/// [FractionallySizedBoxPage]
+class FractionallySizedBoxRoute extends PageRouteInfo<void> {
+  const FractionallySizedBoxRoute({List<PageRouteInfo>? children})
+    : super(FractionallySizedBoxRoute.name, initialChildren: children);
+
+  static const String name = 'FractionallySizedBoxRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FractionallySizedBoxPage();
     },
   );
 }
@@ -1709,6 +1837,38 @@ class LinearProgressIndicatorExampleRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [MaterialColorUtilitiesPage]
+class MaterialColorUtilitiesRoute extends PageRouteInfo<void> {
+  const MaterialColorUtilitiesRoute({List<PageRouteInfo>? children})
+    : super(MaterialColorUtilitiesRoute.name, initialChildren: children);
+
+  static const String name = 'MaterialColorUtilitiesRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const MaterialColorUtilitiesPage();
+    },
+  );
+}
+
+/// generated route for
+/// [MaterialStatePropertyPage]
+class MaterialStatePropertyRoute extends PageRouteInfo<void> {
+  const MaterialStatePropertyRoute({List<PageRouteInfo>? children})
+    : super(MaterialStatePropertyRoute.name, initialChildren: children);
+
+  static const String name = 'MaterialStatePropertyRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const MaterialStatePropertyPage();
+    },
+  );
+}
+
+/// generated route for
 /// [MaterialSymbolsIconsPage]
 class MaterialSymbolsIconsRoute extends PageRouteInfo<void> {
   const MaterialSymbolsIconsRoute({List<PageRouteInfo>? children})
@@ -1757,6 +1917,22 @@ class MergeSemanticsRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [MouseRegionPage]
+class MouseRegionRoute extends PageRouteInfo<void> {
+  const MouseRegionRoute({List<PageRouteInfo>? children})
+    : super(MouseRegionRoute.name, initialChildren: children);
+
+  static const String name = 'MouseRegionRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const MouseRegionPage();
+    },
+  );
+}
+
+/// generated route for
 /// [OpenFilePage]
 class OpenFileRoute extends PageRouteInfo<void> {
   const OpenFileRoute({List<PageRouteInfo>? children})
@@ -1768,6 +1944,22 @@ class OpenFileRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const OpenFilePage();
+    },
+  );
+}
+
+/// generated route for
+/// [OrientationBuilderPage]
+class OrientationBuilderRoute extends PageRouteInfo<void> {
+  const OrientationBuilderRoute({List<PageRouteInfo>? children})
+    : super(OrientationBuilderRoute.name, initialChildren: children);
+
+  static const String name = 'OrientationBuilderRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const OrientationBuilderPage();
     },
   );
 }
@@ -2272,6 +2464,22 @@ class TextStyleRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ThemeDataVisualDensityPage]
+class ThemeDataVisualDensityRoute extends PageRouteInfo<void> {
+  const ThemeDataVisualDensityRoute({List<PageRouteInfo>? children})
+    : super(ThemeDataVisualDensityRoute.name, initialChildren: children);
+
+  static const String name = 'ThemeDataVisualDensityRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ThemeDataVisualDensityPage();
+    },
+  );
+}
+
+/// generated route for
 /// [TimePickerPage]
 class TimePickerRoute extends PageRouteInfo<void> {
   const TimePickerRoute({List<PageRouteInfo>? children})
@@ -2283,6 +2491,22 @@ class TimePickerRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const TimePickerPage();
+    },
+  );
+}
+
+/// generated route for
+/// [TooltipPage]
+class TooltipRoute extends PageRouteInfo<void> {
+  const TooltipRoute({List<PageRouteInfo>? children})
+    : super(TooltipRoute.name, initialChildren: children);
+
+  static const String name = 'TooltipRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TooltipPage();
     },
   );
 }

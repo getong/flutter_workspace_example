@@ -43,6 +43,7 @@ dependencies:
   drift_flutter: ^0.3.0
   encrypter_plus: ^5.1.0
   fl_chart: ^1.2.0
+  flex_seed_scheme: ^4.0.1
   flutter_auto_size_text: ^5.0.0
   flutter_bloc: ^9.1.1
   flutter_dotenv: ^6.0.0
@@ -64,6 +65,7 @@ dependencies:
   introduction_screen: ^4.0.0
   json_annotation: ^4.11.0
   json_schema_builder: ^0.1.3
+  material_color_utilities: ^0.13.0
   material_symbols_icons: ^4.2928.1
   open_file: ^3.5.11
   permission_handler: ^12.0.1

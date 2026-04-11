@@ -11,6 +11,8 @@ import 'package:widget_layout_example2/modules/animation_controller_page.dart';
 import 'package:widget_layout_example2/modules/alert_dialog_page.dart';
 import 'package:widget_layout_example2/modules/auto_route_usage_page.dart';
 import 'package:widget_layout_example2/modules/action_chip_page.dart';
+import 'package:widget_layout_example2/modules/aspect_ratio_page.dart';
+import 'package:widget_layout_example2/modules/block_semantics_page.dart';
 import 'package:widget_layout_example2/modules/center_box_page.dart';
 import 'package:widget_layout_example2/modules/cached_network_image_ce_page.dart';
 import 'package:widget_layout_example2/modules/checkbox_page.dart';
@@ -26,6 +28,7 @@ import 'package:widget_layout_example2/modules/column_saved_page.dart';
 import 'package:widget_layout_example2/modules/column_saved_stateless_page.dart';
 import 'package:widget_layout_example2/modules/constrained_box_page.dart';
 import 'package:widget_layout_example2/modules/custom_clipper_page.dart';
+import 'package:widget_layout_example2/modules/custom_multi_child_layout_page.dart';
 import 'package:widget_layout_example2/modules/custom_paint_page.dart';
 import 'package:widget_layout_example2/modules/crypto_page.dart';
 import 'package:widget_layout_example2/modules/data_table_page.dart';
@@ -40,9 +43,14 @@ import 'package:widget_layout_example2/modules/exclude_semantics_page.dart';
 import 'package:widget_layout_example2/modules/filled_button_page.dart';
 import 'package:widget_layout_example2/modules/filter_chip_page.dart';
 import 'package:widget_layout_example2/modules/fl_chart_page.dart';
+import 'package:widget_layout_example2/modules/flex_seed_scheme_page.dart';
 import 'package:widget_layout_example2/modules/flexible_page.dart';
+import 'package:widget_layout_example2/modules/fitted_box_page.dart';
 import 'package:widget_layout_example2/modules/floating_action_button_page.dart';
+import 'package:widget_layout_example2/modules/focus_traversal_group_page.dart';
+import 'package:widget_layout_example2/modules/focusable_action_detector_page.dart';
 import 'package:widget_layout_example2/modules/flow_page.dart';
+import 'package:widget_layout_example2/modules/fractionally_sized_box_page.dart';
 import 'package:widget_layout_example2/modules/flutter_svg_page.dart';
 import 'package:widget_layout_example2/modules/flutter_auto_size_text_page.dart';
 import 'package:widget_layout_example2/modules/flutter_bloc_page.dart';
@@ -72,10 +80,14 @@ import 'package:widget_layout_example2/modules/json_annotation_page.dart';
 import 'package:widget_layout_example2/modules/keyboard_listener_page.dart';
 import 'package:widget_layout_example2/modules/layout_builder_page.dart';
 import 'package:widget_layout_example2/modules/linear_progress_indicator_page.dart';
+import 'package:widget_layout_example2/modules/material_color_utilities_page.dart';
+import 'package:widget_layout_example2/modules/material_state_property_page.dart';
 import 'package:widget_layout_example2/modules/material_symbols_icons_page.dart';
 import 'package:widget_layout_example2/modules/media_query_page.dart';
 import 'package:widget_layout_example2/modules/merge_semantics_page.dart';
+import 'package:widget_layout_example2/modules/mouse_region_page.dart';
 import 'package:widget_layout_example2/modules/open_file_page.dart';
+import 'package:widget_layout_example2/modules/orientation_builder_page.dart';
 import 'package:widget_layout_example2/modules/padding_page.dart';
 import 'package:widget_layout_example2/modules/permission_handler_page.dart';
 import 'package:widget_layout_example2/modules/positioned_page.dart';
@@ -105,8 +117,10 @@ import 'package:widget_layout_example2/modules/table_page.dart';
 import 'package:widget_layout_example2/modules/text_field_controller_page.dart';
 import 'package:widget_layout_example2/modules/text_rich_page.dart';
 import 'package:widget_layout_example2/modules/text_style_page.dart';
+import 'package:widget_layout_example2/modules/theme_data_visual_density_page.dart';
 import 'package:widget_layout_example2/modules/time_picker_page.dart';
 import 'package:widget_layout_example2/modules/transform_page.dart';
+import 'package:widget_layout_example2/modules/tooltip_page.dart';
 import 'package:widget_layout_example2/modules/tween_animation_builder_page.dart';
 import 'package:widget_layout_example2/modules/tween_page.dart';
 import 'package:widget_layout_example2/modules/tween_sequence_interval_page.dart';
@@ -181,6 +195,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: AnimationTabRoute.page, path: 'animation'),
       ],
     ),
+    AutoRoute(page: AspectRatioRoute.page, path: '/aspect-ratio-page'),
     AutoRoute(page: CenterBoxRoute.page, path: '/center-box'),
     AutoRoute(page: ConstrainedBoxRoute.page, path: '/constrained-box'),
     AutoRoute(
@@ -198,8 +213,16 @@ class AppRouter extends RootStackRouter {
     ),
     AutoRoute(page: FlowExampleRoute.page, path: '/flow-page'),
     AutoRoute(
+      page: FractionallySizedBoxRoute.page,
+      path: '/fractionally-sized-box-page',
+    ),
+    AutoRoute(
       page: LayoutBuilderExampleRoute.page,
       path: '/layout-builder-page',
+    ),
+    AutoRoute(
+      page: OrientationBuilderRoute.page,
+      path: '/orientation-builder-page',
     ),
     AutoRoute(page: PaddingRoute.page, path: '/padding-page'),
     AutoRoute(page: WrapRoute.page, path: '/wrap-page'),
@@ -224,6 +247,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: CustomClipperExampleRoute.page,
       path: '/custom-clipper-page',
+    ),
+    AutoRoute(
+      page: CustomMultiChildLayoutRoute.page,
+      path: '/custom-multi-child-layout-page',
     ),
     AutoRoute(page: TableRoute.page, path: '/table-page'),
     AutoRoute(page: ButtonShowcaseRoute.page, path: '/classic-buttons-page'),
@@ -323,10 +350,19 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: InputChipRoute.page, path: '/input-chip-page'),
     AutoRoute(page: ChoiceChipRoute.page, path: '/choice-chip-page'),
     AutoRoute(page: FilterChipRoute.page, path: '/filter-chip-page'),
+    AutoRoute(page: FlexSeedSchemeRoute.page, path: '/flex-seed-scheme-page'),
     AutoRoute(page: ActionChipRoute.page, path: '/action-chip-page'),
     AutoRoute(
       page: LinearProgressIndicatorExampleRoute.page,
       path: '/linear-progress-indicator-page',
+    ),
+    AutoRoute(
+      page: MaterialColorUtilitiesRoute.page,
+      path: '/material-color-utilities-page',
+    ),
+    AutoRoute(
+      page: MaterialStatePropertyRoute.page,
+      path: '/material-state-property-page',
     ),
     AutoRoute(
       page: CircularProgressIndicatorExampleRoute.page,
@@ -345,12 +381,24 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: RichTextRoute.page, path: '/rich-text-page'),
     AutoRoute(page: TextStyleRoute.page, path: '/text-style-page'),
     AutoRoute(
+      page: ThemeDataVisualDensityRoute.page,
+      path: '/theme-data-visual-density-page',
+    ),
+    AutoRoute(
       page: BottomNavigationBarExampleRoute.page,
       path: '/bottom-navigation-bar-page',
     ),
     AutoRoute(
       page: FloatingActionButtonExampleRoute.page,
       path: '/floating-action-button-page',
+    ),
+    AutoRoute(
+      page: FocusableActionDetectorRoute.page,
+      path: '/focusable-action-detector-page',
+    ),
+    AutoRoute(
+      page: FocusTraversalGroupRoute.page,
+      path: '/focus-traversal-group-page',
     ),
     AutoRoute(page: SnackBarExampleRoute.page, path: '/snack-bar-page'),
     AutoRoute(page: ShowDialogExampleRoute.page, path: '/show-dialog-page'),
@@ -383,6 +431,7 @@ class AppRouter extends RootStackRouter {
     ),
     AutoRoute(page: InkWidgetsRoute.page, path: '/ink-widgets-page'),
     AutoRoute(page: MediaQueryRoute.page, path: '/media-query-page'),
+    AutoRoute(page: MouseRegionRoute.page, path: '/mouse-region-page'),
     AutoRoute(page: TextRichRoute.page, path: '/text-rich-page'),
     AutoRoute(
       page: SingleChildScrollViewRoute.page,
@@ -391,7 +440,9 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: SliverExamplesRoute.page, path: '/sliver-widgets-page'),
     AutoRoute(page: ScrollbarRoute.page, path: '/scrollbar-page'),
     AutoRoute(page: FilledButtonRoute.page, path: '/filled-button-page'),
+    AutoRoute(page: FittedBoxRoute.page, path: '/fitted-box-page'),
     AutoRoute(page: DecoratedBoxRoute.page, path: '/decorated-box-page'),
+    AutoRoute(page: BlockSemanticsRoute.page, path: '/block-semantics-page'),
     AutoRoute(page: SemanticsRoute.page, path: '/semantics-page'),
     AutoRoute(
       page: ExcludeSemanticsRoute.page,
@@ -424,6 +475,7 @@ class AppRouter extends RootStackRouter {
       page: FlutterSecureStorageRoute.page,
       path: '/flutter-secure-storage-page',
     ),
+    AutoRoute(page: TooltipRoute.page, path: '/tooltip-page'),
     AutoRoute(page: FlutterSlidableRoute.page, path: '/flutter-slidable-page'),
     AutoRoute(
       page: FlutterVideoCachingFvpRoute.page,
