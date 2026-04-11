@@ -41,34 +41,37 @@ dependencies:
   cupertino_icons: ^1.0.8
   drift: ^2.32.1
   drift_flutter: ^0.3.0
+  encrypter_plus: ^5.1.0
   fl_chart: ^1.2.0
   flutter_auto_size_text: ^5.0.0
   flutter_bloc: ^9.1.1
+  flutter_dotenv: ^6.0.0
+  flutter_hooks: ^0.21.3+1
   flutter_local_notifications: ^21.0.0
   flutter_secure_storage: ^10.0.0
   flutter_slidable: ^4.0.3
   flutter_svg: ^2.2.4
+  flutter_tts: ^4.2.5
   flutter_video_caching: ^1.1.2
   fluttertoast: ^9.0.0
   font_awesome_flutter: ^11.0.0
+  freezed: ^3.2.5
+  freezed_annotation: ^3.1.0
   fvp: ^0.35.2
   graphql_flutter: ^5.3.0
   intl: ^0.20.2
+  introduction_screen: ^4.0.0
+  json_annotation: ^4.11.0
   material_symbols_icons: ^4.2928.1
+  open_file: ^3.5.11
+  permission_handler: ^12.0.1
   shared_preferences: ^2.5.5
+  speech_to_text: ^7.4.0-beta.8
   sqlite3_flutter_libs: ^0.6.0+eol
   url_launcher: ^6.3.2
   video_player: ^2.10.0
   webview_flutter: ^4.13.1
   youtube_explode_dart: ^3.0.5
-  freezed_annotation: ^3.1.0
-  freezed: ^3.2.5
-  json_annotation: ^4.11.0
-  introduction_screen: ^4.0.0
-  flutter_hooks: ^0.21.3+1
-  encrypter_plus: ^5.1.0
-  permission_handler: ^12.0.1
-  open_file: ^3.5.11
 
 dev_dependencies:
   flutter_test:

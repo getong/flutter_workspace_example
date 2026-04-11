@@ -104,6 +104,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/flutter-auto-size-text-page',
   ),
   _ModuleLink(label: 'flutter_bloc Module', path: '/flutter-bloc-page'),
+  _ModuleLink(label: 'flutter_dotenv Module', path: '/flutter-dotenv-page'),
   _ModuleLink(label: 'flutter_hooks Module', path: '/flutter-hooks-page'),
   _ModuleLink(
     label: 'flutter_local_notifications Module',
@@ -115,6 +116,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   ),
   _ModuleLink(label: 'flutter_slidable Module', path: '/flutter-slidable-page'),
   _ModuleLink(label: 'flutter_svg Module', path: '/flutter-svg-page'),
+  _ModuleLink(label: 'flutter_tts Module', path: '/flutter-tts-page'),
   _ModuleLink(label: 'fluttertoast Module', path: '/fluttertoast-page'),
   _ModuleLink(
     label: 'flutter_video_caching + fvp Module',
@@ -173,6 +175,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(label: 'SimpleDialog Module', path: '/simple-dialog-page'),
   _ModuleLink(label: 'Slider Module', path: '/slider-page'),
   _ModuleLink(label: 'SnackBar Module', path: '/snack-bar-page'),
+  _ModuleLink(label: 'speech_to_text Module', path: '/speech-to-text-page'),
   _ModuleLink(label: 'StreamBuilder Module', path: '/stream-builder-page'),
   _ModuleLink(label: 'Switch Module', path: '/switch-page'),
   _ModuleLink(label: 'Text.rich Module', path: '/text-rich-page'),

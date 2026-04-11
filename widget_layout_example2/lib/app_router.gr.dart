@@ -1242,6 +1242,22 @@ class FlutterBlocRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterDotenvPage]
+class FlutterDotenvRoute extends PageRouteInfo<void> {
+  const FlutterDotenvRoute({List<PageRouteInfo>? children})
+    : super(FlutterDotenvRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterDotenvRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterDotenvPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterHooksPage]
 class FlutterHooksRoute extends PageRouteInfo<void> {
   const FlutterHooksRoute({List<PageRouteInfo>? children})
@@ -1317,6 +1333,22 @@ class FlutterSvgRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const FlutterSvgPage();
+    },
+  );
+}
+
+/// generated route for
+/// [FlutterTtsPage]
+class FlutterTtsRoute extends PageRouteInfo<void> {
+  const FlutterTtsRoute({List<PageRouteInfo>? children})
+    : super(FlutterTtsRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterTtsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterTtsPage();
     },
   );
 }
@@ -2107,6 +2139,22 @@ class SnackBarExampleRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const SnackBarExamplePage();
+    },
+  );
+}
+
+/// generated route for
+/// [SpeechToTextPage]
+class SpeechToTextRoute extends PageRouteInfo<void> {
+  const SpeechToTextRoute({List<PageRouteInfo>? children})
+    : super(SpeechToTextRoute.name, initialChildren: children);
+
+  static const String name = 'SpeechToTextRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SpeechToTextPage();
     },
   );
 }

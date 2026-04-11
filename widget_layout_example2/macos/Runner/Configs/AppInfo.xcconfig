@@ -12,3 +12,6 @@ PRODUCT_BUNDLE_IDENTIFIER = com.example.widgetLayoutExample2
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2026 com.example. All rights reserved.
+
+// Minimum macOS version required by speech_to_text and related plugins.
+MACOSX_DEPLOYMENT_TARGET = 11.0

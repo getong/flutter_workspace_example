@@ -46,10 +46,12 @@ import 'package:widget_layout_example2/modules/flow_page.dart';
 import 'package:widget_layout_example2/modules/flutter_svg_page.dart';
 import 'package:widget_layout_example2/modules/flutter_auto_size_text_page.dart';
 import 'package:widget_layout_example2/modules/flutter_bloc_page.dart';
+import 'package:widget_layout_example2/modules/flutter_dotenv_page.dart';
 import 'package:widget_layout_example2/modules/flutter_hooks_page.dart';
 import 'package:widget_layout_example2/modules/flutter_local_notifications_page.dart';
 import 'package:widget_layout_example2/modules/flutter_secure_storage_page.dart';
 import 'package:widget_layout_example2/modules/flutter_slidable_page.dart';
+import 'package:widget_layout_example2/modules/flutter_tts_page.dart';
 import 'package:widget_layout_example2/modules/flutter_video_caching_fvp_page.dart';
 import 'package:widget_layout_example2/modules/fluttertoast_page.dart';
 import 'package:widget_layout_example2/modules/freezed_annotation_page.dart';
@@ -95,6 +97,7 @@ import 'package:widget_layout_example2/modules/sliver_grid_page.dart';
 import 'package:widget_layout_example2/modules/sliver_list_page.dart';
 import 'package:widget_layout_example2/modules/sliver_padding_page.dart';
 import 'package:widget_layout_example2/modules/snack_bar_page.dart';
+import 'package:widget_layout_example2/modules/speech_to_text_page.dart';
 import 'package:widget_layout_example2/modules/stream_builder_page.dart';
 import 'package:widget_layout_example2/modules/switch_page.dart';
 import 'package:widget_layout_example2/modules/table_page.dart';
@@ -355,7 +358,9 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: DialogExampleRoute.page, path: '/dialog-page'),
     AutoRoute(page: FutureBuilderRoute.page, path: '/future-builder-page'),
     AutoRoute(page: FlutterBlocRoute.page, path: '/flutter-bloc-page'),
+    AutoRoute(page: FlutterDotenvRoute.page, path: '/flutter-dotenv-page'),
     AutoRoute(page: FlutterHooksRoute.page, path: '/flutter-hooks-page'),
+    AutoRoute(page: FlutterTtsRoute.page, path: '/flutter-tts-page'),
     AutoRoute(
       page: FreezedAnnotationRoute.page,
       path: '/freezed-annotation-page',
@@ -396,6 +401,7 @@ class AppRouter extends RootStackRouter {
       page: PermissionHandlerRoute.page,
       path: '/permission-handler-page',
     ),
+    AutoRoute(page: SpeechToTextRoute.page, path: '/speech-to-text-page'),
     AutoRoute(
       page: SharedPreferencesRoute.page,
       path: '/shared-preferences-page',

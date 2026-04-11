@@ -38,8 +38,12 @@ void main() {
     expect(find.text('encrypter_plus Module'), findsOneWidget);
     await dragUntilTextVisible('flutter_bloc Module');
     expect(find.text('flutter_bloc Module'), findsOneWidget);
+    await dragUntilTextVisible('flutter_dotenv Module');
+    expect(find.text('flutter_dotenv Module'), findsOneWidget);
     await dragUntilTextVisible('flutter_hooks Module');
     expect(find.text('flutter_hooks Module'), findsOneWidget);
+    await dragUntilTextVisible('flutter_tts Module');
+    expect(find.text('flutter_tts Module'), findsOneWidget);
     await dragUntilTextVisible('fluttertoast Module');
     expect(find.text('fluttertoast Module'), findsOneWidget);
     await dragUntilTextVisible('freezed_annotation Module');
@@ -58,6 +62,8 @@ void main() {
     expect(find.text('permission_handler Module'), findsOneWidget);
     await dragUntilTextVisible('Semantics Module');
     expect(find.text('Semantics Module'), findsOneWidget);
+    await dragUntilTextVisible('speech_to_text Module');
+    expect(find.text('speech_to_text Module'), findsOneWidget);
     await dragUntilTextVisible('StreamBuilder Module');
     expect(find.text('StreamBuilder Module'), findsOneWidget);
     await dragUntilTextVisible('Text.rich Module');
