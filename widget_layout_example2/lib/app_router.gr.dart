@@ -1210,6 +1210,22 @@ class FlutterAutoSizeTextRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterBlocPage]
+class FlutterBlocRoute extends PageRouteInfo<void> {
+  const FlutterBlocRoute({List<PageRouteInfo>? children})
+    : super(FlutterBlocRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterBlocRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterBlocPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterLocalNotificationsPage]
 class FlutterLocalNotificationsRoute extends PageRouteInfo<void> {
   const FlutterLocalNotificationsRoute({List<PageRouteInfo>? children})

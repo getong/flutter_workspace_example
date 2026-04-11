@@ -34,6 +34,8 @@ void main() {
 
     expect(find.text('Content Modules'), findsOneWidget);
     expect(find.text('auto_route Module'), findsOneWidget);
+    await dragUntilTextVisible('flutter_bloc Module');
+    expect(find.text('flutter_bloc Module'), findsOneWidget);
     await dragUntilTextVisible('fluttertoast Module');
     expect(find.text('fluttertoast Module'), findsOneWidget);
     await dragUntilTextVisible('FutureBuilder Module');

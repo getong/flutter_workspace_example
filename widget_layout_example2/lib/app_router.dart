@@ -44,6 +44,7 @@ import 'package:widget_layout_example2/modules/floating_action_button_page.dart'
 import 'package:widget_layout_example2/modules/flow_page.dart';
 import 'package:widget_layout_example2/modules/flutter_svg_page.dart';
 import 'package:widget_layout_example2/modules/flutter_auto_size_text_page.dart';
+import 'package:widget_layout_example2/modules/flutter_bloc_page.dart';
 import 'package:widget_layout_example2/modules/flutter_local_notifications_page.dart';
 import 'package:widget_layout_example2/modules/flutter_secure_storage_page.dart';
 import 'package:widget_layout_example2/modules/flutter_slidable_page.dart';
@@ -346,6 +347,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: SimpleDialogExampleRoute.page, path: '/simple-dialog-page'),
     AutoRoute(page: DialogExampleRoute.page, path: '/dialog-page'),
     AutoRoute(page: FutureBuilderRoute.page, path: '/future-builder-page'),
+    AutoRoute(page: FlutterBlocRoute.page, path: '/flutter-bloc-page'),
     AutoRoute(page: GraphqlFlutterRoute.page, path: '/graphql-flutter-page'),
     AutoRoute(page: StreamBuilderRoute.page, path: '/stream-builder-page'),
     AutoRoute(page: DriftFlutterRoute.page, path: '/drift-flutter-page'),
