@@ -62,6 +62,7 @@ dependencies:
   fvp: ^0.35.2
   genui: ^0.8.0
   graphql_flutter: ^5.3.0
+  injectable: ^2.7.1+4
   intl: ^0.20.2
   introduction_screen: ^4.0.0
   jnigen: ^0.16.0
