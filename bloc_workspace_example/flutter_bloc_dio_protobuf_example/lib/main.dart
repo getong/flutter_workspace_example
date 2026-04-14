@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
 import 'message.pb.dart'; // The generated file from your .proto
-import 'dart:async';
-import 'dart:io';
-import 'dart:typed_data';
 
 // Event
 abstract class MessageEvent {}
@@ -23,7 +20,10 @@ class MessageSendingState extends MessageState {}
 
 class MessageSentState extends MessageState {}
 
-class MessageErrorState extends MessageState {}
+class MessageErrorState extends MessageState {
+  final String? message;
+  MessageErrorState({this.message});
+}
 
 class MessageResponseState extends MessageState {
   final String responseContent;
@@ -32,9 +32,8 @@ class MessageResponseState extends MessageState {
 
 class MessageBloc extends Bloc<MessageEvent, MessageState> {
   final Dio dio;
-  Socket? socket; // Class-level variable for the socket
-  StreamSubscription<Uint8List>?
-      subscription; // Add this line for the subscription
+  static const String serverUrl = 'http://localhost:8080/message';
+  static const bool useMockMode = false; // Set to true to test without a server
 
   MessageBloc({required this.dio}) : super(MessageInitialState()) {
     on<SendMessageEvent>(_onSendMessageEvent);
@@ -45,38 +44,54 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
     emit(MessageSendingState());
 
     try {
-      if (socket == null) {
-        socket = await Socket.connect('localhost', 8080);
+      final messageBytes = event.message.writeToBuffer();
+      
+      if (useMockMode) {
+        // Mock mode for testing without a server
+        await Future.delayed(Duration(milliseconds: 500));
+        emit(MessageResponseState('Mock response: Message received (${messageBytes.length} bytes)'));
+        return;
       }
 
-      final messageBytes = event.message.writeToBuffer();
-      socket!.add(messageBytes); // Send message bytes
-
-      List<int> responseBytes = [];
-
-      // Cancel any existing subscription
-      await subscription?.cancel();
-      subscription = socket!.listen(
-        (data) {
-          responseBytes.addAll(data);
-        },
-        onDone: () {
-          final responseString = String.fromCharCodes(responseBytes);
-          emit(MessageResponseState(responseString));
-          // Consider closing the socket here if no more communication is expected
-        },
-        onError: (error) {
-          print("Socket error: $error");
-          emit(MessageErrorState());
-        },
+      // Send protobuf encoded message via HTTP POST
+      final response = await dio.post(
+        serverUrl,
+        data: messageBytes,
+        options: Options(
+          contentType: 'application/octet-stream',
+          responseType: ResponseType.bytes,
+          connectTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
       );
-      final responseString = String.fromCharCodes(responseBytes);
+
+      final responseString = String.fromCharCodes(response.data as List<int>);
       emit(MessageResponseState(responseString));
+    } on DioException catch (error) {
+      final errorMsg = _getErrorMessage(error);
+      print("DIO error: $errorMsg");
+      emit(MessageErrorState(message: errorMsg));
     } catch (error, stacktrace) {
-      print("error: ${error}, stack: ${stacktrace}");
-      emit(MessageErrorState());
+      print("error: $error, stack: $stacktrace");
+      emit(MessageErrorState(message: error.toString()));
     }
-    // Do not close the socket immediately here; it should be managed based on your app's logic
+  }
+
+  String _getErrorMessage(DioException error) {
+    switch (error.type) {
+      case DioExceptionType.connectionTimeout:
+        return 'Connection timeout. Is the server running on $serverUrl?';
+      case DioExceptionType.receiveTimeout:
+        return 'Receive timeout. Server responded too slowly.';
+      case DioExceptionType.connectionError:
+        return 'Connection error. Make sure the server is running on $serverUrl';
+      case DioExceptionType.badResponse:
+        return 'Bad response from server: ${error.response?.statusCode}';
+      case DioExceptionType.unknown:
+        return 'Unknown error: ${error.message}';
+      default:
+        return 'Error: ${error.message}';
+    }
   }
 }
 
@@ -111,8 +126,12 @@ class MessageWidget extends StatelessWidget {
         listener: (context, state) {
           print("state is ${state}");
           if (state is MessageErrorState) {
+            final errorMsg = state.message ?? 'Failed to send message';
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Failed to send message')),
+              SnackBar(
+                content: Text(errorMsg),
+                duration: Duration(seconds: 3),
+              ),
             );
           }
         },
