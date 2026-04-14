@@ -2784,6 +2784,22 @@ class UrlLauncherRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [WasmFfiPage]
+class WasmFfiRoute extends PageRouteInfo<void> {
+  const WasmFfiRoute({List<PageRouteInfo>? children})
+    : super(WasmFfiRoute.name, initialChildren: children);
+
+  static const String name = 'WasmFfiRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const WasmFfiPage();
+    },
+  );
+}
+
+/// generated route for
 /// [WebviewFlutterPage]
 class WebviewFlutterRoute extends PageRouteInfo<void> {
   const WebviewFlutterRoute({List<PageRouteInfo>? children})

@@ -48,6 +48,7 @@ dependencies:
   flex_seed_scheme: ^4.0.1
   flutter_auto_size_text: ^5.0.0
   flutter_bloc: ^9.1.1
+  flutter_custom_tabs: ^2.5.0
   flutter_dotenv: ^6.0.0
   flutter_hooks: ^0.21.3+1
   flutter_local_notifications: ^21.0.0
@@ -75,14 +76,14 @@ dependencies:
   permission_handler: ^12.0.1
   pigeon: ^26.3.4
   shared_preferences: ^2.5.5
+  sliver_snap: ^2.1.1
   speech_to_text: ^7.4.0-beta.8
   sqlite3_flutter_libs: ^0.6.0+eol
   url_launcher: ^6.3.2
   video_player: ^2.10.0
+  wasm_ffi: ^2.3.0
   webview_flutter: ^4.13.1
   youtube_explode_dart: ^3.0.5
-  sliver_snap: ^2.1.1
-  flutter_custom_tabs: ^2.5.0
 
 dev_dependencies:
   flutter_test:
@@ -113,6 +114,7 @@ flutter:
   assets:
     - assets/svg/
     - assets/images/
+    - assets/wasm/wasm_ffi/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -239,6 +239,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(label: 'TimePicker Module', path: '/time-picker-page'),
   _ModuleLink(label: 'Tooltip Module', path: '/tooltip-page'),
   _ModuleLink(label: 'url_launcher Module', path: '/url-launcher-page'),
+  _ModuleLink(label: 'wasm_ffi Module', path: '/wasm-ffi-page'),
   _ModuleLink(label: 'webview_flutter Module', path: '/webview-flutter-page'),
 ];
 
