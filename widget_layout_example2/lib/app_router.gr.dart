@@ -938,6 +938,22 @@ class ConstrainedBoxRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ContainerPage]
+class ContainerRoute extends PageRouteInfo<void> {
+  const ContainerRoute({List<PageRouteInfo>? children})
+    : super(ContainerRoute.name, initialChildren: children);
+
+  static const String name = 'ContainerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ContainerPage();
+    },
+  );
+}
+
+/// generated route for
 /// [ContentTabPage]
 class ContentTabRoute extends PageRouteInfo<void> {
   const ContentTabRoute({List<PageRouteInfo>? children})
@@ -965,6 +981,22 @@ class CryptoRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const CryptoPage();
+    },
+  );
+}
+
+/// generated route for
+/// [CuePage]
+class CueRoute extends PageRouteInfo<void> {
+  const CueRoute({List<PageRouteInfo>? children})
+    : super(CueRoute.name, initialChildren: children);
+
+  static const String name = 'CueRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CuePage();
     },
   );
 }
@@ -1157,6 +1189,22 @@ class ExcludeSemanticsRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const ExcludeSemanticsPage();
+    },
+  );
+}
+
+/// generated route for
+/// [ExpandedPage]
+class ExpandedRoute extends PageRouteInfo<void> {
+  const ExpandedRoute({List<PageRouteInfo>? children})
+    : super(ExpandedRoute.name, initialChildren: children);
+
+  static const String name = 'ExpandedRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ExpandedPage();
     },
   );
 }
@@ -2288,6 +2336,22 @@ class SingleTickerProviderStateMixinRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [SizedBoxPage]
+class SizedBoxRoute extends PageRouteInfo<void> {
+  const SizedBoxRoute({List<PageRouteInfo>? children})
+    : super(SizedBoxRoute.name, initialChildren: children);
+
+  static const String name = 'SizedBoxRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SizedBoxPage();
+    },
+  );
+}
+
+/// generated route for
 /// [SliderExamplePage]
 class SliderExampleRoute extends PageRouteInfo<void> {
   const SliderExampleRoute({List<PageRouteInfo>? children})
@@ -2427,6 +2491,22 @@ class SpeechToTextRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const SpeechToTextPage();
+    },
+  );
+}
+
+/// generated route for
+/// [StackPage]
+class StackRoute extends PageRouteInfo<void> {
+  const StackRoute({List<PageRouteInfo>? children})
+    : super(StackRoute.name, initialChildren: children);
+
+  static const String name = 'StackRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const StackPage();
     },
   );
 }

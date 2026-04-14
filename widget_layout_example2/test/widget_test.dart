@@ -34,6 +34,8 @@ void main() {
 
     expect(find.text('Content Modules'), findsOneWidget);
     expect(find.text('auto_route Module'), findsOneWidget);
+    await dragUntilTextVisible('cue Module');
+    expect(find.text('cue Module'), findsOneWidget);
     await dragUntilTextVisible('encrypter_plus Module');
     expect(find.text('encrypter_plus Module'), findsOneWidget);
     await dragUntilTextVisible('flutter_bloc Module');

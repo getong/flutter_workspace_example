@@ -17,12 +17,14 @@ const List<_ModuleLink> _layoutModules = <_ModuleLink>[
     path: '/column-saved-stateless-page',
   ),
   _ModuleLink(label: 'Constrained Box Module', path: '/constrained-box'),
+  _ModuleLink(label: 'Container Module', path: '/container-page'),
   _ModuleLink(label: 'CustomClipper Module', path: '/custom-clipper-page'),
   _ModuleLink(
     label: 'CustomMultiChildLayout Module',
     path: '/custom-multi-child-layout-page',
   ),
   _ModuleLink(label: 'DecoratedBox Module', path: '/decorated-box-page'),
+  _ModuleLink(label: 'Expanded Module', path: '/expanded-page'),
   _ModuleLink(label: 'FilledButton Module', path: '/filled-button-page'),
   _ModuleLink(label: 'FittedBox Module', path: '/fitted-box-page'),
   _ModuleLink(label: 'Flexible Module', path: '/flexible-page'),
@@ -45,6 +47,7 @@ const List<_ModuleLink> _layoutModules = <_ModuleLink>[
   _ModuleLink(label: 'Row Expanded Module', path: '/row-expand-page'),
   _ModuleLink(label: 'SafeArea Module', path: '/safe-area-page'),
   _ModuleLink(label: 'Scrollbar Module', path: '/scrollbar-page'),
+  _ModuleLink(label: 'SizedBox Module', path: '/sized-box-page'),
   _ModuleLink(
     label: 'SingleChildScrollView Module',
     path: '/single-child-scroll-view-page',
@@ -62,6 +65,7 @@ const List<_ModuleLink> _layoutModules = <_ModuleLink>[
         'SliverToBoxAdapter + SliverList + SliverPadding + SliverFillRemaining Module',
     path: '/sliver-widgets-page',
   ),
+  _ModuleLink(label: 'Stack Module', path: '/stack-page'),
   _ModuleLink(label: 'Table Module', path: '/table-page'),
   _ModuleLink(label: 'Transform Module', path: '/transform-page'),
   _ModuleLink(
@@ -91,6 +95,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/circular-progress-indicator-page',
   ),
   _ModuleLink(label: 'crypto Module', path: '/crypto-page'),
+  _ModuleLink(label: 'cue Module', path: '/cue-page'),
   _ModuleLink(
     label: 'DataTable + PaginatedDataTable Module',
     path: '/data-table-page',
@@ -354,15 +359,21 @@ class _ModuleTabView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<_ModuleLink> sortedModules = List<_ModuleLink>.of(modules)
+      ..sort(
+        (_ModuleLink a, _ModuleLink b) =>
+            a.label.toLowerCase().compareTo(b.label.toLowerCase()),
+      );
+
     return SelectionArea(
       child: ListView.separated(
         padding: const EdgeInsets.all(24),
-        itemCount: modules.length,
+        itemCount: sortedModules.length,
         separatorBuilder: (BuildContext context, int index) {
           return const SizedBox(height: 16);
         },
         itemBuilder: (BuildContext context, int index) {
-          final _ModuleLink module = modules[index];
+          final _ModuleLink module = sortedModules[index];
           return SizedBox(
             width: double.infinity,
             child: ElevatedButton(

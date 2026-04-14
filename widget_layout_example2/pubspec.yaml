@@ -38,6 +38,7 @@ dependencies:
   bloc: ^9.2.0
   cached_network_image_ce: ^4.6.4
   crypto: ^3.0.7
+  cue: ^0.1.2+1
   cupertino_icons: ^1.0.8
   drift: ^2.32.1
   drift_flutter: ^0.3.0

@@ -27,10 +27,12 @@ import 'package:widget_layout_example2/modules/column_page.dart';
 import 'package:widget_layout_example2/modules/column_saved_page.dart';
 import 'package:widget_layout_example2/modules/column_saved_stateless_page.dart';
 import 'package:widget_layout_example2/modules/constrained_box_page.dart';
+import 'package:widget_layout_example2/modules/container_page.dart';
 import 'package:widget_layout_example2/modules/custom_clipper_page.dart';
 import 'package:widget_layout_example2/modules/custom_multi_child_layout_page.dart';
 import 'package:widget_layout_example2/modules/custom_paint_page.dart';
 import 'package:widget_layout_example2/modules/crypto_page.dart';
+import 'package:widget_layout_example2/modules/cue_page.dart';
 import 'package:widget_layout_example2/modules/data_table_page.dart';
 import 'package:widget_layout_example2/modules/decorated_box_page.dart';
 import 'package:widget_layout_example2/modules/dialog_page.dart';
@@ -38,6 +40,7 @@ import 'package:widget_layout_example2/modules/draggable_page.dart';
 import 'package:widget_layout_example2/modules/drag_target_page.dart';
 import 'package:widget_layout_example2/modules/drift_flutter_page.dart';
 import 'package:widget_layout_example2/modules/encrypter_plus_page.dart';
+import 'package:widget_layout_example2/modules/expanded_page.dart';
 import 'package:widget_layout_example2/modules/date_picker_page.dart';
 import 'package:widget_layout_example2/modules/exclude_semantics_page.dart';
 import 'package:widget_layout_example2/modules/ffigen_page.dart';
@@ -104,6 +107,7 @@ import 'package:widget_layout_example2/modules/scrollbar_page.dart';
 import 'package:widget_layout_example2/modules/semantics_page.dart';
 import 'package:widget_layout_example2/modules/shared_preferences_page.dart';
 import 'package:widget_layout_example2/modules/show_dialog_page.dart';
+import 'package:widget_layout_example2/modules/sized_box_page.dart';
 import 'package:widget_layout_example2/modules/single_child_scroll_view_page.dart';
 import 'package:widget_layout_example2/modules/single_ticker_provider_state_mixin_page.dart';
 import 'package:widget_layout_example2/modules/simple_dialog_page.dart';
@@ -115,6 +119,7 @@ import 'package:widget_layout_example2/modules/sliver_list_page.dart';
 import 'package:widget_layout_example2/modules/sliver_padding_page.dart';
 import 'package:widget_layout_example2/modules/snack_bar_page.dart';
 import 'package:widget_layout_example2/modules/speech_to_text_page.dart';
+import 'package:widget_layout_example2/modules/stack_page.dart';
 import 'package:widget_layout_example2/modules/stream_builder_page.dart';
 import 'package:widget_layout_example2/modules/switch_page.dart';
 import 'package:widget_layout_example2/modules/table_page.dart';
@@ -202,11 +207,13 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: AspectRatioRoute.page, path: '/aspect-ratio-page'),
     AutoRoute(page: CenterBoxRoute.page, path: '/center-box'),
     AutoRoute(page: ConstrainedBoxRoute.page, path: '/constrained-box'),
+    AutoRoute(page: ContainerRoute.page, path: '/container-page'),
     AutoRoute(
       page: UnconstrainedBoxExampleRoute.page,
       path: '/unconstrained-box-page',
     ),
     AutoRoute(page: RowExpandedRoute.page, path: '/row-expand-page'),
+    AutoRoute(page: ExpandedRoute.page, path: '/expanded-page'),
     AutoRoute(page: FlexibleRoute.page, path: '/flexible-page'),
     AutoRoute(page: GesturedetectorRoute.page, path: '/gesturedector-page'),
     AutoRoute(page: ColumnRoute.page, path: '/column-page'),
@@ -231,6 +238,8 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: PaddingRoute.page, path: '/padding-page'),
     AutoRoute(page: WrapRoute.page, path: '/wrap-page'),
     AutoRoute(page: PositionedRoute.page, path: '/positioned-page'),
+    AutoRoute(page: SizedBoxRoute.page, path: '/sized-box-page'),
+    AutoRoute(page: StackRoute.page, path: '/stack-page'),
     AutoRoute(page: AlignRoute.page, path: '/align-page'),
     AutoRoute(page: TransformExampleRoute.page, path: '/transform-page'),
     AutoRoute(page: RotatedBoxExampleRoute.page, path: '/rotated-box-page'),
@@ -375,6 +384,7 @@ class AppRouter extends RootStackRouter {
       path: '/circular-progress-indicator-page',
     ),
     AutoRoute(page: CryptoRoute.page, path: '/crypto-page'),
+    AutoRoute(page: CueRoute.page, path: '/cue-page'),
     AutoRoute(page: SliderExampleRoute.page, path: '/slider-page'),
     AutoRoute(page: DatePickerRoute.page, path: '/date-picker-page'),
     AutoRoute(page: TimePickerRoute.page, path: '/time-picker-page'),
