@@ -4,6 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_windows
+  clipboard
   connectivity_plus
   flutter_secure_storage_windows
   flutter_tts

@@ -89,6 +89,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'cached_network_image_ce Module',
     path: '/cached-network-image-ce-page',
   ),
+  _ModuleLink(label: 'clipboard Module', path: '/clipboard-page'),
   _ModuleLink(label: 'Checkbox Module', path: '/checkbox-page'),
   _ModuleLink(label: 'ChoiceChip Module', path: '/choice-chip-page'),
   _ModuleLink(

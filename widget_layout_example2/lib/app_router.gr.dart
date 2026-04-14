@@ -874,6 +874,22 @@ class ClipRectExampleRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ClipboardPage]
+class ClipboardRoute extends PageRouteInfo<void> {
+  const ClipboardRoute({List<PageRouteInfo>? children})
+    : super(ClipboardRoute.name, initialChildren: children);
+
+  static const String name = 'ClipboardRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ClipboardPage();
+    },
+  );
+}
+
+/// generated route for
 /// [ColumnPage]
 class ColumnRoute extends PageRouteInfo<void> {
   const ColumnRoute({List<PageRouteInfo>? children})

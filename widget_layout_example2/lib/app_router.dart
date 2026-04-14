@@ -15,6 +15,7 @@ import 'package:widget_layout_example2/modules/aspect_ratio_page.dart';
 import 'package:widget_layout_example2/modules/block_semantics_page.dart';
 import 'package:widget_layout_example2/modules/center_box_page.dart';
 import 'package:widget_layout_example2/modules/cached_network_image_ce_page.dart';
+import 'package:widget_layout_example2/modules/clipboard_page.dart';
 import 'package:widget_layout_example2/modules/checkbox_page.dart';
 import 'package:widget_layout_example2/modules/button_showcase_page.dart';
 import 'package:widget_layout_example2/modules/bottom_navigation_bar_page.dart';
@@ -364,6 +365,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: JnigenRoute.page, path: '/jnigen-page'),
     AutoRoute(page: SwitchExampleRoute.page, path: '/switch-page'),
     AutoRoute(page: CheckboxExampleRoute.page, path: '/checkbox-page'),
+    AutoRoute(page: ClipboardRoute.page, path: '/clipboard-page'),
     AutoRoute(page: RadioExampleRoute.page, path: '/radio-page'),
     AutoRoute(page: InputChipRoute.page, path: '/input-chip-page'),
     AutoRoute(page: ChoiceChipRoute.page, path: '/choice-chip-page'),
