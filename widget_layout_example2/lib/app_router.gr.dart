@@ -1386,6 +1386,22 @@ class FlutterBlocRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterCustomTabsPage]
+class FlutterCustomTabsRoute extends PageRouteInfo<void> {
+  const FlutterCustomTabsRoute({List<PageRouteInfo>? children})
+    : super(FlutterCustomTabsRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterCustomTabsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterCustomTabsPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterDotenvPage]
 class FlutterDotenvRoute extends PageRouteInfo<void> {
   const FlutterDotenvRoute({List<PageRouteInfo>? children})
@@ -2443,6 +2459,22 @@ class SliverPaddingRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const SliverPaddingPage();
+    },
+  );
+}
+
+/// generated route for
+/// [SliverSnapPage]
+class SliverSnapRoute extends PageRouteInfo<void> {
+  const SliverSnapRoute({List<PageRouteInfo>? children})
+    : super(SliverSnapRoute.name, initialChildren: children);
+
+  static const String name = 'SliverSnapRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SliverSnapPage();
     },
   );
 }

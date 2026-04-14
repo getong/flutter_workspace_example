@@ -81,6 +81,8 @@ dependencies:
   video_player: ^2.10.0
   webview_flutter: ^4.13.1
   youtube_explode_dart: ^3.0.5
+  sliver_snap: ^2.1.1
+  flutter_custom_tabs: ^2.5.0
 
 dev_dependencies:
   flutter_test:

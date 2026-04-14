@@ -58,6 +58,7 @@ import 'package:widget_layout_example2/modules/fractionally_sized_box_page.dart'
 import 'package:widget_layout_example2/modules/flutter_svg_page.dart';
 import 'package:widget_layout_example2/modules/flutter_auto_size_text_page.dart';
 import 'package:widget_layout_example2/modules/flutter_bloc_page.dart';
+import 'package:widget_layout_example2/modules/flutter_custom_tabs_page.dart';
 import 'package:widget_layout_example2/modules/flutter_dotenv_page.dart';
 import 'package:widget_layout_example2/modules/flutter_hooks_page.dart';
 import 'package:widget_layout_example2/modules/flutter_local_notifications_page.dart';
@@ -117,6 +118,7 @@ import 'package:widget_layout_example2/modules/sliver_examples_page.dart';
 import 'package:widget_layout_example2/modules/sliver_grid_page.dart';
 import 'package:widget_layout_example2/modules/sliver_list_page.dart';
 import 'package:widget_layout_example2/modules/sliver_padding_page.dart';
+import 'package:widget_layout_example2/modules/sliver_snap_page.dart';
 import 'package:widget_layout_example2/modules/snack_bar_page.dart';
 import 'package:widget_layout_example2/modules/speech_to_text_page.dart';
 import 'package:widget_layout_example2/modules/stack_page.dart';
@@ -248,6 +250,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: SliverListRoute.page, path: '/sliver-list-page'),
     AutoRoute(page: SliverGridRoute.page, path: '/sliver-grid-page'),
     AutoRoute(page: SliverAppBarRoute.page, path: '/sliver-app-bar-page'),
+    AutoRoute(page: SliverSnapRoute.page, path: '/sliver-snap-page'),
     AutoRoute(
       page: SliverToBoxAdapterRoute.page,
       path: '/sliver-to-box-adapter-page',
@@ -424,6 +427,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: FutureBuilderRoute.page, path: '/future-builder-page'),
     AutoRoute(page: GenuiRoute.page, path: '/genui-page'),
     AutoRoute(page: FlutterBlocRoute.page, path: '/flutter-bloc-page'),
+    AutoRoute(
+      page: FlutterCustomTabsRoute.page,
+      path: '/flutter-custom-tabs-page',
+    ),
     AutoRoute(page: FlutterDotenvRoute.page, path: '/flutter-dotenv-page'),
     AutoRoute(page: FlutterHooksRoute.page, path: '/flutter-hooks-page'),
     AutoRoute(page: FlutterTtsRoute.page, path: '/flutter-tts-page'),

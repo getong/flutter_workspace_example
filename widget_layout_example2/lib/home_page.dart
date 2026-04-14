@@ -56,6 +56,7 @@ const List<_ModuleLink> _layoutModules = <_ModuleLink>[
   _ModuleLink(label: 'SliverGrid Module', path: '/sliver-grid-page'),
   _ModuleLink(label: 'SliverList Module', path: '/sliver-list-page'),
   _ModuleLink(label: 'SliverPadding Module', path: '/sliver-padding-page'),
+  _ModuleLink(label: 'SliverSnap Module', path: '/sliver-snap-page'),
   _ModuleLink(
     label: 'SliverToBoxAdapter Module',
     path: '/sliver-to-box-adapter-page',
@@ -145,6 +146,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/flutter-secure-storage-page',
   ),
   _ModuleLink(label: 'flutter_slidable Module', path: '/flutter-slidable-page'),
+  _ModuleLink(
+    label: 'flutter_custom_tabs Module',
+    path: '/flutter-custom-tabs-page',
+  ),
   _ModuleLink(label: 'flutter_svg Module', path: '/flutter-svg-page'),
   _ModuleLink(label: 'flutter_tts Module', path: '/flutter-tts-page'),
   _ModuleLink(label: 'fluttertoast Module', path: '/fluttertoast-page'),
