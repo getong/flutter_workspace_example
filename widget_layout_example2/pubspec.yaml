@@ -37,6 +37,7 @@ dependencies:
   auto_route: ^11.1.0
   bloc: ^9.2.0
   cached_network_image_ce: ^4.6.4
+  clipboard: ^3.0.14
   crypto: ^3.0.7
   cue: ^0.1.2+1
   cupertino_icons: ^1.0.8
@@ -79,12 +80,12 @@ dependencies:
   sliver_snap: ^2.1.1
   speech_to_text: ^7.4.0-beta.8
   sqlite3_flutter_libs: ^0.6.0+eol
+  super_clipboard: ^0.9.1
   url_launcher: ^6.3.2
   video_player: ^2.10.0
   wasm_ffi: ^2.3.0
   webview_flutter: ^4.13.1
   youtube_explode_dart: ^3.0.5
-  clipboard: ^3.0.14
 
 dev_dependencies:
   flutter_test:

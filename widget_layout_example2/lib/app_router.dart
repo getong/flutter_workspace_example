@@ -124,6 +124,7 @@ import 'package:widget_layout_example2/modules/snack_bar_page.dart';
 import 'package:widget_layout_example2/modules/speech_to_text_page.dart';
 import 'package:widget_layout_example2/modules/stack_page.dart';
 import 'package:widget_layout_example2/modules/stream_builder_page.dart';
+import 'package:widget_layout_example2/modules/super_clipboard_page.dart';
 import 'package:widget_layout_example2/modules/switch_page.dart';
 import 'package:widget_layout_example2/modules/table_page.dart';
 import 'package:widget_layout_example2/modules/text_field_controller_page.dart';
@@ -484,6 +485,7 @@ class AppRouter extends RootStackRouter {
     ),
     AutoRoute(page: PigeonRoute.page, path: '/pigeon-page'),
     AutoRoute(page: SpeechToTextRoute.page, path: '/speech-to-text-page'),
+    AutoRoute(page: SuperClipboardRoute.page, path: '/super-clipboard-page'),
     AutoRoute(
       page: SharedPreferencesRoute.page,
       path: '/shared-preferences-page',

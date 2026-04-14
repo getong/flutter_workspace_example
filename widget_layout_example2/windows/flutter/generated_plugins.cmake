@@ -9,8 +9,10 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_secure_storage_windows
   flutter_tts
   fvp
+  irondash_engine_context
   permission_handler_windows
   speech_to_text_windows
+  super_native_extensions
   url_launcher_windows
   video_player_win
 )

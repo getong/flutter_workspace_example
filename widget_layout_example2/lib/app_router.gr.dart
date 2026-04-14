@@ -2576,6 +2576,22 @@ class StreamBuilderRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [SuperClipboardPage]
+class SuperClipboardRoute extends PageRouteInfo<void> {
+  const SuperClipboardRoute({List<PageRouteInfo>? children})
+    : super(SuperClipboardRoute.name, initialChildren: children);
+
+  static const String name = 'SuperClipboardRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SuperClipboardPage();
+    },
+  );
+}
+
+/// generated route for
 /// [SwitchExamplePage]
 class SwitchExampleRoute extends PageRouteInfo<void> {
   const SwitchExampleRoute({List<PageRouteInfo>? children})

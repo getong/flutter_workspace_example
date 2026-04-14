@@ -226,6 +226,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(label: 'SnackBar Module', path: '/snack-bar-page'),
   _ModuleLink(label: 'speech_to_text Module', path: '/speech-to-text-page'),
   _ModuleLink(label: 'StreamBuilder Module', path: '/stream-builder-page'),
+  _ModuleLink(label: 'super_clipboard Module', path: '/super-clipboard-page'),
   _ModuleLink(label: 'Switch Module', path: '/switch-page'),
   _ModuleLink(label: 'Text.rich Module', path: '/text-rich-page'),
   _ModuleLink(
