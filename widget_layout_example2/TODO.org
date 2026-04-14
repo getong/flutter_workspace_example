@@ -1,0 +1,4 @@
+* todo
+
+** add wasm_run
+currently, wasm_run use freezed 2, but new version of freezed is 3.
