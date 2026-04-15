@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import 'package:widget_layout_example2/auto_route_demo_support.dart';
+import 'package:widget_layout_example2/auth/auth.dart';
 import 'package:widget_layout_example2/home_page.dart';
 import 'package:widget_layout_example2/modules/align_page.dart';
 import 'package:widget_layout_example2/modules/animated_default_text_style_page.dart';
@@ -177,8 +178,8 @@ class AppRouter extends RootStackRouter {
   @override
   late final List<AutoRouteGuard> guards = <AutoRouteGuard>[
     AutoRouteGuard.simple((NavigationResolver resolver, StackRouter router) {
-      if (resolver.routeName != AutoRouteGlobalProtectedRoute.name ||
-          demoAuthController.isLoggedIn ||
+      if (demoAuthController.isLoggedIn ||
+          resolver.routeName == LoginRoute.name ||
           resolver.routeName == AutoRouteLoginRoute.name) {
         resolver.next();
         return;
@@ -186,7 +187,7 @@ class AppRouter extends RootStackRouter {
 
       demoNavigationLog.add('global guard blocked ${resolver.routeName}');
       resolver.redirectUntil(
-        AutoRouteLoginRoute(
+        LoginRoute(
           onResult: (bool didLogin) {
             demoNavigationLog.add(
               'global guard resume ${resolver.routeName}: $didLogin',
@@ -200,6 +201,7 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => <AutoRoute>[
+    AutoRoute(page: LoginRoute.page, path: '/login'),
     AutoRoute(
       page: HomeRoute.page,
       path: '/',

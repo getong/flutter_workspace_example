@@ -1,11 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widget_layout_example2/auto_route_demo_support.dart';
 import 'package:widget_layout_example2/app_router.dart';
+import 'package:widget_layout_example2/auth/auth.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+  runApp(BlocProvider<AppAuthBloc>.value(value: appAuthBloc, child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

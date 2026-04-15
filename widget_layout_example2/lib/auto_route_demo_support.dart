@@ -1,31 +1,46 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:widget_layout_example2/auth/auth.dart';
 
-final DemoAuthController demoAuthController = DemoAuthController();
+final AppAuthBloc appAuthBloc = AppAuthBloc();
+final DemoAuthController demoAuthController = DemoAuthController(appAuthBloc);
 final DemoNavigationLog demoNavigationLog = DemoNavigationLog();
 
 class DemoAuthController extends ChangeNotifier {
-  bool _isLoggedIn = false;
+  DemoAuthController(this._bloc) {
+    _subscription = _bloc.stream.listen((AppAuthState _) {
+      notifyListeners();
+    });
+  }
 
-  bool get isLoggedIn => _isLoggedIn;
+  final AppAuthBloc _bloc;
+  late final StreamSubscription<AppAuthState> _subscription;
 
-  void login() {
-    if (_isLoggedIn) {
+  bool get isLoggedIn => _bloc.state.isAuthenticated;
+
+  void login({String username = 'Guest', String password = 'password'}) {
+    if (isLoggedIn) {
       return;
     }
 
-    _isLoggedIn = true;
-    notifyListeners();
+    _bloc.add(AppAuthLoginRequested(username: username, password: password));
   }
 
   void logout() {
-    if (!_isLoggedIn) {
+    if (!isLoggedIn) {
       return;
     }
 
-    _isLoggedIn = false;
-    notifyListeners();
+    _bloc.add(const AppAuthLogoutRequested());
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
   }
 }
 

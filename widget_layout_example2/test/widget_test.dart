@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:widget_layout_example2/auto_route_demo_support.dart';
+import 'package:widget_layout_example2/auth/auth.dart';
 import 'package:widget_layout_example2/main.dart';
 
 void main() {
-  testWidgets('Home page shows tabbed module lists', (
+  testWidgets('Login gates the app before showing the home tabs', (
     WidgetTester tester,
   ) async {
     Future<void> dragUntilTextVisible(String text) async {
@@ -18,10 +21,24 @@ void main() {
       }
     }
 
-    await tester.pumpWidget(MyApp());
+    demoAuthController.logout();
+
+    await tester.pumpWidget(
+      BlocProvider<AppAuthBloc>.value(value: appAuthBloc, child: MyApp()),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Login'), findsOneWidget);
+    expect(find.text('Username'), findsOneWidget);
+    expect(find.text('Password'), findsOneWidget);
+
+    await tester.enterText(find.byType(TextField).at(0), 'gerald');
+    await tester.enterText(find.byType(TextField).at(1), 'secret');
+    await tester.tap(find.text('Log In'));
     await tester.pumpAndSettle();
 
     expect(find.text('Layout Modules'), findsOneWidget);
+    expect(find.byTooltip('Logout'), findsOneWidget);
     expect(find.text('Center Box Module'), findsOneWidget);
     await dragUntilTextVisible('Constrained Box Module');
     expect(find.text('Constrained Box Module'), findsOneWidget);
@@ -82,5 +99,12 @@ void main() {
     expect(find.text('AnimatedSwitcher Module'), findsOneWidget);
     expect(find.text('AnimatedDefaultTextStyle Module'), findsOneWidget);
     expect(find.text('CustomPaint Module'), findsOneWidget);
+
+    await tester.tap(find.byTooltip('Logout'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Login'), findsOneWidget);
+    expect(find.text('Username'), findsOneWidget);
+    expect(find.text('Password'), findsOneWidget);
   });
 }

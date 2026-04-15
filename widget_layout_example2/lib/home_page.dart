@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:widget_layout_example2/auto_route_demo_support.dart';
 
 const List<_ModuleLink> _layoutModules = <_ModuleLink>[
   _ModuleLink(label: 'Align Module', path: '/align-page'),
@@ -301,7 +302,17 @@ class HomePage extends StatelessWidget {
     return AutoTabsScaffold(
       routes: _routes(),
       appBarBuilder: (BuildContext context, TabsRouter tabsRouter) {
-        return AppBar(title: Text(_titles[tabsRouter.activeIndex]));
+        return AppBar(
+          automaticallyImplyLeading: false,
+          title: Text(_titles[tabsRouter.activeIndex]),
+          actions: <Widget>[
+            IconButton(
+              tooltip: 'Logout',
+              onPressed: demoAuthController.logout,
+              icon: const Icon(Icons.logout),
+            ),
+          ],
+        );
       },
       bottomNavigationBuilder: (BuildContext context, TabsRouter tabsRouter) {
         return NavigationBar(
