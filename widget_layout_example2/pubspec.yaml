@@ -65,6 +65,7 @@ dependencies:
   fvp: ^0.35.2
   genui: ^0.8.0
   graphql_flutter: ^5.3.0
+  get_it: ^9.2.1
   injectable: ^2.7.1+4
   intl: ^0.20.2
   introduction_screen: ^4.0.0
@@ -100,6 +101,7 @@ dev_dependencies:
   build_runner: ^2.13.1
   drift_dev: ^2.32.1
   flutter_lints: ^6.0.0
+  injectable_generator: ^2.12.1
   json_serializable: ^6.13.1
 
 # For information on the generic Dart part of this file, see the

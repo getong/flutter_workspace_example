@@ -79,6 +79,7 @@ import 'package:widget_layout_example2/modules/genui_page.dart';
 import 'package:widget_layout_example2/modules/graphql_flutter_page.dart';
 import 'package:widget_layout_example2/modules/image_widget_page.dart';
 import 'package:widget_layout_example2/modules/ink_widgets_page.dart';
+import 'package:widget_layout_example2/modules/injectable_get_it_page.dart';
 import 'package:widget_layout_example2/modules/injectable_page.dart';
 import 'package:widget_layout_example2/modules/introduction_screen_page.dart';
 import 'package:widget_layout_example2/modules/indexed_stack_page.dart';
@@ -446,6 +447,7 @@ class AppRouter extends RootStackRouter {
       path: '/freezed-annotation-page',
     ),
     AutoRoute(page: GraphqlFlutterRoute.page, path: '/graphql-flutter-page'),
+    AutoRoute(page: InjectableGetItRoute.page, path: '/injectable-get-it-page'),
     AutoRoute(page: InjectableRoute.page, path: '/injectable-page'),
     AutoRoute(
       page: IntroductionScreenRoute.page,

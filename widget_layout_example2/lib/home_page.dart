@@ -178,6 +178,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/ink-widgets-page',
   ),
   _ModuleLink(label: 'injectable Module', path: '/injectable-page'),
+  _ModuleLink(
+    label: 'injectable + get_it Module',
+    path: '/injectable-get-it-page',
+  ),
   _ModuleLink(label: 'InputChip Module', path: '/input-chip-page'),
   _ModuleLink(
     label: 'introduction_screen Module',

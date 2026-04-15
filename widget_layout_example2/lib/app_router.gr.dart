@@ -1786,6 +1786,22 @@ class IndexedStackRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [InjectableGetItPage]
+class InjectableGetItRoute extends PageRouteInfo<void> {
+  const InjectableGetItRoute({List<PageRouteInfo>? children})
+    : super(InjectableGetItRoute.name, initialChildren: children);
+
+  static const String name = 'InjectableGetItRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const InjectableGetItPage();
+    },
+  );
+}
+
+/// generated route for
 /// [InjectablePage]
 class InjectableRoute extends PageRouteInfo<void> {
   const InjectableRoute({List<PageRouteInfo>? children})
