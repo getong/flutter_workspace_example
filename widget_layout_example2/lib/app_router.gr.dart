@@ -1402,6 +1402,22 @@ class FlutterBlocRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterCardSwiperPage]
+class FlutterCardSwiperRoute extends PageRouteInfo<void> {
+  const FlutterCardSwiperRoute({List<PageRouteInfo>? children})
+    : super(FlutterCardSwiperRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterCardSwiperRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterCardSwiperPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterCustomTabsPage]
 class FlutterCustomTabsRoute extends PageRouteInfo<void> {
   const FlutterCustomTabsRoute({List<PageRouteInfo>? children})
@@ -2030,6 +2046,22 @@ class LoginRouteArgs {
 }
 
 /// generated route for
+/// [LottiePage]
+class LottieRoute extends PageRouteInfo<void> {
+  const LottieRoute({List<PageRouteInfo>? children})
+    : super(LottieRoute.name, initialChildren: children);
+
+  static const String name = 'LottieRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const LottiePage();
+    },
+  );
+}
+
+/// generated route for
 /// [MaterialColorUtilitiesPage]
 class MaterialColorUtilitiesRoute extends PageRouteInfo<void> {
   const MaterialColorUtilitiesRoute({List<PageRouteInfo>? children})
@@ -2577,6 +2609,22 @@ class SliverToBoxAdapterRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [SmoothPageIndicatorPage]
+class SmoothPageIndicatorRoute extends PageRouteInfo<void> {
+  const SmoothPageIndicatorRoute({List<PageRouteInfo>? children})
+    : super(SmoothPageIndicatorRoute.name, initialChildren: children);
+
+  static const String name = 'SmoothPageIndicatorRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SmoothPageIndicatorPage();
+    },
+  );
+}
+
+/// generated route for
 /// [SnackBarExamplePage]
 class SnackBarExampleRoute extends PageRouteInfo<void> {
   const SnackBarExampleRoute({List<PageRouteInfo>? children})
@@ -2876,6 +2924,22 @@ class UrlLauncherRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const UrlLauncherPage();
+    },
+  );
+}
+
+/// generated route for
+/// [VideoThumbnailPage]
+class VideoThumbnailRoute extends PageRouteInfo<void> {
+  const VideoThumbnailRoute({List<PageRouteInfo>? children})
+    : super(VideoThumbnailRoute.name, initialChildren: children);
+
+  static const String name = 'VideoThumbnailRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const VideoThumbnailPage();
     },
   );
 }

@@ -60,6 +60,7 @@ import 'package:widget_layout_example2/modules/fractionally_sized_box_page.dart'
 import 'package:widget_layout_example2/modules/flutter_svg_page.dart';
 import 'package:widget_layout_example2/modules/flutter_auto_size_text_page.dart';
 import 'package:widget_layout_example2/modules/flutter_bloc_page.dart';
+import 'package:widget_layout_example2/modules/flutter_card_swiper_page.dart';
 import 'package:widget_layout_example2/modules/flutter_custom_tabs_page.dart';
 import 'package:widget_layout_example2/modules/flutter_dotenv_page.dart';
 import 'package:widget_layout_example2/modules/flutter_hooks_page.dart';
@@ -90,6 +91,7 @@ import 'package:widget_layout_example2/modules/json_annotation_page.dart';
 import 'package:widget_layout_example2/modules/keyboard_listener_page.dart';
 import 'package:widget_layout_example2/modules/layout_builder_page.dart';
 import 'package:widget_layout_example2/modules/linear_progress_indicator_page.dart';
+import 'package:widget_layout_example2/modules/lottie_page.dart';
 import 'package:widget_layout_example2/modules/material_color_utilities_page.dart';
 import 'package:widget_layout_example2/modules/material_state_property_page.dart';
 import 'package:widget_layout_example2/modules/material_symbols_icons_page.dart';
@@ -123,6 +125,7 @@ import 'package:widget_layout_example2/modules/sliver_list_page.dart';
 import 'package:widget_layout_example2/modules/sliver_padding_page.dart';
 import 'package:widget_layout_example2/modules/sliver_snap_page.dart';
 import 'package:widget_layout_example2/modules/snack_bar_page.dart';
+import 'package:widget_layout_example2/modules/smooth_page_indicator_page.dart';
 import 'package:widget_layout_example2/modules/speech_to_text_page.dart';
 import 'package:widget_layout_example2/modules/stack_page.dart';
 import 'package:widget_layout_example2/modules/stream_builder_page.dart';
@@ -141,6 +144,7 @@ import 'package:widget_layout_example2/modules/tween_page.dart';
 import 'package:widget_layout_example2/modules/tween_sequence_interval_page.dart';
 import 'package:widget_layout_example2/modules/unconstrained_box_page.dart';
 import 'package:widget_layout_example2/modules/url_launcher_page.dart';
+import 'package:widget_layout_example2/modules/video_thumbnail_page.dart';
 import 'package:widget_layout_example2/modules/wasm_ffi_page.dart';
 import 'package:widget_layout_example2/modules/webview_flutter_page.dart';
 import 'package:widget_layout_example2/modules/wrap_page.dart';
@@ -381,6 +385,7 @@ class AppRouter extends RootStackRouter {
       page: LinearProgressIndicatorExampleRoute.page,
       path: '/linear-progress-indicator-page',
     ),
+    AutoRoute(page: LottieRoute.page, path: '/lottie-page'),
     AutoRoute(
       page: MaterialColorUtilitiesRoute.page,
       path: '/material-color-utilities-page',
@@ -436,6 +441,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: GenuiRoute.page, path: '/genui-page'),
     AutoRoute(page: FlutterBlocRoute.page, path: '/flutter-bloc-page'),
     AutoRoute(
+      page: FlutterCardSwiperRoute.page,
+      path: '/flutter-card-swiper-page',
+    ),
+    AutoRoute(
       page: FlutterCustomTabsRoute.page,
       path: '/flutter-custom-tabs-page',
     ),
@@ -489,6 +498,10 @@ class AppRouter extends RootStackRouter {
     ),
     AutoRoute(page: PigeonRoute.page, path: '/pigeon-page'),
     AutoRoute(page: SpeechToTextRoute.page, path: '/speech-to-text-page'),
+    AutoRoute(
+      page: SmoothPageIndicatorRoute.page,
+      path: '/smooth-page-indicator-page',
+    ),
     AutoRoute(page: SuperClipboardRoute.page, path: '/super-clipboard-page'),
     AutoRoute(
       page: SharedPreferencesRoute.page,
@@ -511,6 +524,7 @@ class AppRouter extends RootStackRouter {
       path: '/flutter-secure-storage-page',
     ),
     AutoRoute(page: TooltipRoute.page, path: '/tooltip-page'),
+    AutoRoute(page: VideoThumbnailRoute.page, path: '/video-thumbnail-page'),
     AutoRoute(page: FlutterSlidableRoute.page, path: '/flutter-slidable-page'),
     AutoRoute(
       page: FlutterVideoCachingFvpRoute.page,

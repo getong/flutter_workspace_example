@@ -137,6 +137,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/flutter-auto-size-text-page',
   ),
   _ModuleLink(label: 'flutter_bloc Module', path: '/flutter-bloc-page'),
+  _ModuleLink(
+    label: 'flutter_card_swiper Module',
+    path: '/flutter-card-swiper-page',
+  ),
   _ModuleLink(label: 'flutter_dotenv Module', path: '/flutter-dotenv-page'),
   _ModuleLink(label: 'flutter_hooks Module', path: '/flutter-hooks-page'),
   _ModuleLink(
@@ -198,6 +202,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'LinearProgressIndicator Module',
     path: '/linear-progress-indicator-page',
   ),
+  _ModuleLink(label: 'lottie Module', path: '/lottie-page'),
   _ModuleLink(
     label: 'material_color_utilities Module',
     path: '/material-color-utilities-page',
@@ -232,6 +237,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(label: 'speech_to_text Module', path: '/speech-to-text-page'),
   _ModuleLink(label: 'StreamBuilder Module', path: '/stream-builder-page'),
   _ModuleLink(label: 'super_clipboard Module', path: '/super-clipboard-page'),
+  _ModuleLink(
+    label: 'smooth_page_indicator Module',
+    path: '/smooth-page-indicator-page',
+  ),
   _ModuleLink(label: 'Switch Module', path: '/switch-page'),
   _ModuleLink(label: 'Text.rich Module', path: '/text-rich-page'),
   _ModuleLink(
@@ -246,6 +255,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(label: 'TimePicker Module', path: '/time-picker-page'),
   _ModuleLink(label: 'Tooltip Module', path: '/tooltip-page'),
   _ModuleLink(label: 'url_launcher Module', path: '/url-launcher-page'),
+  _ModuleLink(label: 'video_thumbnail Module', path: '/video-thumbnail-page'),
   _ModuleLink(label: 'wasm_ffi Module', path: '/wasm-ffi-page'),
   _ModuleLink(label: 'webview_flutter Module', path: '/webview-flutter-page'),
 ];
