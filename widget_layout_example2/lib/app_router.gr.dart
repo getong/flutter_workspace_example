@@ -1770,6 +1770,22 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [IconlyPage]
+class IconlyRoute extends PageRouteInfo<void> {
+  const IconlyRoute({List<PageRouteInfo>? children})
+    : super(IconlyRoute.name, initialChildren: children);
+
+  static const String name = 'IconlyRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const IconlyPage();
+    },
+  );
+}
+
+/// generated route for
 /// [ImageWidgetPage]
 class ImageWidgetRoute extends PageRouteInfo<void> {
   const ImageWidgetRoute({List<PageRouteInfo>? children})

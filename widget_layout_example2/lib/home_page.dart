@@ -177,6 +177,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(label: 'genui Module', path: '/genui-page'),
   _ModuleLink(label: 'graphql_flutter Module', path: '/graphql-flutter-page'),
   _ModuleLink(label: 'Image Module', path: '/image-widget-page'),
+  _ModuleLink(label: 'iconly Module', path: '/iconly-page'),
   _ModuleLink(
     label: 'Ink + InkWell + InkResponse Module',
     path: '/ink-widgets-page',

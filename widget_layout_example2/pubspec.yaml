@@ -67,6 +67,7 @@ dependencies:
   genui: ^0.8.0
   get_it: ^9.2.1
   graphql_flutter: ^5.3.0
+  iconly: ^1.0.1
   injectable: ^2.7.1+4
   intl: ^0.20.2
   introduction_screen: ^4.0.0
