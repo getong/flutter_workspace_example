@@ -81,6 +81,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(label: 'ActionChip Module', path: '/action-chip-page'),
   _ModuleLink(label: 'AlertDialog Module', path: '/alert-dialog-page'),
   _ModuleLink(label: 'auto_route Module', path: '/auto-route-page'),
+  _ModuleLink(label: 'Cascade Route Module', path: '/cascade'),
   _ModuleLink(label: 'BlockSemantics Module', path: '/block-semantics-page'),
   _ModuleLink(
     label: 'BottomNavigationBar Module',

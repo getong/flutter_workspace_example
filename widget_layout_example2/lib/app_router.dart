@@ -20,6 +20,7 @@ import 'package:widget_layout_example2/modules/clipboard_page.dart';
 import 'package:widget_layout_example2/modules/checkbox_page.dart';
 import 'package:widget_layout_example2/modules/button_showcase_page.dart';
 import 'package:widget_layout_example2/modules/bottom_navigation_bar_page.dart';
+import 'package:widget_layout_example2/modules/cascade_route_page.dart';
 import 'package:widget_layout_example2/modules/circular_progress_indicator_page.dart';
 import 'package:widget_layout_example2/modules/clip_oval_page.dart';
 import 'package:widget_layout_example2/modules/clip_path_page.dart';
@@ -281,6 +282,20 @@ class AppRouter extends RootStackRouter {
     ),
     AutoRoute(page: TableRoute.page, path: '/table-page'),
     AutoRoute(page: ButtonShowcaseRoute.page, path: '/classic-buttons-page'),
+    AutoRoute(page: CascadeRoute.page, path: '/cascade'),
+    AutoRoute(page: CascadeCategoriesRoute.page, path: '/cascade/categories'),
+    AutoRoute(
+      page: CascadeCategoryDetailsRoute.page,
+      path: '/cascade/categories/:categoryId',
+    ),
+    AutoRoute(
+      page: CascadeSubcategoryItemsRoute.page,
+      path: '/cascade/categories/:categoryId/:subcategoryName',
+    ),
+    AutoRoute(
+      page: CascadeItemDetailsRoute.page,
+      path: '/cascade/categories/:categoryId/:subcategoryName/:itemId',
+    ),
     AutoRoute(page: AutoRouteUsageRoute.page, path: '/auto-route-page'),
     RedirectRoute(
       path: '/auto-route-page/legacy',

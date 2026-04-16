@@ -743,6 +743,280 @@ class CachedNetworkImageCeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CascadeCategoriesPage]
+class CascadeCategoriesRoute extends PageRouteInfo<void> {
+  const CascadeCategoriesRoute({List<PageRouteInfo>? children})
+    : super(CascadeCategoriesRoute.name, initialChildren: children);
+
+  static const String name = 'CascadeCategoriesRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CascadeCategoriesPage();
+    },
+  );
+}
+
+/// generated route for
+/// [CascadeCategoryDetailsPage]
+class CascadeCategoryDetailsRoute
+    extends PageRouteInfo<CascadeCategoryDetailsRouteArgs> {
+  CascadeCategoryDetailsRoute({
+    Key? key,
+    required String categoryId,
+    required String categoryName,
+    List<PageRouteInfo>? children,
+  }) : super(
+         CascadeCategoryDetailsRoute.name,
+         args: CascadeCategoryDetailsRouteArgs(
+           key: key,
+           categoryId: categoryId,
+           categoryName: categoryName,
+         ),
+         initialChildren: children,
+       );
+
+  static const String name = 'CascadeCategoryDetailsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<CascadeCategoryDetailsRouteArgs>();
+      return CascadeCategoryDetailsPage(
+        key: args.key,
+        categoryId: args.categoryId,
+        categoryName: args.categoryName,
+      );
+    },
+  );
+}
+
+class CascadeCategoryDetailsRouteArgs {
+  const CascadeCategoryDetailsRouteArgs({
+    this.key,
+    required this.categoryId,
+    required this.categoryName,
+  });
+
+  final Key? key;
+
+  final String categoryId;
+
+  final String categoryName;
+
+  @override
+  String toString() {
+    return 'CascadeCategoryDetailsRouteArgs{key: $key, categoryId: $categoryId, categoryName: $categoryName}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CascadeCategoryDetailsRouteArgs) return false;
+    return key == other.key &&
+        categoryId == other.categoryId &&
+        categoryName == other.categoryName;
+  }
+
+  @override
+  int get hashCode =>
+      key.hashCode ^ categoryId.hashCode ^ categoryName.hashCode;
+}
+
+/// generated route for
+/// [CascadeItemDetailsPage]
+class CascadeItemDetailsRoute
+    extends PageRouteInfo<CascadeItemDetailsRouteArgs> {
+  CascadeItemDetailsRoute({
+    Key? key,
+    required String categoryId,
+    required String categoryName,
+    required String subcategoryName,
+    required String itemId,
+    required String itemName,
+    required String itemPrice,
+    List<PageRouteInfo>? children,
+  }) : super(
+         CascadeItemDetailsRoute.name,
+         args: CascadeItemDetailsRouteArgs(
+           key: key,
+           categoryId: categoryId,
+           categoryName: categoryName,
+           subcategoryName: subcategoryName,
+           itemId: itemId,
+           itemName: itemName,
+           itemPrice: itemPrice,
+         ),
+         initialChildren: children,
+       );
+
+  static const String name = 'CascadeItemDetailsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<CascadeItemDetailsRouteArgs>();
+      return CascadeItemDetailsPage(
+        key: args.key,
+        categoryId: args.categoryId,
+        categoryName: args.categoryName,
+        subcategoryName: args.subcategoryName,
+        itemId: args.itemId,
+        itemName: args.itemName,
+        itemPrice: args.itemPrice,
+      );
+    },
+  );
+}
+
+class CascadeItemDetailsRouteArgs {
+  const CascadeItemDetailsRouteArgs({
+    this.key,
+    required this.categoryId,
+    required this.categoryName,
+    required this.subcategoryName,
+    required this.itemId,
+    required this.itemName,
+    required this.itemPrice,
+  });
+
+  final Key? key;
+
+  final String categoryId;
+
+  final String categoryName;
+
+  final String subcategoryName;
+
+  final String itemId;
+
+  final String itemName;
+
+  final String itemPrice;
+
+  @override
+  String toString() {
+    return 'CascadeItemDetailsRouteArgs{key: $key, categoryId: $categoryId, categoryName: $categoryName, subcategoryName: $subcategoryName, itemId: $itemId, itemName: $itemName, itemPrice: $itemPrice}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CascadeItemDetailsRouteArgs) return false;
+    return key == other.key &&
+        categoryId == other.categoryId &&
+        categoryName == other.categoryName &&
+        subcategoryName == other.subcategoryName &&
+        itemId == other.itemId &&
+        itemName == other.itemName &&
+        itemPrice == other.itemPrice;
+  }
+
+  @override
+  int get hashCode =>
+      key.hashCode ^
+      categoryId.hashCode ^
+      categoryName.hashCode ^
+      subcategoryName.hashCode ^
+      itemId.hashCode ^
+      itemName.hashCode ^
+      itemPrice.hashCode;
+}
+
+/// generated route for
+/// [CascadePage]
+class CascadeRoute extends PageRouteInfo<void> {
+  const CascadeRoute({List<PageRouteInfo>? children})
+    : super(CascadeRoute.name, initialChildren: children);
+
+  static const String name = 'CascadeRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CascadePage();
+    },
+  );
+}
+
+/// generated route for
+/// [CascadeSubcategoryItemsPage]
+class CascadeSubcategoryItemsRoute
+    extends PageRouteInfo<CascadeSubcategoryItemsRouteArgs> {
+  CascadeSubcategoryItemsRoute({
+    Key? key,
+    required String categoryId,
+    required String categoryName,
+    required String subcategoryName,
+    List<PageRouteInfo>? children,
+  }) : super(
+         CascadeSubcategoryItemsRoute.name,
+         args: CascadeSubcategoryItemsRouteArgs(
+           key: key,
+           categoryId: categoryId,
+           categoryName: categoryName,
+           subcategoryName: subcategoryName,
+         ),
+         initialChildren: children,
+       );
+
+  static const String name = 'CascadeSubcategoryItemsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<CascadeSubcategoryItemsRouteArgs>();
+      return CascadeSubcategoryItemsPage(
+        key: args.key,
+        categoryId: args.categoryId,
+        categoryName: args.categoryName,
+        subcategoryName: args.subcategoryName,
+      );
+    },
+  );
+}
+
+class CascadeSubcategoryItemsRouteArgs {
+  const CascadeSubcategoryItemsRouteArgs({
+    this.key,
+    required this.categoryId,
+    required this.categoryName,
+    required this.subcategoryName,
+  });
+
+  final Key? key;
+
+  final String categoryId;
+
+  final String categoryName;
+
+  final String subcategoryName;
+
+  @override
+  String toString() {
+    return 'CascadeSubcategoryItemsRouteArgs{key: $key, categoryId: $categoryId, categoryName: $categoryName, subcategoryName: $subcategoryName}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CascadeSubcategoryItemsRouteArgs) return false;
+    return key == other.key &&
+        categoryId == other.categoryId &&
+        categoryName == other.categoryName &&
+        subcategoryName == other.subcategoryName;
+  }
+
+  @override
+  int get hashCode =>
+      key.hashCode ^
+      categoryId.hashCode ^
+      categoryName.hashCode ^
+      subcategoryName.hashCode;
+}
+
+/// generated route for
 /// [CenterBoxPage]
 class CenterBoxRoute extends PageRouteInfo<void> {
   const CenterBoxRoute({List<PageRouteInfo>? children})
