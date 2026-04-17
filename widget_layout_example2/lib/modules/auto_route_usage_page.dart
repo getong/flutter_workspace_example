@@ -1002,6 +1002,12 @@ class AutoRouteLoginPage extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           OutlinedButton.icon(
+            onPressed: () => context.router.push(const AutoRouteSignupRoute()),
+            icon: const Icon(Icons.person_add_outlined),
+            label: const Text('Go To Sign Up'),
+          ),
+          const SizedBox(height: 12),
+          OutlinedButton.icon(
             onPressed: () {
               demoAuthController.logout();
               onResult?.call(false);
@@ -1011,6 +1017,113 @@ class AutoRouteLoginPage extends StatelessWidget {
             label: const Text('Cancel'),
           ),
         ],
+      ),
+    );
+  }
+}
+
+@RoutePage()
+class AutoRouteSignupPage extends StatefulWidget {
+  const AutoRouteSignupPage({super.key});
+
+  @override
+  State<AutoRouteSignupPage> createState() => _AutoRouteSignupPageState();
+}
+
+class _AutoRouteSignupPageState extends State<AutoRouteSignupPage> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _submit() {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Sign up demo completed. No data was validated or saved.',
+          ),
+        ),
+      );
+    context.router.pop();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('auto_route Sign Up Demo')),
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 420),
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: ListView(
+              shrinkWrap: true,
+              children: <Widget>[
+                Text(
+                  'Sign Up',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  'This is a simple signup demo page for auto_route. It does not validate input and does not persist anything.',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 32),
+                TextField(
+                  controller: _usernameController,
+                  decoration: const InputDecoration(
+                    labelText: 'Username',
+                    border: OutlineInputBorder(),
+                  ),
+                  textInputAction: TextInputAction.next,
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: _emailController,
+                  decoration: const InputDecoration(
+                    labelText: 'Email',
+                    border: OutlineInputBorder(),
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next,
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: _passwordController,
+                  decoration: const InputDecoration(
+                    labelText: 'Password',
+                    border: OutlineInputBorder(),
+                  ),
+                  obscureText: true,
+                  onSubmitted: (_) => _submit(),
+                ),
+                const SizedBox(height: 20),
+                FilledButton.icon(
+                  onPressed: _submit,
+                  icon: const Icon(Icons.person_add_alt_1),
+                  label: const Text('Create Account'),
+                ),
+                const SizedBox(height: 12),
+                OutlinedButton.icon(
+                  onPressed: () => context.router.pop(),
+                  icon: const Icon(Icons.arrow_back),
+                  label: const Text('Back To Login'),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

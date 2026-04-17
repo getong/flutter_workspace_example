@@ -188,7 +188,8 @@ class AppRouter extends RootStackRouter {
     AutoRouteGuard.simple((NavigationResolver resolver, StackRouter router) {
       if (demoAuthController.isLoggedIn ||
           resolver.routeName == LoginRoute.name ||
-          resolver.routeName == AutoRouteLoginRoute.name) {
+          resolver.routeName == AutoRouteLoginRoute.name ||
+          resolver.routeName == AutoRouteSignupRoute.name) {
         resolver.next();
         return;
       }
@@ -385,6 +386,7 @@ class AppRouter extends RootStackRouter {
       path: '/auto-route-page/observer',
     ),
     AutoRoute(page: AutoRouteLoginRoute.page, path: '/auto-route-page/login'),
+    AutoRoute(page: AutoRouteSignupRoute.page, path: '/auto-route-page/signup'),
     AutoRoute(page: AutoRouteUnknownRoute.page, path: '/auto-route-page/*'),
     AutoRoute(page: IntlRoute.page, path: '/intl-page'),
     AutoRoute(page: JnigenRoute.page, path: '/jnigen-page'),

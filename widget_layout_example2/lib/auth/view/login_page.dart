@@ -91,6 +91,13 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 20),
                   FilledButton(onPressed: _submit, child: const Text('Log In')),
+                  const SizedBox(height: 12),
+                  OutlinedButton.icon(
+                    onPressed: () =>
+                        context.router.push(const AutoRouteSignupRoute()),
+                    icon: const Icon(Icons.person_add_outlined),
+                    label: const Text('Go To Sign Up'),
+                  ),
                 ],
               ),
             ),

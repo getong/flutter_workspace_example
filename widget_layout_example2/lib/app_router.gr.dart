@@ -631,6 +631,22 @@ class AutoRouteSettingsTabRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AutoRouteSignupPage]
+class AutoRouteSignupRoute extends PageRouteInfo<void> {
+  const AutoRouteSignupRoute({List<PageRouteInfo>? children})
+    : super(AutoRouteSignupRoute.name, initialChildren: children);
+
+  static const String name = 'AutoRouteSignupRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AutoRouteSignupPage();
+    },
+  );
+}
+
+/// generated route for
 /// [AutoRouteUnknownPage]
 class AutoRouteUnknownRoute extends PageRouteInfo<void> {
   const AutoRouteUnknownRoute({List<PageRouteInfo>? children})
