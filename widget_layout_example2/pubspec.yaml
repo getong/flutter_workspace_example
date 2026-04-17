@@ -41,6 +41,7 @@ dependencies:
   crypto: ^3.0.7
   cue: ^0.1.2+1
   cupertino_icons: ^1.0.8
+  dio: ^5.9.2
   drift: ^2.32.1
   drift_flutter: ^0.3.0
   encrypter_plus: ^5.1.0

@@ -111,6 +111,33 @@ class _CounterRepository {
   }
 }
 
+class _BlocReferenceRepository {
+  const _BlocReferenceRepository();
+
+  List<String> get widgetNames => const <String>[
+    'RepositoryProvider',
+    'MultiRepositoryProvider',
+    'BlocProvider',
+    'MultiBlocProvider',
+    'BlocBuilder',
+    'BlocSelector',
+    'BlocListener',
+    'MultiBlocListener',
+    'BlocConsumer',
+  ];
+}
+
+class _ProviderNarrativeRepository {
+  const _ProviderNarrativeRepository();
+
+  String describe({required int count, required _ActivityFilter filter}) {
+    return 'RepositoryProvider.of reads this helper repository inside the '
+        'page. The standalone BlocProvider owns CounterBloc with count=$count, '
+        'while MultiBlocProvider adds ActivityFilterBloc and SaveSnapshotBloc. '
+        'The active filter is ${filter.name}.';
+  }
+}
+
 class _CounterBloc extends Bloc<_CounterEvent, _CounterState> {
   _CounterBloc() : super(const _CounterState.initial()) {
     on<_CounterIncrementPressed>(_onIncrementPressed);
@@ -268,22 +295,32 @@ class FlutterBlocPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider<_CounterRepository>(
-      create: (BuildContext context) => _CounterRepository(),
-      child: MultiBlocProvider(
-        providers: <BlocProvider<dynamic>>[
-          BlocProvider<_CounterBloc>(
-            create: (BuildContext context) => _CounterBloc(),
+    return MultiRepositoryProvider(
+      providers: <RepositoryProvider<dynamic>>[
+        RepositoryProvider<_CounterRepository>(
+          create: (BuildContext context) => _CounterRepository(),
+        ),
+        RepositoryProvider<_BlocReferenceRepository>(
+          create: (BuildContext context) => const _BlocReferenceRepository(),
+        ),
+      ],
+      child: RepositoryProvider<_ProviderNarrativeRepository>(
+        create: (BuildContext context) => const _ProviderNarrativeRepository(),
+        child: BlocProvider<_CounterBloc>(
+          create: (BuildContext context) => _CounterBloc(),
+          child: MultiBlocProvider(
+            providers: <BlocProvider<dynamic>>[
+              BlocProvider<_ActivityFilterBloc>(
+                create: (BuildContext context) => _ActivityFilterBloc(),
+              ),
+              BlocProvider<_SaveSnapshotBloc>(
+                create: (BuildContext context) =>
+                    _SaveSnapshotBloc(context.read<_CounterRepository>()),
+              ),
+            ],
+            child: const _FlutterBlocView(),
           ),
-          BlocProvider<_ActivityFilterBloc>(
-            create: (BuildContext context) => _ActivityFilterBloc(),
-          ),
-          BlocProvider<_SaveSnapshotBloc>(
-            create: (BuildContext context) =>
-                _SaveSnapshotBloc(context.read<_CounterRepository>()),
-          ),
-        ],
-        child: const _FlutterBlocView(),
+        ),
       ),
     );
   }
@@ -334,6 +371,8 @@ class _FlutterBlocView extends StatelessWidget {
               _IntroCard(),
               SizedBox(height: 16),
               _ArchitectureCard(),
+              SizedBox(height: 16),
+              _ProviderSetupCard(),
               SizedBox(height: 16),
               _CounterControlsCard(),
               SizedBox(height: 16),
@@ -422,10 +461,12 @@ class _IntroCard extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              'This module demonstrates `RepositoryProvider`, `MultiBlocProvider`, '
-              '`Bloc`, `BlocBuilder`, `BlocSelector`, `BlocListener`, '
-              '`BlocConsumer`, `context.read`, and `context.select` using a '
-              'counter flow, activity filtering, and an async save operation.',
+              'This module demonstrates `RepositoryProvider`, '
+              '`MultiRepositoryProvider`, `BlocProvider`, `MultiBlocProvider`, '
+              '`BlocBuilder`, `BlocSelector`, `BlocListener`, '
+              '`MultiBlocListener`, `BlocConsumer`, `context.read`, and '
+              '`context.select` using a counter flow, activity filtering, '
+              'and an async save operation.',
               style: theme.textTheme.bodyLarge,
             ),
             const SizedBox(height: 16),
@@ -444,6 +485,56 @@ class _IntroCard extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ProviderSetupCard extends StatelessWidget {
+  const _ProviderSetupCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final _BlocReferenceRepository references = context
+        .read<_BlocReferenceRepository>();
+    final _ProviderNarrativeRepository narrative =
+        RepositoryProvider.of<_ProviderNarrativeRepository>(context);
+    final int count = context.select<_CounterBloc, int>(
+      (_CounterBloc bloc) => bloc.state.count,
+    );
+    final _ActivityFilter filter = context
+        .select<_ActivityFilterBloc, _ActivityFilter>(
+          (_ActivityFilterBloc bloc) => bloc.state,
+        );
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Provider Setup',
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              narrative.describe(count: count, filter: filter),
+              style: theme.textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 16),
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: references.widgetNames.map((String name) {
+                return Chip(label: Text(name));
+              }).toList(),
             ),
           ],
         ),
@@ -473,10 +564,12 @@ class _ArchitectureCard extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             const Text(
-              'RepositoryProvider creates a fake persistence layer. '
-              'MultiBlocProvider wires three blocs into the page: one for the counter state, '
-              'one for activity filtering, and one for async save status. '
-              'The UI then dispatches events and reacts to state changes through several flutter_bloc widgets.',
+              'MultiRepositoryProvider shares demo dependencies, a nested '
+              'RepositoryProvider adds page-specific copy, BlocProvider owns '
+              'the main counter bloc, and MultiBlocProvider wires the '
+              'remaining blocs for activity filtering and async save status. '
+              'The UI then dispatches events and reacts through several '
+              'flutter_bloc widgets.',
             ),
             const SizedBox(height: 16),
             const _ArchitectureDiagram(),
@@ -496,7 +589,12 @@ class _ArchitectureDiagram extends StatelessWidget {
       spacing: 10,
       runSpacing: 10,
       children: const <Widget>[
-        _DiagramChip(label: 'RepositoryProvider', color: Color(0xFF1D4ED8)),
+        _DiagramChip(
+          label: 'MultiRepositoryProvider',
+          color: Color(0xFF1D4ED8),
+        ),
+        _DiagramChip(label: 'RepositoryProvider', color: Color(0xFF2563EB)),
+        _DiagramChip(label: 'BlocProvider', color: Color(0xFF4338CA)),
         _DiagramChip(label: 'MultiBlocProvider', color: Color(0xFF0F766E)),
         _DiagramChip(label: 'CounterBloc', color: Color(0xFF7C3AED)),
         _DiagramChip(label: 'ActivityFilterBloc', color: Color(0xFFB45309)),
@@ -1139,38 +1237,48 @@ class _CodeSampleCard extends StatelessWidget {
     final ColorScheme colorScheme = theme.colorScheme;
 
     const String code = r'''
-RepositoryProvider(
-  create: (_) => CounterRepository(),
-  child: MultiBlocProvider(
-    providers: [
-      BlocProvider(create: (_) => CounterBloc()),
-      BlocProvider(create: (_) => ActivityFilterBloc()),
-      BlocProvider(
-        create: (context) => SaveSnapshotBloc(
-          context.read<CounterRepository>(),
+MultiRepositoryProvider(
+  providers: [
+    RepositoryProvider(create: (_) => CounterRepository()),
+    RepositoryProvider(create: (_) => BlocReferenceRepository()),
+  ],
+  child: RepositoryProvider(
+    create: (_) => ProviderNarrativeRepository(),
+    child: BlocProvider(
+      create: (_) => CounterBloc(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => ActivityFilterBloc()),
+          BlocProvider(
+            create: (context) => SaveSnapshotBloc(
+              context.read<CounterRepository>(),
+            ),
+          ),
+        ],
+        child: MultiBlocListener(
+          listeners: [
+            BlocListener<CounterBloc, CounterState>(
+              listener: (context, state) {},
+            ),
+            BlocListener<ActivityFilterBloc, ActivityFilter>(
+              listener: (context, state) {},
+            ),
+          ],
+          child: BlocConsumer<SaveSnapshotBloc, SaveSnapshotState>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              final count = context.select<CounterBloc, int>(
+                (bloc) => bloc.state.count,
+              );
+              return BlocSelector<CounterBloc, CounterState, bool>(
+                selector: (state) => state.count.isEven,
+                builder: (context, isEven) {
+                  return Text('count=$count even=$isEven');
+                },
+              );
+            },
+          ),
         ),
-      ),
-    ],
-    child: MultiBlocListener(
-      listeners: [
-        BlocListener<CounterBloc, CounterState>(
-          listener: (context, state) {},
-        ),
-        BlocListener<ActivityFilterBloc, ActivityFilter>(
-          listener: (context, state) {},
-        ),
-        BlocListener<SaveSnapshotBloc, SaveSnapshotState>(
-          listener: (context, state) {},
-        ),
-      ],
-      child: BlocConsumer<SaveSnapshotBloc, SaveSnapshotState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          final count = context.select<CounterBloc, int>(
-            (bloc) => bloc.state.count,
-          );
-          return Text('count=$count');
-        },
       ),
     ),
   ),

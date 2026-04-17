@@ -106,6 +106,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   ),
   _ModuleLink(label: 'DatePicker Module', path: '/date-picker-page'),
   _ModuleLink(label: 'Dialog Module', path: '/dialog-page'),
+  _ModuleLink(label: 'dio Module', path: '/dio-page'),
   _ModuleLink(label: 'DragTarget Module', path: '/drag-target-page'),
   _ModuleLink(label: 'Draggable Module', path: '/draggable-page'),
   _ModuleLink(

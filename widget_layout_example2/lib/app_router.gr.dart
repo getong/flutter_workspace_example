@@ -1404,6 +1404,22 @@ class DialogExampleRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [DioPage]
+class DioRoute extends PageRouteInfo<void> {
+  const DioRoute({List<PageRouteInfo>? children})
+    : super(DioRoute.name, initialChildren: children);
+
+  static const String name = 'DioRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DioPage();
+    },
+  );
+}
+
+/// generated route for
 /// [DragTargetExamplePage]
 class DragTargetExampleRoute extends PageRouteInfo<void> {
   const DragTargetExampleRoute({List<PageRouteInfo>? children})
