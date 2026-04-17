@@ -289,6 +289,103 @@ class _SaveSnapshotBloc extends Bloc<_SaveSnapshotEvent, _SaveSnapshotState> {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Demo Fetch Bloc — simulates async data loading with random success/failure
+// ---------------------------------------------------------------------------
+
+abstract class _DemoFetchEvent {
+  const _DemoFetchEvent();
+}
+
+class _DemoFetchRequested extends _DemoFetchEvent {
+  const _DemoFetchRequested();
+}
+
+class _DemoFetchReset extends _DemoFetchEvent {
+  const _DemoFetchReset();
+}
+
+enum _DemoFetchStatus { initial, loading, success, failure }
+
+class _DemoFetchState {
+  const _DemoFetchState({required this.status, this.data, this.error});
+
+  const _DemoFetchState.initial()
+    : status = _DemoFetchStatus.initial,
+      data = null,
+      error = null;
+
+  final _DemoFetchStatus status;
+  final List<String>? data;
+  final String? error;
+}
+
+class _DemoFetchBloc extends Bloc<_DemoFetchEvent, _DemoFetchState> {
+  _DemoFetchBloc() : super(const _DemoFetchState.initial()) {
+    on<_DemoFetchRequested>(_onFetchRequested);
+    on<_DemoFetchReset>(_onFetchReset);
+  }
+
+  Future<void> _onFetchRequested(
+    _DemoFetchRequested event,
+    Emitter<_DemoFetchState> emit,
+  ) async {
+    emit(const _DemoFetchState(status: _DemoFetchStatus.loading));
+    await Future<void>.delayed(const Duration(seconds: 1));
+    if (DateTime.now().millisecond.isEven) {
+      emit(
+        const _DemoFetchState(
+          status: _DemoFetchStatus.success,
+          data: <String>[
+            'User Profile',
+            'Settings',
+            'Notifications',
+            'Dashboard',
+          ],
+        ),
+      );
+    } else {
+      emit(
+        const _DemoFetchState(
+          status: _DemoFetchStatus.failure,
+          error: 'Simulated network timeout — tap Fetch again to retry.',
+        ),
+      );
+    }
+  }
+
+  void _onFetchReset(_DemoFetchReset event, Emitter<_DemoFetchState> emit) {
+    emit(const _DemoFetchState.initial());
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Scoped Counter Bloc — independent counter for scoped BlocProvider demo
+// ---------------------------------------------------------------------------
+
+abstract class _ScopedCounterEvent {
+  const _ScopedCounterEvent();
+}
+
+class _ScopedIncrement extends _ScopedCounterEvent {
+  const _ScopedIncrement();
+}
+
+class _ScopedDecrement extends _ScopedCounterEvent {
+  const _ScopedDecrement();
+}
+
+class _ScopedCounterBloc extends Bloc<_ScopedCounterEvent, int> {
+  _ScopedCounterBloc() : super(0) {
+    on<_ScopedIncrement>(
+      (_ScopedIncrement event, Emitter<int> emit) => emit(state + 1),
+    );
+    on<_ScopedDecrement>(
+      (_ScopedDecrement event, Emitter<int> emit) => emit(state - 1),
+    );
+  }
+}
+
 @RoutePage(name: 'FlutterBlocRoute')
 class FlutterBlocPage extends StatelessWidget {
   const FlutterBlocPage({super.key});
@@ -316,6 +413,9 @@ class FlutterBlocPage extends StatelessWidget {
               BlocProvider<_SaveSnapshotBloc>(
                 create: (BuildContext context) =>
                     _SaveSnapshotBloc(context.read<_CounterRepository>()),
+              ),
+              BlocProvider<_DemoFetchBloc>(
+                create: (BuildContext context) => _DemoFetchBloc(),
               ),
             ],
             child: const _FlutterBlocView(),
@@ -365,25 +465,37 @@ class _FlutterBlocView extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(title: const Text('flutter_bloc Module')),
         body: SelectionArea(
-          child: ListView(
+          child: SingleChildScrollView(
             padding: const EdgeInsets.all(24),
-            children: const <Widget>[
-              _IntroCard(),
-              SizedBox(height: 16),
-              _ArchitectureCard(),
-              SizedBox(height: 16),
-              _ProviderSetupCard(),
-              SizedBox(height: 16),
-              _CounterControlsCard(),
-              SizedBox(height: 16),
-              _ActivityFilterCard(),
-              SizedBox(height: 16),
-              _MultiBlocWidgetListenerCard(),
-              SizedBox(height: 16),
-              _SaveConsumerCard(),
-              SizedBox(height: 16),
-              _CodeSampleCard(),
-            ],
+            child: Column(
+              children: const <Widget>[
+                _IntroCard(),
+                SizedBox(height: 16),
+                _ArchitectureCard(),
+                SizedBox(height: 16),
+                _ProviderSetupCard(),
+                SizedBox(height: 16),
+                _CounterControlsCard(),
+                SizedBox(height: 16),
+                _BlocBuilderStatesCard(),
+                SizedBox(height: 16),
+                _BlocSelectorRebuildTrackerCard(),
+                SizedBox(height: 16),
+                _RepositoryProviderAccessCard(),
+                SizedBox(height: 16),
+                _ScopedBlocProviderCard(),
+                SizedBox(height: 16),
+                _ActivityFilterCard(),
+                SizedBox(height: 16),
+                _MultiBlocWidgetListenerCard(),
+                SizedBox(height: 16),
+                _BlocListenerEffectsCard(),
+                SizedBox(height: 16),
+                _SaveConsumerCard(),
+                SizedBox(height: 16),
+                _CodeSampleCard(),
+              ],
+            ),
           ),
         ),
         floatingActionButton: FloatingActionButton.extended(
@@ -1318,6 +1430,1044 @@ MultiRepositoryProvider(
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// BlocBuilder — Visual State Machine Card
+// ---------------------------------------------------------------------------
+
+class _BlocBuilderStatesCard extends StatelessWidget {
+  const _BlocBuilderStatesCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'BlocBuilder — Visual State Machine',
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'BlocBuilder rebuilds its subtree whenever the bloc emits a new '
+              'state. Below, a simulated fetch cycles through Initial → '
+              'Loading → Success or Failure, each rendered with a distinct '
+              'visual treatment. Results vary randomly to show both branches.',
+            ),
+            const SizedBox(height: 16),
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: <Widget>[
+                FilledButton.icon(
+                  onPressed: () => context.read<_DemoFetchBloc>().add(
+                    const _DemoFetchRequested(),
+                  ),
+                  icon: const Icon(Icons.cloud_download_outlined),
+                  label: const Text('Fetch Data'),
+                ),
+                OutlinedButton.icon(
+                  onPressed: () => context.read<_DemoFetchBloc>().add(
+                    const _DemoFetchReset(),
+                  ),
+                  icon: const Icon(Icons.restart_alt),
+                  label: const Text('Reset'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            BlocBuilder<_DemoFetchBloc, _DemoFetchState>(
+              builder: (BuildContext context, _DemoFetchState state) {
+                return AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  child: _buildFetchStateWidget(context, state),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFetchStateWidget(BuildContext context, _DemoFetchState state) {
+    final ThemeData theme = Theme.of(context);
+
+    switch (state.status) {
+      case _DemoFetchStatus.initial:
+        return Container(
+          key: const ValueKey<String>('initial'),
+          width: double.infinity,
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: theme.colorScheme.surfaceContainerHighest.withValues(
+              alpha: 0.3,
+            ),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: theme.colorScheme.outline.withValues(alpha: 0.3),
+            ),
+          ),
+          child: Column(
+            children: <Widget>[
+              Icon(
+                Icons.cloud_queue,
+                size: 48,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                'No data loaded yet',
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Tap "Fetch Data" to trigger the BlocBuilder cycle.',
+                style: theme.textTheme.bodySmall,
+              ),
+            ],
+          ),
+        );
+
+      case _DemoFetchStatus.loading:
+        return Container(
+          key: const ValueKey<String>('loading'),
+          width: double.infinity,
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: const Color(0xFF0F766E).withValues(alpha: 0.08),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: const Color(0xFF0F766E).withValues(alpha: 0.3),
+            ),
+          ),
+          child: Column(
+            children: <Widget>[
+              const SizedBox(
+                width: 40,
+                height: 40,
+                child: CircularProgressIndicator(strokeWidth: 3),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Loading…',
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: const Color(0xFF0F766E),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 4),
+              const Text('BlocBuilder is showing the Loading state.'),
+            ],
+          ),
+        );
+
+      case _DemoFetchStatus.success:
+        return Container(
+          key: const ValueKey<String>('success'),
+          width: double.infinity,
+          padding: const EdgeInsets.all(18),
+          decoration: BoxDecoration(
+            color: const Color(0xFF15803D).withValues(alpha: 0.08),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: const Color(0xFF15803D).withValues(alpha: 0.3),
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  const Icon(Icons.check_circle, color: Color(0xFF15803D)),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Fetch Successful',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      color: const Color(0xFF15803D),
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: (state.data ?? <String>[]).map((String item) {
+                  return Chip(
+                    avatar: const Icon(Icons.article_outlined, size: 18),
+                    label: Text(item),
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
+        );
+
+      case _DemoFetchStatus.failure:
+        return Container(
+          key: const ValueKey<String>('failure'),
+          width: double.infinity,
+          padding: const EdgeInsets.all(18),
+          decoration: BoxDecoration(
+            color: const Color(0xFFDC2626).withValues(alpha: 0.08),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: const Color(0xFFDC2626).withValues(alpha: 0.3),
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  const Icon(Icons.error_outline, color: Color(0xFFDC2626)),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Fetch Failed',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      color: const Color(0xFFDC2626),
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Text(state.error ?? 'Unknown error'),
+              const SizedBox(height: 12),
+              FilledButton.icon(
+                onPressed: () => context.read<_DemoFetchBloc>().add(
+                  const _DemoFetchRequested(),
+                ),
+                icon: const Icon(Icons.refresh),
+                label: const Text('Retry'),
+                style: FilledButton.styleFrom(
+                  backgroundColor: const Color(0xFFDC2626),
+                ),
+              ),
+            ],
+          ),
+        );
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// BlocSelector — Rebuild Optimization Tracker
+// ---------------------------------------------------------------------------
+
+class _BlocSelectorRebuildTrackerCard extends StatelessWidget {
+  const _BlocSelectorRebuildTrackerCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'BlocSelector — Rebuild Optimization',
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'BlocSelector rebuilds only when the selected value changes. '
+              'Compare the rebuild counts below: the BlocBuilder panel '
+              'rebuilds on every state change, while BlocSelector panels '
+              'only rebuild when their derived value actually differs.',
+            ),
+            const SizedBox(height: 16),
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: <Widget>[
+                FilledButton.icon(
+                  onPressed: () => context.read<_CounterBloc>().add(
+                    const _CounterIncrementPressed(),
+                  ),
+                  icon: const Icon(Icons.add),
+                  label: const Text('Increment (triggers rebuilds)'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            const _RebuildComparisonRow(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _RebuildComparisonRow extends StatelessWidget {
+  const _RebuildComparisonRow();
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        if (constraints.maxWidth > 500) {
+          return const Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Expanded(child: _BuilderRebuildPanel()),
+              SizedBox(width: 12),
+              Expanded(child: _SelectorParityRebuildPanel()),
+              SizedBox(width: 12),
+              Expanded(child: _SelectorSignRebuildPanel()),
+            ],
+          );
+        }
+        return const Column(
+          children: <Widget>[
+            _BuilderRebuildPanel(),
+            SizedBox(height: 12),
+            _SelectorParityRebuildPanel(),
+            SizedBox(height: 12),
+            _SelectorSignRebuildPanel(),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _BuilderRebuildPanel extends StatefulWidget {
+  const _BuilderRebuildPanel();
+
+  @override
+  State<_BuilderRebuildPanel> createState() => _BuilderRebuildPanelState();
+}
+
+class _BuilderRebuildPanelState extends State<_BuilderRebuildPanel> {
+  int _rebuildCount = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<_CounterBloc, _CounterState>(
+      builder: (BuildContext context, _CounterState state) {
+        _rebuildCount++;
+        return _RebuildInfoBox(
+          title: 'BlocBuilder',
+          subtitle: 'Rebuilds on every state change',
+          value: 'count=${state.count}',
+          rebuildCount: _rebuildCount,
+          color: const Color(0xFFDC2626),
+        );
+      },
+    );
+  }
+}
+
+class _SelectorParityRebuildPanel extends StatefulWidget {
+  const _SelectorParityRebuildPanel();
+
+  @override
+  State<_SelectorParityRebuildPanel> createState() =>
+      _SelectorParityRebuildPanelState();
+}
+
+class _SelectorParityRebuildPanelState
+    extends State<_SelectorParityRebuildPanel> {
+  int _rebuildCount = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelector<_CounterBloc, _CounterState, bool>(
+      selector: (_CounterState state) => state.isEven,
+      builder: (BuildContext context, bool isEven) {
+        _rebuildCount++;
+        return _RebuildInfoBox(
+          title: 'BlocSelector (parity)',
+          subtitle: 'Rebuilds only when even/odd flips',
+          value: isEven ? 'Even' : 'Odd',
+          rebuildCount: _rebuildCount,
+          color: const Color(0xFF7C3AED),
+        );
+      },
+    );
+  }
+}
+
+class _SelectorSignRebuildPanel extends StatefulWidget {
+  const _SelectorSignRebuildPanel();
+
+  @override
+  State<_SelectorSignRebuildPanel> createState() =>
+      _SelectorSignRebuildPanelState();
+}
+
+class _SelectorSignRebuildPanelState extends State<_SelectorSignRebuildPanel> {
+  int _rebuildCount = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelector<_CounterBloc, _CounterState, String>(
+      selector: (_CounterState state) => state.count > 0
+          ? 'Positive'
+          : (state.count < 0 ? 'Negative' : 'Zero'),
+      builder: (BuildContext context, String sign) {
+        _rebuildCount++;
+        return _RebuildInfoBox(
+          title: 'BlocSelector (sign)',
+          subtitle: 'Rebuilds only when sign changes',
+          value: sign,
+          rebuildCount: _rebuildCount,
+          color: const Color(0xFF0F766E),
+        );
+      },
+    );
+  }
+}
+
+class _RebuildInfoBox extends StatelessWidget {
+  const _RebuildInfoBox({
+    required this.title,
+    required this.subtitle,
+    required this.value,
+    required this.rebuildCount,
+    required this.color,
+  });
+
+  final String title;
+  final String subtitle;
+  final String value;
+  final int rebuildCount;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            title,
+            style: theme.textTheme.titleSmall?.copyWith(
+              color: color,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(subtitle, style: theme.textTheme.bodySmall),
+          const SizedBox(height: 10),
+          Text('Value: $value', style: theme.textTheme.bodyMedium),
+          const SizedBox(height: 4),
+          Text(
+            'Rebuilds: $rebuildCount',
+            style: theme.textTheme.titleMedium?.copyWith(
+              color: color,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// RepositoryProvider + MultiRepositoryProvider Showcase
+// ---------------------------------------------------------------------------
+
+class _RepositoryProviderAccessCard extends StatelessWidget {
+  const _RepositoryProviderAccessCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final _BlocReferenceRepository refs = context
+        .read<_BlocReferenceRepository>();
+    final _ProviderNarrativeRepository narrative =
+        RepositoryProvider.of<_ProviderNarrativeRepository>(context);
+    final _CounterRepository counterRepo = context.read<_CounterRepository>();
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'RepositoryProvider + MultiRepositoryProvider',
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'RepositoryProvider makes a single repository instance available '
+              'to the widget subtree. MultiRepositoryProvider groups several '
+              'RepositoryProvider widgets into one. Access them with '
+              '`context.read<T>()` or `RepositoryProvider.of<T>(context)`.',
+            ),
+            const SizedBox(height: 16),
+            _RepoAccessTile(
+              icon: Icons.storage_outlined,
+              title: 'CounterRepository',
+              access: 'context.read<CounterRepository>()',
+              detail: 'Type: ${counterRepo.runtimeType}',
+              color: const Color(0xFF1D4ED8),
+            ),
+            const SizedBox(height: 10),
+            _RepoAccessTile(
+              icon: Icons.list_alt,
+              title: 'BlocReferenceRepository',
+              access: 'context.read<BlocReferenceRepository>()',
+              detail: '${refs.widgetNames.length} widget names available',
+              color: const Color(0xFF7C3AED),
+            ),
+            const SizedBox(height: 10),
+            _RepoAccessTile(
+              icon: Icons.description_outlined,
+              title: 'ProviderNarrativeRepository',
+              access:
+                  'RepositoryProvider.of<ProviderNarrativeRepository>(context)',
+              detail: 'Returns a dynamic description string',
+              color: const Color(0xFF0F766E),
+            ),
+            const SizedBox(height: 16),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surfaceContainerHighest.withValues(
+                  alpha: 0.4,
+                ),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Live Narrative Output',
+                    style: theme.textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  BlocBuilder<_CounterBloc, _CounterState>(
+                    builder:
+                        (BuildContext context, _CounterState counterState) {
+                          final _ActivityFilter filter = context
+                              .watch<_ActivityFilterBloc>()
+                              .state;
+                          return Text(
+                            narrative.describe(
+                              count: counterState.count,
+                              filter: filter,
+                            ),
+                            style: theme.textTheme.bodyMedium,
+                          );
+                        },
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surfaceContainerHighest.withValues(
+                  alpha: 0.4,
+                ),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'BlocReferenceRepository — Widget Names',
+                    style: theme.textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: refs.widgetNames.map((String name) {
+                      return Chip(
+                        avatar: const Icon(Icons.widgets_outlined, size: 16),
+                        label: Text(name),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _RepoAccessTile extends StatelessWidget {
+  const _RepoAccessTile({
+    required this.icon,
+    required this.title,
+    required this.access,
+    required this.detail,
+    required this.color,
+  });
+
+  final IconData icon;
+  final String title;
+  final String access;
+  final String detail;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withValues(alpha: 0.2)),
+      ),
+      child: Row(
+        children: <Widget>[
+          Icon(icon, color: color, size: 28),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  title,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: color,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  access,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    fontFamily: 'monospace',
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(detail, style: theme.textTheme.bodyMedium),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Scoped BlocProvider Card
+// ---------------------------------------------------------------------------
+
+class _ScopedBlocProviderCard extends StatelessWidget {
+  const _ScopedBlocProviderCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Scoped BlocProvider',
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'A BlocProvider can be scoped to a subtree. The local counter '
+              'below lives in its own BlocProvider and is completely '
+              'independent from the page-level CounterBloc above. When this '
+              'card leaves the widget tree, the scoped bloc is automatically '
+              'closed.',
+            ),
+            const SizedBox(height: 16),
+            BlocProvider<_ScopedCounterBloc>(
+              create: (BuildContext context) => _ScopedCounterBloc(),
+              child: const _ScopedCounterContent(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ScopedCounterContent extends StatelessWidget {
+  const _ScopedCounterContent();
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final int scopedCount = context.watch<_ScopedCounterBloc>().state;
+    final int mainCount = context.select<_CounterBloc, int>(
+      (_CounterBloc bloc) => bloc.state.count,
+    );
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: const Color(0xFF4338CA).withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: const Color(0xFF4338CA).withValues(alpha: 0.3),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: _ScopedCounterBox(
+                  label: 'Scoped Counter',
+                  count: scopedCount,
+                  color: const Color(0xFF4338CA),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: _ScopedCounterBox(
+                  label: 'Main Counter',
+                  count: mainCount,
+                  color: const Color(0xFF7C3AED),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            children: <Widget>[
+              FilledButton.icon(
+                onPressed: () => context.read<_ScopedCounterBloc>().add(
+                  const _ScopedIncrement(),
+                ),
+                icon: const Icon(Icons.add),
+                label: const Text('Scoped +1'),
+              ),
+              FilledButton.icon(
+                onPressed: () => context.read<_ScopedCounterBloc>().add(
+                  const _ScopedDecrement(),
+                ),
+                icon: const Icon(Icons.remove),
+                label: const Text('Scoped \u22121'),
+              ),
+              OutlinedButton.icon(
+                onPressed: () => context.read<_CounterBloc>().add(
+                  const _CounterIncrementPressed(),
+                ),
+                icon: const Icon(Icons.add),
+                label: const Text('Main +1'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Text(
+            'Notice: each counter operates independently.',
+            style: theme.textTheme.bodySmall,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ScopedCounterBox extends StatelessWidget {
+  const _ScopedCounterBox({
+    required this.label,
+    required this.count,
+    required this.color,
+  });
+
+  final String label;
+  final int count;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        children: <Widget>[
+          Text(
+            label,
+            style: theme.textTheme.labelMedium?.copyWith(
+              color: color,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            '$count',
+            style: theme.textTheme.headlineMedium?.copyWith(
+              color: color,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// BlocListener — Side Effects Card
+// ---------------------------------------------------------------------------
+
+class _BlocListenerEffectsCard extends StatelessWidget {
+  const _BlocListenerEffectsCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'BlocListener — Side Effects',
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'BlocListener reacts to state changes without rebuilding the UI. '
+              'Use it for one-time side effects such as showing dialogs, '
+              'navigating, or logging. Tap "Fetch Data" in the BlocBuilder '
+              'card above — when the fetch fails, this listener shows an '
+              'AlertDialog. When it succeeds, it logs a message below.',
+            ),
+            const SizedBox(height: 16),
+            const _BlocListenerEffectsContent(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _BlocListenerEffectsContent extends StatefulWidget {
+  const _BlocListenerEffectsContent();
+
+  @override
+  State<_BlocListenerEffectsContent> createState() =>
+      _BlocListenerEffectsContentState();
+}
+
+class _BlocListenerEffectsContentState
+    extends State<_BlocListenerEffectsContent> {
+  final List<String> _sideEffectLog = <String>[];
+
+  void _log(String message) {
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _sideEffectLog.insert(0, message);
+      if (_sideEffectLog.length > 8) {
+        _sideEffectLog.removeRange(8, _sideEffectLog.length);
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
+    return BlocListener<_DemoFetchBloc, _DemoFetchState>(
+      listenWhen: (_DemoFetchState previous, _DemoFetchState current) =>
+          previous.status != current.status,
+      listener: (BuildContext context, _DemoFetchState state) {
+        final String time =
+            '${DateTime.now().hour.toString().padLeft(2, '0')}:'
+            '${DateTime.now().minute.toString().padLeft(2, '0')}:'
+            '${DateTime.now().second.toString().padLeft(2, '0')}';
+
+        switch (state.status) {
+          case _DemoFetchStatus.loading:
+            _log('[$time] Side effect: fetch started');
+          case _DemoFetchStatus.success:
+            _log('[$time] Side effect: fetch succeeded');
+          case _DemoFetchStatus.failure:
+            _log('[$time] Side effect: fetch failed — showing dialog');
+            showDialog<void>(
+              context: context,
+              builder: (BuildContext dialogContext) {
+                return AlertDialog(
+                  icon: const Icon(
+                    Icons.error_outline,
+                    color: Color(0xFFDC2626),
+                    size: 40,
+                  ),
+                  title: const Text('Fetch Error'),
+                  content: Text(state.error ?? 'Unknown error'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.of(dialogContext).pop(),
+                      child: const Text('OK'),
+                    ),
+                    FilledButton(
+                      onPressed: () {
+                        Navigator.of(dialogContext).pop();
+                        context.read<_DemoFetchBloc>().add(
+                          const _DemoFetchRequested(),
+                        );
+                      },
+                      child: const Text('Retry'),
+                    ),
+                  ],
+                );
+              },
+            );
+          case _DemoFetchStatus.initial:
+            _log('[$time] Side effect: reset to initial');
+        }
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            children: <Widget>[
+              FilledButton.icon(
+                onPressed: () => context.read<_DemoFetchBloc>().add(
+                  const _DemoFetchRequested(),
+                ),
+                icon: const Icon(Icons.cloud_download_outlined),
+                label: const Text('Fetch Data'),
+              ),
+              OutlinedButton.icon(
+                onPressed: () =>
+                    context.read<_DemoFetchBloc>().add(const _DemoFetchReset()),
+                icon: const Icon(Icons.restart_alt),
+                label: const Text('Reset'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          BlocBuilder<_DemoFetchBloc, _DemoFetchState>(
+            builder: (BuildContext context, _DemoFetchState state) {
+              return Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                children: <Widget>[
+                  Chip(label: Text('Fetch status: ${state.status.name}')),
+                  if (state.data != null)
+                    Chip(label: Text('Items: ${state.data!.length}')),
+                  if (state.error != null)
+                    Chip(
+                      label: const Text('Has error'),
+                      backgroundColor: const Color(
+                        0xFFDC2626,
+                      ).withValues(alpha: 0.15),
+                    ),
+                ],
+              );
+            },
+          ),
+          const SizedBox(height: 16),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.surfaceContainerHighest.withValues(
+                alpha: 0.35,
+              ),
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    const Icon(Icons.receipt_long, size: 20),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Side-Effect Log',
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                if (_sideEffectLog.isEmpty)
+                  const Text(
+                    'No side effects triggered yet. Use the buttons above.',
+                  )
+                else
+                  ..._sideEffectLog.map(
+                    (String entry) => Padding(
+                      padding: const EdgeInsets.only(bottom: 6),
+                      child: Text(
+                        entry,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          fontFamily: 'monospace',
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
