@@ -205,6 +205,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'LinearProgressIndicator Module',
     path: '/linear-progress-indicator-page',
   ),
+  _ModuleLink(label: 'loot_reel Module', path: '/loot-reel-page'),
   _ModuleLink(label: 'lottie Module', path: '/lottie-page'),
   _ModuleLink(
     label: 'material_color_utilities Module',

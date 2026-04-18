@@ -94,6 +94,7 @@ import 'package:widget_layout_example2/modules/json_annotation_page.dart';
 import 'package:widget_layout_example2/modules/keyboard_listener_page.dart';
 import 'package:widget_layout_example2/modules/layout_builder_page.dart';
 import 'package:widget_layout_example2/modules/linear_progress_indicator_page.dart';
+import 'package:widget_layout_example2/modules/loot_reel_page.dart';
 import 'package:widget_layout_example2/modules/lottie_page.dart';
 import 'package:widget_layout_example2/modules/material_color_utilities_page.dart';
 import 'package:widget_layout_example2/modules/material_state_property_page.dart';
@@ -408,6 +409,7 @@ class AppRouter extends RootStackRouter {
       page: LinearProgressIndicatorExampleRoute.page,
       path: '/linear-progress-indicator-page',
     ),
+    AutoRoute(page: LootReelRoute.page, path: '/loot-reel-page'),
     AutoRoute(page: LottieRoute.page, path: '/lottie-page'),
     AutoRoute(
       page: MaterialColorUtilitiesRoute.page,

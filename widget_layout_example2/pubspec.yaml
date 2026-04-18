@@ -94,6 +94,7 @@ dependencies:
   webview_flutter: ^4.13.1
   youtube_explode_dart: ^3.0.5
   native_device_orientation: ^2.1.0
+  loot_reel: ^0.2.0
 
 dev_dependencies:
   flutter_test:

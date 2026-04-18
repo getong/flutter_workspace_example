@@ -2368,6 +2368,22 @@ class LoginRouteArgs {
 }
 
 /// generated route for
+/// [LootReelPage]
+class LootReelRoute extends PageRouteInfo<void> {
+  const LootReelRoute({List<PageRouteInfo>? children})
+    : super(LootReelRoute.name, initialChildren: children);
+
+  static const String name = 'LootReelRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const LootReelPage();
+    },
+  );
+}
+
+/// generated route for
 /// [LottiePage]
 class LottieRoute extends PageRouteInfo<void> {
   const LottieRoute({List<PageRouteInfo>? children})
