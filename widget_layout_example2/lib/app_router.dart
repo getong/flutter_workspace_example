@@ -109,6 +109,7 @@ import 'package:widget_layout_example2/modules/orientation_builder_page.dart';
 import 'package:widget_layout_example2/modules/padding_page.dart';
 import 'package:widget_layout_example2/modules/permission_handler_page.dart';
 import 'package:widget_layout_example2/modules/pigeon_page.dart';
+import 'package:widget_layout_example2/modules/pop_scope_page.dart';
 import 'package:widget_layout_example2/modules/positioned_page.dart';
 import 'package:widget_layout_example2/modules/radio_page.dart';
 import 'package:widget_layout_example2/modules/rich_text_page.dart';
@@ -533,6 +534,7 @@ class AppRouter extends RootStackRouter {
       path: '/permission-handler-page',
     ),
     AutoRoute(page: PigeonRoute.page, path: '/pigeon-page'),
+    AutoRoute(page: PopScopeRoute.page, path: '/pop-scope-page'),
     AutoRoute(page: SpeechToTextRoute.page, path: '/speech-to-text-page'),
     AutoRoute(
       page: SmoothPageIndicatorRoute.page,

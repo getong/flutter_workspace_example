@@ -238,6 +238,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/permission-handler-page',
   ),
   _ModuleLink(label: 'pigeon Module', path: '/pigeon-page'),
+  _ModuleLink(label: 'PopScope Module', path: '/pop-scope-page'),
   _ModuleLink(label: 'Radio Module', path: '/radio-page'),
   _ModuleLink(label: 'RichText Module', path: '/rich-text-page'),
   _ModuleLink(label: 'Semantics Module', path: '/semantics-page'),
