@@ -18,6 +18,7 @@ import 'package:widget_layout_example2/modules/block_semantics_page.dart';
 import 'package:widget_layout_example2/modules/center_box_page.dart';
 import 'package:widget_layout_example2/modules/cached_network_image_ce_page.dart';
 import 'package:widget_layout_example2/modules/characters_page.dart';
+import 'package:widget_layout_example2/modules/chopper_page.dart';
 import 'package:widget_layout_example2/modules/clipboard_page.dart';
 import 'package:widget_layout_example2/modules/checkbox_page.dart';
 import 'package:widget_layout_example2/modules/button_showcase_page.dart';
@@ -98,6 +99,7 @@ import 'package:widget_layout_example2/modules/keyboard_listener_page.dart';
 import 'package:widget_layout_example2/modules/layout_builder_page.dart';
 import 'package:widget_layout_example2/modules/linear_progress_indicator_page.dart';
 import 'package:widget_layout_example2/modules/loot_reel_page.dart';
+import 'package:widget_layout_example2/modules/lucide_icons_flutter_page.dart';
 import 'package:widget_layout_example2/modules/lottie_page.dart';
 import 'package:widget_layout_example2/modules/material_color_utilities_page.dart';
 import 'package:widget_layout_example2/modules/material_state_property_page.dart';
@@ -123,6 +125,7 @@ import 'package:widget_layout_example2/modules/safe_area_page.dart';
 import 'package:widget_layout_example2/modules/scrollbar_page.dart';
 import 'package:widget_layout_example2/modules/sensors_plus_page.dart';
 import 'package:widget_layout_example2/modules/semantics_page.dart';
+import 'package:widget_layout_example2/modules/shadcn_ui_page.dart';
 import 'package:widget_layout_example2/modules/shared_preferences_page.dart';
 import 'package:widget_layout_example2/modules/show_dialog_page.dart';
 import 'package:widget_layout_example2/modules/sized_box_page.dart';
@@ -401,6 +404,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: IntlRoute.page, path: '/intl-page'),
     AutoRoute(page: JnigenRoute.page, path: '/jnigen-page'),
     AutoRoute(page: CharactersRoute.page, path: '/characters-page'),
+    AutoRoute(page: ChopperRoute.page, path: '/chopper-page'),
     AutoRoute(page: SwitchExampleRoute.page, path: '/switch-page'),
     AutoRoute(page: CheckboxExampleRoute.page, path: '/checkbox-page'),
     AutoRoute(page: ClipboardRoute.page, path: '/clipboard-page'),
@@ -417,6 +421,10 @@ class AppRouter extends RootStackRouter {
       path: '/linear-progress-indicator-page',
     ),
     AutoRoute(page: LootReelRoute.page, path: '/loot-reel-page'),
+    AutoRoute(
+      page: LucideIconsFlutterRoute.page,
+      path: '/lucide-icons-flutter-page',
+    ),
     AutoRoute(page: LottieRoute.page, path: '/lottie-page'),
     AutoRoute(
       page: MaterialColorUtilitiesRoute.page,
@@ -434,6 +442,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: CueRoute.page, path: '/cue-page'),
     AutoRoute(page: SliderExampleRoute.page, path: '/slider-page'),
     AutoRoute(page: SensorsPlusRoute.page, path: '/sensors-plus-page'),
+    AutoRoute(page: ShadcnUiRoute.page, path: '/shadcn-ui-page'),
     AutoRoute(page: DatePickerRoute.page, path: '/date-picker-page'),
     AutoRoute(page: TimePickerRoute.page, path: '/time-picker-page'),
     AutoRoute(page: ToggleSwitchRoute.page, path: '/toggle-switch-page'),

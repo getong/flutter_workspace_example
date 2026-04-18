@@ -92,6 +92,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/cached-network-image-ce-page',
   ),
   _ModuleLink(label: 'characters Module', path: '/characters-page'),
+  _ModuleLink(label: 'chopper Module', path: '/chopper-page'),
   _ModuleLink(label: 'clipboard Module', path: '/clipboard-page'),
   _ModuleLink(label: 'Checkbox Module', path: '/checkbox-page'),
   _ModuleLink(label: 'ChoiceChip Module', path: '/choice-chip-page'),
@@ -211,6 +212,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/linear-progress-indicator-page',
   ),
   _ModuleLink(label: 'loot_reel Module', path: '/loot-reel-page'),
+  _ModuleLink(
+    label: 'lucide_icons_flutter Module',
+    path: '/lucide-icons-flutter-page',
+  ),
   _ModuleLink(label: 'lottie Module', path: '/lottie-page'),
   _ModuleLink(
     label: 'material_color_utilities Module',
@@ -249,6 +254,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(label: 'RichText Module', path: '/rich-text-page'),
   _ModuleLink(label: 'sensors_plus Module', path: '/sensors-plus-page'),
   _ModuleLink(label: 'Semantics Module', path: '/semantics-page'),
+  _ModuleLink(label: 'shadcn_ui Module', path: '/shadcn-ui-page'),
   _ModuleLink(
     label: 'shared_preferences Module',
     path: '/shared-preferences-page',

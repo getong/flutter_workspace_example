@@ -1113,6 +1113,22 @@ class ChoiceChipRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ChopperPage]
+class ChopperRoute extends PageRouteInfo<void> {
+  const ChopperRoute({List<PageRouteInfo>? children})
+    : super(ChopperRoute.name, initialChildren: children);
+
+  static const String name = 'ChopperRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ChopperPage();
+    },
+  );
+}
+
+/// generated route for
 /// [CircularProgressIndicatorExamplePage]
 class CircularProgressIndicatorExampleRoute extends PageRouteInfo<void> {
   const CircularProgressIndicatorExampleRoute({List<PageRouteInfo>? children})
@@ -2448,6 +2464,22 @@ class LottieRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [LucideIconsFlutterPage]
+class LucideIconsFlutterRoute extends PageRouteInfo<void> {
+  const LucideIconsFlutterRoute({List<PageRouteInfo>? children})
+    : super(LucideIconsFlutterRoute.name, initialChildren: children);
+
+  static const String name = 'LucideIconsFlutterRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const LucideIconsFlutterPage();
+    },
+  );
+}
+
+/// generated route for
 /// [MaterialColorUtilitiesPage]
 class MaterialColorUtilitiesRoute extends PageRouteInfo<void> {
   const MaterialColorUtilitiesRoute({List<PageRouteInfo>? children})
@@ -2851,6 +2883,22 @@ class SensorsPlusRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const SensorsPlusPage();
+    },
+  );
+}
+
+/// generated route for
+/// [ShadcnUiPage]
+class ShadcnUiRoute extends PageRouteInfo<void> {
+  const ShadcnUiRoute({List<PageRouteInfo>? children})
+    : super(ShadcnUiRoute.name, initialChildren: children);
+
+  static const String name = 'ShadcnUiRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ShadcnUiPage();
     },
   );
 }
