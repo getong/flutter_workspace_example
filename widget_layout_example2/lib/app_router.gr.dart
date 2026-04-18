@@ -91,6 +91,22 @@ class AnimatedSwitcherRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AnimatedTextKitPage]
+class AnimatedTextKitRoute extends PageRouteInfo<void> {
+  const AnimatedTextKitRoute({List<PageRouteInfo>? children})
+    : super(AnimatedTextKitRoute.name, initialChildren: children);
+
+  static const String name = 'AnimatedTextKitRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AnimatedTextKitPage();
+    },
+  );
+}
+
+/// generated route for
 /// [AnimatedToggleSwitchPage]
 class AnimatedToggleSwitchRoute extends PageRouteInfo<void> {
   const AnimatedToggleSwitchRoute({List<PageRouteInfo>? children})
@@ -1049,6 +1065,22 @@ class CenterBoxRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CharactersPage]
+class CharactersRoute extends PageRouteInfo<void> {
+  const CharactersRoute({List<PageRouteInfo>? children})
+    : super(CharactersRoute.name, initialChildren: children);
+
+  static const String name = 'CharactersRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CharactersPage();
+    },
+  );
+}
+
+/// generated route for
 /// [CheckboxExamplePage]
 class CheckboxExampleRoute extends PageRouteInfo<void> {
   const CheckboxExampleRoute({List<PageRouteInfo>? children})
@@ -1607,6 +1639,22 @@ class FlChartRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const FlChartPage();
+    },
+  );
+}
+
+/// generated route for
+/// [FlexColorSchemePage]
+class FlexColorSchemeRoute extends PageRouteInfo<void> {
+  const FlexColorSchemeRoute({List<PageRouteInfo>? children})
+    : super(FlexColorSchemeRoute.name, initialChildren: children);
+
+  static const String name = 'FlexColorSchemeRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlexColorSchemePage();
     },
   );
 }
@@ -2792,6 +2840,22 @@ class SemanticsRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [SensorsPlusPage]
+class SensorsPlusRoute extends PageRouteInfo<void> {
+  const SensorsPlusRoute({List<PageRouteInfo>? children})
+    : super(SensorsPlusRoute.name, initialChildren: children);
+
+  static const String name = 'SensorsPlusRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SensorsPlusPage();
+    },
+  );
+}
+
+/// generated route for
 /// [SharedPreferencesPage]
 class SharedPreferencesRoute extends PageRouteInfo<void> {
   const SharedPreferencesRoute({List<PageRouteInfo>? children})
@@ -3222,6 +3286,22 @@ class TimePickerRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const TimePickerPage();
+    },
+  );
+}
+
+/// generated route for
+/// [ToggleSwitchPage]
+class ToggleSwitchRoute extends PageRouteInfo<void> {
+  const ToggleSwitchRoute({List<PageRouteInfo>? children})
+    : super(ToggleSwitchRoute.name, initialChildren: children);
+
+  static const String name = 'ToggleSwitchRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ToggleSwitchPage();
     },
   );
 }

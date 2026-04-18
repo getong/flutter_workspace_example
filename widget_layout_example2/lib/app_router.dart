@@ -6,6 +6,7 @@ import 'package:widget_layout_example2/auth/auth.dart';
 import 'package:widget_layout_example2/home_page.dart';
 import 'package:widget_layout_example2/modules/align_page.dart';
 import 'package:widget_layout_example2/modules/animated_default_text_style_page.dart';
+import 'package:widget_layout_example2/modules/animated_text_kit_page.dart';
 import 'package:widget_layout_example2/modules/animated_switcher_page.dart';
 import 'package:widget_layout_example2/modules/animated_toggle_switch_page.dart';
 import 'package:widget_layout_example2/modules/animation_controller_page.dart';
@@ -16,6 +17,7 @@ import 'package:widget_layout_example2/modules/aspect_ratio_page.dart';
 import 'package:widget_layout_example2/modules/block_semantics_page.dart';
 import 'package:widget_layout_example2/modules/center_box_page.dart';
 import 'package:widget_layout_example2/modules/cached_network_image_ce_page.dart';
+import 'package:widget_layout_example2/modules/characters_page.dart';
 import 'package:widget_layout_example2/modules/clipboard_page.dart';
 import 'package:widget_layout_example2/modules/checkbox_page.dart';
 import 'package:widget_layout_example2/modules/button_showcase_page.dart';
@@ -51,6 +53,7 @@ import 'package:widget_layout_example2/modules/ffigen_page.dart';
 import 'package:widget_layout_example2/modules/filled_button_page.dart';
 import 'package:widget_layout_example2/modules/filter_chip_page.dart';
 import 'package:widget_layout_example2/modules/fl_chart_page.dart';
+import 'package:widget_layout_example2/modules/flex_color_scheme_page.dart';
 import 'package:widget_layout_example2/modules/flex_seed_scheme_page.dart';
 import 'package:widget_layout_example2/modules/flexible_page.dart';
 import 'package:widget_layout_example2/modules/fitted_box_page.dart';
@@ -118,6 +121,7 @@ import 'package:widget_layout_example2/modules/row_expanded_page.dart';
 import 'package:widget_layout_example2/modules/rotated_box_page.dart';
 import 'package:widget_layout_example2/modules/safe_area_page.dart';
 import 'package:widget_layout_example2/modules/scrollbar_page.dart';
+import 'package:widget_layout_example2/modules/sensors_plus_page.dart';
 import 'package:widget_layout_example2/modules/semantics_page.dart';
 import 'package:widget_layout_example2/modules/shared_preferences_page.dart';
 import 'package:widget_layout_example2/modules/show_dialog_page.dart';
@@ -145,6 +149,7 @@ import 'package:widget_layout_example2/modules/text_rich_page.dart';
 import 'package:widget_layout_example2/modules/text_style_page.dart';
 import 'package:widget_layout_example2/modules/theme_data_visual_density_page.dart';
 import 'package:widget_layout_example2/modules/time_picker_page.dart';
+import 'package:widget_layout_example2/modules/toggle_switch_page.dart';
 import 'package:widget_layout_example2/modules/transform_page.dart';
 import 'package:widget_layout_example2/modules/tooltip_page.dart';
 import 'package:widget_layout_example2/modules/tween_animation_builder_page.dart';
@@ -395,6 +400,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: AutoRouteUnknownRoute.page, path: '/auto-route-page/*'),
     AutoRoute(page: IntlRoute.page, path: '/intl-page'),
     AutoRoute(page: JnigenRoute.page, path: '/jnigen-page'),
+    AutoRoute(page: CharactersRoute.page, path: '/characters-page'),
     AutoRoute(page: SwitchExampleRoute.page, path: '/switch-page'),
     AutoRoute(page: CheckboxExampleRoute.page, path: '/checkbox-page'),
     AutoRoute(page: ClipboardRoute.page, path: '/clipboard-page'),
@@ -403,6 +409,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: ChoiceChipRoute.page, path: '/choice-chip-page'),
     AutoRoute(page: FilterChipRoute.page, path: '/filter-chip-page'),
     AutoRoute(page: FfigenRoute.page, path: '/ffigen-page'),
+    AutoRoute(page: FlexColorSchemeRoute.page, path: '/flex-color-scheme-page'),
     AutoRoute(page: FlexSeedSchemeRoute.page, path: '/flex-seed-scheme-page'),
     AutoRoute(page: ActionChipRoute.page, path: '/action-chip-page'),
     AutoRoute(
@@ -426,8 +433,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: CryptoRoute.page, path: '/crypto-page'),
     AutoRoute(page: CueRoute.page, path: '/cue-page'),
     AutoRoute(page: SliderExampleRoute.page, path: '/slider-page'),
+    AutoRoute(page: SensorsPlusRoute.page, path: '/sensors-plus-page'),
     AutoRoute(page: DatePickerRoute.page, path: '/date-picker-page'),
     AutoRoute(page: TimePickerRoute.page, path: '/time-picker-page'),
+    AutoRoute(page: ToggleSwitchRoute.page, path: '/toggle-switch-page'),
     AutoRoute(page: UrlLauncherRoute.page, path: '/url-launcher-page'),
     AutoRoute(page: WasmFfiRoute.page, path: '/wasm-ffi-page'),
     AutoRoute(page: WebviewFlutterRoute.page, path: '/webview-flutter-page'),
@@ -564,6 +573,7 @@ class AppRouter extends RootStackRouter {
       path: '/flutter-secure-storage-page',
     ),
     AutoRoute(page: TooltipRoute.page, path: '/tooltip-page'),
+    AutoRoute(page: AnimatedTextKitRoute.page, path: '/animated-text-kit-page'),
     AutoRoute(page: VideoThumbnailRoute.page, path: '/video-thumbnail-page'),
     AutoRoute(page: FlutterSlidableRoute.page, path: '/flutter-slidable-page'),
     AutoRoute(

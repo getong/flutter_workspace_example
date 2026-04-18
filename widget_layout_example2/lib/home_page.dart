@@ -91,6 +91,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'cached_network_image_ce Module',
     path: '/cached-network-image-ce-page',
   ),
+  _ModuleLink(label: 'characters Module', path: '/characters-page'),
   _ModuleLink(label: 'clipboard Module', path: '/clipboard-page'),
   _ModuleLink(label: 'Checkbox Module', path: '/checkbox-page'),
   _ModuleLink(label: 'ChoiceChip Module', path: '/choice-chip-page'),
@@ -120,6 +121,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   ),
   _ModuleLink(label: 'FilterChip Module', path: '/filter-chip-page'),
   _ModuleLink(label: 'ffigen Module', path: '/ffigen-page'),
+  _ModuleLink(
+    label: 'flex_color_scheme Module',
+    path: '/flex-color-scheme-page',
+  ),
   _ModuleLink(label: 'flex_seed_scheme Module', path: '/flex-seed-scheme-page'),
   _ModuleLink(label: 'fl_chart Module', path: '/fl-chart-page'),
   _ModuleLink(
@@ -242,6 +247,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(label: 'PopScope Module', path: '/pop-scope-page'),
   _ModuleLink(label: 'Radio Module', path: '/radio-page'),
   _ModuleLink(label: 'RichText Module', path: '/rich-text-page'),
+  _ModuleLink(label: 'sensors_plus Module', path: '/sensors-plus-page'),
   _ModuleLink(label: 'Semantics Module', path: '/semantics-page'),
   _ModuleLink(
     label: 'shared_preferences Module',
@@ -270,6 +276,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/theme-data-visual-density-page',
   ),
   _ModuleLink(label: 'TimePicker Module', path: '/time-picker-page'),
+  _ModuleLink(label: 'toggle_switch Module', path: '/toggle-switch-page'),
   _ModuleLink(label: 'Tooltip Module', path: '/tooltip-page'),
   _ModuleLink(label: 'url_launcher Module', path: '/url-launcher-page'),
   _ModuleLink(label: 'video_thumbnail Module', path: '/video-thumbnail-page'),
@@ -278,6 +285,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
 ];
 
 const List<_ModuleLink> _animationModules = <_ModuleLink>[
+  _ModuleLink(
+    label: 'animated_text_kit Module',
+    path: '/animated-text-kit-page',
+  ),
   _ModuleLink(
     label: 'AnimatedDefaultTextStyle Module',
     path: '/animated-default-text-style-page',
