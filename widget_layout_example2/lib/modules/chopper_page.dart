@@ -180,9 +180,9 @@ class _ChopperPageState extends State<ChopperPage> {
             .send<_ServiceHealth, dynamic>(
               request,
               responseConverter: (Response<dynamic> rawResponse) {
-                final Map<String, dynamic> json =
-                    (rawResponse.body ?? const <String, dynamic>{})
-                        as Map<String, dynamic>;
+                final Map<String, dynamic> json = _decodeJsonObject(
+                  rawResponse.body,
+                );
                 return rawResponse.copyWith<_ServiceHealth>(
                   body: _ServiceHealth.fromJson(json),
                 );
@@ -625,6 +625,28 @@ class _ChopperPageState extends State<ChopperPage> {
         label: const Text('Home'),
       ),
     );
+  }
+
+  Map<String, dynamic> _decodeJsonObject(Object? body) {
+    if (body is Map<String, dynamic>) {
+      return body;
+    }
+
+    if (body is Map) {
+      return Map<String, dynamic>.from(body);
+    }
+
+    if (body is String && body.isNotEmpty) {
+      final Object? decoded = jsonDecode(body);
+      if (decoded is Map<String, dynamic>) {
+        return decoded;
+      }
+      if (decoded is Map) {
+        return Map<String, dynamic>.from(decoded);
+      }
+    }
+
+    return const <String, dynamic>{};
   }
 }
 
