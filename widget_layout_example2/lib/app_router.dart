@@ -101,6 +101,9 @@ import 'package:widget_layout_example2/modules/material_symbols_icons_page.dart'
 import 'package:widget_layout_example2/modules/media_query_page.dart';
 import 'package:widget_layout_example2/modules/merge_semantics_page.dart';
 import 'package:widget_layout_example2/modules/mouse_region_page.dart';
+import 'package:widget_layout_example2/modules/native_device_orientation_communicator_page.dart';
+import 'package:widget_layout_example2/modules/native_device_orientation_oriented_widget_page.dart';
+import 'package:widget_layout_example2/modules/native_device_orientation_reader_page.dart';
 import 'package:widget_layout_example2/modules/open_file_page.dart';
 import 'package:widget_layout_example2/modules/orientation_builder_page.dart';
 import 'package:widget_layout_example2/modules/padding_page.dart';
@@ -495,6 +498,18 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: InkWidgetsRoute.page, path: '/ink-widgets-page'),
     AutoRoute(page: MediaQueryRoute.page, path: '/media-query-page'),
     AutoRoute(page: MouseRegionRoute.page, path: '/mouse-region-page'),
+    AutoRoute(
+      page: NativeDeviceOrientationCommunicatorRoute.page,
+      path: '/native-device-orientation-communicator-page',
+    ),
+    AutoRoute(
+      page: NativeDeviceOrientationOrientedWidgetRoute.page,
+      path: '/native-device-orientation-oriented-widget-page',
+    ),
+    AutoRoute(
+      page: NativeDeviceOrientationReaderRoute.page,
+      path: '/native-device-orientation-reader-page',
+    ),
     AutoRoute(page: TextRichRoute.page, path: '/text-rich-page'),
     AutoRoute(
       page: SingleChildScrollViewRoute.page,

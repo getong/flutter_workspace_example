@@ -2480,6 +2480,62 @@ class MouseRegionRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [NativeDeviceOrientationCommunicatorPage]
+class NativeDeviceOrientationCommunicatorRoute extends PageRouteInfo<void> {
+  const NativeDeviceOrientationCommunicatorRoute({
+    List<PageRouteInfo>? children,
+  }) : super(
+         NativeDeviceOrientationCommunicatorRoute.name,
+         initialChildren: children,
+       );
+
+  static const String name = 'NativeDeviceOrientationCommunicatorRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const NativeDeviceOrientationCommunicatorPage();
+    },
+  );
+}
+
+/// generated route for
+/// [NativeDeviceOrientationOrientedWidgetPage]
+class NativeDeviceOrientationOrientedWidgetRoute extends PageRouteInfo<void> {
+  const NativeDeviceOrientationOrientedWidgetRoute({
+    List<PageRouteInfo>? children,
+  }) : super(
+         NativeDeviceOrientationOrientedWidgetRoute.name,
+         initialChildren: children,
+       );
+
+  static const String name = 'NativeDeviceOrientationOrientedWidgetRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const NativeDeviceOrientationOrientedWidgetPage();
+    },
+  );
+}
+
+/// generated route for
+/// [NativeDeviceOrientationReaderPage]
+class NativeDeviceOrientationReaderRoute extends PageRouteInfo<void> {
+  const NativeDeviceOrientationReaderRoute({List<PageRouteInfo>? children})
+    : super(NativeDeviceOrientationReaderRoute.name, initialChildren: children);
+
+  static const String name = 'NativeDeviceOrientationReaderRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const NativeDeviceOrientationReaderPage();
+    },
+  );
+}
+
+/// generated route for
 /// [OpenFilePage]
 class OpenFileRoute extends PageRouteInfo<void> {
   const OpenFileRoute({List<PageRouteInfo>? children})

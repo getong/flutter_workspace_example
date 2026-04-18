@@ -220,6 +220,18 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   ),
   _ModuleLink(label: 'MergeSemantics Module', path: '/merge-semantics-page'),
   _ModuleLink(label: 'MouseRegion Module', path: '/mouse-region-page'),
+  _ModuleLink(
+    label: 'native_device_orientation Communicator Module',
+    path: '/native-device-orientation-communicator-page',
+  ),
+  _ModuleLink(
+    label: 'native_device_orientation OrientedWidget Module',
+    path: '/native-device-orientation-oriented-widget-page',
+  ),
+  _ModuleLink(
+    label: 'native_device_orientation Reader Module',
+    path: '/native-device-orientation-reader-page',
+  ),
   _ModuleLink(label: 'open_file Module', path: '/open-file-page'),
   _ModuleLink(
     label: 'permission_handler Module',
