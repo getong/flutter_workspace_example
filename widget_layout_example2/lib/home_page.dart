@@ -44,6 +44,10 @@ const List<_ModuleLink> _layoutModules = <_ModuleLink>[
   ),
   _ModuleLink(label: 'Padding Module', path: '/padding-page'),
   _ModuleLink(label: 'Positioned Module', path: '/positioned-page'),
+  _ModuleLink(
+    label: 'ResponsiveContainer Module',
+    path: '/responsive-container-page',
+  ),
   _ModuleLink(label: 'RotatedBox Module', path: '/rotated-box-page'),
   _ModuleLink(label: 'Row Expanded Module', path: '/row-expand-page'),
   _ModuleLink(label: 'SafeArea Module', path: '/safe-area-page'),
@@ -80,7 +84,15 @@ const List<_ModuleLink> _layoutModules = <_ModuleLink>[
 const List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(label: 'ActionChip Module', path: '/action-chip-page'),
   _ModuleLink(label: 'AboutDialog Module', path: '/about-dialog-page'),
+  _ModuleLink(
+    label: 'AdvancedProgressIndicator Module',
+    path: '/advanced-progress-indicator-page',
+  ),
   _ModuleLink(label: 'AlertDialog Module', path: '/alert-dialog-page'),
+  _ModuleLink(
+    label: 'AnimatedListTile Module',
+    path: '/animated-list-tile-page',
+  ),
   _ModuleLink(label: 'auto_route Module', path: '/auto-route-page'),
   _ModuleLink(label: 'Cascade Route Module', path: '/cascade'),
   _ModuleLink(label: 'BlockSemantics Module', path: '/block-semantics-page'),
@@ -125,6 +137,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/drift-flutter-page',
   ),
   _ModuleLink(label: 'encrypter_plus Module', path: '/encrypter-plus-page'),
+  _ModuleLink(
+    label: 'ExpandableSection Module',
+    path: '/expandable-section-page',
+  ),
   _ModuleLink(
     label: 'ExcludeSemantics Module',
     path: '/exclude-semantics-page',
@@ -211,6 +227,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/introduction-screen-page',
   ),
   _ModuleLink(label: 'Intl Module', path: '/intl-page'),
+  _ModuleLink(label: 'InteractiveCard Module', path: '/interactive-card-page'),
   _ModuleLink(label: 'jnigen Module', path: '/jnigen-page'),
   _ModuleLink(label: 'json_annotation Module', path: '/json-annotation-page'),
   _ModuleLink(
@@ -259,6 +276,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'onboarding_overlay Module',
     path: '/onboarding-overlay-page',
   ),
+  _ModuleLink(label: 'OverlayMenu Module', path: '/overlay-menu-page'),
   _ModuleLink(
     label: 'permission_handler Module',
     path: '/permission-handler-page',

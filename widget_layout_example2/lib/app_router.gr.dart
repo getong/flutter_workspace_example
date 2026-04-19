@@ -43,6 +43,22 @@ class ActionChipRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AdvancedProgressIndicatorPage]
+class AdvancedProgressIndicatorRoute extends PageRouteInfo<void> {
+  const AdvancedProgressIndicatorRoute({List<PageRouteInfo>? children})
+    : super(AdvancedProgressIndicatorRoute.name, initialChildren: children);
+
+  static const String name = 'AdvancedProgressIndicatorRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AdvancedProgressIndicatorPage();
+    },
+  );
+}
+
+/// generated route for
 /// [AlertDialogExamplePage]
 class AlertDialogExampleRoute extends PageRouteInfo<void> {
   const AlertDialogExampleRoute({List<PageRouteInfo>? children})
@@ -86,6 +102,22 @@ class AnimatedDefaultTextStyleRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const AnimatedDefaultTextStylePage();
+    },
+  );
+}
+
+/// generated route for
+/// [AnimatedListTilePage]
+class AnimatedListTileRoute extends PageRouteInfo<void> {
+  const AnimatedListTileRoute({List<PageRouteInfo>? children})
+    : super(AnimatedListTileRoute.name, initialChildren: children);
+
+  static const String name = 'AnimatedListTileRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AnimatedListTilePage();
     },
   );
 }
@@ -1612,6 +1644,22 @@ class ExcludeSemanticsRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ExpandableSectionPage]
+class ExpandableSectionRoute extends PageRouteInfo<void> {
+  const ExpandableSectionRoute({List<PageRouteInfo>? children})
+    : super(ExpandableSectionRoute.name, initialChildren: children);
+
+  static const String name = 'ExpandableSectionRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ExpandableSectionPage();
+    },
+  );
+}
+
+/// generated route for
 /// [ExpandedPage]
 class ExpandedRoute extends PageRouteInfo<void> {
   const ExpandedRoute({List<PageRouteInfo>? children})
@@ -2316,6 +2364,22 @@ class InputChipRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [InteractiveCardPage]
+class InteractiveCardRoute extends PageRouteInfo<void> {
+  const InteractiveCardRoute({List<PageRouteInfo>? children})
+    : super(InteractiveCardRoute.name, initialChildren: children);
+
+  static const String name = 'InteractiveCardRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const InteractiveCardPage();
+    },
+  );
+}
+
+/// generated route for
 /// [IntlPage]
 class IntlRoute extends PageRouteInfo<void> {
   const IntlRoute({List<PageRouteInfo>? children})
@@ -2760,6 +2824,22 @@ class OrientationBuilderRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [OverlayMenuPage]
+class OverlayMenuRoute extends PageRouteInfo<void> {
+  const OverlayMenuRoute({List<PageRouteInfo>? children})
+    : super(OverlayMenuRoute.name, initialChildren: children);
+
+  static const String name = 'OverlayMenuRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const OverlayMenuPage();
+    },
+  );
+}
+
+/// generated route for
 /// [PaddingPage]
 class PaddingRoute extends PageRouteInfo<void> {
   const PaddingRoute({List<PageRouteInfo>? children})
@@ -2867,6 +2947,22 @@ class RadioExampleRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const RadioExamplePage();
+    },
+  );
+}
+
+/// generated route for
+/// [ResponsiveContainerPage]
+class ResponsiveContainerRoute extends PageRouteInfo<void> {
+  const ResponsiveContainerRoute({List<PageRouteInfo>? children})
+    : super(ResponsiveContainerRoute.name, initialChildren: children);
+
+  static const String name = 'ResponsiveContainerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ResponsiveContainerPage();
     },
   );
 }
