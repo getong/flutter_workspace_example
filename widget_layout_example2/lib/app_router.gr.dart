@@ -1740,6 +1740,22 @@ class FlowExampleRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FluentUiPage]
+class FluentUiRoute extends PageRouteInfo<void> {
+  const FluentUiRoute({List<PageRouteInfo>? children})
+    : super(FluentUiRoute.name, initialChildren: children);
+
+  static const String name = 'FluentUiRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FluentUiPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterAutoSizeTextPage]
 class FlutterAutoSizeTextRoute extends PageRouteInfo<void> {
   const FlutterAutoSizeTextRoute({List<PageRouteInfo>? children})
@@ -2480,6 +2496,22 @@ class LucideIconsFlutterRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [MacosUiPage]
+class MacosUiRoute extends PageRouteInfo<void> {
+  const MacosUiRoute({List<PageRouteInfo>? children})
+    : super(MacosUiRoute.name, initialChildren: children);
+
+  static const String name = 'MacosUiRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const MacosUiPage();
+    },
+  );
+}
+
+/// generated route for
 /// [MaterialColorUtilitiesPage]
 class MaterialColorUtilitiesRoute extends PageRouteInfo<void> {
   const MaterialColorUtilitiesRoute({List<PageRouteInfo>? children})
@@ -2627,6 +2659,22 @@ class NativeDeviceOrientationReaderRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const NativeDeviceOrientationReaderPage();
+    },
+  );
+}
+
+/// generated route for
+/// [OnboardingOverlayPage]
+class OnboardingOverlayRoute extends PageRouteInfo<void> {
+  const OnboardingOverlayRoute({List<PageRouteInfo>? children})
+    : super(OnboardingOverlayRoute.name, initialChildren: children);
+
+  static const String name = 'OnboardingOverlayRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const OnboardingOverlayPage();
     },
   );
 }

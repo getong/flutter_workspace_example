@@ -5,6 +5,7 @@
 import FlutterMacOS
 import Foundation
 
+import appkit_ui_element_colors
 import audioplayers_darwin
 import clipboard
 import connectivity_plus
@@ -14,6 +15,8 @@ import flutter_secure_storage_darwin
 import flutter_tts
 import fvp
 import irondash_engine_context
+import macos_ui
+import macos_window_utils
 import open_file_mac
 import shared_preferences_foundation
 import speech_to_text
@@ -23,6 +26,7 @@ import video_player_avfoundation
 import webview_flutter_wkwebview
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
+  AppkitUiElementColorsPlugin.register(with: registry.registrar(forPlugin: "AppkitUiElementColorsPlugin"))
   AudioplayersDarwinPlugin.register(with: registry.registrar(forPlugin: "AudioplayersDarwinPlugin"))
   ClipboardPlugin.register(with: registry.registrar(forPlugin: "ClipboardPlugin"))
   ConnectivityPlusPlugin.register(with: registry.registrar(forPlugin: "ConnectivityPlusPlugin"))
@@ -32,6 +36,8 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   FlutterTtsPlugin.register(with: registry.registrar(forPlugin: "FlutterTtsPlugin"))
   FvpPlugin.register(with: registry.registrar(forPlugin: "FvpPlugin"))
   IrondashEngineContextPlugin.register(with: registry.registrar(forPlugin: "IrondashEngineContextPlugin"))
+  MacOSUiPlugin.register(with: registry.registrar(forPlugin: "MacOSUiPlugin"))
+  MacOSWindowUtilsPlugin.register(with: registry.registrar(forPlugin: "MacOSWindowUtilsPlugin"))
   OpenFilePlugin.register(with: registry.registrar(forPlugin: "OpenFilePlugin"))
   SharedPreferencesPlugin.register(with: registry.registrar(forPlugin: "SharedPreferencesPlugin"))
   SpeechToTextPlugin.register(with: registry.registrar(forPlugin: "SpeechToTextPlugin"))

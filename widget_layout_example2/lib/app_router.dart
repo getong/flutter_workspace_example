@@ -59,6 +59,7 @@ import 'package:widget_layout_example2/modules/flex_seed_scheme_page.dart';
 import 'package:widget_layout_example2/modules/flexible_page.dart';
 import 'package:widget_layout_example2/modules/fitted_box_page.dart';
 import 'package:widget_layout_example2/modules/floating_action_button_page.dart';
+import 'package:widget_layout_example2/modules/fluent_ui_page.dart';
 import 'package:widget_layout_example2/modules/focus_traversal_group_page.dart';
 import 'package:widget_layout_example2/modules/focusable_action_detector_page.dart';
 import 'package:widget_layout_example2/modules/flow_page.dart';
@@ -104,6 +105,7 @@ import 'package:widget_layout_example2/modules/lottie_page.dart';
 import 'package:widget_layout_example2/modules/material_color_utilities_page.dart';
 import 'package:widget_layout_example2/modules/material_state_property_page.dart';
 import 'package:widget_layout_example2/modules/material_symbols_icons_page.dart';
+import 'package:widget_layout_example2/modules/macos_ui_page.dart';
 import 'package:widget_layout_example2/modules/media_query_page.dart';
 import 'package:widget_layout_example2/modules/merge_semantics_page.dart';
 import 'package:widget_layout_example2/modules/mouse_region_page.dart';
@@ -111,6 +113,7 @@ import 'package:widget_layout_example2/modules/native_device_orientation_communi
 import 'package:widget_layout_example2/modules/native_device_orientation_oriented_widget_page.dart';
 import 'package:widget_layout_example2/modules/native_device_orientation_reader_page.dart';
 import 'package:widget_layout_example2/modules/open_file_page.dart';
+import 'package:widget_layout_example2/modules/onboarding_overlay_page.dart';
 import 'package:widget_layout_example2/modules/orientation_builder_page.dart';
 import 'package:widget_layout_example2/modules/padding_page.dart';
 import 'package:widget_layout_example2/modules/permission_handler_page.dart';
@@ -426,6 +429,7 @@ class AppRouter extends RootStackRouter {
       path: '/lucide-icons-flutter-page',
     ),
     AutoRoute(page: LottieRoute.page, path: '/lottie-page'),
+    AutoRoute(page: FluentUiRoute.page, path: '/fluent-ui-page'),
     AutoRoute(
       page: MaterialColorUtilitiesRoute.page,
       path: '/material-color-utilities-page',
@@ -434,6 +438,7 @@ class AppRouter extends RootStackRouter {
       page: MaterialStatePropertyRoute.page,
       path: '/material-state-property-page',
     ),
+    AutoRoute(page: MacosUiRoute.page, path: '/macos-ui-page'),
     AutoRoute(
       page: CircularProgressIndicatorExampleRoute.page,
       path: '/circular-progress-indicator-page',
@@ -548,6 +553,10 @@ class AppRouter extends RootStackRouter {
       path: '/exclude-semantics-page',
     ),
     AutoRoute(page: MergeSemanticsRoute.page, path: '/merge-semantics-page'),
+    AutoRoute(
+      page: OnboardingOverlayRoute.page,
+      path: '/onboarding-overlay-page',
+    ),
     AutoRoute(page: OpenFileRoute.page, path: '/open-file-page'),
     AutoRoute(
       page: PermissionHandlerRoute.page,

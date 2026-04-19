@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:fluent_ui/fluent_ui.dart' as fluent;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widget_layout_example2/auto_route_demo_support.dart';
@@ -19,6 +20,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Widget Layout Example',
+      localizationsDelegates: fluent.FluentLocalizations.localizationsDelegates,
+      supportedLocales: fluent.FluentLocalizations.supportedLocales,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),

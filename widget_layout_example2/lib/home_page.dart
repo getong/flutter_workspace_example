@@ -128,6 +128,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   ),
   _ModuleLink(label: 'flex_seed_scheme Module', path: '/flex-seed-scheme-page'),
   _ModuleLink(label: 'fl_chart Module', path: '/fl-chart-page'),
+  _ModuleLink(label: 'fluent_ui Module', path: '/fluent-ui-page'),
   _ModuleLink(
     label: 'FloatingActionButton Module',
     path: '/floating-action-button-page',
@@ -229,6 +230,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'material_symbols_icons Module',
     path: '/material-symbols-icons-page',
   ),
+  _ModuleLink(label: 'macos_ui Module', path: '/macos-ui-page'),
   _ModuleLink(label: 'MergeSemantics Module', path: '/merge-semantics-page'),
   _ModuleLink(label: 'MouseRegion Module', path: '/mouse-region-page'),
   _ModuleLink(
@@ -244,6 +246,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/native-device-orientation-reader-page',
   ),
   _ModuleLink(label: 'open_file Module', path: '/open-file-page'),
+  _ModuleLink(
+    label: 'onboarding_overlay Module',
+    path: '/onboarding-overlay-page',
+  ),
   _ModuleLink(
     label: 'permission_handler Module',
     path: '/permission-handler-page',
