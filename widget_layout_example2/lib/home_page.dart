@@ -79,6 +79,7 @@ const List<_ModuleLink> _layoutModules = <_ModuleLink>[
 
 const List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(label: 'ActionChip Module', path: '/action-chip-page'),
+  _ModuleLink(label: 'AboutDialog Module', path: '/about-dialog-page'),
   _ModuleLink(label: 'AlertDialog Module', path: '/alert-dialog-page'),
   _ModuleLink(label: 'auto_route Module', path: '/auto-route-page'),
   _ModuleLink(label: 'Cascade Route Module', path: '/cascade'),
@@ -107,6 +108,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/data-table-page',
   ),
   _ModuleLink(label: 'DatePicker Module', path: '/date-picker-page'),
+  _ModuleLink(
+    label: 'DatePickerDialog Module',
+    path: '/date-picker-dialog-page',
+  ),
   _ModuleLink(label: 'Dialog Module', path: '/dialog-page'),
   _ModuleLink(label: 'dio Module', path: '/dio-page'),
   _ModuleLink(
@@ -292,6 +297,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     path: '/theme-data-visual-density-page',
   ),
   _ModuleLink(label: 'TimePicker Module', path: '/time-picker-page'),
+  _ModuleLink(
+    label: 'TimePickerDialog Module',
+    path: '/time-picker-dialog-page',
+  ),
   _ModuleLink(label: 'toggle_switch Module', path: '/toggle-switch-page'),
   _ModuleLink(label: 'Tooltip Module', path: '/tooltip-page'),
   _ModuleLink(label: 'url_launcher Module', path: '/url-launcher-page'),

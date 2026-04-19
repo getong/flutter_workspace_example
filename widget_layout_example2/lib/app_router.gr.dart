@@ -11,6 +11,22 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [AboutDialogPage]
+class AboutDialogRoute extends PageRouteInfo<void> {
+  const AboutDialogRoute({List<PageRouteInfo>? children})
+    : super(AboutDialogRoute.name, initialChildren: children);
+
+  static const String name = 'AboutDialogRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AboutDialogPage();
+    },
+  );
+}
+
+/// generated route for
 /// [ActionChipPage]
 class ActionChipRoute extends PageRouteInfo<void> {
   const ActionChipRoute({List<PageRouteInfo>? children})
@@ -1415,6 +1431,22 @@ class DataTableRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const DataTablePage();
+    },
+  );
+}
+
+/// generated route for
+/// [DatePickerDialogPage]
+class DatePickerDialogRoute extends PageRouteInfo<void> {
+  const DatePickerDialogRoute({List<PageRouteInfo>? children})
+    : super(DatePickerDialogRoute.name, initialChildren: children);
+
+  static const String name = 'DatePickerDialogRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DatePickerDialogPage();
     },
   );
 }
@@ -3382,6 +3414,22 @@ class ThemeDataVisualDensityRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const ThemeDataVisualDensityPage();
+    },
+  );
+}
+
+/// generated route for
+/// [TimePickerDialogPage]
+class TimePickerDialogRoute extends PageRouteInfo<void> {
+  const TimePickerDialogRoute({List<PageRouteInfo>? children})
+    : super(TimePickerDialogRoute.name, initialChildren: children);
+
+  static const String name = 'TimePickerDialogRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TimePickerDialogPage();
     },
   );
 }

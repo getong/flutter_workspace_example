@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:widget_layout_example2/auto_route_demo_support.dart';
 import 'package:widget_layout_example2/auth/auth.dart';
 import 'package:widget_layout_example2/home_page.dart';
+import 'package:widget_layout_example2/modules/about_dialog_page.dart';
 import 'package:widget_layout_example2/modules/align_page.dart';
 import 'package:widget_layout_example2/modules/animated_default_text_style_page.dart';
 import 'package:widget_layout_example2/modules/animated_text_kit_page.dart';
@@ -40,6 +41,7 @@ import 'package:widget_layout_example2/modules/custom_paint_page.dart';
 import 'package:widget_layout_example2/modules/crypto_page.dart';
 import 'package:widget_layout_example2/modules/cue_page.dart';
 import 'package:widget_layout_example2/modules/data_table_page.dart';
+import 'package:widget_layout_example2/modules/date_picker_dialog_page.dart';
 import 'package:widget_layout_example2/modules/decorated_box_page.dart';
 import 'package:widget_layout_example2/modules/dialog_page.dart';
 import 'package:widget_layout_example2/modules/dio_page.dart';
@@ -151,6 +153,7 @@ import 'package:widget_layout_example2/modules/stream_builder_page.dart';
 import 'package:widget_layout_example2/modules/super_clipboard_page.dart';
 import 'package:widget_layout_example2/modules/switch_page.dart';
 import 'package:widget_layout_example2/modules/table_page.dart';
+import 'package:widget_layout_example2/modules/time_picker_dialog_page.dart';
 import 'package:widget_layout_example2/modules/text_field_controller_page.dart';
 import 'package:widget_layout_example2/modules/text_rich_page.dart';
 import 'package:widget_layout_example2/modules/text_style_page.dart';
@@ -416,6 +419,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: InputChipRoute.page, path: '/input-chip-page'),
     AutoRoute(page: ChoiceChipRoute.page, path: '/choice-chip-page'),
     AutoRoute(page: FilterChipRoute.page, path: '/filter-chip-page'),
+    AutoRoute(page: AboutDialogRoute.page, path: '/about-dialog-page'),
     AutoRoute(page: FfigenRoute.page, path: '/ffigen-page'),
     AutoRoute(page: FlexColorSchemeRoute.page, path: '/flex-color-scheme-page'),
     AutoRoute(page: FlexSeedSchemeRoute.page, path: '/flex-seed-scheme-page'),
@@ -450,7 +454,15 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: SensorsPlusRoute.page, path: '/sensors-plus-page'),
     AutoRoute(page: ShadcnUiRoute.page, path: '/shadcn-ui-page'),
     AutoRoute(page: DatePickerRoute.page, path: '/date-picker-page'),
+    AutoRoute(
+      page: DatePickerDialogRoute.page,
+      path: '/date-picker-dialog-page',
+    ),
     AutoRoute(page: TimePickerRoute.page, path: '/time-picker-page'),
+    AutoRoute(
+      page: TimePickerDialogRoute.page,
+      path: '/time-picker-dialog-page',
+    ),
     AutoRoute(page: ToggleSwitchRoute.page, path: '/toggle-switch-page'),
     AutoRoute(page: UrlLauncherRoute.page, path: '/url-launcher-page'),
     AutoRoute(page: WasmFfiRoute.page, path: '/wasm-ffi-page'),
