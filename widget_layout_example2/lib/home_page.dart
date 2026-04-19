@@ -223,6 +223,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
   ),
   _ModuleLink(label: 'InputChip Module', path: '/input-chip-page'),
   _ModuleLink(
+    label: 'iPhone-like Floating Button Module',
+    path: '/iphone-like-floating-button-page',
+  ),
+  _ModuleLink(
     label: 'introduction_screen Module',
     path: '/introduction-screen-page',
   ),

@@ -2252,6 +2252,22 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [IPhoneLikeFloatingButtonPage]
+class IPhoneLikeFloatingButtonRoute extends PageRouteInfo<void> {
+  const IPhoneLikeFloatingButtonRoute({List<PageRouteInfo>? children})
+    : super(IPhoneLikeFloatingButtonRoute.name, initialChildren: children);
+
+  static const String name = 'IPhoneLikeFloatingButtonRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const IPhoneLikeFloatingButtonPage();
+    },
+  );
+}
+
+/// generated route for
 /// [IconlyPage]
 class IconlyRoute extends PageRouteInfo<void> {
   const IconlyRoute({List<PageRouteInfo>? children})
