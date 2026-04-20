@@ -100,6 +100,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'BottomNavigationBar Module',
     path: '/bottom-navigation-bar-page',
   ),
+  _ModuleLink(label: 'built_value Module', path: '/built-value-page'),
   _ModuleLink(
     label: 'cached_network_image_ce Module',
     path: '/cached-network-image-ce-page',
@@ -221,6 +222,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'injectable + get_it Module',
     path: '/injectable-get-it-page',
   ),
+  _ModuleLink(
+    label: 'infinite_scroll_pagination Module',
+    path: '/infinite-scroll-pagination-page',
+  ),
   _ModuleLink(label: 'InputChip Module', path: '/input-chip-page'),
   _ModuleLink(
     label: 'iPhone-like Floating Button Module',
@@ -285,6 +290,10 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'permission_handler Module',
     path: '/permission-handler-page',
   ),
+  _ModuleLink(
+    label: 'package_info_plus Module',
+    path: '/package-info-plus-page',
+  ),
   _ModuleLink(label: 'pigeon Module', path: '/pigeon-page'),
   _ModuleLink(label: 'PopScope Module', path: '/pop-scope-page'),
   _ModuleLink(label: 'Radio Module', path: '/radio-page'),
@@ -296,6 +305,7 @@ const List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'shared_preferences Module',
     path: '/shared-preferences-page',
   ),
+  _ModuleLink(label: 'share_plus Module', path: '/share-plus-page'),
   _ModuleLink(label: 'showDialog Module', path: '/show-dialog-page'),
   _ModuleLink(label: 'SimpleDialog Module', path: '/simple-dialog-page'),
   _ModuleLink(label: 'Slider Module', path: '/slider-page'),

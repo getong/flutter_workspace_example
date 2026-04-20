@@ -26,6 +26,7 @@ import 'package:widget_layout_example2/modules/clipboard_page.dart';
 import 'package:widget_layout_example2/modules/checkbox_page.dart';
 import 'package:widget_layout_example2/modules/button_showcase_page.dart';
 import 'package:widget_layout_example2/modules/bottom_navigation_bar_page.dart';
+import 'package:widget_layout_example2/modules/built_value_page.dart';
 import 'package:widget_layout_example2/modules/cascade_route_page.dart';
 import 'package:widget_layout_example2/modules/circular_progress_indicator_page.dart';
 import 'package:widget_layout_example2/modules/clip_oval_page.dart';
@@ -100,6 +101,7 @@ import 'package:widget_layout_example2/modules/iphone_like_floating_button_page.
 import 'package:widget_layout_example2/modules/introduction_screen_page.dart';
 import 'package:widget_layout_example2/modules/indexed_stack_page.dart';
 import 'package:widget_layout_example2/modules/input_chip_page.dart';
+import 'package:widget_layout_example2/modules/infinite_scroll_pagination_page.dart';
 import 'package:widget_layout_example2/modules/interactive_card_page.dart';
 import 'package:widget_layout_example2/modules/intl_page.dart';
 import 'package:widget_layout_example2/modules/jnigen_page.dart';
@@ -126,6 +128,7 @@ import 'package:widget_layout_example2/modules/orientation_builder_page.dart';
 import 'package:widget_layout_example2/modules/overlay_menu_page.dart';
 import 'package:widget_layout_example2/modules/padding_page.dart';
 import 'package:widget_layout_example2/modules/permission_handler_page.dart';
+import 'package:widget_layout_example2/modules/package_info_plus_page.dart';
 import 'package:widget_layout_example2/modules/pigeon_page.dart';
 import 'package:widget_layout_example2/modules/pop_scope_page.dart';
 import 'package:widget_layout_example2/modules/positioned_page.dart';
@@ -140,6 +143,7 @@ import 'package:widget_layout_example2/modules/sensors_plus_page.dart';
 import 'package:widget_layout_example2/modules/semantics_page.dart';
 import 'package:widget_layout_example2/modules/shadcn_ui_page.dart';
 import 'package:widget_layout_example2/modules/shared_preferences_page.dart';
+import 'package:widget_layout_example2/modules/share_plus_page.dart';
 import 'package:widget_layout_example2/modules/show_dialog_page.dart';
 import 'package:widget_layout_example2/modules/sized_box_page.dart';
 import 'package:widget_layout_example2/modules/single_child_scroll_view_page.dart';
@@ -504,6 +508,7 @@ class AppRouter extends RootStackRouter {
       page: BottomNavigationBarExampleRoute.page,
       path: '/bottom-navigation-bar-page',
     ),
+    AutoRoute(page: BuiltValueRoute.page, path: '/built-value-page'),
     AutoRoute(
       page: FloatingActionButtonExampleRoute.page,
       path: '/floating-action-button-page',
@@ -549,6 +554,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: IPhoneLikeFloatingButtonRoute.page,
       path: '/iphone-like-floating-button-page',
+    ),
+    AutoRoute(
+      page: InfiniteScrollPaginationRoute.page,
+      path: '/infinite-scroll-pagination-page',
     ),
     AutoRoute(
       page: IntroductionScreenRoute.page,
@@ -605,6 +614,7 @@ class AppRouter extends RootStackRouter {
       page: PermissionHandlerRoute.page,
       path: '/permission-handler-page',
     ),
+    AutoRoute(page: PackageInfoPlusRoute.page, path: '/package-info-plus-page'),
     AutoRoute(page: PigeonRoute.page, path: '/pigeon-page'),
     AutoRoute(page: PopScopeRoute.page, path: '/pop-scope-page'),
     AutoRoute(page: SpeechToTextRoute.page, path: '/speech-to-text-page'),
@@ -617,6 +627,7 @@ class AppRouter extends RootStackRouter {
       page: SharedPreferencesRoute.page,
       path: '/shared-preferences-page',
     ),
+    AutoRoute(page: SharePlusRoute.page, path: '/share-plus-page'),
     AutoRoute(
       page: TextFieldControllerRoute.page,
       path: '/text-field-controller-page',

@@ -791,6 +791,22 @@ class BottomNavigationBarExampleRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [BuiltValuePage]
+class BuiltValueRoute extends PageRouteInfo<void> {
+  const BuiltValueRoute({List<PageRouteInfo>? children})
+    : super(BuiltValueRoute.name, initialChildren: children);
+
+  static const String name = 'BuiltValueRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const BuiltValuePage();
+    },
+  );
+}
+
+/// generated route for
 /// [ButtonShowcasePage]
 class ButtonShowcaseRoute extends PageRouteInfo<void> {
   const ButtonShowcaseRoute({List<PageRouteInfo>? children})
@@ -2316,6 +2332,22 @@ class IndexedStackRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [InfiniteScrollPaginationPage]
+class InfiniteScrollPaginationRoute extends PageRouteInfo<void> {
+  const InfiniteScrollPaginationRoute({List<PageRouteInfo>? children})
+    : super(InfiniteScrollPaginationRoute.name, initialChildren: children);
+
+  static const String name = 'InfiniteScrollPaginationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const InfiniteScrollPaginationPage();
+    },
+  );
+}
+
+/// generated route for
 /// [InjectableGetItPage]
 class InjectableGetItRoute extends PageRouteInfo<void> {
   const InjectableGetItRoute({List<PageRouteInfo>? children})
@@ -2856,6 +2888,22 @@ class OverlayMenuRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [PackageInfoPlusPage]
+class PackageInfoPlusRoute extends PageRouteInfo<void> {
+  const PackageInfoPlusRoute({List<PageRouteInfo>? children})
+    : super(PackageInfoPlusRoute.name, initialChildren: children);
+
+  static const String name = 'PackageInfoPlusRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const PackageInfoPlusPage();
+    },
+  );
+}
+
+/// generated route for
 /// [PaddingPage]
 class PaddingRoute extends PageRouteInfo<void> {
   const PaddingRoute({List<PageRouteInfo>? children})
@@ -3107,6 +3155,22 @@ class ShadcnUiRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const ShadcnUiPage();
+    },
+  );
+}
+
+/// generated route for
+/// [SharePlusPage]
+class SharePlusRoute extends PageRouteInfo<void> {
+  const SharePlusRoute({List<PageRouteInfo>? children})
+    : super(SharePlusRoute.name, initialChildren: children);
+
+  static const String name = 'SharePlusRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SharePlusPage();
     },
   );
 }
