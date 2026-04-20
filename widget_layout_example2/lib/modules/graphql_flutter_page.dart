@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 const String _countriesQuery = r'''
   query Countries($page: Int!, $search: String, $continent: String) {
@@ -204,7 +205,7 @@ const List<String> _continents = <String>[
 
 const int _pageSize = 6;
 
-@RoutePage()
+@RoutePage(name: RouteName.graphqlFlutter)
 class GraphqlFlutterPage extends StatefulWidget {
   const GraphqlFlutterPage({super.key});
 

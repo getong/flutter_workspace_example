@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
-@RoutePage()
+@RoutePage(name: RouteName.dio)
 class DioPage extends StatefulWidget {
   const DioPage({super.key});
 

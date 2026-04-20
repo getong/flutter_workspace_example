@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 const String _demoChannelId = 'demo_updates_channel';
 const String _demoChannelName = 'Demo Updates';
@@ -10,7 +11,7 @@ const String _demoChannelGroupId = 'demo_group';
 const String _demoChannelGroupName = 'Demo Notifications';
 const String _notificationIcon = '@mipmap/ic_launcher';
 
-@RoutePage()
+@RoutePage(name: RouteName.flutterLocalNotifications)
 class FlutterLocalNotificationsPage extends StatefulWidget {
   const FlutterLocalNotificationsPage({super.key});
 

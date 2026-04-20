@@ -502,7 +502,7 @@ final List<_ModuleLink> _animationModules = <_ModuleLink>[
   ),
 ];
 
-@RoutePage()
+@RoutePage(name: RouteName.home)
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -539,7 +539,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.homeLayout)
 class LayoutTabPage extends StatelessWidget {
   const LayoutTabPage({super.key});
 
@@ -549,7 +549,7 @@ class LayoutTabPage extends StatelessWidget {
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.homeContent)
 class ContentTabPage extends StatelessWidget {
   const ContentTabPage({super.key});
 
@@ -559,7 +559,7 @@ class ContentTabPage extends StatelessWidget {
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.homeAnimation)
 class AnimationTabPage extends StatelessWidget {
   const AnimationTabPage({super.key});
 

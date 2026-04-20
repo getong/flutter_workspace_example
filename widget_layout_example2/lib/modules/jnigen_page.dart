@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
-@RoutePage()
+@RoutePage(name: RouteName.jnigen)
 class JnigenPage extends StatefulWidget {
   const JnigenPage({super.key});
 
@@ -121,6 +122,7 @@ android_sdk_config:
     return '''
 import 'package:jni/jni.dart';
 import 'package:widget_layout_example2/src/generated/jnigen/${_javaClass.snakeCase}.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 void runJnigenDemo() {
   Jni.spawn();

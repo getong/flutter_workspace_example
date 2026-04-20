@@ -1,8 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
-@RoutePage()
+@RoutePage(name: RouteName.toggleSwitch)
 class ToggleSwitchPage extends StatefulWidget {
   const ToggleSwitchPage({super.key});
 

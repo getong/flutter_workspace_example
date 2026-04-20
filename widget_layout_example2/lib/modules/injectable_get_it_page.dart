@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_layout_example2/injectable_get_it_demo/injectable_get_it_demo.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 const String _bootstrapSnippet = '''
 final injectableGetIt = GetIt.instance;
@@ -39,7 +40,7 @@ class AutoSessionModule {
 }
 ''';
 
-@RoutePage()
+@RoutePage(name: RouteName.injectableGetIt)
 class InjectableGetItPage extends StatefulWidget {
   const InjectableGetItPage({super.key});
 

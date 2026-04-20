@@ -4,7 +4,7 @@ import 'package:widget_layout_example2/app_navigation.dart';
 import 'package:widget_layout_example2/app_router.dart';
 import 'package:widget_layout_example2/auto_route_demo_support.dart';
 
-@RoutePage()
+@RoutePage(name: RouteName.autoRouteUsage)
 class AutoRouteUsagePage extends StatelessWidget {
   const AutoRouteUsagePage({super.key});
 
@@ -454,7 +454,7 @@ class AutoRouteObserverPageState extends State<AutoRouteObserverPage>
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.autoRouteBooks)
 class AutoRouteBooksPage extends StatelessWidget {
   const AutoRouteBooksPage({super.key});
 
@@ -514,7 +514,7 @@ context.pushRoute(
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.autoRouteBookDetails)
 class AutoRouteBookDetailsPage extends StatelessWidget {
   const AutoRouteBookDetailsPage({
     super.key,
@@ -572,7 +572,7 @@ class AutoRouteBookDetailsPage extends StatelessWidget {
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.autoRouteNested)
 class AutoRouteNestedPage extends StatelessWidget {
   const AutoRouteNestedPage({super.key});
 
@@ -622,7 +622,7 @@ class AutoRouteNestedPage extends StatelessWidget {
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.autoRouteNestedBooks)
 class AutoRouteBooksTabPage extends StatefulWidget {
   const AutoRouteBooksTabPage({super.key});
 
@@ -666,7 +666,7 @@ class _AutoRouteBooksTabPageState extends State<AutoRouteBooksTabPage>
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.autoRouteNestedProfile)
 class AutoRouteProfileTabPage extends StatefulWidget {
   const AutoRouteProfileTabPage({super.key});
 
@@ -704,7 +704,7 @@ class _AutoRouteProfileTabPageState extends State<AutoRouteProfileTabPage>
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.autoRouteNestedSettings)
 class AutoRouteSettingsTabPage extends StatefulWidget {
   const AutoRouteSettingsTabPage({super.key});
 
@@ -742,7 +742,7 @@ class _AutoRouteSettingsTabPageState extends State<AutoRouteSettingsTabPage>
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.autoRouteProduct)
 class AutoRouteProductPage extends StatelessWidget {
   const AutoRouteProductPage({
     super.key,
@@ -802,7 +802,7 @@ class AutoRouteProductPage extends StatelessWidget {
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.autoRouteProductOverview)
 class AutoRouteProductOverviewPage extends StatelessWidget {
   const AutoRouteProductOverviewPage({super.key});
 
@@ -839,7 +839,7 @@ AutoRoute(
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.autoRouteProductReview)
 class AutoRouteProductReviewPage extends StatelessWidget {
   const AutoRouteProductReviewPage({
     super.key,
@@ -871,7 +871,7 @@ class AutoRouteProductReviewPage extends StatelessWidget {
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.autoRouteArticle)
 class AutoRouteArticlePage extends StatelessWidget {
   const AutoRouteArticlePage({
     super.key,
@@ -928,7 +928,7 @@ class AutoRouteArticlePage extends StatelessWidget {
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.autoRouteProtected)
 class AutoRouteProtectedPage extends StatelessWidget {
   const AutoRouteProtectedPage({super.key});
 
@@ -942,7 +942,7 @@ class AutoRouteProtectedPage extends StatelessWidget {
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.autoRouteGlobalProtected)
 class AutoRouteGlobalProtectedPage extends StatelessWidget {
   const AutoRouteGlobalProtectedPage({super.key});
 
@@ -956,7 +956,7 @@ class AutoRouteGlobalProtectedPage extends StatelessWidget {
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.autoRouteProfile)
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
@@ -970,7 +970,7 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.autoRouteLogin)
 class AutoRouteLoginPage extends StatelessWidget {
   const AutoRouteLoginPage({super.key, this.onResult});
 
@@ -1026,7 +1026,7 @@ class AutoRouteLoginPage extends StatelessWidget {
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.autoRouteSignup)
 class AutoRouteSignupPage extends StatefulWidget {
   const AutoRouteSignupPage({super.key});
 
@@ -1133,7 +1133,7 @@ class _AutoRouteSignupPageState extends State<AutoRouteSignupPage> {
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.autoRouteWrapped)
 class AutoRouteWrappedPage extends StatelessWidget implements AutoRouteWrapper {
   const AutoRouteWrappedPage({super.key});
 
@@ -1175,7 +1175,7 @@ class AutoRouteWrappedPage extends StatelessWidget implements AutoRouteWrapper {
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.autoRouteObserver)
 class AutoRouteObserverPage extends StatefulWidget {
   const AutoRouteObserverPage({super.key});
 
@@ -1227,7 +1227,7 @@ class _AutoRouteObserverPageState extends State<AutoRouteObserverPage>
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.autoRouteUnknown)
 class AutoRouteUnknownPage extends StatelessWidget {
   const AutoRouteUnknownPage({super.key});
 

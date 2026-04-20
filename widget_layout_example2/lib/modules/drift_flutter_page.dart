@@ -2,10 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import 'package:widget_layout_example2/modules/drift_showcase_database.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 final DriftShowcaseDatabase _driftShowcaseDatabase = DriftShowcaseDatabase();
 
-@RoutePage()
+@RoutePage(name: RouteName.driftFlutter)
 class DriftFlutterPage extends StatefulWidget {
   const DriftFlutterPage({super.key});
 

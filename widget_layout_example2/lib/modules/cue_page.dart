@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cue/cue.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 /// Comprehensive demo of the Cue animation package with physics-first animations
 /// and composable motion patterns.
@@ -12,7 +13,7 @@ import 'package:flutter/material.dart';
 /// - [Cue.onHover]: Pointer enter/exit animations (desktop/web)
 /// - [Cue.onScrollVisible]: Trigger when scrolling into viewport
 /// - [Cue.onCallback]: Manual callback-driven animations
-@RoutePage()
+@RoutePage(name: RouteName.cue)
 class CuePage extends StatefulWidget {
   const CuePage({super.key});
 

@@ -1,8 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
-@RoutePage()
+@RoutePage(name: RouteName.keyboardListener)
 class KeyboardListenerPage extends StatefulWidget {
   const KeyboardListenerPage({super.key});
 

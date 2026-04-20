@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 const List<({String title, String detail, Color color, IconData icon})>
 _featurePages = <({String title, String detail, Color color, IconData icon})>[
@@ -52,7 +53,7 @@ const List<({String label, Color color})> _galleryPages =
       (label: '10', color: Color(0xFFBE185D)),
     ];
 
-@RoutePage()
+@RoutePage(name: RouteName.smoothPageIndicator)
 class SmoothPageIndicatorPage extends StatefulWidget {
   const SmoothPageIndicatorPage({super.key});
 

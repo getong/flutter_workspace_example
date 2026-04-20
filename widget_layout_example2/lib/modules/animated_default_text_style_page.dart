@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
-@RoutePage()
+@RoutePage(name: RouteName.animatedDefaultTextStyle)
 class AnimatedDefaultTextStylePage extends StatefulWidget {
   const AnimatedDefaultTextStylePage({super.key});
 

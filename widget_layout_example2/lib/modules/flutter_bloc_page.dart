@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 enum _ActivityFilter { all, evenOnly, oddOnly }
 
@@ -386,7 +387,7 @@ class _ScopedCounterBloc extends Bloc<_ScopedCounterEvent, int> {
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.flutterBloc)
 class FlutterBlocPage extends StatelessWidget {
   const FlutterBlocPage({super.key});
 

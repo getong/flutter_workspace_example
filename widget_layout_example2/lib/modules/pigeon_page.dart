@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
-@RoutePage()
+@RoutePage(name: RouteName.pigeon)
 class PigeonPage extends StatefulWidget {
   const PigeonPage({super.key});
 
@@ -109,6 +110,7 @@ dart run pigeon \\
 
     return '''
 import 'package:widget_layout_example2/pigeon/${_channelSuffix}_messages.g.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 final $_apiName api = $_apiName();
 

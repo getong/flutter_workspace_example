@@ -5,8 +5,9 @@ import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 
 import 'package:widget_layout_example2/modules/built_value_models.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
-@RoutePage()
+@RoutePage(name: RouteName.builtValue)
 class BuiltValuePage extends StatefulWidget {
   const BuiltValuePage({super.key});
 

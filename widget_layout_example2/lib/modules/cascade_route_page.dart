@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_layout_example2/app_router.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 void _navigateToCascadeHome(BuildContext context) {
   context.router.popUntil((route) => route.settings.name == CascadeRoute.name);
@@ -118,7 +119,7 @@ class _Breadcrumb {
   final String label;
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.cascade)
 class CascadePage extends StatelessWidget {
   const CascadePage({super.key});
 
@@ -175,7 +176,7 @@ class CascadePage extends StatelessWidget {
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.cascadeCategories)
 class CascadeCategoriesPage extends StatelessWidget {
   const CascadeCategoriesPage({super.key});
 
@@ -240,7 +241,7 @@ class CascadeCategoriesPage extends StatelessWidget {
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.cascadeCategoryDetails)
 class CascadeCategoryDetailsPage extends StatelessWidget {
   const CascadeCategoryDetailsPage({
     super.key,
@@ -328,7 +329,7 @@ class CascadeCategoryDetailsPage extends StatelessWidget {
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.cascadeSubcategoryItems)
 class CascadeSubcategoryItemsPage extends StatelessWidget {
   const CascadeSubcategoryItemsPage({
     super.key,
@@ -464,7 +465,7 @@ class CascadeSubcategoryItemsPage extends StatelessWidget {
   }
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.cascadeItemDetails)
 class CascadeItemDetailsPage extends StatelessWidget {
   const CascadeItemDetailsPage({
     super.key,

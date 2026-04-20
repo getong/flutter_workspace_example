@@ -3,334 +3,571 @@ import 'package:flutter/material.dart';
 
 import 'package:widget_layout_example2/app_router.dart';
 
+/// Compile-time constant route names for use in @RoutePage annotations.
+///
+/// Usage: @RoutePage(name: RouteName.login)
+abstract final class RouteName {
+  static const login = 'LoginRoute';
+  static const home = 'HomeRoute';
+  static const homeLayout = 'LayoutTabRoute';
+  static const homeContent = 'ContentTabRoute';
+  static const homeAnimation = 'AnimationTabRoute';
+  static const aspectRatio = 'AspectRatioRoute';
+  static const centerBox = 'CenterBoxRoute';
+  static const constrainedBox = 'ConstrainedBoxRoute';
+  static const container = 'ContainerRoute';
+  static const unconstrainedBox = 'UnconstrainedBoxExampleRoute';
+  static const rowExpanded = 'RowExpandedRoute';
+  static const expanded = 'ExpandedRoute';
+  static const flexible = 'FlexibleRoute';
+  static const gesturedector = 'GesturedetectorRoute';
+  static const column = 'ColumnRoute';
+  static const columnSaved = 'ColumnSavedRoute';
+  static const columnSavedStateless = 'ColumnSavedStatelessRoute';
+  static const flow = 'FlowExampleRoute';
+  static const fractionallySizedBox = 'FractionallySizedBoxRoute';
+  static const layoutBuilder = 'LayoutBuilderExampleRoute';
+  static const orientationBuilder = 'OrientationBuilderRoute';
+  static const padding = 'PaddingRoute';
+  static const responsiveContainer = 'ResponsiveContainerRoute';
+  static const wrap = 'WrapRoute';
+  static const positioned = 'PositionedRoute';
+  static const sizedBox = 'SizedBoxRoute';
+  static const stack = 'StackRoute';
+  static const align = 'AlignRoute';
+  static const transform = 'TransformExampleRoute';
+  static const rotatedBox = 'RotatedBoxExampleRoute';
+  static const safeArea = 'SafeAreaRoute';
+  static const indexedStack = 'IndexedStackRoute';
+  static const sliverList = 'SliverListRoute';
+  static const sliverGrid = 'SliverGridRoute';
+  static const sliverAppBar = 'SliverAppBarRoute';
+  static const sliverSnap = 'SliverSnapRoute';
+  static const sliverToBoxAdapter = 'SliverToBoxAdapterRoute';
+  static const sliverPadding = 'SliverPaddingRoute';
+  static const clipOval = 'ClipOvalExampleRoute';
+  static const clipRRect = 'ClipRRectExampleRoute';
+  static const clipRect = 'ClipRectExampleRoute';
+  static const clipPath = 'ClipPathExampleRoute';
+  static const customClipper = 'CustomClipperExampleRoute';
+  static const customMultiChildLayout = 'CustomMultiChildLayoutRoute';
+  static const table = 'TableRoute';
+  static const classicButtons = 'ButtonShowcaseRoute';
+  static const cascade = 'CascadeRoute';
+  static const cascadeCategories = 'CascadeCategoriesRoute';
+  static const cascadeCategoryDetails = 'CascadeCategoryDetailsRoute';
+  static const cascadeSubcategoryItems = 'CascadeSubcategoryItemsRoute';
+  static const cascadeItemDetails = 'CascadeItemDetailsRoute';
+  static const autoRouteUsage = 'AutoRouteUsageRoute';
+  static const autoRouteBooks = 'AutoRouteBooksRoute';
+  static const autoRouteBookDetails = 'AutoRouteBookDetailsRoute';
+  static const autoRouteNested = 'AutoRouteNestedRoute';
+  static const autoRouteNestedBooks = 'AutoRouteBooksTabRoute';
+  static const autoRouteNestedProfile = 'AutoRouteProfileTabRoute';
+  static const autoRouteNestedSettings = 'AutoRouteSettingsTabRoute';
+  static const autoRouteProduct = 'AutoRouteProductRoute';
+  static const autoRouteProductOverview = 'AutoRouteProductOverviewRoute';
+  static const autoRouteProductReview = 'AutoRouteProductReviewRoute';
+  static const autoRouteArticle = 'AutoRouteArticleRoute';
+  static const autoRouteProtected = 'AutoRouteProtectedRoute';
+  static const autoRouteGlobalProtected = 'AutoRouteGlobalProtectedRoute';
+  static const autoRouteProfile = 'ProfileRoute';
+  static const autoRouteWrapped = 'AutoRouteWrappedRoute';
+  static const autoRouteObserver = 'AutoRouteObserverRoute';
+  static const autoRouteLogin = 'AutoRouteLoginRoute';
+  static const autoRouteSignup = 'AutoRouteSignupRoute';
+  static const autoRouteUnknown = 'AutoRouteUnknownRoute';
+  static const intl = 'IntlRoute';
+  static const jnigen = 'JnigenRoute';
+  static const characters = 'CharactersRoute';
+  static const chopper = 'ChopperRoute';
+  static const switchExample = 'SwitchExampleRoute';
+  static const checkbox = 'CheckboxExampleRoute';
+  static const clipboard = 'ClipboardRoute';
+  static const radio = 'RadioExampleRoute';
+  static const inputChip = 'InputChipRoute';
+  static const choiceChip = 'ChoiceChipRoute';
+  static const filterChip = 'FilterChipRoute';
+  static const aboutDialog = 'AboutDialogRoute';
+  static const advancedProgressIndicator = 'AdvancedProgressIndicatorRoute';
+  static const animatedListTile = 'AnimatedListTileRoute';
+  static const ffigen = 'FfigenRoute';
+  static const flexColorScheme = 'FlexColorSchemeRoute';
+  static const flexSeedScheme = 'FlexSeedSchemeRoute';
+  static const actionChip = 'ActionChipRoute';
+  static const linearProgressIndicator = 'LinearProgressIndicatorExampleRoute';
+  static const lootReel = 'LootReelRoute';
+  static const lucideIconsFlutter = 'LucideIconsFlutterRoute';
+  static const lottie = 'LottieRoute';
+  static const fluentUi = 'FluentUiRoute';
+  static const materialColorUtilities = 'MaterialColorUtilitiesRoute';
+  static const materialStateProperty = 'MaterialStatePropertyRoute';
+  static const macosUi = 'MacosUiRoute';
+  static const circularProgressIndicator =
+      'CircularProgressIndicatorExampleRoute';
+  static const crypto = 'CryptoRoute';
+  static const cue = 'CueRoute';
+  static const slider = 'SliderExampleRoute';
+  static const sensorsPlus = 'SensorsPlusRoute';
+  static const shadcnUi = 'ShadcnUiRoute';
+  static const datePicker = 'DatePickerRoute';
+  static const datePickerDialog = 'DatePickerDialogRoute';
+  static const timePicker = 'TimePickerRoute';
+  static const timePickerDialog = 'TimePickerDialogRoute';
+  static const toggleSwitch = 'ToggleSwitchRoute';
+  static const urlLauncher = 'UrlLauncherRoute';
+  static const wasmFfi = 'WasmFfiRoute';
+  static const webviewFlutter = 'WebviewFlutterRoute';
+  static const form = 'FormRoute';
+  static const formField = 'FormFieldRoute';
+  static const draggable = 'DraggableExampleRoute';
+  static const dragTarget = 'DragTargetExampleRoute';
+  static const expandableSection = 'ExpandableSectionRoute';
+  static const richText = 'RichTextRoute';
+  static const textStyle = 'TextStyleRoute';
+  static const themeDataVisualDensity = 'ThemeDataVisualDensityRoute';
+  static const bottomNavigationBar = 'BottomNavigationBarExampleRoute';
+  static const builtValue = 'BuiltValueRoute';
+  static const floatingActionButton = 'FloatingActionButtonExampleRoute';
+  static const focusableActionDetector = 'FocusableActionDetectorRoute';
+  static const focusTraversalGroup = 'FocusTraversalGroupRoute';
+  static const snackBar = 'SnackBarExampleRoute';
+  static const showDialog = 'ShowDialogExampleRoute';
+  static const alertDialog = 'AlertDialogExampleRoute';
+  static const simpleDialog = 'SimpleDialogExampleRoute';
+  static const dialog = 'DialogExampleRoute';
+  static const dio = 'DioRoute';
+  static const dioMultiUrl = 'DioMultiUrlRoute';
+  static const futureBuilder = 'FutureBuilderRoute';
+  static const genui = 'GenuiRoute';
+  static const flutterBloc = 'FlutterBlocRoute';
+  static const flutterCardSwiper = 'FlutterCardSwiperRoute';
+  static const flutterCustomTabs = 'FlutterCustomTabsRoute';
+  static const flutterDotenv = 'FlutterDotenvRoute';
+  static const flutterHooks = 'FlutterHooksRoute';
+  static const interactiveCard = 'InteractiveCardRoute';
+  static const flutterTts = 'FlutterTtsRoute';
+  static const freezedAnnotation = 'FreezedAnnotationRoute';
+  static const graphqlFlutter = 'GraphqlFlutterRoute';
+  static const iconly = 'IconlyRoute';
+  static const injectableGetIt = 'InjectableGetItRoute';
+  static const injectable = 'InjectableRoute';
+  static const iPhoneLikeFloatingButton = 'IPhoneLikeFloatingButtonRoute';
+  static const infiniteScrollPagination = 'InfiniteScrollPaginationRoute';
+  static const introductionScreen = 'IntroductionScreenRoute';
+  static const jsonAnnotation = 'JsonAnnotationRoute';
+  static const overlayMenu = 'OverlayMenuRoute';
+  static const streamBuilder = 'StreamBuilderRoute';
+  static const driftFlutter = 'DriftFlutterRoute';
+  static const encrypterPlus = 'EncrypterPlusRoute';
+  static const fluttertoast = 'FluttertoastRoute';
+  static const keyboardListener = 'KeyboardListenerRoute';
+  static const inkWidgets = 'InkWidgetsRoute';
+  static const mediaQuery = 'MediaQueryRoute';
+  static const mouseRegion = 'MouseRegionRoute';
+  static const nativeDeviceOrientationCommunicator =
+      'NativeDeviceOrientationCommunicatorRoute';
+  static const nativeDeviceOrientationOrientedWidget =
+      'NativeDeviceOrientationOrientedWidgetRoute';
+  static const nativeDeviceOrientationReader =
+      'NativeDeviceOrientationReaderRoute';
+  static const textRich = 'TextRichRoute';
+  static const singleChildScrollView = 'SingleChildScrollViewRoute';
+  static const sliverWidgets = 'SliverExamplesRoute';
+  static const scrollbar = 'ScrollbarRoute';
+  static const filledButton = 'FilledButtonRoute';
+  static const fittedBox = 'FittedBoxRoute';
+  static const decoratedBox = 'DecoratedBoxRoute';
+  static const blockSemantics = 'BlockSemanticsRoute';
+  static const semantics = 'SemanticsRoute';
+  static const excludeSemantics = 'ExcludeSemanticsRoute';
+  static const mergeSemantics = 'MergeSemanticsRoute';
+  static const onboardingOverlay = 'OnboardingOverlayRoute';
+  static const openFile = 'OpenFileRoute';
+  static const permissionHandler = 'PermissionHandlerRoute';
+  static const packageInfoPlus = 'PackageInfoPlusRoute';
+  static const pigeon = 'PigeonRoute';
+  static const popScope = 'PopScopeRoute';
+  static const speechToText = 'SpeechToTextRoute';
+  static const smoothPageIndicator = 'SmoothPageIndicatorRoute';
+  static const superClipboard = 'SuperClipboardRoute';
+  static const sharedPreferences = 'SharedPreferencesRoute';
+  static const sharePlus = 'SharePlusRoute';
+  static const textFieldController = 'TextFieldControllerRoute';
+  static const flutterAutoSizeText = 'FlutterAutoSizeTextRoute';
+  static const flutterLocalNotifications = 'FlutterLocalNotificationsRoute';
+  static const flutterSecureStorage = 'FlutterSecureStorageRoute';
+  static const tooltip = 'TooltipRoute';
+  static const animatedTextKit = 'AnimatedTextKitRoute';
+  static const videoThumbnail = 'VideoThumbnailRoute';
+  static const flutterSlidable = 'FlutterSlidableRoute';
+  static const flutterVideoCachingFvp = 'FlutterVideoCachingFvpRoute';
+  static const cachedNetworkImageCe = 'CachedNetworkImageCeRoute';
+  static const dataTable = 'DataTableRoute';
+  static const flChart = 'FlChartRoute';
+  static const fontAwesomeFlutter = 'FontAwesomeFlutterRoute';
+  static const materialSymbolsIcons = 'MaterialSymbolsIconsRoute';
+  static const imageWidget = 'ImageWidgetRoute';
+  static const animatedSwitcher = 'AnimatedSwitcherRoute';
+  static const animatedToggleSwitch = 'AnimatedToggleSwitchRoute';
+  static const animatedDefaultTextStyle = 'AnimatedDefaultTextStyleRoute';
+  static const customPaint = 'CustomPaintRoute';
+  static const tweenAnimationBuilder = 'TweenAnimationBuilderRoute';
+  static const animationController = 'AnimationControllerRoute';
+  static const singleTickerProviderStateMixin =
+      'SingleTickerProviderStateMixinRoute';
+  static const tween = 'TweenRoute';
+  static const tweenSequenceInterval = 'TweenSequenceIntervalRoute';
+  static const flutterSvg = 'FlutterSvgRoute';
+}
+
 enum AppRoute {
   /// Route definitions combining path and route name.
   ///
   /// Usage: `AppRoute.login.path` for the URL path,
-  ///        `AppRoute.login.routeName` for the generated route class name.
-  login('/login', 'LoginRoute'),
-  home('/', 'HomeRoute'),
-  homeLayout('layout', 'LayoutTabRoute'),
-  homeContent('content', 'ContentTabRoute'),
-  homeAnimation('animation', 'AnimationTabRoute'),
-  aspectRatio('/aspect-ratio-page', 'AspectRatioRoute'),
-  centerBox('/center-box', 'CenterBoxRoute'),
-  constrainedBox('/constrained-box', 'ConstrainedBoxRoute'),
-  container('/container-page', 'ContainerRoute'),
-  unconstrainedBox('/unconstrained-box-page', 'UnconstrainedBoxExampleRoute'),
-  rowExpanded('/row-expand-page', 'RowExpandedRoute'),
-  expanded('/expanded-page', 'ExpandedRoute'),
-  flexible('/flexible-page', 'FlexibleRoute'),
-  gesturedector('/gesturedector-page', 'GesturedetectorRoute'),
-  column('/column-page', 'ColumnRoute'),
-  columnSaved('/column-saved-page', 'ColumnSavedRoute'),
+  ///        `RouteName.login` for compile-time const route name (annotations).
+  ///        `AppRoute.login.routeName` for runtime route name access.
+  login('/login', RouteName.login),
+  home('/', RouteName.home),
+  homeLayout('layout', RouteName.homeLayout),
+  homeContent('content', RouteName.homeContent),
+  homeAnimation('animation', RouteName.homeAnimation),
+  aspectRatio('/aspect-ratio-page', RouteName.aspectRatio),
+  centerBox('/center-box', RouteName.centerBox),
+  constrainedBox('/constrained-box', RouteName.constrainedBox),
+  container('/container-page', RouteName.container),
+  unconstrainedBox('/unconstrained-box-page', RouteName.unconstrainedBox),
+  rowExpanded('/row-expand-page', RouteName.rowExpanded),
+  expanded('/expanded-page', RouteName.expanded),
+  flexible('/flexible-page', RouteName.flexible),
+  gesturedector('/gesturedector-page', RouteName.gesturedector),
+  column('/column-page', RouteName.column),
+  columnSaved('/column-saved-page', RouteName.columnSaved),
   columnSavedStateless(
     '/column-saved-stateless-page',
-    'ColumnSavedStatelessRoute',
+    RouteName.columnSavedStateless,
   ),
-  flow('/flow-page', 'FlowExampleRoute'),
+  flow('/flow-page', RouteName.flow),
   fractionallySizedBox(
     '/fractionally-sized-box-page',
-    'FractionallySizedBoxRoute',
+    RouteName.fractionallySizedBox,
   ),
-  layoutBuilder('/layout-builder-page', 'LayoutBuilderExampleRoute'),
-  orientationBuilder('/orientation-builder-page', 'OrientationBuilderRoute'),
-  padding('/padding-page', 'PaddingRoute'),
-  responsiveContainer('/responsive-container-page', 'ResponsiveContainerRoute'),
-  wrap('/wrap-page', 'WrapRoute'),
-  positioned('/positioned-page', 'PositionedRoute'),
-  sizedBox('/sized-box-page', 'SizedBoxRoute'),
-  stack('/stack-page', 'StackRoute'),
-  align('/align-page', 'AlignRoute'),
-  transform('/transform-page', 'TransformExampleRoute'),
-  rotatedBox('/rotated-box-page', 'RotatedBoxExampleRoute'),
-  safeArea('/safe-area-page', 'SafeAreaRoute'),
-  indexedStack('/indexed-stack-page', 'IndexedStackRoute'),
-  sliverList('/sliver-list-page', 'SliverListRoute'),
-  sliverGrid('/sliver-grid-page', 'SliverGridRoute'),
-  sliverAppBar('/sliver-app-bar-page', 'SliverAppBarRoute'),
-  sliverSnap('/sliver-snap-page', 'SliverSnapRoute'),
-  sliverToBoxAdapter('/sliver-to-box-adapter-page', 'SliverToBoxAdapterRoute'),
-  sliverPadding('/sliver-padding-page', 'SliverPaddingRoute'),
-  clipOval('/clip-oval-page', 'ClipOvalExampleRoute'),
-  clipRRect('/clip-r-rect-page', 'ClipRRectExampleRoute'),
-  clipRect('/clip-rect-page', 'ClipRectExampleRoute'),
-  clipPath('/clip-path-page', 'ClipPathExampleRoute'),
-  customClipper('/custom-clipper-page', 'CustomClipperExampleRoute'),
+  layoutBuilder('/layout-builder-page', RouteName.layoutBuilder),
+  orientationBuilder('/orientation-builder-page', RouteName.orientationBuilder),
+  padding('/padding-page', RouteName.padding),
+  responsiveContainer(
+    '/responsive-container-page',
+    RouteName.responsiveContainer,
+  ),
+  wrap('/wrap-page', RouteName.wrap),
+  positioned('/positioned-page', RouteName.positioned),
+  sizedBox('/sized-box-page', RouteName.sizedBox),
+  stack('/stack-page', RouteName.stack),
+  align('/align-page', RouteName.align),
+  transform('/transform-page', RouteName.transform),
+  rotatedBox('/rotated-box-page', RouteName.rotatedBox),
+  safeArea('/safe-area-page', RouteName.safeArea),
+  indexedStack('/indexed-stack-page', RouteName.indexedStack),
+  sliverList('/sliver-list-page', RouteName.sliverList),
+  sliverGrid('/sliver-grid-page', RouteName.sliverGrid),
+  sliverAppBar('/sliver-app-bar-page', RouteName.sliverAppBar),
+  sliverSnap('/sliver-snap-page', RouteName.sliverSnap),
+  sliverToBoxAdapter(
+    '/sliver-to-box-adapter-page',
+    RouteName.sliverToBoxAdapter,
+  ),
+  sliverPadding('/sliver-padding-page', RouteName.sliverPadding),
+  clipOval('/clip-oval-page', RouteName.clipOval),
+  clipRRect('/clip-r-rect-page', RouteName.clipRRect),
+  clipRect('/clip-rect-page', RouteName.clipRect),
+  clipPath('/clip-path-page', RouteName.clipPath),
+  customClipper('/custom-clipper-page', RouteName.customClipper),
   customMultiChildLayout(
     '/custom-multi-child-layout-page',
-    'CustomMultiChildLayoutRoute',
+    RouteName.customMultiChildLayout,
   ),
-  table('/table-page', 'TableRoute'),
-  classicButtons('/classic-buttons-page', 'ButtonShowcaseRoute'),
-  cascade('/cascade', 'CascadeRoute'),
-  cascadeCategories('/cascade/categories', 'CascadeCategoriesRoute'),
+  table('/table-page', RouteName.table),
+  classicButtons('/classic-buttons-page', RouteName.classicButtons),
+  cascade('/cascade', RouteName.cascade),
+  cascadeCategories('/cascade/categories', RouteName.cascadeCategories),
   cascadeCategoryDetails(
     '/cascade/categories/:categoryId',
-    'CascadeCategoryDetailsRoute',
+    RouteName.cascadeCategoryDetails,
   ),
   cascadeSubcategoryItems(
     '/cascade/categories/:categoryId/:subcategoryName',
-    'CascadeSubcategoryItemsRoute',
+    RouteName.cascadeSubcategoryItems,
   ),
   cascadeItemDetails(
     '/cascade/categories/:categoryId/:subcategoryName/:itemId',
-    'CascadeItemDetailsRoute',
+    RouteName.cascadeItemDetails,
   ),
-  autoRouteUsage('/auto-route-page', 'AutoRouteUsageRoute'),
+  autoRouteUsage('/auto-route-page', RouteName.autoRouteUsage),
   autoRouteLegacy('/auto-route-page/legacy', ''),
-  autoRouteBooks('/auto-route-page/books', 'AutoRouteBooksRoute'),
+  autoRouteBooks('/auto-route-page/books', RouteName.autoRouteBooks),
   autoRouteBookLegacy('/auto-route-page/books/:id/legacy', ''),
   autoRouteBookDetails(
     '/auto-route-page/books/:id',
-    'AutoRouteBookDetailsRoute',
+    RouteName.autoRouteBookDetails,
   ),
-  autoRouteNested('/auto-route-page/nested', 'AutoRouteNestedRoute'),
-  autoRouteNestedBooks('books', 'AutoRouteBooksTabRoute'),
-  autoRouteNestedProfile('profile', 'AutoRouteProfileTabRoute'),
-  autoRouteNestedSettings('settings', 'AutoRouteSettingsTabRoute'),
-  autoRouteProduct('/auto-route-page/products/:id', 'AutoRouteProductRoute'),
-  autoRouteProductOverview('', 'AutoRouteProductOverviewRoute'),
-  autoRouteProductReview('review', 'AutoRouteProductReviewRoute'),
+  autoRouteNested('/auto-route-page/nested', RouteName.autoRouteNested),
+  autoRouteNestedBooks('books', RouteName.autoRouteNestedBooks),
+  autoRouteNestedProfile('profile', RouteName.autoRouteNestedProfile),
+  autoRouteNestedSettings('settings', RouteName.autoRouteNestedSettings),
+  autoRouteProduct('/auto-route-page/products/:id', RouteName.autoRouteProduct),
+  autoRouteProductOverview('', RouteName.autoRouteProductOverview),
+  autoRouteProductReview('review', RouteName.autoRouteProductReview),
   autoRouteArticle(
     '/auto-route-page/articles/:category/:slug',
-    'AutoRouteArticleRoute',
+    RouteName.autoRouteArticle,
   ),
-  autoRouteProtected('/auto-route-page/protected', 'AutoRouteProtectedRoute'),
+  autoRouteProtected(
+    '/auto-route-page/protected',
+    RouteName.autoRouteProtected,
+  ),
   autoRouteGlobalProtected(
     '/auto-route-page/global-protected',
-    'AutoRouteGlobalProtectedRoute',
+    RouteName.autoRouteGlobalProtected,
   ),
-  autoRouteProfile('/auto-route-page/profile', 'ProfileRoute'),
-  autoRouteWrapped('/auto-route-page/wrapped', 'AutoRouteWrappedRoute'),
-  autoRouteObserver('/auto-route-page/observer', 'AutoRouteObserverRoute'),
-  autoRouteLogin('/auto-route-page/login', 'AutoRouteLoginRoute'),
-  autoRouteSignup('/auto-route-page/signup', 'AutoRouteSignupRoute'),
-  autoRouteUnknown('/auto-route-page/*', 'AutoRouteUnknownRoute'),
-  intl('/intl-page', 'IntlRoute'),
-  jnigen('/jnigen-page', 'JnigenRoute'),
-  characters('/characters-page', 'CharactersRoute'),
-  chopper('/chopper-page', 'ChopperRoute'),
-  switchExample('/switch-page', 'SwitchExampleRoute'),
-  checkbox('/checkbox-page', 'CheckboxExampleRoute'),
-  clipboard('/clipboard-page', 'ClipboardRoute'),
-  radio('/radio-page', 'RadioExampleRoute'),
-  inputChip('/input-chip-page', 'InputChipRoute'),
-  choiceChip('/choice-chip-page', 'ChoiceChipRoute'),
-  filterChip('/filter-chip-page', 'FilterChipRoute'),
-  aboutDialog('/about-dialog-page', 'AboutDialogRoute'),
+  autoRouteProfile('/auto-route-page/profile', RouteName.autoRouteProfile),
+  autoRouteWrapped('/auto-route-page/wrapped', RouteName.autoRouteWrapped),
+  autoRouteObserver('/auto-route-page/observer', RouteName.autoRouteObserver),
+  autoRouteLogin('/auto-route-page/login', RouteName.autoRouteLogin),
+  autoRouteSignup('/auto-route-page/signup', RouteName.autoRouteSignup),
+  autoRouteUnknown('/auto-route-page/*', RouteName.autoRouteUnknown),
+  intl('/intl-page', RouteName.intl),
+  jnigen('/jnigen-page', RouteName.jnigen),
+  characters('/characters-page', RouteName.characters),
+  chopper('/chopper-page', RouteName.chopper),
+  switchExample('/switch-page', RouteName.switchExample),
+  checkbox('/checkbox-page', RouteName.checkbox),
+  clipboard('/clipboard-page', RouteName.clipboard),
+  radio('/radio-page', RouteName.radio),
+  inputChip('/input-chip-page', RouteName.inputChip),
+  choiceChip('/choice-chip-page', RouteName.choiceChip),
+  filterChip('/filter-chip-page', RouteName.filterChip),
+  aboutDialog('/about-dialog-page', RouteName.aboutDialog),
   advancedProgressIndicator(
     '/advanced-progress-indicator-page',
-    'AdvancedProgressIndicatorRoute',
+    RouteName.advancedProgressIndicator,
   ),
-  animatedListTile('/animated-list-tile-page', 'AnimatedListTileRoute'),
-  ffigen('/ffigen-page', 'FfigenRoute'),
-  flexColorScheme('/flex-color-scheme-page', 'FlexColorSchemeRoute'),
-  flexSeedScheme('/flex-seed-scheme-page', 'FlexSeedSchemeRoute'),
-  actionChip('/action-chip-page', 'ActionChipRoute'),
+  animatedListTile('/animated-list-tile-page', RouteName.animatedListTile),
+  ffigen('/ffigen-page', RouteName.ffigen),
+  flexColorScheme('/flex-color-scheme-page', RouteName.flexColorScheme),
+  flexSeedScheme('/flex-seed-scheme-page', RouteName.flexSeedScheme),
+  actionChip('/action-chip-page', RouteName.actionChip),
   linearProgressIndicator(
     '/linear-progress-indicator-page',
-    'LinearProgressIndicatorExampleRoute',
+    RouteName.linearProgressIndicator,
   ),
-  lootReel('/loot-reel-page', 'LootReelRoute'),
-  lucideIconsFlutter('/lucide-icons-flutter-page', 'LucideIconsFlutterRoute'),
-  lottie('/lottie-page', 'LottieRoute'),
-  fluentUi('/fluent-ui-page', 'FluentUiRoute'),
+  lootReel('/loot-reel-page', RouteName.lootReel),
+  lucideIconsFlutter(
+    '/lucide-icons-flutter-page',
+    RouteName.lucideIconsFlutter,
+  ),
+  lottie('/lottie-page', RouteName.lottie),
+  fluentUi('/fluent-ui-page', RouteName.fluentUi),
   materialColorUtilities(
     '/material-color-utilities-page',
-    'MaterialColorUtilitiesRoute',
+    RouteName.materialColorUtilities,
   ),
   materialStateProperty(
     '/material-state-property-page',
-    'MaterialStatePropertyRoute',
+    RouteName.materialStateProperty,
   ),
-  macosUi('/macos-ui-page', 'MacosUiRoute'),
+  macosUi('/macos-ui-page', RouteName.macosUi),
   circularProgressIndicator(
     '/circular-progress-indicator-page',
-    'CircularProgressIndicatorExampleRoute',
+    RouteName.circularProgressIndicator,
   ),
-  crypto('/crypto-page', 'CryptoRoute'),
-  cue('/cue-page', 'CueRoute'),
-  slider('/slider-page', 'SliderExampleRoute'),
-  sensorsPlus('/sensors-plus-page', 'SensorsPlusRoute'),
-  shadcnUi('/shadcn-ui-page', 'ShadcnUiRoute'),
-  datePicker('/date-picker-page', 'DatePickerRoute'),
-  datePickerDialog('/date-picker-dialog-page', 'DatePickerDialogRoute'),
-  timePicker('/time-picker-page', 'TimePickerRoute'),
-  timePickerDialog('/time-picker-dialog-page', 'TimePickerDialogRoute'),
-  toggleSwitch('/toggle-switch-page', 'ToggleSwitchRoute'),
-  urlLauncher('/url-launcher-page', 'UrlLauncherRoute'),
-  wasmFfi('/wasm-ffi-page', 'WasmFfiRoute'),
-  webviewFlutter('/webview-flutter-page', 'WebviewFlutterRoute'),
-  form('/form-page', 'FormRoute'),
-  formField('/form-field-page', 'FormFieldRoute'),
-  draggable('/draggable-page', 'DraggableExampleRoute'),
-  dragTarget('/drag-target-page', 'DragTargetExampleRoute'),
-  expandableSection('/expandable-section-page', 'ExpandableSectionRoute'),
-  richText('/rich-text-page', 'RichTextRoute'),
-  textStyle('/text-style-page', 'TextStyleRoute'),
+  crypto('/crypto-page', RouteName.crypto),
+  cue('/cue-page', RouteName.cue),
+  slider('/slider-page', RouteName.slider),
+  sensorsPlus('/sensors-plus-page', RouteName.sensorsPlus),
+  shadcnUi('/shadcn-ui-page', RouteName.shadcnUi),
+  datePicker('/date-picker-page', RouteName.datePicker),
+  datePickerDialog('/date-picker-dialog-page', RouteName.datePickerDialog),
+  timePicker('/time-picker-page', RouteName.timePicker),
+  timePickerDialog('/time-picker-dialog-page', RouteName.timePickerDialog),
+  toggleSwitch('/toggle-switch-page', RouteName.toggleSwitch),
+  urlLauncher('/url-launcher-page', RouteName.urlLauncher),
+  wasmFfi('/wasm-ffi-page', RouteName.wasmFfi),
+  webviewFlutter('/webview-flutter-page', RouteName.webviewFlutter),
+  form('/form-page', RouteName.form),
+  formField('/form-field-page', RouteName.formField),
+  draggable('/draggable-page', RouteName.draggable),
+  dragTarget('/drag-target-page', RouteName.dragTarget),
+  expandableSection('/expandable-section-page', RouteName.expandableSection),
+  richText('/rich-text-page', RouteName.richText),
+  textStyle('/text-style-page', RouteName.textStyle),
   themeDataVisualDensity(
     '/theme-data-visual-density-page',
-    'ThemeDataVisualDensityRoute',
+    RouteName.themeDataVisualDensity,
   ),
   bottomNavigationBar(
     '/bottom-navigation-bar-page',
-    'BottomNavigationBarExampleRoute',
+    RouteName.bottomNavigationBar,
   ),
-  builtValue('/built-value-page', 'BuiltValueRoute'),
+  builtValue('/built-value-page', RouteName.builtValue),
   floatingActionButton(
     '/floating-action-button-page',
-    'FloatingActionButtonExampleRoute',
+    RouteName.floatingActionButton,
   ),
   focusableActionDetector(
     '/focusable-action-detector-page',
-    'FocusableActionDetectorRoute',
+    RouteName.focusableActionDetector,
   ),
   focusTraversalGroup(
     '/focus-traversal-group-page',
-    'FocusTraversalGroupRoute',
+    RouteName.focusTraversalGroup,
   ),
-  snackBar('/snack-bar-page', 'SnackBarExampleRoute'),
-  showDialog('/show-dialog-page', 'ShowDialogExampleRoute'),
-  alertDialog('/alert-dialog-page', 'AlertDialogExampleRoute'),
-  simpleDialog('/simple-dialog-page', 'SimpleDialogExampleRoute'),
-  dialog('/dialog-page', 'DialogExampleRoute'),
-  dio('/dio-page', 'DioRoute'),
-  dioMultiUrl('/dio-multi-url-page', 'DioMultiUrlRoute'),
-  futureBuilder('/future-builder-page', 'FutureBuilderRoute'),
-  genui('/genui-page', 'GenuiRoute'),
-  flutterBloc('/flutter-bloc-page', 'FlutterBlocRoute'),
-  flutterCardSwiper('/flutter-card-swiper-page', 'FlutterCardSwiperRoute'),
-  flutterCustomTabs('/flutter-custom-tabs-page', 'FlutterCustomTabsRoute'),
-  flutterDotenv('/flutter-dotenv-page', 'FlutterDotenvRoute'),
-  flutterHooks('/flutter-hooks-page', 'FlutterHooksRoute'),
-  interactiveCard('/interactive-card-page', 'InteractiveCardRoute'),
-  flutterTts('/flutter-tts-page', 'FlutterTtsRoute'),
-  freezedAnnotation('/freezed-annotation-page', 'FreezedAnnotationRoute'),
-  graphqlFlutter('/graphql-flutter-page', 'GraphqlFlutterRoute'),
-  iconly('/iconly-page', 'IconlyRoute'),
-  injectableGetIt('/injectable-get-it-page', 'InjectableGetItRoute'),
-  injectable('/injectable-page', 'InjectableRoute'),
+  snackBar('/snack-bar-page', RouteName.snackBar),
+  showDialog('/show-dialog-page', RouteName.showDialog),
+  alertDialog('/alert-dialog-page', RouteName.alertDialog),
+  simpleDialog('/simple-dialog-page', RouteName.simpleDialog),
+  dialog('/dialog-page', RouteName.dialog),
+  dio('/dio-page', RouteName.dio),
+  dioMultiUrl('/dio-multi-url-page', RouteName.dioMultiUrl),
+  futureBuilder('/future-builder-page', RouteName.futureBuilder),
+  genui('/genui-page', RouteName.genui),
+  flutterBloc('/flutter-bloc-page', RouteName.flutterBloc),
+  flutterCardSwiper('/flutter-card-swiper-page', RouteName.flutterCardSwiper),
+  flutterCustomTabs('/flutter-custom-tabs-page', RouteName.flutterCustomTabs),
+  flutterDotenv('/flutter-dotenv-page', RouteName.flutterDotenv),
+  flutterHooks('/flutter-hooks-page', RouteName.flutterHooks),
+  interactiveCard('/interactive-card-page', RouteName.interactiveCard),
+  flutterTts('/flutter-tts-page', RouteName.flutterTts),
+  freezedAnnotation('/freezed-annotation-page', RouteName.freezedAnnotation),
+  graphqlFlutter('/graphql-flutter-page', RouteName.graphqlFlutter),
+  iconly('/iconly-page', RouteName.iconly),
+  injectableGetIt('/injectable-get-it-page', RouteName.injectableGetIt),
+  injectable('/injectable-page', RouteName.injectable),
   iPhoneLikeFloatingButton(
     '/iphone-like-floating-button-page',
-    'IPhoneLikeFloatingButtonRoute',
+    RouteName.iPhoneLikeFloatingButton,
   ),
   infiniteScrollPagination(
     '/infinite-scroll-pagination-page',
-    'InfiniteScrollPaginationRoute',
+    RouteName.infiniteScrollPagination,
   ),
-  introductionScreen('/introduction-screen-page', 'IntroductionScreenRoute'),
-  jsonAnnotation('/json-annotation-page', 'JsonAnnotationRoute'),
-  overlayMenu('/overlay-menu-page', 'OverlayMenuRoute'),
-  streamBuilder('/stream-builder-page', 'StreamBuilderRoute'),
-  driftFlutter('/drift-flutter-page', 'DriftFlutterRoute'),
-  encrypterPlus('/encrypter-plus-page', 'EncrypterPlusRoute'),
-  fluttertoast('/fluttertoast-page', 'FluttertoastRoute'),
-  keyboardListener('/keyboard-listener-page', 'KeyboardListenerRoute'),
-  inkWidgets('/ink-widgets-page', 'InkWidgetsRoute'),
-  mediaQuery('/media-query-page', 'MediaQueryRoute'),
-  mouseRegion('/mouse-region-page', 'MouseRegionRoute'),
+  introductionScreen('/introduction-screen-page', RouteName.introductionScreen),
+  jsonAnnotation('/json-annotation-page', RouteName.jsonAnnotation),
+  overlayMenu('/overlay-menu-page', RouteName.overlayMenu),
+  streamBuilder('/stream-builder-page', RouteName.streamBuilder),
+  driftFlutter('/drift-flutter-page', RouteName.driftFlutter),
+  encrypterPlus('/encrypter-plus-page', RouteName.encrypterPlus),
+  fluttertoast('/fluttertoast-page', RouteName.fluttertoast),
+  keyboardListener('/keyboard-listener-page', RouteName.keyboardListener),
+  inkWidgets('/ink-widgets-page', RouteName.inkWidgets),
+  mediaQuery('/media-query-page', RouteName.mediaQuery),
+  mouseRegion('/mouse-region-page', RouteName.mouseRegion),
   nativeDeviceOrientationCommunicator(
     '/native-device-orientation-communicator-page',
-    'NativeDeviceOrientationCommunicatorRoute',
+    RouteName.nativeDeviceOrientationCommunicator,
   ),
   nativeDeviceOrientationOrientedWidget(
     '/native-device-orientation-oriented-widget-page',
-    'NativeDeviceOrientationOrientedWidgetRoute',
+    RouteName.nativeDeviceOrientationOrientedWidget,
   ),
   nativeDeviceOrientationReader(
     '/native-device-orientation-reader-page',
-    'NativeDeviceOrientationReaderRoute',
+    RouteName.nativeDeviceOrientationReader,
   ),
-  textRich('/text-rich-page', 'TextRichRoute'),
+  textRich('/text-rich-page', RouteName.textRich),
   singleChildScrollView(
     '/single-child-scroll-view-page',
-    'SingleChildScrollViewRoute',
+    RouteName.singleChildScrollView,
   ),
-  sliverWidgets('/sliver-widgets-page', 'SliverExamplesRoute'),
-  scrollbar('/scrollbar-page', 'ScrollbarRoute'),
-  filledButton('/filled-button-page', 'FilledButtonRoute'),
-  fittedBox('/fitted-box-page', 'FittedBoxRoute'),
-  decoratedBox('/decorated-box-page', 'DecoratedBoxRoute'),
-  blockSemantics('/block-semantics-page', 'BlockSemanticsRoute'),
-  semantics('/semantics-page', 'SemanticsRoute'),
-  excludeSemantics('/exclude-semantics-page', 'ExcludeSemanticsRoute'),
-  mergeSemantics('/merge-semantics-page', 'MergeSemanticsRoute'),
-  onboardingOverlay('/onboarding-overlay-page', 'OnboardingOverlayRoute'),
-  openFile('/open-file-page', 'OpenFileRoute'),
-  permissionHandler('/permission-handler-page', 'PermissionHandlerRoute'),
-  packageInfoPlus('/package-info-plus-page', 'PackageInfoPlusRoute'),
-  pigeon('/pigeon-page', 'PigeonRoute'),
-  popScope('/pop-scope-page', 'PopScopeRoute'),
-  speechToText('/speech-to-text-page', 'SpeechToTextRoute'),
+  sliverWidgets('/sliver-widgets-page', RouteName.sliverWidgets),
+  scrollbar('/scrollbar-page', RouteName.scrollbar),
+  filledButton('/filled-button-page', RouteName.filledButton),
+  fittedBox('/fitted-box-page', RouteName.fittedBox),
+  decoratedBox('/decorated-box-page', RouteName.decoratedBox),
+  blockSemantics('/block-semantics-page', RouteName.blockSemantics),
+  semantics('/semantics-page', RouteName.semantics),
+  excludeSemantics('/exclude-semantics-page', RouteName.excludeSemantics),
+  mergeSemantics('/merge-semantics-page', RouteName.mergeSemantics),
+  onboardingOverlay('/onboarding-overlay-page', RouteName.onboardingOverlay),
+  openFile('/open-file-page', RouteName.openFile),
+  permissionHandler('/permission-handler-page', RouteName.permissionHandler),
+  packageInfoPlus('/package-info-plus-page', RouteName.packageInfoPlus),
+  pigeon('/pigeon-page', RouteName.pigeon),
+  popScope('/pop-scope-page', RouteName.popScope),
+  speechToText('/speech-to-text-page', RouteName.speechToText),
   smoothPageIndicator(
     '/smooth-page-indicator-page',
-    'SmoothPageIndicatorRoute',
+    RouteName.smoothPageIndicator,
   ),
-  superClipboard('/super-clipboard-page', 'SuperClipboardRoute'),
-  sharedPreferences('/shared-preferences-page', 'SharedPreferencesRoute'),
-  sharePlus('/share-plus-page', 'SharePlusRoute'),
+  superClipboard('/super-clipboard-page', RouteName.superClipboard),
+  sharedPreferences('/shared-preferences-page', RouteName.sharedPreferences),
+  sharePlus('/share-plus-page', RouteName.sharePlus),
   textFieldController(
     '/text-field-controller-page',
-    'TextFieldControllerRoute',
+    RouteName.textFieldController,
   ),
   flutterAutoSizeText(
     '/flutter-auto-size-text-page',
-    'FlutterAutoSizeTextRoute',
+    RouteName.flutterAutoSizeText,
   ),
   flutterLocalNotifications(
     '/flutter-local-notifications-page',
-    'FlutterLocalNotificationsRoute',
+    RouteName.flutterLocalNotifications,
   ),
   flutterSecureStorage(
     '/flutter-secure-storage-page',
-    'FlutterSecureStorageRoute',
+    RouteName.flutterSecureStorage,
   ),
-  tooltip('/tooltip-page', 'TooltipRoute'),
-  animatedTextKit('/animated-text-kit-page', 'AnimatedTextKitRoute'),
-  videoThumbnail('/video-thumbnail-page', 'VideoThumbnailRoute'),
-  flutterSlidable('/flutter-slidable-page', 'FlutterSlidableRoute'),
+  tooltip('/tooltip-page', RouteName.tooltip),
+  animatedTextKit('/animated-text-kit-page', RouteName.animatedTextKit),
+  videoThumbnail('/video-thumbnail-page', RouteName.videoThumbnail),
+  flutterSlidable('/flutter-slidable-page', RouteName.flutterSlidable),
   flutterVideoCachingFvp(
     '/flutter-video-caching-fvp-page',
-    'FlutterVideoCachingFvpRoute',
+    RouteName.flutterVideoCachingFvp,
   ),
   cachedNetworkImageCe(
     '/cached-network-image-ce-page',
-    'CachedNetworkImageCeRoute',
+    RouteName.cachedNetworkImageCe,
   ),
-  dataTable('/data-table-page', 'DataTableRoute'),
-  flChart('/fl-chart-page', 'FlChartRoute'),
-  fontAwesomeFlutter('/font-awesome-flutter-page', 'FontAwesomeFlutterRoute'),
+  dataTable('/data-table-page', RouteName.dataTable),
+  flChart('/fl-chart-page', RouteName.flChart),
+  fontAwesomeFlutter(
+    '/font-awesome-flutter-page',
+    RouteName.fontAwesomeFlutter,
+  ),
   materialSymbolsIcons(
     '/material-symbols-icons-page',
-    'MaterialSymbolsIconsRoute',
+    RouteName.materialSymbolsIcons,
   ),
-  imageWidget('/image-widget-page', 'ImageWidgetRoute'),
-  animatedSwitcher('/animated-switcher-page', 'AnimatedSwitcherRoute'),
+  imageWidget('/image-widget-page', RouteName.imageWidget),
+  animatedSwitcher('/animated-switcher-page', RouteName.animatedSwitcher),
   animatedToggleSwitch(
     '/animated-toggle-switch-page',
-    'AnimatedToggleSwitchRoute',
+    RouteName.animatedToggleSwitch,
   ),
   animatedDefaultTextStyle(
     '/animated-default-text-style-page',
-    'AnimatedDefaultTextStyleRoute',
+    RouteName.animatedDefaultTextStyle,
   ),
-  customPaint('/custom-paint-page', 'CustomPaintRoute'),
+  customPaint('/custom-paint-page', RouteName.customPaint),
   tweenAnimationBuilder(
     '/tween-animation-builder-page',
-    'TweenAnimationBuilderRoute',
+    RouteName.tweenAnimationBuilder,
   ),
-  animationController('/animation-controller-page', 'AnimationControllerRoute'),
+  animationController(
+    '/animation-controller-page',
+    RouteName.animationController,
+  ),
   singleTickerProviderStateMixin(
     '/single-ticker-provider-state-mixin-page',
-    'SingleTickerProviderStateMixinRoute',
+    RouteName.singleTickerProviderStateMixin,
   ),
-  tween('/tween-page', 'TweenRoute'),
+  tween('/tween-page', RouteName.tween),
   tweenSequenceInterval(
     '/tween-sequence-interval-page',
-    'TweenSequenceIntervalRoute',
+    RouteName.tweenSequenceInterval,
   ),
-  flutterSvg('/flutter-svg-page', 'FlutterSvgRoute');
+  flutterSvg('/flutter-svg-page', RouteName.flutterSvg);
 
   final String path;
   final String routeName;

@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
-@RoutePage()
+@RoutePage(name: RouteName.ffigen)
 class FfigenPage extends StatefulWidget {
   const FfigenPage({super.key});
 
@@ -134,6 +135,7 @@ import 'dart:io';
 
 import 'package:ffi/ffi.dart';
 import 'package:widget_layout_example2/src/generated/${_outputPath.split('/').last}';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 ffi.DynamicLibrary loadNativeLibrary() {
   if (Platform.isMacOS || Platform.isIOS) {

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 enum _IconlyFamily { light, bold, broken }
 
@@ -136,7 +137,7 @@ const List<_StatusItem> _statusItems = <_StatusItem>[
   ),
 ];
 
-@RoutePage()
+@RoutePage(name: RouteName.iconly)
 class IconlyPage extends StatefulWidget {
   const IconlyPage({super.key});
 
@@ -487,6 +488,7 @@ class _CodeSampleCard extends StatelessWidget {
             _CodeBlock(
               code: '''
 import 'package:iconly/iconly.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 Icon(IconlyLight.home)
 Icon(IconlyBold.notification)

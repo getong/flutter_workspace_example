@@ -1,8 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:sliver_snap/sliver_snap.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
-@RoutePage()
+@RoutePage(name: RouteName.sliverSnap)
 class SliverSnapPage extends StatefulWidget {
   const SliverSnapPage({super.key});
 

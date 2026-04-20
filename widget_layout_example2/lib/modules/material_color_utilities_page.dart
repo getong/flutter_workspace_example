@@ -3,8 +3,9 @@ import 'dart:math' as math;
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
-@RoutePage()
+@RoutePage(name: RouteName.materialColorUtilities)
 class MaterialColorUtilitiesPage extends StatefulWidget {
   const MaterialColorUtilitiesPage({super.key});
 

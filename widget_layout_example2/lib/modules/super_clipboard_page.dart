@@ -5,8 +5,9 @@ import 'dart:ui' as ui;
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:super_clipboard/super_clipboard.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
-@RoutePage()
+@RoutePage(name: RouteName.superClipboard)
 class SuperClipboardPage extends StatefulWidget {
   const SuperClipboardPage({super.key});
 

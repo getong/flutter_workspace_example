@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 class _SwipeShowcaseItem {
   const _SwipeShowcaseItem({
@@ -167,7 +168,7 @@ final List<_DirectionFact> _directionFacts = <_DirectionFact>[
   ),
 ];
 
-@RoutePage()
+@RoutePage(name: RouteName.flutterCardSwiper)
 class FlutterCardSwiperPage extends StatefulWidget {
   const FlutterCardSwiperPage({super.key});
 

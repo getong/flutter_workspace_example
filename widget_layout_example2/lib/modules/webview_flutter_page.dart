@@ -4,10 +4,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 enum _WebViewSource { inlineHtml, flutterSite, packagePage }
 
-@RoutePage()
+@RoutePage(name: RouteName.webviewFlutter)
 class WebviewFlutterPage extends StatefulWidget {
   const WebviewFlutterPage({super.key});
 

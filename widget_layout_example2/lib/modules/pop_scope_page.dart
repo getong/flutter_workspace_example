@@ -1,9 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 enum _PopScopeDemoMode { confirmExit, doubleBack, stepFlow }
 
-@RoutePage()
+@RoutePage(name: RouteName.popScope)
 class PopScopePage extends StatefulWidget {
   const PopScopePage({super.key});
 

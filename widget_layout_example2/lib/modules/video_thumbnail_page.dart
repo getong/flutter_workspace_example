@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 const String _sampleVideoUrl =
     'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4';
@@ -18,7 +19,7 @@ class _ThumbnailFrame {
   final String label;
 }
 
-@RoutePage()
+@RoutePage(name: RouteName.videoThumbnail)
 class VideoThumbnailPage extends StatefulWidget {
   const VideoThumbnailPage({super.key});
 

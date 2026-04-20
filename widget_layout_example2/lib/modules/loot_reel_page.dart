@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:loot_reel/loot_reel.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 class _LootDrop {
   const _LootDrop({
@@ -67,7 +68,7 @@ const List<_LootDrop> _weightedPool = <_LootDrop>[
   ),
 ];
 
-@RoutePage()
+@RoutePage(name: RouteName.lootReel)
 class LootReelPage extends StatefulWidget {
   const LootReelPage({super.key});
 

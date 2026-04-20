@@ -4,8 +4,9 @@ import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:genui/genui.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
-@RoutePage()
+@RoutePage(name: RouteName.genui)
 class GenuiPage extends StatelessWidget {
   const GenuiPage({super.key});
 

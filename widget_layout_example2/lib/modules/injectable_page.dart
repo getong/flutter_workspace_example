@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 const String _injectableSetupSnippet = '''
 final getIt = GetIt.instance;
@@ -38,7 +39,7 @@ class DashboardViewModel {
 }
 ''';
 
-@RoutePage()
+@RoutePage(name: RouteName.injectable)
 class InjectablePage extends StatefulWidget {
   const InjectablePage({super.key});
 

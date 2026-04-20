@@ -1,8 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
-@RoutePage()
+@RoutePage(name: RouteName.materialSymbolsIcons)
 class MaterialSymbolsIconsPage extends StatefulWidget {
   const MaterialSymbolsIconsPage({super.key});
 

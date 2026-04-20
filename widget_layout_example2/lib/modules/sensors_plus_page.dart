@@ -4,8 +4,9 @@ import 'dart:math' as math;
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
-@RoutePage()
+@RoutePage(name: RouteName.sensorsPlus)
 class SensorsPlusPage extends StatefulWidget {
   const SensorsPlusPage({super.key});
 

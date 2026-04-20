@@ -6,7 +6,7 @@ import 'package:widget_layout_example2/auth/bloc/app_auth_bloc.dart';
 import 'package:widget_layout_example2/auth/bloc/app_auth_event.dart';
 import 'package:widget_layout_example2/auth/bloc/app_auth_state.dart';
 
-@RoutePage()
+@RoutePage(name: RouteName.login)
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, this.onResult});
 

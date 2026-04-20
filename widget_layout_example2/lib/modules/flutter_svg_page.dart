@@ -4,8 +4,9 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
-@RoutePage()
+@RoutePage(name: RouteName.flutterSvg)
 class FlutterSvgPage extends StatelessWidget {
   const FlutterSvgPage({super.key});
 

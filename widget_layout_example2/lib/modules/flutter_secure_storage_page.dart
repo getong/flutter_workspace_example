@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 enum _StoragePreset {
   defaultSecure,
@@ -122,7 +123,7 @@ final storage = FlutterSecureStorage(
   ),
 };
 
-@RoutePage()
+@RoutePage(name: RouteName.flutterSecureStorage)
 class FlutterSecureStoragePage extends StatefulWidget {
   const FlutterSecureStoragePage({super.key});
 

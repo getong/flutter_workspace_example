@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
-@RoutePage()
+@RoutePage(name: RouteName.sliverToBoxAdapter)
 class SliverToBoxAdapterPage extends StatelessWidget {
   const SliverToBoxAdapterPage({super.key});
 

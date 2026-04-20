@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 import 'package:widget_layout_example2/modules/wasm_ffi_demo_runtime.dart';
 import 'package:widget_layout_example2/modules/wasm_library_wrapper.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
-@RoutePage()
+@RoutePage(name: RouteName.wasmFfi)
 class WasmFfiPage extends StatefulWidget {
   const WasmFfiPage({super.key});
 

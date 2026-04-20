@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 enum _WorkspaceTheme { focus, balanced }
 
@@ -10,7 +11,7 @@ enum _DeliveryStage { queued, building, shipped }
 
 enum _BoardDensity { compact, comfy, roomy }
 
-@RoutePage()
+@RoutePage(name: RouteName.animatedToggleSwitch)
 class AnimatedToggleSwitchPage extends StatefulWidget {
   const AnimatedToggleSwitchPage({super.key});
 

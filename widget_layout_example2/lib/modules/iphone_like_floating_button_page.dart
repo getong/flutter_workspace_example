@@ -3,8 +3,9 @@ import 'dart:ui';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart' as cupertino;
 import 'package:flutter/material.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
-@RoutePage()
+@RoutePage(name: RouteName.iPhoneLikeFloatingButton)
 class IPhoneLikeFloatingButtonPage extends StatefulWidget {
   const IPhoneLikeFloatingButtonPage({super.key});
 

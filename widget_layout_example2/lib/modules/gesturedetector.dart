@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
-@RoutePage()
+@RoutePage(name: RouteName.gesturedector)
 class GesturedetectorPage extends StatelessWidget {
   const GesturedetectorPage({super.key});
 

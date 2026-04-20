@@ -1,13 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 
 const String _primaryLottieUrl =
     'https://raw.githubusercontent.com/xvrh/lottie-flutter/master/example/assets/Mobilo/A.json';
 const String _secondaryLottieUrl =
     'https://raw.githubusercontent.com/xvrh/lottie-flutter/master/example/assets/AndroidWave.json';
 
-@RoutePage()
+@RoutePage(name: RouteName.lottie)
 class LottiePage extends StatefulWidget {
   const LottiePage({super.key});
 
