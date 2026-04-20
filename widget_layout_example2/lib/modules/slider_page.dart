@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'SliderExampleRoute')
+@RoutePage()
 class SliderExamplePage extends StatefulWidget {
   const SliderExamplePage({super.key});
 

@@ -204,7 +204,7 @@ const List<String> _continents = <String>[
 
 const int _pageSize = 6;
 
-@RoutePage(name: 'GraphqlFlutterRoute')
+@RoutePage()
 class GraphqlFlutterPage extends StatefulWidget {
   const GraphqlFlutterPage({super.key});
 

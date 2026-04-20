@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-@RoutePage(name: 'PackageInfoPlusRoute')
+@RoutePage()
 class PackageInfoPlusPage extends StatefulWidget {
   const PackageInfoPlusPage({super.key});
 

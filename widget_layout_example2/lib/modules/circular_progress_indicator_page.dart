@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'CircularProgressIndicatorExampleRoute')
+@RoutePage()
 class CircularProgressIndicatorExamplePage extends StatefulWidget {
   const CircularProgressIndicatorExamplePage({super.key});
 

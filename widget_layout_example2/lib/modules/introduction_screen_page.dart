@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
-@RoutePage(name: 'IntroductionScreenRoute')
+@RoutePage()
 class IntroductionScreenPage extends StatefulWidget {
   const IntroductionScreenPage({super.key});
 

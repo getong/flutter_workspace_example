@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart' as logging;
 
-@RoutePage(name: 'ChopperRoute')
+@RoutePage()
 class ChopperPage extends StatefulWidget {
   const ChopperPage({super.key});
 

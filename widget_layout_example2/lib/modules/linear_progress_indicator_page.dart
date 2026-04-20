@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'LinearProgressIndicatorExampleRoute')
+@RoutePage()
 class LinearProgressIndicatorExamplePage extends StatefulWidget {
   const LinearProgressIndicatorExamplePage({super.key});
 

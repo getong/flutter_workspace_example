@@ -60,7 +60,7 @@ _motionExamples = <(String, String, Widget, Color)>[
   ),
 ];
 
-@RoutePage(name: 'FlutterSlidableRoute')
+@RoutePage()
 class FlutterSlidablePage extends StatefulWidget {
   const FlutterSlidablePage({super.key});
 

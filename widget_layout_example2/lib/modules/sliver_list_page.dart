@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'SliverListRoute')
+@RoutePage()
 class SliverListPage extends StatelessWidget {
   const SliverListPage({super.key});
 

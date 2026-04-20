@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'FlexibleRoute')
+@RoutePage()
 class FlexiblePage extends StatelessWidget {
   const FlexiblePage({super.key});
 

@@ -18,7 +18,7 @@ class _ThumbnailFrame {
   final String label;
 }
 
-@RoutePage(name: 'VideoThumbnailRoute')
+@RoutePage()
 class VideoThumbnailPage extends StatefulWidget {
   const VideoThumbnailPage({super.key});
 

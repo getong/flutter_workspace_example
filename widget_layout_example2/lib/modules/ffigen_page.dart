@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'FfigenRoute')
+@RoutePage()
 class FfigenPage extends StatefulWidget {
   const FfigenPage({super.key});
 

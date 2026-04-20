@@ -9,7 +9,7 @@ import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs_lite.dart'
     as custom_tabs_lite;
 
-@RoutePage(name: 'FlutterCustomTabsRoute')
+@RoutePage()
 class FlutterCustomTabsPage extends StatefulWidget {
   const FlutterCustomTabsPage({super.key});
 

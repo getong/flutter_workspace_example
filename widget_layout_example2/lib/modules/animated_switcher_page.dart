@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
-@RoutePage(name: 'AnimatedSwitcherRoute')
+@RoutePage()
 class AnimatedSwitcherPage extends StatefulWidget {
   const AnimatedSwitcherPage({super.key});
 

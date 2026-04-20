@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'ChoiceChipRoute')
+@RoutePage()
 class ChoiceChipPage extends StatefulWidget {
   const ChoiceChipPage({super.key});
 

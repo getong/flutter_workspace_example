@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'LayoutBuilderExampleRoute')
+@RoutePage()
 class LayoutBuilderExamplePage extends StatelessWidget {
   const LayoutBuilderExamplePage({super.key});
 

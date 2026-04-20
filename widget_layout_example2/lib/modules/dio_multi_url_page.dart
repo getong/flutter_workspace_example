@@ -56,7 +56,7 @@ final mainDio  = getIt<Dio>(instanceName: 'approach3_main');
 final otherDio = getIt<Dio>(instanceName: 'approach3_other');
 ''';
 
-@RoutePage(name: 'DioMultiUrlRoute')
+@RoutePage()
 class DioMultiUrlPage extends StatefulWidget {
   const DioMultiUrlPage({super.key});
 

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'FractionallySizedBoxRoute')
+@RoutePage()
 class FractionallySizedBoxPage extends StatelessWidget {
   const FractionallySizedBoxPage({super.key});
 

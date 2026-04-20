@@ -10,7 +10,7 @@ enum _DeliveryStage { queued, building, shipped }
 
 enum _BoardDensity { compact, comfy, roomy }
 
-@RoutePage(name: 'AnimatedToggleSwitchRoute')
+@RoutePage()
 class AnimatedToggleSwitchPage extends StatefulWidget {
   const AnimatedToggleSwitchPage({super.key});
 

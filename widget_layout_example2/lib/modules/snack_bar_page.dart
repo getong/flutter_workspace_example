@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'SnackBarExampleRoute')
+@RoutePage()
 class SnackBarExamplePage extends StatelessWidget {
   const SnackBarExamplePage({super.key});
 

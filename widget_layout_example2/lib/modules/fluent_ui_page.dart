@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fluent;
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'FluentUiRoute')
+@RoutePage()
 class FluentUiPage extends StatefulWidget {
   const FluentUiPage({super.key});
 

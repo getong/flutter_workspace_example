@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'MaterialStatePropertyRoute')
+@RoutePage()
 class MaterialStatePropertyPage extends StatelessWidget {
   const MaterialStatePropertyPage({super.key});
 

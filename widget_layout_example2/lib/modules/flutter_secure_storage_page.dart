@@ -122,7 +122,7 @@ final storage = FlutterSecureStorage(
   ),
 };
 
-@RoutePage(name: 'FlutterSecureStorageRoute')
+@RoutePage()
 class FlutterSecureStoragePage extends StatefulWidget {
   const FlutterSecureStoragePage({super.key});
 

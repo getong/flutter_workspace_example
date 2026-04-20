@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 enum _ShippingSpeed { standard, express, overnight }
 
-@RoutePage(name: 'RadioExampleRoute')
+@RoutePage()
 class RadioExamplePage extends StatefulWidget {
   const RadioExamplePage({super.key});
 

@@ -5,7 +5,7 @@ import 'package:widget_layout_example2/modules/drift_showcase_database.dart';
 
 final DriftShowcaseDatabase _driftShowcaseDatabase = DriftShowcaseDatabase();
 
-@RoutePage(name: 'DriftFlutterRoute')
+@RoutePage()
 class DriftFlutterPage extends StatefulWidget {
   const DriftFlutterPage({super.key});
 

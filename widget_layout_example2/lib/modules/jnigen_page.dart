@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'JnigenRoute')
+@RoutePage()
 class JnigenPage extends StatefulWidget {
   const JnigenPage({super.key});
 

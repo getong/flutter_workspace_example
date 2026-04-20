@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'AdvancedProgressIndicatorRoute')
+@RoutePage()
 class AdvancedProgressIndicatorPage extends StatefulWidget {
   const AdvancedProgressIndicatorPage({super.key});
 

@@ -67,7 +67,7 @@ const List<_LootDrop> _weightedPool = <_LootDrop>[
   ),
 ];
 
-@RoutePage(name: 'LootReelRoute')
+@RoutePage()
 class LootReelPage extends StatefulWidget {
   const LootReelPage({super.key});
 

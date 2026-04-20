@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'AspectRatioRoute')
+@RoutePage()
 class AspectRatioPage extends StatelessWidget {
   const AspectRatioPage({super.key});
 

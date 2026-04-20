@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
-@RoutePage(name: 'TableRoute')
+@RoutePage()
 class TablePage extends StatelessWidget {
   const TablePage({super.key});
 

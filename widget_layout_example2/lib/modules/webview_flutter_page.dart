@@ -7,7 +7,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 enum _WebViewSource { inlineHtml, flutterSite, packagePage }
 
-@RoutePage(name: 'WebviewFlutterRoute')
+@RoutePage()
 class WebviewFlutterPage extends StatefulWidget {
   const WebviewFlutterPage({super.key});
 

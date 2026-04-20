@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'ContainerRoute')
+@RoutePage()
 class ContainerPage extends StatelessWidget {
   const ContainerPage({super.key});
 

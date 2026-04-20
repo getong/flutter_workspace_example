@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'package:widget_layout_example2/modules/built_value_models.dart';
 
-@RoutePage(name: 'BuiltValueRoute')
+@RoutePage()
 class BuiltValuePage extends StatefulWidget {
   const BuiltValuePage({super.key});
 

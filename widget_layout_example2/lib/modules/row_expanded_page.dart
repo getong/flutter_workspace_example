@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
-@RoutePage(name: 'RowExpandedRoute')
+@RoutePage()
 class RowExpandedPage extends StatelessWidget {
   const RowExpandedPage({super.key});
 

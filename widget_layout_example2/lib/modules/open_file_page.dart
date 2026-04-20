@@ -5,7 +5,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
 
-@RoutePage(name: 'OpenFileRoute')
+@RoutePage()
 class OpenFilePage extends StatefulWidget {
   const OpenFilePage({super.key});
 

@@ -4,7 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'CryptoRoute')
+@RoutePage()
 class CryptoPage extends StatelessWidget {
   const CryptoPage({super.key});
 

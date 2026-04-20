@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-@RoutePage(name: 'FluttertoastRoute')
+@RoutePage()
 class FluttertoastPage extends StatefulWidget {
   const FluttertoastPage({super.key});
 

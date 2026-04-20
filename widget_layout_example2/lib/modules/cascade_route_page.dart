@@ -118,7 +118,7 @@ class _Breadcrumb {
   final String label;
 }
 
-@RoutePage(name: 'CascadeRoute')
+@RoutePage()
 class CascadePage extends StatelessWidget {
   const CascadePage({super.key});
 
@@ -175,7 +175,7 @@ class CascadePage extends StatelessWidget {
   }
 }
 
-@RoutePage(name: 'CascadeCategoriesRoute')
+@RoutePage()
 class CascadeCategoriesPage extends StatelessWidget {
   const CascadeCategoriesPage({super.key});
 
@@ -240,7 +240,7 @@ class CascadeCategoriesPage extends StatelessWidget {
   }
 }
 
-@RoutePage(name: 'CascadeCategoryDetailsRoute')
+@RoutePage()
 class CascadeCategoryDetailsPage extends StatelessWidget {
   const CascadeCategoryDetailsPage({
     super.key,
@@ -328,7 +328,7 @@ class CascadeCategoryDetailsPage extends StatelessWidget {
   }
 }
 
-@RoutePage(name: 'CascadeSubcategoryItemsRoute')
+@RoutePage()
 class CascadeSubcategoryItemsPage extends StatelessWidget {
   const CascadeSubcategoryItemsPage({
     super.key,
@@ -464,7 +464,7 @@ class CascadeSubcategoryItemsPage extends StatelessWidget {
   }
 }
 
-@RoutePage(name: 'CascadeItemDetailsRoute')
+@RoutePage()
 class CascadeItemDetailsPage extends StatelessWidget {
   const CascadeItemDetailsPage({
     super.key,

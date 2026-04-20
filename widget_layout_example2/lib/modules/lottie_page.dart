@@ -7,7 +7,7 @@ const String _primaryLottieUrl =
 const String _secondaryLottieUrl =
     'https://raw.githubusercontent.com/xvrh/lottie-flutter/master/example/assets/AndroidWave.json';
 
-@RoutePage(name: 'LottieRoute')
+@RoutePage()
 class LottiePage extends StatefulWidget {
   const LottiePage({super.key});
 

@@ -1,409 +1,522 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 import 'package:widget_layout_example2/auto_route_demo_support.dart';
 
-const List<_ModuleLink> _layoutModules = <_ModuleLink>[
-  _ModuleLink(label: 'Align Module', path: '/align-page'),
-  _ModuleLink(label: 'AspectRatio Module', path: '/aspect-ratio-page'),
-  _ModuleLink(label: 'Center Box Module', path: '/center-box'),
-  _ModuleLink(label: 'Classic Buttons Module', path: '/classic-buttons-page'),
-  _ModuleLink(label: 'ClipOval Module', path: '/clip-oval-page'),
-  _ModuleLink(label: 'ClipPath Module', path: '/clip-path-page'),
-  _ModuleLink(label: 'ClipRect Module', path: '/clip-rect-page'),
-  _ModuleLink(label: 'ClipRRect Module', path: '/clip-r-rect-page'),
-  _ModuleLink(label: 'Column Module', path: '/column-page'),
-  _ModuleLink(label: 'Column Saved Module', path: '/column-saved-page'),
+final List<_ModuleLink> _layoutModules = <_ModuleLink>[
+  _ModuleLink(label: 'Align Module', routePath: AppRoute.align.path),
+  _ModuleLink(
+    label: 'AspectRatio Module',
+    routePath: AppRoute.aspectRatio.path,
+  ),
+  _ModuleLink(label: 'Center Box Module', routePath: AppRoute.centerBox.path),
+  _ModuleLink(
+    label: 'Classic Buttons Module',
+    routePath: AppRoute.classicButtons.path,
+  ),
+  _ModuleLink(label: 'ClipOval Module', routePath: AppRoute.clipOval.path),
+  _ModuleLink(label: 'ClipPath Module', routePath: AppRoute.clipPath.path),
+  _ModuleLink(label: 'ClipRect Module', routePath: AppRoute.clipRect.path),
+  _ModuleLink(label: 'ClipRRect Module', routePath: AppRoute.clipRRect.path),
+  _ModuleLink(label: 'Column Module', routePath: AppRoute.column.path),
+  _ModuleLink(
+    label: 'Column Saved Module',
+    routePath: AppRoute.columnSaved.path,
+  ),
   _ModuleLink(
     label: 'Column Saved Stateless Module',
-    path: '/column-saved-stateless-page',
+    routePath: AppRoute.columnSavedStateless.path,
   ),
-  _ModuleLink(label: 'Constrained Box Module', path: '/constrained-box'),
-  _ModuleLink(label: 'Container Module', path: '/container-page'),
-  _ModuleLink(label: 'CustomClipper Module', path: '/custom-clipper-page'),
+  _ModuleLink(
+    label: 'Constrained Box Module',
+    routePath: AppRoute.constrainedBox.path,
+  ),
+  _ModuleLink(label: 'Container Module', routePath: AppRoute.container.path),
+  _ModuleLink(
+    label: 'CustomClipper Module',
+    routePath: AppRoute.customClipper.path,
+  ),
   _ModuleLink(
     label: 'CustomMultiChildLayout Module',
-    path: '/custom-multi-child-layout-page',
+    routePath: AppRoute.customMultiChildLayout.path,
   ),
-  _ModuleLink(label: 'DecoratedBox Module', path: '/decorated-box-page'),
-  _ModuleLink(label: 'Expanded Module', path: '/expanded-page'),
-  _ModuleLink(label: 'FilledButton Module', path: '/filled-button-page'),
-  _ModuleLink(label: 'FittedBox Module', path: '/fitted-box-page'),
-  _ModuleLink(label: 'Flexible Module', path: '/flexible-page'),
-  _ModuleLink(label: 'Flow Module', path: '/flow-page'),
+  _ModuleLink(
+    label: 'DecoratedBox Module',
+    routePath: AppRoute.decoratedBox.path,
+  ),
+  _ModuleLink(label: 'Expanded Module', routePath: AppRoute.expanded.path),
+  _ModuleLink(
+    label: 'FilledButton Module',
+    routePath: AppRoute.filledButton.path,
+  ),
+  _ModuleLink(label: 'FittedBox Module', routePath: AppRoute.fittedBox.path),
+  _ModuleLink(label: 'Flexible Module', routePath: AppRoute.flexible.path),
+  _ModuleLink(label: 'Flow Module', routePath: AppRoute.flow.path),
   _ModuleLink(
     label: 'FractionallySizedBox Module',
-    path: '/fractionally-sized-box-page',
+    routePath: AppRoute.fractionallySizedBox.path,
   ),
-  _ModuleLink(label: 'gesturedector Module', path: '/gesturedector-page'),
-  _ModuleLink(label: 'IndexedStack Module', path: '/indexed-stack-page'),
-  _ModuleLink(label: 'LayoutBuilder Module', path: '/layout-builder-page'),
-  _ModuleLink(label: 'MediaQuery Module', path: '/media-query-page'),
+  _ModuleLink(
+    label: 'gesturedector Module',
+    routePath: AppRoute.gesturedector.path,
+  ),
+  _ModuleLink(
+    label: 'IndexedStack Module',
+    routePath: AppRoute.indexedStack.path,
+  ),
+  _ModuleLink(
+    label: 'LayoutBuilder Module',
+    routePath: AppRoute.layoutBuilder.path,
+  ),
+  _ModuleLink(label: 'MediaQuery Module', routePath: AppRoute.mediaQuery.path),
   _ModuleLink(
     label: 'OrientationBuilder Module',
-    path: '/orientation-builder-page',
+    routePath: AppRoute.orientationBuilder.path,
   ),
-  _ModuleLink(label: 'Padding Module', path: '/padding-page'),
-  _ModuleLink(label: 'Positioned Module', path: '/positioned-page'),
+  _ModuleLink(label: 'Padding Module', routePath: AppRoute.padding.path),
+  _ModuleLink(label: 'Positioned Module', routePath: AppRoute.positioned.path),
   _ModuleLink(
     label: 'ResponsiveContainer Module',
-    path: '/responsive-container-page',
+    routePath: AppRoute.responsiveContainer.path,
   ),
-  _ModuleLink(label: 'RotatedBox Module', path: '/rotated-box-page'),
-  _ModuleLink(label: 'Row Expanded Module', path: '/row-expand-page'),
-  _ModuleLink(label: 'SafeArea Module', path: '/safe-area-page'),
-  _ModuleLink(label: 'Scrollbar Module', path: '/scrollbar-page'),
-  _ModuleLink(label: 'SizedBox Module', path: '/sized-box-page'),
+  _ModuleLink(label: 'RotatedBox Module', routePath: AppRoute.rotatedBox.path),
+  _ModuleLink(
+    label: 'Row Expanded Module',
+    routePath: AppRoute.rowExpanded.path,
+  ),
+  _ModuleLink(label: 'SafeArea Module', routePath: AppRoute.safeArea.path),
+  _ModuleLink(label: 'Scrollbar Module', routePath: AppRoute.scrollbar.path),
+  _ModuleLink(label: 'SizedBox Module', routePath: AppRoute.sizedBox.path),
   _ModuleLink(
     label: 'SingleChildScrollView Module',
-    path: '/single-child-scroll-view-page',
+    routePath: AppRoute.singleChildScrollView.path,
   ),
-  _ModuleLink(label: 'SliverAppBar Module', path: '/sliver-app-bar-page'),
-  _ModuleLink(label: 'SliverGrid Module', path: '/sliver-grid-page'),
-  _ModuleLink(label: 'SliverList Module', path: '/sliver-list-page'),
-  _ModuleLink(label: 'SliverPadding Module', path: '/sliver-padding-page'),
-  _ModuleLink(label: 'SliverSnap Module', path: '/sliver-snap-page'),
+  _ModuleLink(
+    label: 'SliverAppBar Module',
+    routePath: AppRoute.sliverAppBar.path,
+  ),
+  _ModuleLink(label: 'SliverGrid Module', routePath: AppRoute.sliverGrid.path),
+  _ModuleLink(label: 'SliverList Module', routePath: AppRoute.sliverList.path),
+  _ModuleLink(
+    label: 'SliverPadding Module',
+    routePath: AppRoute.sliverPadding.path,
+  ),
+  _ModuleLink(label: 'SliverSnap Module', routePath: AppRoute.sliverSnap.path),
   _ModuleLink(
     label: 'SliverToBoxAdapter Module',
-    path: '/sliver-to-box-adapter-page',
+    routePath: AppRoute.sliverToBoxAdapter.path,
   ),
   _ModuleLink(
     label:
         'SliverToBoxAdapter + SliverList + SliverPadding + SliverFillRemaining Module',
-    path: '/sliver-widgets-page',
+    routePath: AppRoute.sliverWidgets.path,
   ),
-  _ModuleLink(label: 'Stack Module', path: '/stack-page'),
-  _ModuleLink(label: 'Table Module', path: '/table-page'),
-  _ModuleLink(label: 'Transform Module', path: '/transform-page'),
+  _ModuleLink(label: 'Stack Module', routePath: AppRoute.stack.path),
+  _ModuleLink(label: 'Table Module', routePath: AppRoute.table.path),
+  _ModuleLink(label: 'Transform Module', routePath: AppRoute.transform.path),
   _ModuleLink(
     label: 'UnconstrainedBox Module',
-    path: '/unconstrained-box-page',
+    routePath: AppRoute.unconstrainedBox.path,
   ),
-  _ModuleLink(label: 'Wrap Module', path: '/wrap-page'),
+  _ModuleLink(label: 'Wrap Module', routePath: AppRoute.wrap.path),
 ];
 
-const List<_ModuleLink> _contentModules = <_ModuleLink>[
-  _ModuleLink(label: 'ActionChip Module', path: '/action-chip-page'),
-  _ModuleLink(label: 'AboutDialog Module', path: '/about-dialog-page'),
+final List<_ModuleLink> _contentModules = <_ModuleLink>[
+  _ModuleLink(label: 'ActionChip Module', routePath: AppRoute.actionChip.path),
+  _ModuleLink(
+    label: 'AboutDialog Module',
+    routePath: AppRoute.aboutDialog.path,
+  ),
   _ModuleLink(
     label: 'AdvancedProgressIndicator Module',
-    path: '/advanced-progress-indicator-page',
+    routePath: AppRoute.advancedProgressIndicator.path,
   ),
-  _ModuleLink(label: 'AlertDialog Module', path: '/alert-dialog-page'),
+  _ModuleLink(
+    label: 'AlertDialog Module',
+    routePath: AppRoute.alertDialog.path,
+  ),
   _ModuleLink(
     label: 'AnimatedListTile Module',
-    path: '/animated-list-tile-page',
+    routePath: AppRoute.animatedListTile.path,
   ),
-  _ModuleLink(label: 'auto_route Module', path: '/auto-route-page'),
-  _ModuleLink(label: 'Cascade Route Module', path: '/cascade'),
-  _ModuleLink(label: 'BlockSemantics Module', path: '/block-semantics-page'),
+  _ModuleLink(
+    label: 'auto_route Module',
+    routePath: AppRoute.autoRouteUsage.path,
+  ),
+  _ModuleLink(label: 'Cascade Route Module', routePath: AppRoute.cascade.path),
+  _ModuleLink(
+    label: 'BlockSemantics Module',
+    routePath: AppRoute.blockSemantics.path,
+  ),
   _ModuleLink(
     label: 'BottomNavigationBar Module',
-    path: '/bottom-navigation-bar-page',
+    routePath: AppRoute.bottomNavigationBar.path,
   ),
-  _ModuleLink(label: 'built_value Module', path: '/built-value-page'),
+  _ModuleLink(label: 'built_value Module', routePath: AppRoute.builtValue.path),
   _ModuleLink(
     label: 'cached_network_image_ce Module',
-    path: '/cached-network-image-ce-page',
+    routePath: AppRoute.cachedNetworkImageCe.path,
   ),
-  _ModuleLink(label: 'characters Module', path: '/characters-page'),
-  _ModuleLink(label: 'chopper Module', path: '/chopper-page'),
-  _ModuleLink(label: 'clipboard Module', path: '/clipboard-page'),
-  _ModuleLink(label: 'Checkbox Module', path: '/checkbox-page'),
-  _ModuleLink(label: 'ChoiceChip Module', path: '/choice-chip-page'),
+  _ModuleLink(label: 'characters Module', routePath: AppRoute.characters.path),
+  _ModuleLink(label: 'chopper Module', routePath: AppRoute.chopper.path),
+  _ModuleLink(label: 'clipboard Module', routePath: AppRoute.clipboard.path),
+  _ModuleLink(label: 'Checkbox Module', routePath: AppRoute.checkbox.path),
+  _ModuleLink(label: 'ChoiceChip Module', routePath: AppRoute.choiceChip.path),
   _ModuleLink(
     label: 'CircularProgressIndicator Module',
-    path: '/circular-progress-indicator-page',
+    routePath: AppRoute.circularProgressIndicator.path,
   ),
-  _ModuleLink(label: 'crypto Module', path: '/crypto-page'),
-  _ModuleLink(label: 'cue Module', path: '/cue-page'),
+  _ModuleLink(label: 'crypto Module', routePath: AppRoute.crypto.path),
+  _ModuleLink(label: 'cue Module', routePath: AppRoute.cue.path),
   _ModuleLink(
     label: 'DataTable + PaginatedDataTable Module',
-    path: '/data-table-page',
+    routePath: AppRoute.dataTable.path,
   ),
-  _ModuleLink(label: 'DatePicker Module', path: '/date-picker-page'),
+  _ModuleLink(label: 'DatePicker Module', routePath: AppRoute.datePicker.path),
   _ModuleLink(
     label: 'DatePickerDialog Module',
-    path: '/date-picker-dialog-page',
+    routePath: AppRoute.datePickerDialog.path,
   ),
-  _ModuleLink(label: 'Dialog Module', path: '/dialog-page'),
-  _ModuleLink(label: 'dio Module', path: '/dio-page'),
+  _ModuleLink(label: 'Dialog Module', routePath: AppRoute.dialog.path),
+  _ModuleLink(label: 'dio Module', routePath: AppRoute.dio.path),
   _ModuleLink(
     label: 'dio + get_it Multi-URL Module',
-    path: '/dio-multi-url-page',
+    routePath: AppRoute.dioMultiUrl.path,
   ),
-  _ModuleLink(label: 'DragTarget Module', path: '/drag-target-page'),
-  _ModuleLink(label: 'Draggable Module', path: '/draggable-page'),
+  _ModuleLink(label: 'DragTarget Module', routePath: AppRoute.dragTarget.path),
+  _ModuleLink(label: 'Draggable Module', routePath: AppRoute.draggable.path),
   _ModuleLink(
     label: 'drift + drift_flutter Module',
-    path: '/drift-flutter-page',
+    routePath: AppRoute.driftFlutter.path,
   ),
-  _ModuleLink(label: 'encrypter_plus Module', path: '/encrypter-plus-page'),
+  _ModuleLink(
+    label: 'encrypter_plus Module',
+    routePath: AppRoute.encrypterPlus.path,
+  ),
   _ModuleLink(
     label: 'ExpandableSection Module',
-    path: '/expandable-section-page',
+    routePath: AppRoute.expandableSection.path,
   ),
   _ModuleLink(
     label: 'ExcludeSemantics Module',
-    path: '/exclude-semantics-page',
+    routePath: AppRoute.excludeSemantics.path,
   ),
-  _ModuleLink(label: 'FilterChip Module', path: '/filter-chip-page'),
-  _ModuleLink(label: 'ffigen Module', path: '/ffigen-page'),
+  _ModuleLink(label: 'FilterChip Module', routePath: AppRoute.filterChip.path),
+  _ModuleLink(label: 'ffigen Module', routePath: AppRoute.ffigen.path),
   _ModuleLink(
     label: 'flex_color_scheme Module',
-    path: '/flex-color-scheme-page',
+    routePath: AppRoute.flexColorScheme.path,
   ),
-  _ModuleLink(label: 'flex_seed_scheme Module', path: '/flex-seed-scheme-page'),
-  _ModuleLink(label: 'fl_chart Module', path: '/fl-chart-page'),
-  _ModuleLink(label: 'fluent_ui Module', path: '/fluent-ui-page'),
+  _ModuleLink(
+    label: 'flex_seed_scheme Module',
+    routePath: AppRoute.flexSeedScheme.path,
+  ),
+  _ModuleLink(label: 'fl_chart Module', routePath: AppRoute.flChart.path),
+  _ModuleLink(label: 'fluent_ui Module', routePath: AppRoute.fluentUi.path),
   _ModuleLink(
     label: 'FloatingActionButton Module',
-    path: '/floating-action-button-page',
+    routePath: AppRoute.floatingActionButton.path,
   ),
   _ModuleLink(
     label: 'FocusableActionDetector Module',
-    path: '/focusable-action-detector-page',
+    routePath: AppRoute.focusableActionDetector.path,
   ),
   _ModuleLink(
     label: 'FocusTraversalGroup Module',
-    path: '/focus-traversal-group-page',
+    routePath: AppRoute.focusTraversalGroup.path,
   ),
   _ModuleLink(
     label: 'flutter_auto_size_text Module',
-    path: '/flutter-auto-size-text-page',
+    routePath: AppRoute.flutterAutoSizeText.path,
   ),
-  _ModuleLink(label: 'flutter_bloc Module', path: '/flutter-bloc-page'),
+  _ModuleLink(
+    label: 'flutter_bloc Module',
+    routePath: AppRoute.flutterBloc.path,
+  ),
   _ModuleLink(
     label: 'flutter_card_swiper Module',
-    path: '/flutter-card-swiper-page',
+    routePath: AppRoute.flutterCardSwiper.path,
   ),
-  _ModuleLink(label: 'flutter_dotenv Module', path: '/flutter-dotenv-page'),
-  _ModuleLink(label: 'flutter_hooks Module', path: '/flutter-hooks-page'),
+  _ModuleLink(
+    label: 'flutter_dotenv Module',
+    routePath: AppRoute.flutterDotenv.path,
+  ),
+  _ModuleLink(
+    label: 'flutter_hooks Module',
+    routePath: AppRoute.flutterHooks.path,
+  ),
   _ModuleLink(
     label: 'flutter_local_notifications Module',
-    path: '/flutter-local-notifications-page',
+    routePath: AppRoute.flutterLocalNotifications.path,
   ),
   _ModuleLink(
     label: 'flutter_secure_storage Module',
-    path: '/flutter-secure-storage-page',
+    routePath: AppRoute.flutterSecureStorage.path,
   ),
-  _ModuleLink(label: 'flutter_slidable Module', path: '/flutter-slidable-page'),
+  _ModuleLink(
+    label: 'flutter_slidable Module',
+    routePath: AppRoute.flutterSlidable.path,
+  ),
   _ModuleLink(
     label: 'flutter_custom_tabs Module',
-    path: '/flutter-custom-tabs-page',
+    routePath: AppRoute.flutterCustomTabs.path,
   ),
-  _ModuleLink(label: 'flutter_svg Module', path: '/flutter-svg-page'),
-  _ModuleLink(label: 'flutter_tts Module', path: '/flutter-tts-page'),
-  _ModuleLink(label: 'fluttertoast Module', path: '/fluttertoast-page'),
+  _ModuleLink(label: 'flutter_svg Module', routePath: AppRoute.flutterSvg.path),
+  _ModuleLink(label: 'flutter_tts Module', routePath: AppRoute.flutterTts.path),
+  _ModuleLink(
+    label: 'fluttertoast Module',
+    routePath: AppRoute.fluttertoast.path,
+  ),
   _ModuleLink(
     label: 'flutter_video_caching + fvp Module',
-    path: '/flutter-video-caching-fvp-page',
+    routePath: AppRoute.flutterVideoCachingFvp.path,
   ),
   _ModuleLink(
     label: 'freezed_annotation Module',
-    path: '/freezed-annotation-page',
+    routePath: AppRoute.freezedAnnotation.path,
   ),
   _ModuleLink(
     label: 'font_awesome_flutter Module',
-    path: '/font-awesome-flutter-page',
+    routePath: AppRoute.fontAwesomeFlutter.path,
   ),
-  _ModuleLink(label: 'Form Module', path: '/form-page'),
-  _ModuleLink(label: 'FormField Module', path: '/form-field-page'),
-  _ModuleLink(label: 'FutureBuilder Module', path: '/future-builder-page'),
-  _ModuleLink(label: 'genui Module', path: '/genui-page'),
-  _ModuleLink(label: 'graphql_flutter Module', path: '/graphql-flutter-page'),
-  _ModuleLink(label: 'Image Module', path: '/image-widget-page'),
-  _ModuleLink(label: 'iconly Module', path: '/iconly-page'),
+  _ModuleLink(label: 'Form Module', routePath: AppRoute.form.path),
+  _ModuleLink(label: 'FormField Module', routePath: AppRoute.formField.path),
+  _ModuleLink(
+    label: 'FutureBuilder Module',
+    routePath: AppRoute.futureBuilder.path,
+  ),
+  _ModuleLink(label: 'genui Module', routePath: AppRoute.genui.path),
+  _ModuleLink(
+    label: 'graphql_flutter Module',
+    routePath: AppRoute.graphqlFlutter.path,
+  ),
+  _ModuleLink(label: 'Image Module', routePath: AppRoute.imageWidget.path),
+  _ModuleLink(label: 'iconly Module', routePath: AppRoute.iconly.path),
   _ModuleLink(
     label: 'Ink + InkWell + InkResponse Module',
-    path: '/ink-widgets-page',
+    routePath: AppRoute.inkWidgets.path,
   ),
-  _ModuleLink(label: 'injectable Module', path: '/injectable-page'),
+  _ModuleLink(label: 'injectable Module', routePath: AppRoute.injectable.path),
   _ModuleLink(
     label: 'injectable + get_it Module',
-    path: '/injectable-get-it-page',
+    routePath: AppRoute.injectableGetIt.path,
   ),
   _ModuleLink(
     label: 'infinite_scroll_pagination Module',
-    path: '/infinite-scroll-pagination-page',
+    routePath: AppRoute.infiniteScrollPagination.path,
   ),
-  _ModuleLink(label: 'InputChip Module', path: '/input-chip-page'),
+  _ModuleLink(label: 'InputChip Module', routePath: AppRoute.inputChip.path),
   _ModuleLink(
     label: 'iPhone-like Floating Button Module',
-    path: '/iphone-like-floating-button-page',
+    routePath: AppRoute.iPhoneLikeFloatingButton.path,
   ),
   _ModuleLink(
     label: 'introduction_screen Module',
-    path: '/introduction-screen-page',
+    routePath: AppRoute.introductionScreen.path,
   ),
-  _ModuleLink(label: 'Intl Module', path: '/intl-page'),
-  _ModuleLink(label: 'InteractiveCard Module', path: '/interactive-card-page'),
-  _ModuleLink(label: 'jnigen Module', path: '/jnigen-page'),
-  _ModuleLink(label: 'json_annotation Module', path: '/json-annotation-page'),
+  _ModuleLink(label: 'Intl Module', routePath: AppRoute.intl.path),
+  _ModuleLink(
+    label: 'InteractiveCard Module',
+    routePath: AppRoute.interactiveCard.path,
+  ),
+  _ModuleLink(label: 'jnigen Module', routePath: AppRoute.jnigen.path),
+  _ModuleLink(
+    label: 'json_annotation Module',
+    routePath: AppRoute.jsonAnnotation.path,
+  ),
   _ModuleLink(
     label: 'KeyboardListener Module',
-    path: '/keyboard-listener-page',
+    routePath: AppRoute.keyboardListener.path,
   ),
   _ModuleLink(
     label: 'LinearProgressIndicator Module',
-    path: '/linear-progress-indicator-page',
+    routePath: AppRoute.linearProgressIndicator.path,
   ),
-  _ModuleLink(label: 'loot_reel Module', path: '/loot-reel-page'),
+  _ModuleLink(label: 'loot_reel Module', routePath: AppRoute.lootReel.path),
   _ModuleLink(
     label: 'lucide_icons_flutter Module',
-    path: '/lucide-icons-flutter-page',
+    routePath: AppRoute.lucideIconsFlutter.path,
   ),
-  _ModuleLink(label: 'lottie Module', path: '/lottie-page'),
+  _ModuleLink(label: 'lottie Module', routePath: AppRoute.lottie.path),
   _ModuleLink(
     label: 'material_color_utilities Module',
-    path: '/material-color-utilities-page',
+    routePath: AppRoute.materialColorUtilities.path,
   ),
   _ModuleLink(
     label: 'MaterialStateProperty Module',
-    path: '/material-state-property-page',
+    routePath: AppRoute.materialStateProperty.path,
   ),
   _ModuleLink(
     label: 'material_symbols_icons Module',
-    path: '/material-symbols-icons-page',
+    routePath: AppRoute.materialSymbolsIcons.path,
   ),
-  _ModuleLink(label: 'macos_ui Module', path: '/macos-ui-page'),
-  _ModuleLink(label: 'MergeSemantics Module', path: '/merge-semantics-page'),
-  _ModuleLink(label: 'MouseRegion Module', path: '/mouse-region-page'),
+  _ModuleLink(label: 'macos_ui Module', routePath: AppRoute.macosUi.path),
+  _ModuleLink(
+    label: 'MergeSemantics Module',
+    routePath: AppRoute.mergeSemantics.path,
+  ),
+  _ModuleLink(
+    label: 'MouseRegion Module',
+    routePath: AppRoute.mouseRegion.path,
+  ),
   _ModuleLink(
     label: 'native_device_orientation Communicator Module',
-    path: '/native-device-orientation-communicator-page',
+    routePath: AppRoute.nativeDeviceOrientationCommunicator.path,
   ),
   _ModuleLink(
     label: 'native_device_orientation OrientedWidget Module',
-    path: '/native-device-orientation-oriented-widget-page',
+    routePath: AppRoute.nativeDeviceOrientationOrientedWidget.path,
   ),
   _ModuleLink(
     label: 'native_device_orientation Reader Module',
-    path: '/native-device-orientation-reader-page',
+    routePath: AppRoute.nativeDeviceOrientationReader.path,
   ),
-  _ModuleLink(label: 'open_file Module', path: '/open-file-page'),
+  _ModuleLink(label: 'open_file Module', routePath: AppRoute.openFile.path),
   _ModuleLink(
     label: 'onboarding_overlay Module',
-    path: '/onboarding-overlay-page',
+    routePath: AppRoute.onboardingOverlay.path,
   ),
-  _ModuleLink(label: 'OverlayMenu Module', path: '/overlay-menu-page'),
+  _ModuleLink(
+    label: 'OverlayMenu Module',
+    routePath: AppRoute.overlayMenu.path,
+  ),
   _ModuleLink(
     label: 'permission_handler Module',
-    path: '/permission-handler-page',
+    routePath: AppRoute.permissionHandler.path,
   ),
   _ModuleLink(
     label: 'package_info_plus Module',
-    path: '/package-info-plus-page',
+    routePath: AppRoute.packageInfoPlus.path,
   ),
-  _ModuleLink(label: 'pigeon Module', path: '/pigeon-page'),
-  _ModuleLink(label: 'PopScope Module', path: '/pop-scope-page'),
-  _ModuleLink(label: 'Radio Module', path: '/radio-page'),
-  _ModuleLink(label: 'RichText Module', path: '/rich-text-page'),
-  _ModuleLink(label: 'sensors_plus Module', path: '/sensors-plus-page'),
-  _ModuleLink(label: 'Semantics Module', path: '/semantics-page'),
-  _ModuleLink(label: 'shadcn_ui Module', path: '/shadcn-ui-page'),
+  _ModuleLink(label: 'pigeon Module', routePath: AppRoute.pigeon.path),
+  _ModuleLink(label: 'PopScope Module', routePath: AppRoute.popScope.path),
+  _ModuleLink(label: 'Radio Module', routePath: AppRoute.radio.path),
+  _ModuleLink(label: 'RichText Module', routePath: AppRoute.richText.path),
+  _ModuleLink(
+    label: 'sensors_plus Module',
+    routePath: AppRoute.sensorsPlus.path,
+  ),
+  _ModuleLink(label: 'Semantics Module', routePath: AppRoute.semantics.path),
+  _ModuleLink(label: 'shadcn_ui Module', routePath: AppRoute.shadcnUi.path),
   _ModuleLink(
     label: 'shared_preferences Module',
-    path: '/shared-preferences-page',
+    routePath: AppRoute.sharedPreferences.path,
   ),
-  _ModuleLink(label: 'share_plus Module', path: '/share-plus-page'),
-  _ModuleLink(label: 'showDialog Module', path: '/show-dialog-page'),
-  _ModuleLink(label: 'SimpleDialog Module', path: '/simple-dialog-page'),
-  _ModuleLink(label: 'Slider Module', path: '/slider-page'),
-  _ModuleLink(label: 'SnackBar Module', path: '/snack-bar-page'),
-  _ModuleLink(label: 'speech_to_text Module', path: '/speech-to-text-page'),
-  _ModuleLink(label: 'StreamBuilder Module', path: '/stream-builder-page'),
-  _ModuleLink(label: 'super_clipboard Module', path: '/super-clipboard-page'),
+  _ModuleLink(label: 'share_plus Module', routePath: AppRoute.sharePlus.path),
+  _ModuleLink(label: 'showDialog Module', routePath: AppRoute.showDialog.path),
+  _ModuleLink(
+    label: 'SimpleDialog Module',
+    routePath: AppRoute.simpleDialog.path,
+  ),
+  _ModuleLink(label: 'Slider Module', routePath: AppRoute.slider.path),
+  _ModuleLink(label: 'SnackBar Module', routePath: AppRoute.snackBar.path),
+  _ModuleLink(
+    label: 'speech_to_text Module',
+    routePath: AppRoute.speechToText.path,
+  ),
+  _ModuleLink(
+    label: 'StreamBuilder Module',
+    routePath: AppRoute.streamBuilder.path,
+  ),
+  _ModuleLink(
+    label: 'super_clipboard Module',
+    routePath: AppRoute.superClipboard.path,
+  ),
   _ModuleLink(
     label: 'smooth_page_indicator Module',
-    path: '/smooth-page-indicator-page',
+    routePath: AppRoute.smoothPageIndicator.path,
   ),
-  _ModuleLink(label: 'Switch Module', path: '/switch-page'),
-  _ModuleLink(label: 'Text.rich Module', path: '/text-rich-page'),
+  _ModuleLink(label: 'Switch Module', routePath: AppRoute.switchExample.path),
+  _ModuleLink(label: 'Text.rich Module', routePath: AppRoute.textRich.path),
   _ModuleLink(
     label: 'TextField + TextEditingController Module',
-    path: '/text-field-controller-page',
+    routePath: AppRoute.textFieldController.path,
   ),
-  _ModuleLink(label: 'TextStyle Module', path: '/text-style-page'),
+  _ModuleLink(label: 'TextStyle Module', routePath: AppRoute.textStyle.path),
   _ModuleLink(
     label: 'ThemeData VisualDensity Module',
-    path: '/theme-data-visual-density-page',
+    routePath: AppRoute.themeDataVisualDensity.path,
   ),
-  _ModuleLink(label: 'TimePicker Module', path: '/time-picker-page'),
+  _ModuleLink(label: 'TimePicker Module', routePath: AppRoute.timePicker.path),
   _ModuleLink(
     label: 'TimePickerDialog Module',
-    path: '/time-picker-dialog-page',
+    routePath: AppRoute.timePickerDialog.path,
   ),
-  _ModuleLink(label: 'toggle_switch Module', path: '/toggle-switch-page'),
-  _ModuleLink(label: 'Tooltip Module', path: '/tooltip-page'),
-  _ModuleLink(label: 'url_launcher Module', path: '/url-launcher-page'),
-  _ModuleLink(label: 'video_thumbnail Module', path: '/video-thumbnail-page'),
-  _ModuleLink(label: 'wasm_ffi Module', path: '/wasm-ffi-page'),
-  _ModuleLink(label: 'webview_flutter Module', path: '/webview-flutter-page'),
+  _ModuleLink(
+    label: 'toggle_switch Module',
+    routePath: AppRoute.toggleSwitch.path,
+  ),
+  _ModuleLink(label: 'Tooltip Module', routePath: AppRoute.tooltip.path),
+  _ModuleLink(
+    label: 'url_launcher Module',
+    routePath: AppRoute.urlLauncher.path,
+  ),
+  _ModuleLink(
+    label: 'video_thumbnail Module',
+    routePath: AppRoute.videoThumbnail.path,
+  ),
+  _ModuleLink(label: 'wasm_ffi Module', routePath: AppRoute.wasmFfi.path),
+  _ModuleLink(
+    label: 'webview_flutter Module',
+    routePath: AppRoute.webviewFlutter.path,
+  ),
 ];
 
-const List<_ModuleLink> _animationModules = <_ModuleLink>[
+final List<_ModuleLink> _animationModules = <_ModuleLink>[
   _ModuleLink(
     label: 'animated_text_kit Module',
-    path: '/animated-text-kit-page',
+    routePath: AppRoute.animatedTextKit.path,
   ),
   _ModuleLink(
     label: 'AnimatedDefaultTextStyle Module',
-    path: '/animated-default-text-style-page',
+    routePath: AppRoute.animatedDefaultTextStyle.path,
   ),
   _ModuleLink(
     label: 'AnimatedSwitcher Module',
-    path: '/animated-switcher-page',
+    routePath: AppRoute.animatedSwitcher.path,
   ),
   _ModuleLink(
     label: 'animated_toggle_switch Module',
-    path: '/animated-toggle-switch-page',
+    routePath: AppRoute.animatedToggleSwitch.path,
   ),
   _ModuleLink(
     label: 'AnimationController Module',
-    path: '/animation-controller-page',
+    routePath: AppRoute.animationController.path,
   ),
-  _ModuleLink(label: 'CustomPaint Module', path: '/custom-paint-page'),
+  _ModuleLink(
+    label: 'CustomPaint Module',
+    routePath: AppRoute.customPaint.path,
+  ),
   _ModuleLink(
     label: 'SingleTickerProviderStateMixin Module',
-    path: '/single-ticker-provider-state-mixin-page',
+    routePath: AppRoute.singleTickerProviderStateMixin.path,
   ),
-  _ModuleLink(label: 'Tween Module', path: '/tween-page'),
+  _ModuleLink(label: 'Tween Module', routePath: AppRoute.tween.path),
   _ModuleLink(
     label: 'TweenAnimationBuilder Module',
-    path: '/tween-animation-builder-page',
+    routePath: AppRoute.tweenAnimationBuilder.path,
   ),
   _ModuleLink(
     label: 'TweenSequence + Interval Module',
-    path: '/tween-sequence-interval-page',
+    routePath: AppRoute.tweenSequenceInterval.path,
   ),
 ];
 
-@RoutePage(name: 'HomeRoute')
+@RoutePage()
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  static const List<String> _titles = <String>[
-    'Layout Modules',
-    'Content Modules',
-    'Animation Modules',
-  ];
-
-  List<PageRouteInfo<void>> _routes() {
-    return const <PageRouteInfo<void>>[
-      NamedRoute<void>('LayoutTabRoute'),
-      NamedRoute<void>('ContentTabRoute'),
-      NamedRoute<void>('AnimationTabRoute'),
-    ];
-  }
 
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
-      routes: _routes(),
+      routes: AppTab.values
+          .map((AppTab tab) => tab.tabRoute)
+          .toList(growable: false),
       appBarBuilder: (BuildContext context, TabsRouter tabsRouter) {
+        final AppTab activeTab = AppTab.values[tabsRouter.activeIndex];
         return AppBar(
           automaticallyImplyLeading: false,
-          title: Text(_titles[tabsRouter.activeIndex]),
+          title: Text(activeTab.title),
           actions: <Widget>[
             IconButton(
               tooltip: 'Logout',
@@ -417,56 +530,42 @@ class HomePage extends StatelessWidget {
         return NavigationBar(
           selectedIndex: tabsRouter.activeIndex,
           onDestinationSelected: tabsRouter.setActiveIndex,
-          destinations: const <NavigationDestination>[
-            NavigationDestination(
-              icon: Icon(Icons.view_quilt_outlined),
-              selectedIcon: Icon(Icons.view_quilt),
-              label: 'Layout',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.widgets_outlined),
-              selectedIcon: Icon(Icons.widgets),
-              label: 'Content',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.animation_outlined),
-              selectedIcon: Icon(Icons.animation),
-              label: 'Animation',
-            ),
-          ],
+          destinations: AppTab.values
+              .map((AppTab tab) => tab.destination)
+              .toList(growable: false),
         );
       },
     );
   }
 }
 
-@RoutePage(name: 'LayoutTabRoute')
+@RoutePage()
 class LayoutTabPage extends StatelessWidget {
   const LayoutTabPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const _ModuleTabView(modules: _layoutModules);
+    return _ModuleTabView(modules: _layoutModules);
   }
 }
 
-@RoutePage(name: 'ContentTabRoute')
+@RoutePage()
 class ContentTabPage extends StatelessWidget {
   const ContentTabPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const _ModuleTabView(modules: _contentModules);
+    return _ModuleTabView(modules: _contentModules);
   }
 }
 
-@RoutePage(name: 'AnimationTabRoute')
+@RoutePage()
 class AnimationTabPage extends StatelessWidget {
   const AnimationTabPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const _ModuleTabView(modules: _animationModules);
+    return _ModuleTabView(modules: _animationModules);
   }
 }
 
@@ -495,7 +594,7 @@ class _ModuleTabView extends StatelessWidget {
           return SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () => context.router.root.pushPath(module.path),
+              onPressed: () => context.router.root.pushPath(module.routePath),
               child: Text(module.label),
             ),
           );
@@ -506,8 +605,8 @@ class _ModuleTabView extends StatelessWidget {
 }
 
 class _ModuleLink {
-  const _ModuleLink({required this.label, required this.path});
+  const _ModuleLink({required this.label, required this.routePath});
 
   final String label;
-  final String path;
+  final String routePath;
 }

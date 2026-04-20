@@ -167,7 +167,7 @@ final List<_DirectionFact> _directionFacts = <_DirectionFact>[
   ),
 ];
 
-@RoutePage(name: 'FlutterCardSwiperRoute')
+@RoutePage()
 class FlutterCardSwiperPage extends StatefulWidget {
   const FlutterCardSwiperPage({super.key});
 

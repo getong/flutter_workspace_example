@@ -1,9 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 import 'package:widget_layout_example2/app_router.dart';
 import 'package:widget_layout_example2/auto_route_demo_support.dart';
 
-@RoutePage(name: 'AutoRouteUsageRoute')
+@RoutePage()
 class AutoRouteUsagePage extends StatelessWidget {
   const AutoRouteUsagePage({super.key});
 
@@ -69,6 +70,21 @@ MaterialApp.router(
               const _CodeCard(
                 title: 'Nested PageView tabs',
                 code: '''
+enum AutoRouteNestedTab { books, profile, settings }
+
+extension AutoRouteNestedTabX on AutoRouteNestedTab {
+  PageRouteInfo get route {
+    switch (this) {
+      case AutoRouteNestedTab.books:
+        return const AutoRouteBooksTabRoute();
+      case AutoRouteNestedTab.profile:
+        return const AutoRouteProfileTabRoute();
+      case AutoRouteNestedTab.settings:
+        return const AutoRouteSettingsTabRoute();
+    }
+  }
+}
+
 AutoRoute(
   page: AutoRouteNestedRoute.page,
   path: '/auto-route-page/nested',
@@ -87,7 +103,7 @@ AutoRoute(
                     'Shows nested child routes, PageView-based tab navigation, and tab observer callbacks.',
                 primaryLabel: 'Open Nested Demo',
                 onPrimaryPressed: () =>
-                    context.pushRoute(const AutoRouteNestedRoute()),
+                    context.pushRoute(AppRouteTarget.autoRouteNested.route),
               ),
               const SizedBox(height: 24),
               const _SectionHeader(
@@ -114,7 +130,7 @@ AutoRoute(
                 children: <Widget>[
                   FilledButton.icon(
                     onPressed: () =>
-                        context.pushRoute(const AutoRouteBooksRoute()),
+                        context.pushRoute(AppRouteTarget.autoRouteBooks.route),
                     icon: const Icon(Icons.menu_book_outlined),
                     label: const Text('Books List'),
                   ),
@@ -347,7 +363,8 @@ AutoRoute(
                     label: const Text('Route Guard Demo'),
                   ),
                   OutlinedButton.icon(
-                    onPressed: () => context.pushRoute(const ProfileRoute()),
+                    onPressed: () =>
+                        context.pushRoute(AppRouteTarget.profile.route),
                     icon: const Icon(Icons.person_outline),
                     label: const Text('Profile Guard Demo'),
                   ),
@@ -403,13 +420,13 @@ class AutoRouteObserverPageState extends State<AutoRouteObserverPage>
                 children: <Widget>[
                   FilledButton.icon(
                     onPressed: () =>
-                        context.pushRoute(const AutoRouteWrappedRoute()),
+                        context.pushRoute(AppRouteTarget.wrappedDemo.route),
                     icon: const Icon(Icons.wrap_text),
                     label: const Text('Wrapped Route'),
                   ),
                   OutlinedButton.icon(
                     onPressed: () =>
-                        context.pushRoute(const AutoRouteObserverRoute()),
+                        context.pushRoute(AppRouteTarget.observerDemo.route),
                     icon: const Icon(Icons.visibility_outlined),
                     label: const Text('Observer Demo'),
                   ),
@@ -427,7 +444,9 @@ class AutoRouteObserverPageState extends State<AutoRouteObserverPage>
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => context.router.replacePath('/'),
+        onPressed: () => context.router.replaceAll(<PageRouteInfo<void>>[
+          AppRouteTarget.home.route,
+        ]),
         icon: const Icon(Icons.home),
         label: const Text('Home'),
       ),
@@ -560,11 +579,9 @@ class AutoRouteNestedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter.pageView(
-      routes: const <PageRouteInfo>[
-        AutoRouteBooksTabRoute(),
-        AutoRouteProfileTabRoute(),
-        AutoRouteSettingsTabRoute(),
-      ],
+      routes: AutoRouteNestedTab.values
+          .map((AutoRouteNestedTab tab) => tab.route)
+          .toList(growable: false),
       builder: (BuildContext context, Widget child, PageController pageController) {
         final TabsRouter tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(
@@ -573,8 +590,9 @@ class AutoRouteNestedPage extends StatelessWidget {
             actions: <Widget>[
               IconButton(
                 tooltip: 'Back to hub',
-                onPressed: () =>
-                    context.router.navigate(const AutoRouteUsageRoute()),
+                onPressed: () => context.router.navigate(
+                  AppRouteTarget.autoRouteUsage.route,
+                ),
                 icon: const Icon(Icons.home_outlined),
               ),
             ],
@@ -594,23 +612,9 @@ class AutoRouteNestedPage extends StatelessWidget {
           bottomNavigationBar: NavigationBar(
             selectedIndex: tabsRouter.activeIndex,
             onDestinationSelected: tabsRouter.setActiveIndex,
-            destinations: const <NavigationDestination>[
-              NavigationDestination(
-                icon: Icon(Icons.menu_book_outlined),
-                selectedIcon: Icon(Icons.menu_book),
-                label: 'Books',
-              ),
-              NavigationDestination(
-                icon: Icon(Icons.person_outline),
-                selectedIcon: Icon(Icons.person),
-                label: 'Profile',
-              ),
-              NavigationDestination(
-                icon: Icon(Icons.settings_outlined),
-                selectedIcon: Icon(Icons.settings),
-                label: 'Settings',
-              ),
-            ],
+            destinations: AutoRouteNestedTab.values
+                .map((AutoRouteNestedTab tab) => tab.destination)
+                .toList(growable: false),
           ),
         );
       },
@@ -979,7 +983,7 @@ class AutoRouteLoginPage extends StatelessWidget {
       onResult!(true);
       return;
     }
-    context.router.replace(const AutoRouteUsageRoute());
+    context.router.replace(AppRouteTarget.autoRouteUsage.route);
   }
 
   @override
@@ -1002,7 +1006,7 @@ class AutoRouteLoginPage extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           OutlinedButton.icon(
-            onPressed: () => context.router.push(const AutoRouteSignupRoute()),
+            onPressed: () => context.router.push(AppRouteTarget.signUp.route),
             icon: const Icon(Icons.person_add_outlined),
             label: const Text('Go To Sign Up'),
           ),
@@ -1011,7 +1015,7 @@ class AutoRouteLoginPage extends StatelessWidget {
             onPressed: () {
               demoAuthController.logout();
               onResult?.call(false);
-              context.router.replace(const AutoRouteUsageRoute());
+              context.router.replace(AppRouteTarget.autoRouteUsage.route);
             },
             icon: const Icon(Icons.cancel_outlined),
             label: const Text('Cancel'),

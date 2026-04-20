@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'DialogExampleRoute')
+@RoutePage()
 class DialogExamplePage extends StatefulWidget {
   const DialogExamplePage({super.key});
 

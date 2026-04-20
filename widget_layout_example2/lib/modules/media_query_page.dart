@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
-@RoutePage(name: 'MediaQueryRoute')
+@RoutePage()
 class MediaQueryPage extends StatelessWidget {
   const MediaQueryPage({super.key});
 

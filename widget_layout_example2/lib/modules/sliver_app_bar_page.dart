@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'SliverAppBarRoute')
+@RoutePage()
 class SliverAppBarPage extends StatefulWidget {
   const SliverAppBarPage({super.key});
 

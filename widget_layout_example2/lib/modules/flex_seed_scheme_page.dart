@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'FlexSeedSchemeRoute')
+@RoutePage()
 class FlexSeedSchemePage extends StatefulWidget {
   const FlexSeedSchemePage({super.key});
 

@@ -4,7 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-@RoutePage(name: 'InfiniteScrollPaginationRoute')
+@RoutePage()
 class InfiniteScrollPaginationPage extends StatefulWidget {
   const InfiniteScrollPaginationPage({super.key});
 

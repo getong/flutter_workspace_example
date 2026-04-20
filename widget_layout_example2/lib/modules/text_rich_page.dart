@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
-@RoutePage(name: 'TextRichRoute')
+@RoutePage()
 class TextRichPage extends StatelessWidget {
   const TextRichPage({super.key});
 

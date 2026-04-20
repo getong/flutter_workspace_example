@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:widget_layout_example2/modules/freezed_annotation_models.dart';
 
-@RoutePage(name: 'FreezedAnnotationRoute')
+@RoutePage()
 class FreezedAnnotationPage extends StatefulWidget {
   const FreezedAnnotationPage({super.key});
 

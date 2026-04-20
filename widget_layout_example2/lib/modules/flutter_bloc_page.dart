@@ -386,7 +386,7 @@ class _ScopedCounterBloc extends Bloc<_ScopedCounterEvent, int> {
   }
 }
 
-@RoutePage(name: 'FlutterBlocRoute')
+@RoutePage()
 class FlutterBlocPage extends StatelessWidget {
   const FlutterBlocPage({super.key});
 

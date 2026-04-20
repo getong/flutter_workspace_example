@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'TimePickerRoute')
+@RoutePage()
 class TimePickerPage extends StatefulWidget {
   const TimePickerPage({super.key});
 

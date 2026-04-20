@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'RichTextRoute')
+@RoutePage()
 class RichTextPage extends StatefulWidget {
   const RichTextPage({super.key});
 

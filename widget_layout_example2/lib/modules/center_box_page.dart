@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
-@RoutePage(name: 'CenterBoxRoute')
+@RoutePage()
 class CenterBoxPage extends StatelessWidget {
   const CenterBoxPage({super.key});
 

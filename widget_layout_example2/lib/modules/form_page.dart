@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'FormRoute')
+@RoutePage()
 class FormPage extends StatefulWidget {
   const FormPage({super.key});
 

@@ -5,7 +5,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
-@RoutePage(name: 'SharePlusRoute')
+@RoutePage()
 class SharePlusPage extends StatefulWidget {
   const SharePlusPage({super.key});
 

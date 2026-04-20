@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
-@RoutePage(name: 'TextFieldControllerRoute')
+@RoutePage()
 class TextFieldControllerPage extends StatefulWidget {
   const TextFieldControllerPage({super.key});
 

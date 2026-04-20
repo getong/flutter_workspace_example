@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-@RoutePage(name: 'UrlLauncherRoute')
+@RoutePage()
 class UrlLauncherPage extends StatefulWidget {
   const UrlLauncherPage({super.key});
 

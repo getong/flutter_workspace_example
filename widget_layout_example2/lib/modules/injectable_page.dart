@@ -38,7 +38,7 @@ class DashboardViewModel {
 }
 ''';
 
-@RoutePage(name: 'InjectableRoute')
+@RoutePage()
 class InjectablePage extends StatefulWidget {
   const InjectablePage({super.key});
 

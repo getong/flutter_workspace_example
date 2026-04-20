@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 
-@RoutePage(name: 'FlutterAutoSizeTextRoute')
+@RoutePage()
 class FlutterAutoSizeTextPage extends StatefulWidget {
   const FlutterAutoSizeTextPage({super.key});
 

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'OverlayMenuRoute')
+@RoutePage()
 class OverlayMenuPage extends StatefulWidget {
   const OverlayMenuPage({super.key});
 

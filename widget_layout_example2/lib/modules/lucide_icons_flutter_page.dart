@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
-@RoutePage(name: 'LucideIconsFlutterRoute')
+@RoutePage()
 class LucideIconsFlutterPage extends StatefulWidget {
   const LucideIconsFlutterPage({super.key});
 

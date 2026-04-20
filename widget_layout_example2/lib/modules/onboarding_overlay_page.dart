@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onboarding_overlay/onboarding_overlay.dart';
 
-@RoutePage(name: 'OnboardingOverlayRoute')
+@RoutePage()
 class OnboardingOverlayPage extends StatefulWidget {
   const OnboardingOverlayPage({super.key});
 

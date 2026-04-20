@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'AnimatedListTileRoute')
+@RoutePage()
 class AnimatedListTilePage extends StatefulWidget {
   const AnimatedListTilePage({super.key});
 

@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart' as cupertino;
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart' as macos;
 
-@RoutePage(name: 'MacosUiRoute')
+@RoutePage()
 class MacosUiPage extends StatefulWidget {
   const MacosUiPage({super.key});
 

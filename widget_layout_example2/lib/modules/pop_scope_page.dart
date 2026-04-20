@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 enum _PopScopeDemoMode { confirmExit, doubleBack, stepFlow }
 
-@RoutePage(name: 'PopScopeRoute')
+@RoutePage()
 class PopScopePage extends StatefulWidget {
   const PopScopePage({super.key});
 

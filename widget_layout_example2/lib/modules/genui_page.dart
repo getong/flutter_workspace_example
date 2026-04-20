@@ -5,7 +5,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:genui/genui.dart';
 
-@RoutePage(name: 'GenuiRoute')
+@RoutePage()
 class GenuiPage extends StatelessWidget {
   const GenuiPage({super.key});
 

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'FloatingActionButtonExampleRoute')
+@RoutePage()
 class FloatingActionButtonExamplePage extends StatefulWidget {
   const FloatingActionButtonExamplePage({super.key});
 

@@ -5,7 +5,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
-@RoutePage(name: 'SensorsPlusRoute')
+@RoutePage()
 class SensorsPlusPage extends StatefulWidget {
   const SensorsPlusPage({super.key});
 

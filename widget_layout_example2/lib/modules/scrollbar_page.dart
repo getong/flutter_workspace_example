@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
-@RoutePage(name: 'ScrollbarRoute')
+@RoutePage()
 class ScrollbarPage extends StatefulWidget {
   const ScrollbarPage({super.key});
 

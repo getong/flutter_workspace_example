@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 /// - [Cue.onHover]: Pointer enter/exit animations (desktop/web)
 /// - [Cue.onScrollVisible]: Trigger when scrolling into viewport
 /// - [Cue.onCallback]: Manual callback-driven animations
-@RoutePage(name: 'CueRoute')
+@RoutePage()
 class CuePage extends StatefulWidget {
   const CuePage({super.key});
 

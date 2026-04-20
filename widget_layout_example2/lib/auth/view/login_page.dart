@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:widget_layout_example2/app_router.dart';
+import 'package:widget_layout_example2/app_navigation.dart';
 import 'package:widget_layout_example2/auth/bloc/app_auth_bloc.dart';
 import 'package:widget_layout_example2/auth/bloc/app_auth_event.dart';
 import 'package:widget_layout_example2/auth/bloc/app_auth_state.dart';
@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void _handleAuthenticated(BuildContext context) {
     widget.onResult?.call(true);
-    context.router.replaceAll(<PageRouteInfo<void>>[const HomeRoute()]);
+    context.router.replaceAll(<PageRouteInfo<void>>[AppRouteTarget.home.route]);
   }
 
   @override
@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 12),
                   OutlinedButton.icon(
                     onPressed: () =>
-                        context.router.push(const AutoRouteSignupRoute()),
+                        context.router.push(AppRouteTarget.signUp.route),
                     icon: const Icon(Icons.person_add_outlined),
                     label: const Text('Go To Sign Up'),
                   ),

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'InputChipRoute')
+@RoutePage()
 class InputChipPage extends StatefulWidget {
   const InputChipPage({super.key});
 

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'StackRoute')
+@RoutePage()
 class StackPage extends StatelessWidget {
   const StackPage({super.key});
 

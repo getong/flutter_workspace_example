@@ -4,7 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
-@RoutePage(name: 'FlutterTtsRoute')
+@RoutePage()
 class FlutterTtsPage extends StatefulWidget {
   const FlutterTtsPage({super.key});
 

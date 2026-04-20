@@ -52,7 +52,7 @@ const List<({String label, Color color})> _galleryPages =
       (label: '10', color: Color(0xFFBE185D)),
     ];
 
-@RoutePage(name: 'SmoothPageIndicatorRoute')
+@RoutePage()
 class SmoothPageIndicatorPage extends StatefulWidget {
   const SmoothPageIndicatorPage({super.key});
 

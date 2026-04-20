@@ -136,7 +136,7 @@ const List<_StatusItem> _statusItems = <_StatusItem>[
   ),
 ];
 
-@RoutePage(name: 'IconlyRoute')
+@RoutePage()
 class IconlyPage extends StatefulWidget {
   const IconlyPage({super.key});
 

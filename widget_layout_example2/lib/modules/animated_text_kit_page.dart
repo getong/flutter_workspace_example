@@ -2,7 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'AnimatedTextKitRoute')
+@RoutePage()
 class AnimatedTextKitPage extends StatefulWidget {
   const AnimatedTextKitPage({super.key});
 

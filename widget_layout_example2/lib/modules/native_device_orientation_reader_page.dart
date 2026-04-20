@@ -4,7 +4,7 @@ import 'package:native_device_orientation/native_device_orientation.dart';
 
 import 'package:widget_layout_example2/modules/native_device_orientation_demo_support.dart';
 
-@RoutePage(name: 'NativeDeviceOrientationReaderRoute')
+@RoutePage()
 class NativeDeviceOrientationReaderPage extends StatefulWidget {
   const NativeDeviceOrientationReaderPage({super.key});
 

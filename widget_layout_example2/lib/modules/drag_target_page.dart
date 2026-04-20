@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'DragTargetExampleRoute')
+@RoutePage()
 class DragTargetExamplePage extends StatefulWidget {
   const DragTargetExamplePage({super.key});
 

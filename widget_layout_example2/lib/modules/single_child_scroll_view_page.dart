@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
-@RoutePage(name: 'SingleChildScrollViewRoute')
+@RoutePage()
 class SingleChildScrollViewPage extends StatelessWidget {
   const SingleChildScrollViewPage({super.key});
 

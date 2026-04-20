@@ -10,7 +10,7 @@ const String _demoChannelGroupId = 'demo_group';
 const String _demoChannelGroupName = 'Demo Notifications';
 const String _notificationIcon = '@mipmap/ic_launcher';
 
-@RoutePage(name: 'FlutterLocalNotificationsRoute')
+@RoutePage()
 class FlutterLocalNotificationsPage extends StatefulWidget {
   const FlutterLocalNotificationsPage({super.key});
 

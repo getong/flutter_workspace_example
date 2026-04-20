@@ -6,7 +6,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:super_clipboard/super_clipboard.dart';
 
-@RoutePage(name: 'SuperClipboardRoute')
+@RoutePage()
 class SuperClipboardPage extends StatefulWidget {
   const SuperClipboardPage({super.key});
 

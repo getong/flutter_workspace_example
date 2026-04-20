@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:widget_layout_example2/modules/json_annotation_models.dart';
 
-@RoutePage(name: 'JsonAnnotationRoute')
+@RoutePage()
 class JsonAnnotationPage extends StatefulWidget {
   const JsonAnnotationPage({super.key});
 

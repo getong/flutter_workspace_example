@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'SliverGridRoute')
+@RoutePage()
 class SliverGridPage extends StatelessWidget {
   const SliverGridPage({super.key});
 

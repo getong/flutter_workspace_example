@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'BlockSemanticsRoute')
+@RoutePage()
 class BlockSemanticsPage extends StatelessWidget {
   const BlockSemanticsPage({super.key});
 

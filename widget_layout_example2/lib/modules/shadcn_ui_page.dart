@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-@RoutePage(name: 'ShadcnUiRoute')
+@RoutePage()
 class ShadcnUiPage extends StatefulWidget {
   const ShadcnUiPage({super.key});
 

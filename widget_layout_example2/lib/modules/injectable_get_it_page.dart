@@ -39,7 +39,7 @@ class AutoSessionModule {
 }
 ''';
 
-@RoutePage(name: 'InjectableGetItRoute')
+@RoutePage()
 class InjectableGetItPage extends StatefulWidget {
   const InjectableGetItPage({super.key});
 

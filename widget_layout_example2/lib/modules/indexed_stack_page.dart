@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'IndexedStackRoute')
+@RoutePage()
 class IndexedStackPage extends StatefulWidget {
   const IndexedStackPage({super.key});
 

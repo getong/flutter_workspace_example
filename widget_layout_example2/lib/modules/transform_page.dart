@@ -3,7 +3,7 @@ import 'dart:math' as math;
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'TransformExampleRoute')
+@RoutePage()
 class TransformExamplePage extends StatefulWidget {
   const TransformExamplePage({super.key});
 

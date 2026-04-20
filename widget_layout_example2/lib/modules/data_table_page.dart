@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
-@RoutePage(name: 'DataTableRoute')
+@RoutePage()
 class DataTablePage extends StatefulWidget {
   const DataTablePage({super.key});
 

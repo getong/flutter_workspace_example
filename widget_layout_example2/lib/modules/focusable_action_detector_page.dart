@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-@RoutePage(name: 'FocusableActionDetectorRoute')
+@RoutePage()
 class FocusableActionDetectorPage extends StatelessWidget {
   const FocusableActionDetectorPage({super.key});
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:intl/intl.dart';
 
-@RoutePage(name: 'IntlRoute')
+@RoutePage()
 class IntlPage extends StatelessWidget {
   const IntlPage({super.key});
 

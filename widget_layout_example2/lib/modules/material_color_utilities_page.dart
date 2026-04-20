@@ -4,7 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
 
-@RoutePage(name: 'MaterialColorUtilitiesRoute')
+@RoutePage()
 class MaterialColorUtilitiesPage extends StatefulWidget {
   const MaterialColorUtilitiesPage({super.key});
 
