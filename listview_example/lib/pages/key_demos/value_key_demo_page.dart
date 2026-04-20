@@ -86,9 +86,9 @@ class _ValueKeyDemoPageState extends State<ValueKeyDemoPage> {
 }
 
 class _TodoItem {
-  _TodoItem({required this.id, required this.title, this.isDone = false});
+  _TodoItem({required this.id, required this.title});
 
   final int id;
   final String title;
-  bool isDone;
+  bool isDone = false;
 }

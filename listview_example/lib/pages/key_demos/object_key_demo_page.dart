@@ -82,9 +82,9 @@ class _ObjectKeyDemoPageState extends State<ObjectKeyDemoPage> {
 }
 
 class _Product {
-  _Product({required this.name, required this.price, this.isFeatured = false});
+  _Product({required this.name, required this.price});
 
   final String name;
   final double price;
-  bool isFeatured;
+  bool isFeatured = false;
 }
