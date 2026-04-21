@@ -759,6 +759,22 @@ class AutoRouteWrappedRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [BinarizePage]
+class BinarizeRoute extends PageRouteInfo<void> {
+  const BinarizeRoute({List<PageRouteInfo>? children})
+    : super(BinarizeRoute.name, initialChildren: children);
+
+  static const String name = 'BinarizeRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const BinarizePage();
+    },
+  );
+}
+
+/// generated route for
 /// [BlockSemanticsPage]
 class BlockSemanticsRoute extends PageRouteInfo<void> {
   const BlockSemanticsRoute({List<PageRouteInfo>? children})

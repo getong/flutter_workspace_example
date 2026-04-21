@@ -19,6 +19,7 @@ import 'package:widget_layout_example2/modules/auto_route_usage_page.dart';
 import 'package:widget_layout_example2/modules/action_chip_page.dart';
 import 'package:widget_layout_example2/modules/aspect_ratio_page.dart';
 import 'package:widget_layout_example2/modules/block_semantics_page.dart';
+import 'package:widget_layout_example2/modules/binarize_page.dart';
 import 'package:widget_layout_example2/modules/center_box_page.dart';
 import 'package:widget_layout_example2/modules/cached_network_image_ce_page.dart';
 import 'package:widget_layout_example2/modules/characters_page.dart';
@@ -567,6 +568,7 @@ class AppRouter extends RootStackRouter {
       page: BottomNavigationBarExampleRoute.page,
       path: AppRoute.bottomNavigationBar.path,
     ),
+    AutoRoute(page: BinarizeRoute.page, path: AppRoute.binarize.path),
     AutoRoute(page: BuiltValueRoute.page, path: AppRoute.builtValue.path),
     AutoRoute(
       page: FloatingActionButtonExampleRoute.page,

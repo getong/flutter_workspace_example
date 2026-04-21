@@ -152,6 +152,7 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'BottomNavigationBar Module',
     routePath: AppRoute.bottomNavigationBar.path,
   ),
+  _ModuleLink(label: 'binarize Module', routePath: AppRoute.binarize.path),
   _ModuleLink(label: 'built_value Module', routePath: AppRoute.builtValue.path),
   _ModuleLink(
     label: 'cached_network_image_ce Module',

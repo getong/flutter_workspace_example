@@ -36,6 +36,7 @@ dependencies:
   animated_text_kit: ^4.3.0
   animated_toggle_switch: ^0.8.7
   auto_route: ^11.1.0
+  binarize: ^2.0.0
   bloc: ^9.2.0
   built_collection: ^5.1.1
   built_value: ^8.12.5
@@ -78,7 +79,7 @@ dependencies:
   http: ^1.5.0
   iconly: ^1.0.1
   infinite_scroll_pagination: ^5.1.1
-  injectable: ^2.7.1+4
+  injectable: ^3.0.0
   intl: ^0.20.2
   introduction_screen: ^4.0.0
   jnigen: ^0.16.0
@@ -128,8 +129,9 @@ dev_dependencies:
   built_value_generator: ^8.12.5
   drift_dev: ^2.32.1
   flutter_lints: ^6.0.0
-  injectable_generator: ^2.12.1
+  injectable_generator: ^3.0.2
   json_serializable: ^6.13.1
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
