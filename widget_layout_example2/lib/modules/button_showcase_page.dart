@@ -391,6 +391,34 @@ class _ButtonShowcasePageState extends State<ButtonShowcasePage> {
                       icon: const Icon(Icons.save_outlined),
                       label: const Text('Save'),
                     ),
+
+                    // 1. TextButton - 最简洁，无背景无边框
+                    // TextButton（文本按钮）：背景透明，无边框。通常用于低权重的操作，如“取消”或卡片中的补充按钮。
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text('TextButton'),
+                    ),
+
+                    // 2. OutlinedButton - 带有细边框
+                    //OutlinedButton（轮廓按钮）：背景透明，带有边框。常用于中等权重的辅助操作。
+                    OutlinedButton(
+                      onPressed: () {},
+                      child: const Text('OutlinedButton'),
+                    ),
+
+                    // 3. FilledButton - 实心背景，无阴影 (Material 3 新增)
+                    //FilledButton（填充按钮）：具有实心背景颜色（通常是主题的主色调）。它是 Material 3 中的首选主按钮。
+                    FilledButton(
+                      onPressed: () {},
+                      child: const Text('FilledButton'),
+                    ),
+
+                    // 4. ElevatedButton - 实心背景且带有高度感（阴影）
+                    //ElevatedButton（悬浮按钮）：实心背景并带有阴影（Drop Shadow）。适用于需要从复杂背景中突出的高权重操作。
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Text('ElevatedButton'),
+                    ),
                   ],
                 ),
               ),
