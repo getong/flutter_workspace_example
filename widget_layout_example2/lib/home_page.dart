@@ -239,6 +239,14 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.flutterCardSwiper.path,
   ),
   _ModuleLink(
+    label: 'flutter_custom_tabs Module',
+    routePath: AppRoute.flutterCustomTabs.path,
+  ),
+  _ModuleLink(
+    label: 'flutter_debounce_throttle Module',
+    routePath: AppRoute.flutterDebounceThrottle.path,
+  ),
+  _ModuleLink(
     label: 'flutter_dotenv Module',
     routePath: AppRoute.flutterDotenv.path,
   ),
@@ -261,10 +269,6 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(
     label: 'flutter_slidable Module',
     routePath: AppRoute.flutterSlidable.path,
-  ),
-  _ModuleLink(
-    label: 'flutter_custom_tabs Module',
-    routePath: AppRoute.flutterCustomTabs.path,
   ),
   _ModuleLink(label: 'flutter_svg Module', routePath: AppRoute.flutterSvg.path),
   _ModuleLink(label: 'flutter_tts Module', routePath: AppRoute.flutterTts.path),

@@ -145,6 +145,7 @@ abstract final class RouteName {
   static const flutterBloc = 'FlutterBlocRoute';
   static const flutterCardSwiper = 'FlutterCardSwiperRoute';
   static const flutterCustomTabs = 'FlutterCustomTabsRoute';
+  static const flutterDebounceThrottle = 'FlutterDebounceThrottleRoute';
   static const flutterDotenv = 'FlutterDotenvRoute';
   static const flutterHooks = 'FlutterHooksRoute';
   static const flutterInappwebview = 'FlutterInappwebviewRoute';
@@ -439,6 +440,10 @@ enum AppRoute {
   flutterBloc('/flutter-bloc-page', RouteName.flutterBloc),
   flutterCardSwiper('/flutter-card-swiper-page', RouteName.flutterCardSwiper),
   flutterCustomTabs('/flutter-custom-tabs-page', RouteName.flutterCustomTabs),
+  flutterDebounceThrottle(
+    '/flutter-debounce-throttle-page',
+    RouteName.flutterDebounceThrottle,
+  ),
   flutterDotenv('/flutter-dotenv-page', RouteName.flutterDotenv),
   flutterHooks('/flutter-hooks-page', RouteName.flutterHooks),
   flutterInappwebview(

@@ -78,6 +78,7 @@ import 'package:widget_layout_example2/modules/flutter_auto_size_text_page.dart'
 import 'package:widget_layout_example2/modules/flutter_bloc_page.dart';
 import 'package:widget_layout_example2/modules/flutter_card_swiper_page.dart';
 import 'package:widget_layout_example2/modules/flutter_custom_tabs_page.dart';
+import 'package:widget_layout_example2/modules/flutter_debounce_throttle_page.dart';
 import 'package:widget_layout_example2/modules/flutter_dotenv_page.dart';
 import 'package:widget_layout_example2/modules/flutter_hooks_page.dart';
 import 'package:widget_layout_example2/modules/flutter_inappwebview_page.dart';
@@ -612,6 +613,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: FlutterCustomTabsRoute.page,
       path: AppRoute.flutterCustomTabs.path,
+    ),
+    AutoRoute(
+      page: FlutterDebounceThrottleRoute.page,
+      path: AppRoute.flutterDebounceThrottle.path,
     ),
     AutoRoute(page: FlutterDotenvRoute.page, path: AppRoute.flutterDotenv.path),
     AutoRoute(page: FlutterHooksRoute.page, path: AppRoute.flutterHooks.path),

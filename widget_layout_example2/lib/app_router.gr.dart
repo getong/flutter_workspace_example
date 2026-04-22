@@ -1948,6 +1948,22 @@ class FlutterCustomTabsRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterDebounceThrottlePage]
+class FlutterDebounceThrottleRoute extends PageRouteInfo<void> {
+  const FlutterDebounceThrottleRoute({List<PageRouteInfo>? children})
+    : super(FlutterDebounceThrottleRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterDebounceThrottleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterDebounceThrottlePage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterDotenvPage]
 class FlutterDotenvRoute extends PageRouteInfo<void> {
   const FlutterDotenvRoute({List<PageRouteInfo>? children})
