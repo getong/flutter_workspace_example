@@ -147,6 +147,7 @@ abstract final class RouteName {
   static const flutterCustomTabs = 'FlutterCustomTabsRoute';
   static const flutterDotenv = 'FlutterDotenvRoute';
   static const flutterHooks = 'FlutterHooksRoute';
+  static const flutterInappwebview = 'FlutterInappwebviewRoute';
   static const interactiveCard = 'InteractiveCardRoute';
   static const flutterTts = 'FlutterTtsRoute';
   static const freezedAnnotation = 'FreezedAnnotationRoute';
@@ -440,6 +441,10 @@ enum AppRoute {
   flutterCustomTabs('/flutter-custom-tabs-page', RouteName.flutterCustomTabs),
   flutterDotenv('/flutter-dotenv-page', RouteName.flutterDotenv),
   flutterHooks('/flutter-hooks-page', RouteName.flutterHooks),
+  flutterInappwebview(
+    '/flutter-inappwebview-page',
+    RouteName.flutterInappwebview,
+  ),
   interactiveCard('/interactive-card-page', RouteName.interactiveCard),
   flutterTts('/flutter-tts-page', RouteName.flutterTts),
   freezedAnnotation('/freezed-annotation-page', RouteName.freezedAnnotation),

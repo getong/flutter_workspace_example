@@ -80,6 +80,7 @@ import 'package:widget_layout_example2/modules/flutter_card_swiper_page.dart';
 import 'package:widget_layout_example2/modules/flutter_custom_tabs_page.dart';
 import 'package:widget_layout_example2/modules/flutter_dotenv_page.dart';
 import 'package:widget_layout_example2/modules/flutter_hooks_page.dart';
+import 'package:widget_layout_example2/modules/flutter_inappwebview_page.dart';
 import 'package:widget_layout_example2/modules/flutter_local_notifications_page.dart';
 import 'package:widget_layout_example2/modules/flutter_secure_storage_page.dart';
 import 'package:widget_layout_example2/modules/flutter_slidable_page.dart';
@@ -614,6 +615,10 @@ class AppRouter extends RootStackRouter {
     ),
     AutoRoute(page: FlutterDotenvRoute.page, path: AppRoute.flutterDotenv.path),
     AutoRoute(page: FlutterHooksRoute.page, path: AppRoute.flutterHooks.path),
+    AutoRoute(
+      page: FlutterInappwebviewRoute.page,
+      path: AppRoute.flutterInappwebview.path,
+    ),
     AutoRoute(
       page: InteractiveCardRoute.page,
       path: AppRoute.interactiveCard.path,

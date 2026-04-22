@@ -247,6 +247,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.flutterHooks.path,
   ),
   _ModuleLink(
+    label: 'flutter_inappwebview Module',
+    routePath: AppRoute.flutterInappwebview.path,
+  ),
+  _ModuleLink(
     label: 'flutter_local_notifications Module',
     routePath: AppRoute.flutterLocalNotifications.path,
   ),

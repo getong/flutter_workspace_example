@@ -1980,6 +1980,22 @@ class FlutterHooksRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterInappwebviewPage]
+class FlutterInappwebviewRoute extends PageRouteInfo<void> {
+  const FlutterInappwebviewRoute({List<PageRouteInfo>? children})
+    : super(FlutterInappwebviewRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterInappwebviewRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterInappwebviewPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterLocalNotificationsPage]
 class FlutterLocalNotificationsRoute extends PageRouteInfo<void> {
   const FlutterLocalNotificationsRoute({List<PageRouteInfo>? children})

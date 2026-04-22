@@ -61,6 +61,8 @@ void main() {
     expect(find.text('flutter_dotenv Module'), findsOneWidget);
     await dragUntilTextVisible('flutter_hooks Module');
     expect(find.text('flutter_hooks Module'), findsOneWidget);
+    await dragUntilTextVisible('flutter_inappwebview Module');
+    expect(find.text('flutter_inappwebview Module'), findsOneWidget);
     await dragUntilTextVisible('flutter_tts Module');
     expect(find.text('flutter_tts Module'), findsOneWidget);
     await dragUntilTextVisible('fluttertoast Module');
