@@ -110,6 +110,7 @@ abstract final class RouteName {
   static const slider = 'SliderExampleRoute';
   static const sensorsPlus = 'SensorsPlusRoute';
   static const shadcnUi = 'ShadcnUiRoute';
+  static const shaderGraph = 'ShaderGraphRoute';
   static const datePicker = 'DatePickerRoute';
   static const datePickerDialog = 'DatePickerDialogRoute';
   static const timePicker = 'TimePickerRoute';
@@ -386,6 +387,7 @@ enum AppRoute {
   slider('/slider-page', RouteName.slider),
   sensorsPlus('/sensors-plus-page', RouteName.sensorsPlus),
   shadcnUi('/shadcn-ui-page', RouteName.shadcnUi),
+  shaderGraph('/shader-graph-page', RouteName.shaderGraph),
   datePicker('/date-picker-page', RouteName.datePicker),
   datePickerDialog('/date-picker-dialog-page', RouteName.datePickerDialog),
   timePicker('/time-picker-page', RouteName.timePicker),

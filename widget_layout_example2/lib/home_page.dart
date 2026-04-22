@@ -400,6 +400,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(label: 'Semantics Module', routePath: AppRoute.semantics.path),
   _ModuleLink(label: 'shadcn_ui Module', routePath: AppRoute.shadcnUi.path),
   _ModuleLink(
+    label: 'shader_graph Module',
+    routePath: AppRoute.shaderGraph.path,
+  ),
+  _ModuleLink(
     label: 'shared_preferences Module',
     routePath: AppRoute.sharedPreferences.path,
   ),

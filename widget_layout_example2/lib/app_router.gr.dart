@@ -3176,6 +3176,22 @@ class ShadcnUiRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ShaderGraphPage]
+class ShaderGraphRoute extends PageRouteInfo<void> {
+  const ShaderGraphRoute({List<PageRouteInfo>? children})
+    : super(ShaderGraphRoute.name, initialChildren: children);
+
+  static const String name = 'ShaderGraphRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ShaderGraphPage();
+    },
+  );
+}
+
+/// generated route for
 /// [SharePlusPage]
 class SharePlusRoute extends PageRouteInfo<void> {
   const SharePlusRoute({List<PageRouteInfo>? children})
