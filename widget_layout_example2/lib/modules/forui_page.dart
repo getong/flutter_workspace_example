@@ -29,6 +29,7 @@ class _ForuiPageState extends State<ForuiPage> {
   bool _releaseChecklistAccepted = true;
   bool _notificationsEnabled = true;
   int _footerIndex = 0;
+  int _paginationPage = 2;
   int _tabsIndex = 0;
   String? _selectedStack = 'flutter';
   FPlatformVariant _platform = switch (defaultTargetPlatform) {
@@ -84,6 +85,19 @@ class _ForuiPageState extends State<ForuiPage> {
         _activityLog.removeLast();
       }
     });
+  }
+
+  String _stackLabel(String? value) {
+    if (value == null) {
+      return 'No stack selected';
+    }
+
+    return _stackItems.entries
+        .firstWhere(
+          (MapEntry<String, String> entry) => entry.value == value,
+          orElse: () => const MapEntry<String, String>('Unknown stack', ''),
+        )
+        .key;
   }
 
   void _showToast(BuildContext context) {
@@ -162,7 +176,16 @@ class _ForuiPageState extends State<ForuiPage> {
               style: pageTheme.textTheme.bodyLarge,
             ),
             const SizedBox(height: 24),
-            SizedBox(height: 940, child: _buildPreview()),
+            SizedBox(height: 1280, child: _buildPreview()),
+            const SizedBox(height: 24),
+            Text(
+              'Reference snippets adapted from the upstream Forui `docs_snippets` package. These are meant to be copied as starting points when you need a concrete API shape instead of only a visual preview.',
+              style: pageTheme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 12),
+            _buildCodeExamplesSection(),
           ],
         ),
       ),
@@ -616,7 +639,7 @@ class _ForuiPageState extends State<ForuiPage> {
                       child: Text(
                         _selectedStack == null
                             ? 'No stack selected'
-                            : 'Stack: ${_stackItems.entries.firstWhere((MapEntry<String, String> entry) => entry.value == _selectedStack).key}',
+                            : 'Stack: ${_stackLabel(_selectedStack)}',
                       ),
                     ),
                   ],
@@ -657,7 +680,7 @@ class _ForuiPageState extends State<ForuiPage> {
                         title: 'Current values',
                         body:
                             'Workspace `${_workspaceValue.text}` is configured for '
-                            '${_selectedStack == null ? 'no stack yet' : _stackItems.entries.firstWhere((MapEntry<String, String> entry) => entry.value == _selectedStack).key}.',
+                            '${_selectedStack == null ? 'no stack yet' : _stackLabel(_selectedStack)}.',
                       ),
                     ),
                     FTabEntry(
@@ -728,8 +751,316 @@ class _ForuiPageState extends State<ForuiPage> {
               ],
             ),
           ),
+          const SizedBox(height: 16),
+          FCard(
+            title: const Text('Accordion, pagination, and tooltips'),
+            subtitle: const Text(
+              'These examples are adapted from the upstream docs snippets and demonstrate common higher-level interaction patterns.',
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                const SizedBox(height: 16),
+                const Text(
+                  'Single-open accordion',
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 10),
+                FAccordion(
+                  control: const FAccordionControl.managed(max: 1),
+                  children: const <Widget>[
+                    FAccordionItem(
+                      title: Text('Production information'),
+                      child: Text(
+                        'Forui components share the same theme tokens, so cards, overlays, inputs, and navigation elements stay visually aligned.',
+                      ),
+                    ),
+                    FAccordionItem(
+                      initiallyExpanded: true,
+                      title: Text('Shipping details'),
+                      child: Text(
+                        'The docs repository uses accordion items for compact sections with a controlled maximum number of expanded panels.',
+                      ),
+                    ),
+                    FAccordionItem(
+                      title: Text('Return policy'),
+                      child: Text(
+                        'This is useful when you want dense content without pushing the rest of the page too far down.',
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 18),
+                Text(
+                  'Pagination state: page ${_paginationPage + 1} of 8',
+                  style: const TextStyle(fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 10),
+                Center(
+                  child: FPagination(
+                    control: FPaginationControl.lifted(
+                      page: _paginationPage,
+                      pages: 8,
+                      siblings: 1,
+                      onChange: (int page) {
+                        setState(() => _paginationPage = page);
+                        _log(
+                          'Moved the pagination example to page ${page + 1}.',
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 18),
+                const Text(
+                  'Grouped tooltips',
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 10),
+                FTooltipGroup(
+                  child: Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: <Widget>[
+                      FTooltip(
+                        tipBuilder:
+                            (BuildContext context, FTooltipController _) {
+                              return const Text('Bold');
+                            },
+                        child: FButton.icon(
+                          onPress: () => _log('Pressed the bold icon button.'),
+                          variant: FButtonVariant.ghost,
+                          size: FButtonSizeVariant.sm,
+                          child: const Icon(Icons.format_bold_outlined),
+                        ),
+                      ),
+                      FTooltip(
+                        tipBuilder:
+                            (BuildContext context, FTooltipController _) {
+                              return const Text('Italic');
+                            },
+                        child: FButton.icon(
+                          onPress: () =>
+                              _log('Pressed the italic icon button.'),
+                          variant: FButtonVariant.ghost,
+                          size: FButtonSizeVariant.sm,
+                          child: const Icon(Icons.format_italic_outlined),
+                        ),
+                      ),
+                      FTooltip(
+                        tipBuilder:
+                            (BuildContext context, FTooltipController _) {
+                              return const Text('Underline');
+                            },
+                        child: FButton.icon(
+                          onPress: () =>
+                              _log('Pressed the underline icon button.'),
+                          variant: FButtonVariant.ghost,
+                          size: FButtonSizeVariant.sm,
+                          child: const Icon(Icons.format_underlined_outlined),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
+    );
+  }
+
+  Widget _buildCodeExamplesSection() {
+    final List<Widget> cards = <Widget>[
+      const _ForuiCodeExampleCard(
+        title: 'Button Sizes',
+        description:
+            'Adapted from `docs_snippets/lib/examples/widgets/button.dart`.',
+        code: '''
+Row(
+  mainAxisSize: MainAxisSize.min,
+  spacing: 10,
+  children: [
+    FButton(
+      variant: FButtonVariant.outline,
+      size: FButtonSizeVariant.xs,
+      onPress: () {},
+      child: const Text('xs'),
+    ),
+    FButton(
+      variant: FButtonVariant.outline,
+      size: FButtonSizeVariant.sm,
+      onPress: () {},
+      child: const Text('sm'),
+    ),
+    FButton(
+      variant: FButtonVariant.outline,
+      onPress: () {},
+      child: const Text('base'),
+    ),
+    FButton(
+      variant: FButtonVariant.outline,
+      size: FButtonSizeVariant.lg,
+      onPress: () {},
+      child: const Text('lg'),
+    ),
+  ],
+)''',
+      ),
+      const _ForuiCodeExampleCard(
+        title: 'Accordion With max: 1',
+        description:
+            'Adapted from `docs_snippets/lib/examples/widgets/accordion.dart`.',
+        code: '''
+FAccordion(
+  control: const FAccordionControl.managed(max: 1),
+  children: const <Widget>[
+    FAccordionItem(
+      title: Text('Production Information'),
+      child: Text('Explain the primary section here.'),
+    ),
+    FAccordionItem(
+      initiallyExpanded: true,
+      title: Text('Shipping Details'),
+      child: Text('Open one item by default.'),
+    ),
+    FAccordionItem(
+      title: Text('Return Policy'),
+      child: Text('Keep dense help text collapsible.'),
+    ),
+  ],
+)''',
+      ),
+      const _ForuiCodeExampleCard(
+        title: 'Pagination With Siblings',
+        description:
+            'Adapted from `docs_snippets/lib/examples/widgets/pagination.dart`.',
+        code: '''
+const FPagination(
+  control: FPaginationControl.managed(
+    pages: 20,
+    siblings: 2,
+    initial: 9,
+  ),
+)''',
+      ),
+      const _ForuiCodeExampleCard(
+        title: 'Tooltip Group',
+        description:
+            'Adapted from `docs_snippets/lib/examples/widgets/tooltip.dart`.',
+        code: '''
+FTooltipGroup(
+  child: Row(
+    mainAxisSize: MainAxisSize.min,
+    spacing: 2,
+    children: [
+      FTooltip(
+        tipBuilder: (context, _) => const Text('Bold'),
+        child: FButton.icon(
+          variant: FButtonVariant.ghost,
+          size: FButtonSizeVariant.sm,
+          onPress: () {},
+          child: const Icon(FIcons.bold),
+        ),
+      ),
+      FTooltip(
+        tipBuilder: (context, _) => const Text('Italic'),
+        child: FButton.icon(
+          variant: FButtonVariant.ghost,
+          size: FButtonSizeVariant.sm,
+          onPress: () {},
+          child: const Icon(FIcons.italic),
+        ),
+      ),
+    ],
+  ),
+)''',
+      ),
+      const _ForuiCodeExampleCard(
+        title: 'Anchored Popover',
+        description:
+            'Adapted from `docs_snippets/lib/examples/widgets/popover.dart`.',
+        code: '''
+FPopover(
+  popoverAnchor: Alignment.topCenter,
+  childAnchor: Alignment.bottomCenter,
+  popoverBuilder: (context, _) => const Padding(
+    padding: EdgeInsets.all(16),
+    child: SizedBox(
+      width: 288,
+      child: Text('Popover content goes here.'),
+    ),
+  ),
+  builder: (_, controller, _) => FButton(
+    variant: FButtonVariant.outline,
+    onPress: controller.toggle,
+    child: const Text('Open popover'),
+  ),
+)''',
+      ),
+      const _ForuiCodeExampleCard(
+        title: 'Rich Select Sections',
+        description:
+            'Adapted from `docs_snippets/lib/examples/widgets/select.dart`.',
+        code: '''
+FSelect<String>.rich(
+  hint: 'Select a timezone',
+  format: (String value) => value,
+  children: [
+    FSelectSection<String>(
+      label: const Text('Asia'),
+      items: <String, String>{
+        'China Standard Time (CST)': 'China Standard Time (CST)',
+        'Japan Standard Time (JST)': 'Japan Standard Time (JST)',
+      },
+    ),
+    FSelectItem<String>.item(
+      title: const Text('UTC'),
+      value: 'UTC',
+    ),
+  ],
+)''',
+      ),
+    ];
+
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        if (constraints.maxWidth < 900) {
+          return Column(
+            children:
+                cards
+                    .expand(
+                      (Widget card) => <Widget>[
+                        card,
+                        const SizedBox(height: 16),
+                      ],
+                    )
+                    .toList()
+                  ..removeLast(),
+          );
+        }
+
+        final List<Widget> leftColumn = <Widget>[];
+        final List<Widget> rightColumn = <Widget>[];
+        for (int index = 0; index < cards.length; index += 1) {
+          final Widget card = cards[index];
+          final List<Widget> target = index.isEven ? leftColumn : rightColumn;
+          if (target.isNotEmpty) {
+            target.add(const SizedBox(height: 16));
+          }
+          target.add(card);
+        }
+
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Expanded(child: Column(children: leftColumn)),
+            const SizedBox(width: 16),
+            Expanded(child: Column(children: rightColumn)),
+          ],
+        );
+      },
     );
   }
 }
@@ -760,6 +1091,60 @@ class _ForuiPanel extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(body),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ForuiCodeExampleCard extends StatelessWidget {
+  const _ForuiCodeExampleCard({
+    required this.title,
+    required this.description,
+    required this.code,
+  });
+
+  final String title;
+  final String description;
+  final String code;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              title,
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(description),
+            const SizedBox(height: 12),
+            DecoratedBox(
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surfaceContainerHighest,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(14),
+                child: SelectableText(
+                  code,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    fontFamily: 'monospace',
+                    height: 1.45,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
