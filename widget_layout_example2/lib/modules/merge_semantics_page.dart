@@ -19,23 +19,33 @@ class MergeSemanticsPage extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 20),
+            Text(
+              'Tap, long press, or hover a demo to preview the merged announcement as a tooltip-style overlay.',
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(color: Colors.blueGrey.shade700),
+            ),
+            const SizedBox(height: 20),
             _MergeSemanticsExampleCard(
               title: 'Checkbox Row',
               description:
                   'A checkbox and its label can be merged so assistive technology reads them as one control instead of separate elements.',
               api: 'Uses: MergeSemantics + Checkbox + Text',
-              child: MergeSemantics(
-                child: Row(
-                  children: <Widget>[
-                    Checkbox(value: true, onChanged: null),
-                    const SizedBox(width: 12),
-                    const Expanded(
-                      child: Text(
-                        'Receive weekly product updates',
-                        style: TextStyle(fontWeight: FontWeight.w700),
+              child: _MergedSemanticsTooltipPreview(
+                message: 'Receive weekly product updates, checked',
+                child: MergeSemantics(
+                  child: Row(
+                    children: <Widget>[
+                      Checkbox(value: true, onChanged: null),
+                      const SizedBox(width: 12),
+                      const Expanded(
+                        child: Text(
+                          'Receive weekly product updates',
+                          style: TextStyle(fontWeight: FontWeight.w700),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -45,25 +55,28 @@ class MergeSemanticsPage extends StatelessWidget {
               description:
                   'An avatar, title, and subtitle can be merged into one concise accessibility node for simpler navigation.',
               api: 'Uses: MergeSemantics + CircleAvatar + Column',
-              child: MergeSemantics(
-                child: Row(
-                  children: <Widget>[
-                    const CircleAvatar(radius: 24, child: Text('AL')),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const <Widget>[
-                          Text(
-                            'Alicia Lee',
-                            style: TextStyle(fontWeight: FontWeight.w700),
-                          ),
-                          SizedBox(height: 4),
-                          Text('Operations Manager'),
-                        ],
+              child: _MergedSemanticsTooltipPreview(
+                message: 'Alicia Lee, Operations Manager',
+                child: MergeSemantics(
+                  child: Row(
+                    children: <Widget>[
+                      const CircleAvatar(radius: 24, child: Text('AL')),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const <Widget>[
+                            Text(
+                              'Alicia Lee',
+                              style: TextStyle(fontWeight: FontWeight.w700),
+                            ),
+                            SizedBox(height: 4),
+                            Text('Operations Manager'),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -73,26 +86,29 @@ class MergeSemanticsPage extends StatelessWidget {
               description:
                   'Leading icons, labels, and state text can be merged so the whole tile reads like one setting row.',
               api: 'Uses: MergeSemantics + Row + state text',
-              child: MergeSemantics(
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.blueGrey.shade50,
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(color: Colors.blueGrey.shade100),
-                  ),
-                  child: const Row(
-                    children: <Widget>[
-                      Icon(Icons.notifications_active, color: Colors.blue),
-                      SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          'Notifications',
-                          style: TextStyle(fontWeight: FontWeight.w700),
+              child: _MergedSemanticsTooltipPreview(
+                message: 'Notifications, enabled',
+                child: MergeSemantics(
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.blueGrey.shade50,
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: Colors.blueGrey.shade100),
+                    ),
+                    child: const Row(
+                      children: <Widget>[
+                        Icon(Icons.notifications_active, color: Colors.blue),
+                        SizedBox(width: 12),
+                        Expanded(
+                          child: Text(
+                            'Notifications',
+                            style: TextStyle(fontWeight: FontWeight.w700),
+                          ),
                         ),
-                      ),
-                      Text('Enabled'),
-                    ],
+                        Text('Enabled'),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -103,32 +119,35 @@ class MergeSemanticsPage extends StatelessWidget {
               description:
                   'A star icon, score, and review count can be merged so the summary is announced as one compact item.',
               api: 'Uses: MergeSemantics + Icon + Rich summary text',
-              child: MergeSemantics(
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 14,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.amber.shade50,
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(color: Colors.amber.shade200),
-                  ),
-                  child: const Row(
-                    children: <Widget>[
-                      Icon(Icons.star_rounded, color: Colors.amber, size: 28),
-                      SizedBox(width: 10),
-                      Text(
-                        '4.8',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w800,
+              child: _MergedSemanticsTooltipPreview(
+                message: 'Rated 4.8 out of 5, 248 reviews',
+                child: MergeSemantics(
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 14,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.amber.shade50,
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: Colors.amber.shade200),
+                    ),
+                    child: const Row(
+                      children: <Widget>[
+                        Icon(Icons.star_rounded, color: Colors.amber, size: 28),
+                        SizedBox(width: 10),
+                        Text(
+                          '4.8',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w800,
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 8),
-                      Text('(248 reviews)'),
-                    ],
+                        SizedBox(width: 8),
+                        Text('(248 reviews)'),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -141,6 +160,55 @@ class MergeSemanticsPage extends StatelessWidget {
         icon: const Icon(Icons.home),
         label: const Text('Home'),
       ),
+    );
+  }
+}
+
+class _MergedSemanticsTooltipPreview extends StatelessWidget {
+  const _MergedSemanticsTooltipPreview({
+    required this.message,
+    required this.child,
+  });
+
+  final String message;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Tooltip(
+          richMessage: TextSpan(
+            style: const TextStyle(color: Colors.white, height: 1.4),
+            children: <InlineSpan>[
+              const TextSpan(
+                text: 'Merged announcement: ',
+                style: TextStyle(fontWeight: FontWeight.w800),
+              ),
+              TextSpan(text: message),
+            ],
+          ),
+          triggerMode: TooltipTriggerMode.tap,
+          waitDuration: Duration.zero,
+          showDuration: const Duration(seconds: 3),
+          preferBelow: false,
+          verticalOffset: 20,
+          excludeFromSemantics: true,
+          decoration: BoxDecoration(
+            color: Colors.blueGrey.shade900,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: child,
+        ),
+        const SizedBox(height: 8),
+        Text(
+          'Tap, long press, or hover to preview the merged semantics output.',
+          style: Theme.of(
+            context,
+          ).textTheme.bodySmall?.copyWith(color: Colors.blueGrey.shade700),
+        ),
+      ],
     );
   }
 }
