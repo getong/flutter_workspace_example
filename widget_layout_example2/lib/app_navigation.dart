@@ -208,6 +208,7 @@ abstract final class RouteName {
   static const dataTable = 'DataTableRoute';
   static const flChart = 'FlChartRoute';
   static const fontAwesomeFlutter = 'FontAwesomeFlutterRoute';
+  static const forui = 'ForuiRoute';
   static const materialSymbolsIcons = 'MaterialSymbolsIconsRoute';
   static const imageWidget = 'ImageWidgetRoute';
   static const animatedSwitcher = 'AnimatedSwitcherRoute';
@@ -539,6 +540,7 @@ enum AppRoute {
     '/font-awesome-flutter-page',
     RouteName.fontAwesomeFlutter,
   ),
+  forui('/forui-page', RouteName.forui),
   materialSymbolsIcons(
     '/material-symbols-icons-page',
     RouteName.materialSymbolsIcons,

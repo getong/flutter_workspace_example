@@ -2172,6 +2172,22 @@ class FormRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ForuiPage]
+class ForuiRoute extends PageRouteInfo<void> {
+  const ForuiRoute({List<PageRouteInfo>? children})
+    : super(ForuiRoute.name, initialChildren: children);
+
+  static const String name = 'ForuiRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ForuiPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FractionallySizedBoxPage]
 class FractionallySizedBoxRoute extends PageRouteInfo<void> {
   const FractionallySizedBoxRoute({List<PageRouteInfo>? children})

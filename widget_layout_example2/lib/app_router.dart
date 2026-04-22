@@ -88,6 +88,7 @@ import 'package:widget_layout_example2/modules/flutter_video_caching_fvp_page.da
 import 'package:widget_layout_example2/modules/fluttertoast_page.dart';
 import 'package:widget_layout_example2/modules/freezed_annotation_page.dart';
 import 'package:widget_layout_example2/modules/font_awesome_flutter_page.dart';
+import 'package:widget_layout_example2/modules/forui_page.dart';
 import 'package:widget_layout_example2/modules/form_page.dart';
 import 'package:widget_layout_example2/modules/form_field_page.dart';
 import 'package:widget_layout_example2/modules/future_builder_page.dart';
@@ -770,6 +771,7 @@ class AppRouter extends RootStackRouter {
       page: FontAwesomeFlutterRoute.page,
       path: AppRoute.fontAwesomeFlutter.path,
     ),
+    AutoRoute(page: ForuiRoute.page, path: AppRoute.forui.path),
     AutoRoute(
       page: MaterialSymbolsIconsRoute.page,
       path: AppRoute.materialSymbolsIcons.path,

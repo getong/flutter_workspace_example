@@ -1,13 +1,20 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fluent;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widget_layout_example2/auto_route_demo_support.dart';
 import 'package:widget_layout_example2/app_router.dart';
 import 'package:widget_layout_example2/auth/auth.dart';
+import 'package:marionette_flutter/marionette_flutter.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  // Initialize Marionette only in debug mode
+  if (kDebugMode) {
+    MarionetteBinding.ensureInitialized();
+  } else {
+    WidgetsFlutterBinding.ensureInitialized();
+  }
   runApp(BlocProvider<AppAuthBloc>.value(value: appAuthBloc, child: MyApp()));
 }
 
