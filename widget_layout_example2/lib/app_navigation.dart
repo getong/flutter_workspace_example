@@ -203,7 +203,7 @@ abstract final class RouteName {
   static const flutterSecureStorage = 'FlutterSecureStorageRoute';
   static const tooltip = 'TooltipRoute';
   static const animatedTextKit = 'AnimatedTextKitRoute';
-  static const videoThumbnail = 'VideoThumbnailRoute';
+  static const fcNativeVideoThumbnail = 'FcNativeVideoThumbnailRoute';
   static const flutterSlidable = 'FlutterSlidableRoute';
   static const flutterVideoCachingFvp = 'FlutterVideoCachingFvpRoute';
   static const cachedNetworkImageCe = 'CachedNetworkImageCeRoute';
@@ -534,7 +534,10 @@ enum AppRoute {
   ),
   tooltip('/tooltip-page', RouteName.tooltip),
   animatedTextKit('/animated-text-kit-page', RouteName.animatedTextKit),
-  videoThumbnail('/video-thumbnail-page', RouteName.videoThumbnail),
+  fcNativeVideoThumbnail(
+    '/fc-native-video-thumbnail-page',
+    RouteName.fcNativeVideoThumbnail,
+  ),
   flutterSlidable('/flutter-slidable-page', RouteName.flutterSlidable),
   flutterVideoCachingFvp(
     '/flutter-video-caching-fvp-page',

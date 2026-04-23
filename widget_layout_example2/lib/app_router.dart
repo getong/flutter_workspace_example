@@ -59,6 +59,7 @@ import 'package:widget_layout_example2/modules/expandable_section_page.dart';
 import 'package:widget_layout_example2/modules/expanded_page.dart';
 import 'package:widget_layout_example2/modules/date_picker_page.dart';
 import 'package:widget_layout_example2/modules/exclude_semantics_page.dart';
+import 'package:widget_layout_example2/modules/fc_native_video_thumbnail_page.dart';
 import 'package:widget_layout_example2/modules/ffigen_page.dart';
 import 'package:widget_layout_example2/modules/filled_button_page.dart';
 import 'package:widget_layout_example2/modules/filter_chip_page.dart';
@@ -184,7 +185,6 @@ import 'package:widget_layout_example2/modules/tween_page.dart';
 import 'package:widget_layout_example2/modules/tween_sequence_interval_page.dart';
 import 'package:widget_layout_example2/modules/unconstrained_box_page.dart';
 import 'package:widget_layout_example2/modules/url_launcher_page.dart';
-import 'package:widget_layout_example2/modules/video_thumbnail_page.dart';
 import 'package:widget_layout_example2/modules/wasm_ffi_page.dart';
 import 'package:widget_layout_example2/modules/webview_flutter_page.dart';
 import 'package:widget_layout_example2/modules/wrap_page.dart';
@@ -495,6 +495,10 @@ class AppRouter extends RootStackRouter {
       page: AnimatedListTileRoute.page,
       path: AppRoute.animatedListTile.path,
     ),
+    AutoRoute(
+      page: FcNativeVideoThumbnailRoute.page,
+      path: AppRoute.fcNativeVideoThumbnail.path,
+    ),
     AutoRoute(page: FfigenRoute.page, path: AppRoute.ffigen.path),
     AutoRoute(
       page: FlexColorSchemeRoute.page,
@@ -758,10 +762,6 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: AnimatedTextKitRoute.page,
       path: AppRoute.animatedTextKit.path,
-    ),
-    AutoRoute(
-      page: VideoThumbnailRoute.page,
-      path: AppRoute.videoThumbnail.path,
     ),
     AutoRoute(
       page: FlutterSlidableRoute.page,

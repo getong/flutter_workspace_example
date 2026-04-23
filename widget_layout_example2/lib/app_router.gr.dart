@@ -1708,6 +1708,22 @@ class ExpandedRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FcNativeVideoThumbnailPage]
+class FcNativeVideoThumbnailRoute extends PageRouteInfo<void> {
+  const FcNativeVideoThumbnailRoute({List<PageRouteInfo>? children})
+    : super(FcNativeVideoThumbnailRoute.name, initialChildren: children);
+
+  static const String name = 'FcNativeVideoThumbnailRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FcNativeVideoThumbnailPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FfigenPage]
 class FfigenRoute extends PageRouteInfo<void> {
   const FfigenRoute({List<PageRouteInfo>? children})
@@ -3830,22 +3846,6 @@ class UrlLauncherRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const UrlLauncherPage();
-    },
-  );
-}
-
-/// generated route for
-/// [VideoThumbnailPage]
-class VideoThumbnailRoute extends PageRouteInfo<void> {
-  const VideoThumbnailRoute({List<PageRouteInfo>? children})
-    : super(VideoThumbnailRoute.name, initialChildren: children);
-
-  static const String name = 'VideoThumbnailRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const VideoThumbnailPage();
     },
   );
 }

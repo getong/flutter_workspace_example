@@ -202,6 +202,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'ExcludeSemantics Module',
     routePath: AppRoute.excludeSemantics.path,
   ),
+  _ModuleLink(
+    label: 'fc_native_video_thumbnail Module',
+    routePath: AppRoute.fcNativeVideoThumbnail.path,
+  ),
   _ModuleLink(label: 'FilterChip Module', routePath: AppRoute.filterChip.path),
   _ModuleLink(label: 'ffigen Module', routePath: AppRoute.ffigen.path),
   _ModuleLink(
@@ -464,10 +468,6 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(
     label: 'url_launcher Module',
     routePath: AppRoute.urlLauncher.path,
-  ),
-  _ModuleLink(
-    label: 'video_thumbnail Module',
-    routePath: AppRoute.videoThumbnail.path,
   ),
   _ModuleLink(label: 'wasm_ffi Module', routePath: AppRoute.wasmFfi.path),
   _ModuleLink(
