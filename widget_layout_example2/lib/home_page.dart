@@ -212,6 +212,7 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
   ),
   _ModuleLink(label: 'FilterChip Module', routePath: AppRoute.filterChip.path),
   _ModuleLink(label: 'ffigen Module', routePath: AppRoute.ffigen.path),
+  _ModuleLink(label: 'flash Module', routePath: AppRoute.flash.path),
   _ModuleLink(
     label: 'flex_color_scheme Module',
     routePath: AppRoute.flexColorScheme.path,
@@ -237,6 +238,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(
     label: 'flutter_auto_size_text Module',
     routePath: AppRoute.flutterAutoSizeText.path,
+  ),
+  _ModuleLink(
+    label: 'flutter_screenutil Module',
+    routePath: AppRoute.flutterScreenutil.path,
   ),
   _ModuleLink(
     label: 'flutter_bloc Module',

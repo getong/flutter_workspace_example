@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:flash/flash.dart';
+import 'package:flash/flash_helper.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fluent;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -49,30 +51,38 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Widget Layout Example',
-      localizationsDelegates: fluent.FluentLocalizations.localizationsDelegates,
-      supportedLocales: fluent.FluentLocalizations.supportedLocales,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-      ),
-      routerConfig: _appRouter.config(
-        includePrefixMatches: true,
-        deepLinkTransformer: DeepLink.prefixStripper('demo'),
-        deepLinkBuilder: (PlatformDeepLink deepLink) {
-          if (deepLink.path.startsWith('/blocked')) {
-            demoNavigationLog.add(
-              'deepLinkBuilder rerouted ${deepLink.path} -> /auto-route-page',
-            );
-            return DeepLink.path('/auto-route-page');
-          }
-          return deepLink;
-        },
-        reevaluateListenable: demoAuthController,
-        navigatorObservers: () => <NavigatorObserver>[
-          DemoAutoRouterObserver(demoNavigationLog),
-          AutoRouteObserver(),
-        ],
+    return Toast(
+      navigatorKey: _appRouter.navigatorKey,
+      child: MaterialApp.router(
+        title: 'Widget Layout Example',
+        localizationsDelegates:
+            fluent.FluentLocalizations.localizationsDelegates,
+        supportedLocales: fluent.FluentLocalizations.supportedLocales,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+          extensions: const <ThemeExtension<dynamic>>[
+            FlashToastTheme(),
+            FlashBarTheme(),
+          ],
+        ),
+        routerConfig: _appRouter.config(
+          includePrefixMatches: true,
+          deepLinkTransformer: DeepLink.prefixStripper('demo'),
+          deepLinkBuilder: (PlatformDeepLink deepLink) {
+            if (deepLink.path.startsWith('/blocked')) {
+              demoNavigationLog.add(
+                'deepLinkBuilder rerouted ${deepLink.path} -> /auto-route-page',
+              );
+              return DeepLink.path('/auto-route-page');
+            }
+            return deepLink;
+          },
+          reevaluateListenable: demoAuthController,
+          navigatorObservers: () => <NavigatorObserver>[
+            DemoAutoRouterObserver(demoNavigationLog),
+            AutoRouteObserver(),
+          ],
+        ),
       ),
     );
   }

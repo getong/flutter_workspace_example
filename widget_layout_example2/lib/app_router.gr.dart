@@ -1836,6 +1836,22 @@ class FlChartRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlashPage]
+class FlashRoute extends PageRouteInfo<void> {
+  const FlashRoute({List<PageRouteInfo>? children})
+    : super(FlashRoute.name, initialChildren: children);
+
+  static const String name = 'FlashRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlashPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlexColorSchemePage]
 class FlexColorSchemeRoute extends PageRouteInfo<void> {
   const FlexColorSchemeRoute({List<PageRouteInfo>? children})
@@ -2071,6 +2087,22 @@ class FlutterLocalNotificationsRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const FlutterLocalNotificationsPage();
+    },
+  );
+}
+
+/// generated route for
+/// [FlutterScreenutilPage]
+class FlutterScreenutilRoute extends PageRouteInfo<void> {
+  const FlutterScreenutilRoute({List<PageRouteInfo>? children})
+    : super(FlutterScreenutilRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterScreenutilRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterScreenutilPage();
     },
   );
 }

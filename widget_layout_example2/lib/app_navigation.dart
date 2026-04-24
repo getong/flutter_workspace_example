@@ -92,6 +92,7 @@ abstract final class RouteName {
   static const advancedProgressIndicator = 'AdvancedProgressIndicatorRoute';
   static const animatedListTile = 'AnimatedListTileRoute';
   static const ffigen = 'FfigenRoute';
+  static const flash = 'FlashRoute';
   static const flexColorScheme = 'FlexColorSchemeRoute';
   static const flexSeedScheme = 'FlexSeedSchemeRoute';
   static const actionChip = 'ActionChipRoute';
@@ -203,6 +204,7 @@ abstract final class RouteName {
   static const textFieldController = 'TextFieldControllerRoute';
   static const flutterAutoSizeText = 'FlutterAutoSizeTextRoute';
   static const flutterLocalNotifications = 'FlutterLocalNotificationsRoute';
+  static const flutterScreenutil = 'FlutterScreenutilRoute';
   static const flutterSecureStorage = 'FlutterSecureStorageRoute';
   static const tooltip = 'TooltipRoute';
   static const animatedTextKit = 'AnimatedTextKitRoute';
@@ -362,6 +364,7 @@ enum AppRoute {
   ),
   animatedListTile('/animated-list-tile-page', RouteName.animatedListTile),
   ffigen('/ffigen-page', RouteName.ffigen),
+  flash('/flash-page', RouteName.flash),
   flexColorScheme('/flex-color-scheme-page', RouteName.flexColorScheme),
   flexSeedScheme('/flex-seed-scheme-page', RouteName.flexSeedScheme),
   actionChip('/action-chip-page', RouteName.actionChip),
@@ -535,6 +538,7 @@ enum AppRoute {
     '/flutter-local-notifications-page',
     RouteName.flutterLocalNotifications,
   ),
+  flutterScreenutil('/flutter-screenutil-page', RouteName.flutterScreenutil),
   flutterSecureStorage(
     '/flutter-secure-storage-page',
     RouteName.flutterSecureStorage,

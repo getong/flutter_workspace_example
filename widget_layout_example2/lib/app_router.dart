@@ -63,6 +63,7 @@ import 'package:widget_layout_example2/modules/date_picker_page.dart';
 import 'package:widget_layout_example2/modules/exclude_semantics_page.dart';
 import 'package:widget_layout_example2/modules/fc_native_video_thumbnail_page.dart';
 import 'package:widget_layout_example2/modules/ffigen_page.dart';
+import 'package:widget_layout_example2/modules/flash_page.dart';
 import 'package:widget_layout_example2/modules/filled_button_page.dart';
 import 'package:widget_layout_example2/modules/filter_chip_page.dart';
 import 'package:widget_layout_example2/modules/fl_chart_page.dart';
@@ -86,6 +87,7 @@ import 'package:widget_layout_example2/modules/flutter_dotenv_page.dart';
 import 'package:widget_layout_example2/modules/flutter_hooks_page.dart';
 import 'package:widget_layout_example2/modules/flutter_inappwebview_page.dart';
 import 'package:widget_layout_example2/modules/flutter_local_notifications_page.dart';
+import 'package:widget_layout_example2/modules/flutter_screenutil_page.dart';
 import 'package:widget_layout_example2/modules/flutter_secure_storage_page.dart';
 import 'package:widget_layout_example2/modules/flutter_slidable_page.dart';
 import 'package:widget_layout_example2/modules/flutter_tts_page.dart';
@@ -505,6 +507,7 @@ class AppRouter extends RootStackRouter {
       path: AppRoute.fcNativeVideoThumbnail.path,
     ),
     AutoRoute(page: FfigenRoute.page, path: AppRoute.ffigen.path),
+    AutoRoute(page: FlashRoute.page, path: AppRoute.flash.path),
     AutoRoute(page: HugeiconsRoute.page, path: AppRoute.hugeicons.path),
     AutoRoute(
       page: FlexColorSchemeRoute.page,
@@ -763,6 +766,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: FlutterLocalNotificationsRoute.page,
       path: AppRoute.flutterLocalNotifications.path,
+    ),
+    AutoRoute(
+      page: FlutterScreenutilRoute.page,
+      path: AppRoute.flutterScreenutil.path,
     ),
     AutoRoute(
       page: FlutterSecureStorageRoute.page,
