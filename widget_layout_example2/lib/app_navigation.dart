@@ -131,6 +131,7 @@ abstract final class RouteName {
   static const themeDataVisualDensity = 'ThemeDataVisualDensityRoute';
   static const bottomNavigationBar = 'BottomNavigationBarExampleRoute';
   static const binarize = 'BinarizeRoute';
+  static const binarySerializable = 'BinarySerializableRoute';
   static const builtValue = 'BuiltValueRoute';
   static const floatingActionButton = 'FloatingActionButtonExampleRoute';
   static const focusableActionDetector = 'FocusableActionDetectorRoute';
@@ -424,6 +425,7 @@ enum AppRoute {
     RouteName.bottomNavigationBar,
   ),
   binarize('/binarize-page', RouteName.binarize),
+  binarySerializable('/binary-serializable-page', RouteName.binarySerializable),
   builtValue('/built-value-page', RouteName.builtValue),
   floatingActionButton(
     '/floating-action-button-page',

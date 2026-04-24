@@ -10,6 +10,13 @@ PRODUCT_NAME = widget_layout_example2
 // The application's bundle identifier
 PRODUCT_BUNDLE_IDENTIFIER = com.manojoinpo.widgetLayoutExample2
 
+// Local macOS builds do not need provisioning profiles. This keeps
+// `flutter build macos` working on machines without Apple signing setup.
+// If you need a signed distribution build later, override these in Xcode
+// or with xcodebuild settings for that specific archive/export flow.
+CODE_SIGNING_ALLOWED = NO
+CODE_SIGNING_REQUIRED = NO
+
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2026 com.example. All rights reserved.
 

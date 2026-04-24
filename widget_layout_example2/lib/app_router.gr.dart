@@ -791,6 +791,22 @@ class BinarizeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [BinarySerializablePage]
+class BinarySerializableRoute extends PageRouteInfo<void> {
+  const BinarySerializableRoute({List<PageRouteInfo>? children})
+    : super(BinarySerializableRoute.name, initialChildren: children);
+
+  static const String name = 'BinarySerializableRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const BinarySerializablePage();
+    },
+  );
+}
+
+/// generated route for
 /// [BlockSemanticsPage]
 class BlockSemanticsRoute extends PageRouteInfo<void> {
   const BlockSemanticsRoute({List<PageRouteInfo>? children})

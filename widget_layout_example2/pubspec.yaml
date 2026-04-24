@@ -38,6 +38,7 @@ dependencies:
   animations: ^2.2.0
   auto_route: ^11.1.0
   binarize: ^2.0.0
+  binary_serializable: ^0.4.0
   bloc: ^9.2.0
   built_collection: ^5.1.1
   built_value: ^8.12.5
