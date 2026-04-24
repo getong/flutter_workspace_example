@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../data/repositories/news_repository.dart';
+import '../data/datasources/news_socket_datasource.dart';
 import '../models/news_connection_status.dart';
 import '../models/news_socket_message.dart';
 import '../models/news_socket_update.dart';
@@ -12,9 +12,11 @@ part 'news_event.dart';
 part 'news_state.dart';
 
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
-  NewsBloc({required NewsRepository repository, required String initialUrl})
-    : _repository = repository,
-      super(NewsState.initial(initialUrl: initialUrl)) {
+  NewsBloc({
+    required NewsSocketDataSource dataSource,
+    required String initialUrl,
+  }) : _dataSource = dataSource,
+       super(NewsState.initial(initialUrl: initialUrl)) {
     on<NewsConnectRequested>(_onConnectRequested);
     on<NewsDisconnectRequested>(_onDisconnectRequested);
     on<NewsMessageSubmitted>(_onMessageSubmitted);
@@ -22,7 +24,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     on<_NewsSocketMessageReceived>(_onSocketMessageReceived);
     on<_NewsSocketErrorReceived>(_onSocketErrorReceived);
 
-    _updatesSubscription = _repository.updates.listen((update) {
+    _updatesSubscription = _dataSource.updates.listen((update) {
       switch (update.type) {
         case NewsSocketUpdateType.status:
           add(_NewsSocketStatusReceived(update.status!));
@@ -37,7 +39,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     });
   }
 
-  final NewsRepository _repository;
+  final NewsSocketDataSource _dataSource;
   late final StreamSubscription<NewsSocketUpdate> _updatesSubscription;
 
   Future<void> _onConnectRequested(
@@ -64,7 +66,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     );
 
     try {
-      await _repository.connect(url);
+      await _dataSource.connect(url);
     } catch (error) {
       emit(
         state.copyWith(
@@ -80,7 +82,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     Emitter<NewsState> emit,
   ) async {
     try {
-      await _repository.disconnect();
+      await _dataSource.disconnect();
     } catch (error) {
       emit(
         state.copyWith(
@@ -102,7 +104,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     }
 
     try {
-      await _repository.sendMessage(message);
+      await _dataSource.sendMessage(message);
       emit(state.copyWith(clearError: true));
     } catch (error) {
       emit(
@@ -153,7 +155,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   @override
   Future<void> close() async {
     await _updatesSubscription.cancel();
-    await _repository.dispose();
+    await _dataSource.dispose();
     return super.close();
   }
 }

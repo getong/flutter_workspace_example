@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'news/bloc/news_bloc.dart';
 import 'news/config/socket_defaults.dart';
 import 'news/data/datasources/news_socket_datasource.dart';
-import 'news/data/repositories/news_repository.dart';
 import 'news/view/news_page.dart';
 
 void main() {
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
-      create: (_) => NewsRepository(dataSource: NewsSocketDataSource()),
+      create: (_) => NewsSocketDataSource(),
       child: Builder(
         builder: (context) {
           return MaterialApp(
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
             ),
             home: BlocProvider(
               create: (_) => NewsBloc(
-                repository: context.read<NewsRepository>(),
+                dataSource: context.read<NewsSocketDataSource>(),
                 initialUrl: defaultWebSocketUrl(),
               ),
               child: const NewsPage(),
