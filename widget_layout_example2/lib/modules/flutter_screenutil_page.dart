@@ -339,83 +339,116 @@ class _ContextExtensionsPreview extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
 
-    return Padding(
-      padding: EdgeInsets.all(context.i(16)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(context.i(14)),
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: <Color>[Color(0xFF1D4ED8), Color(0xFF0F766E)],
-              ),
-              borderRadius: BorderRadius.circular(context.r(20)),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'context.* API',
-                  style: TextStyle(
-                    fontSize: context.sp(19),
-                    fontWeight: FontWeight.w800,
-                    color: Colors.white,
-                  ),
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final bool compactHeight = constraints.maxHeight < 470;
+        final bool compactWidth = constraints.maxWidth < 210;
+        final double verticalGap = compactHeight ? context.h(8) : context.h(14);
+        final String helperText = compactHeight
+            ? 'Recommended for local, context-aware scaling.'
+            : 'Recommended when your widget tree already has access to '
+                  'BuildContext and you want the package to rebuild only the '
+                  'dependent subtree.';
+
+        return SingleChildScrollView(
+          padding: EdgeInsets.all(context.i(16)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(
+                  compactHeight ? context.i(12) : context.i(14),
                 ),
-                SizedBox(height: context.h(8)),
-                Text(
-                  'Padding, radius, text, and block height all come from ScreenUtil scale values.',
-                  style: TextStyle(
-                    fontSize: context.sp(12),
-                    color: Colors.white.withValues(alpha: 0.92),
-                    height: 1.35,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: <Color>[Color(0xFF1D4ED8), Color(0xFF0F766E)],
                   ),
+                  borderRadius: BorderRadius.circular(context.r(20)),
                 ),
-                SizedBox(height: context.h(14)),
-                Row(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Expanded(
-                      child: _MetricTile(
-                        label: 'Hero height',
-                        value: context.h(120).toStringAsFixed(0),
+                    Text(
+                      'context.* API',
+                      style: TextStyle(
+                        fontSize: compactHeight
+                            ? context.sp(17)
+                            : context.sp(19),
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
                       ),
                     ),
-                    SizedBox(width: context.w(10)),
-                    Expanded(
-                      child: _MetricTile(
-                        label: 'Radius',
-                        value: context.r(20).toStringAsFixed(1),
+                    SizedBox(
+                      height: compactHeight ? context.h(6) : context.h(8),
+                    ),
+                    Text(
+                      'Padding, radius, text, and block height all come from ScreenUtil scale values.',
+                      style: TextStyle(
+                        fontSize: compactHeight
+                            ? context.sp(11)
+                            : context.sp(12),
+                        color: Colors.white.withValues(alpha: 0.92),
+                        height: 1.35,
                       ),
                     ),
+                    SizedBox(height: verticalGap),
+                    compactWidth
+                        ? Column(
+                            children: <Widget>[
+                              _MetricTile(
+                                label: 'Hero height',
+                                value: context.h(120).toStringAsFixed(0),
+                              ),
+                              SizedBox(height: context.h(8)),
+                              _MetricTile(
+                                label: 'Radius',
+                                value: context.r(20).toStringAsFixed(1),
+                              ),
+                            ],
+                          )
+                        : Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: _MetricTile(
+                                  label: 'Hero height',
+                                  value: context.h(120).toStringAsFixed(0),
+                                ),
+                              ),
+                              SizedBox(width: context.w(10)),
+                              Expanded(
+                                child: _MetricTile(
+                                  label: 'Radius',
+                                  value: context.r(20).toStringAsFixed(1),
+                                ),
+                              ),
+                            ],
+                          ),
                   ],
                 ),
-              ],
-            ),
-          ),
-          SizedBox(height: context.h(14)),
-          Wrap(
-            spacing: context.w(8),
-            runSpacing: context.h(8),
-            children: <Widget>[
-              _TokenChip(label: '16.i padding'),
-              _TokenChip(label: '19.sp title'),
-              _TokenChip(label: '20.r corners'),
-              _TokenChip(label: '120.h hero'),
+              ),
+              SizedBox(height: verticalGap),
+              Wrap(
+                spacing: context.w(8),
+                runSpacing: compactHeight ? context.h(6) : context.h(8),
+                children: <Widget>[
+                  _TokenChip(label: '16.i padding'),
+                  _TokenChip(label: '19.sp title'),
+                  _TokenChip(label: '20.r corners'),
+                  _TokenChip(label: '120.h hero'),
+                ],
+              ),
+              SizedBox(height: compactHeight ? context.h(8) : context.h(12)),
+              Text(
+                helperText,
+                style: TextStyle(
+                  fontSize: compactHeight ? context.sp(11) : context.sp(12),
+                  color: colorScheme.onSurfaceVariant,
+                ),
+              ),
             ],
           ),
-          SizedBox(height: context.h(12)),
-          Text(
-            'Recommended when your widget tree already has access to '
-            'BuildContext and you want the package to rebuild only the '
-            'dependent subtree.',
-            style: TextStyle(
-              fontSize: context.sp(12),
-              color: colorScheme.onSurfaceVariant,
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

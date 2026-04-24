@@ -192,39 +192,49 @@ class _AdaptiveHeroPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return OrientationBuilder(
       builder: (BuildContext context, Orientation orientation) {
-        final bool portrait = orientation == Orientation.portrait;
+        return LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            final bool portrait = orientation == Orientation.portrait;
+            final bool compact =
+                constraints.maxHeight < 220 || constraints.maxWidth < 220;
+            final double gap = compact ? 8 : 12;
+            final EdgeInsets padding = EdgeInsets.all(compact ? 12 : 16);
 
-        return DecoratedBox(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: <Color>[
-                Colors.blue.shade50,
-                Colors.cyan.shade50,
-                Colors.teal.shade50,
-              ],
-            ),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: Colors.blueGrey.withValues(alpha: 0.18)),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: portrait
-                ? const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(flex: 3, child: _HeroBlock()),
-                      SizedBox(height: 12),
-                      _MiniStatRow(),
-                    ],
-                  )
-                : const Row(
-                    children: <Widget>[
-                      Expanded(flex: 3, child: _HeroBlock()),
-                      SizedBox(width: 12),
-                      Expanded(flex: 2, child: _MiniStatColumn()),
-                    ],
-                  ),
-          ),
+            return DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: <Color>[
+                    Colors.blue.shade50,
+                    Colors.cyan.shade50,
+                    Colors.teal.shade50,
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: Colors.blueGrey.withValues(alpha: 0.18),
+                ),
+              ),
+              child: Padding(
+                padding: padding,
+                child: portrait
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          const Expanded(flex: 3, child: _HeroBlock()),
+                          SizedBox(height: gap),
+                          const _MiniStatRow(),
+                        ],
+                      )
+                    : Row(
+                        children: <Widget>[
+                          const Expanded(flex: 3, child: _HeroBlock()),
+                          SizedBox(width: gap),
+                          const Expanded(flex: 2, child: _MiniStatColumn()),
+                        ],
+                      ),
+              ),
+            );
+          },
         );
       },
     );
@@ -443,35 +453,52 @@ class _HeroBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: Colors.indigo,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const Text(
-              'Campaign Snapshot',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w800,
-                fontSize: 18,
-              ),
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final bool compact =
+            constraints.maxHeight < 150 || constraints.maxWidth < 190;
+
+        return DecoratedBox(
+          decoration: BoxDecoration(
+            color: Colors.indigo,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(compact ? 12 : 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Campaign Snapshot',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                    fontSize: compact ? 16 : 18,
+                  ),
+                ),
+                SizedBox(height: compact ? 6 : 10),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Text(
+                      'OrientationBuilder is using the parent box shape, not the full device.',
+                      maxLines: compact ? 2 : 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.92),
+                        height: 1.25,
+                        fontSize: compact ? 12 : 13,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            const Spacer(),
-            Text(
-              'OrientationBuilder is using the parent box shape, not the full device.',
-              style: TextStyle(
-                color: Colors.white.withValues(alpha: 0.92),
-                height: 1.35,
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
