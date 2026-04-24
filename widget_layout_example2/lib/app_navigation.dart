@@ -165,6 +165,7 @@ abstract final class RouteName {
   static const streamBuilder = 'StreamBuilderRoute';
   static const driftFlutter = 'DriftFlutterRoute';
   static const encrypterPlus = 'EncrypterPlusRoute';
+  static const extendedImage = 'ExtendedImageRoute';
   static const fluttertoast = 'FluttertoastRoute';
   static const keyboardListener = 'KeyboardListenerRoute';
   static const inkWidgets = 'InkWidgetsRoute';
@@ -473,6 +474,7 @@ enum AppRoute {
   streamBuilder('/stream-builder-page', RouteName.streamBuilder),
   driftFlutter('/drift-flutter-page', RouteName.driftFlutter),
   encrypterPlus('/encrypter-plus-page', RouteName.encrypterPlus),
+  extendedImage('/extended-image-page', RouteName.extendedImage),
   fluttertoast('/fluttertoast-page', RouteName.fluttertoast),
   keyboardListener('/keyboard-listener-page', RouteName.keyboardListener),
   inkWidgets('/ink-widgets-page', RouteName.inkWidgets),

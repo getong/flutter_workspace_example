@@ -55,6 +55,7 @@ import 'package:widget_layout_example2/modules/draggable_page.dart';
 import 'package:widget_layout_example2/modules/drag_target_page.dart';
 import 'package:widget_layout_example2/modules/drift_flutter_page.dart';
 import 'package:widget_layout_example2/modules/encrypter_plus_page.dart';
+import 'package:widget_layout_example2/modules/extended_image_page.dart';
 import 'package:widget_layout_example2/modules/expandable_section_page.dart';
 import 'package:widget_layout_example2/modules/expanded_page.dart';
 import 'package:widget_layout_example2/modules/date_picker_page.dart';
@@ -496,6 +497,7 @@ class AppRouter extends RootStackRouter {
       page: AnimatedListTileRoute.page,
       path: AppRoute.animatedListTile.path,
     ),
+    AutoRoute(page: ExtendedImageRoute.page, path: AppRoute.extendedImage.path),
     AutoRoute(
       page: FcNativeVideoThumbnailRoute.page,
       path: AppRoute.fcNativeVideoThumbnail.path,

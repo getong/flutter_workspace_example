@@ -1708,6 +1708,22 @@ class ExpandedRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ExtendedImagePage]
+class ExtendedImageRoute extends PageRouteInfo<void> {
+  const ExtendedImageRoute({List<PageRouteInfo>? children})
+    : super(ExtendedImageRoute.name, initialChildren: children);
+
+  static const String name = 'ExtendedImageRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ExtendedImagePage();
+    },
+  );
+}
+
+/// generated route for
 /// [FcNativeVideoThumbnailPage]
 class FcNativeVideoThumbnailRoute extends PageRouteInfo<void> {
   const FcNativeVideoThumbnailRoute({List<PageRouteInfo>? children})

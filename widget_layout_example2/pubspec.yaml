@@ -51,6 +51,7 @@ dependencies:
   drift: ^2.32.1
   drift_flutter: ^0.3.0
   encrypter_plus: ^5.1.0
+  extended_image: ^10.0.1
   fc_native_video_thumbnail: ^2.1.1
   ffigen: ^20.1.1
   fl_chart: ^1.2.0
@@ -102,6 +103,7 @@ dependencies:
   onboarding_overlay: ^3.2.3
   open_file: ^3.5.11
   package_info_plus: ^9.0.1
+  path_provider: ^2.1.5
   permission_handler: ^12.0.1
   pigeon: ^26.3.4
   sensors_plus: ^7.0.0

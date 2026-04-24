@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fluent;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:widget_layout_example2/auto_route_demo_support.dart';
 import 'package:widget_layout_example2/app_router.dart';
 import 'package:widget_layout_example2/auth/auth.dart';
@@ -15,7 +18,28 @@ Future<void> main() async {
   } else {
     WidgetsFlutterBinding.ensureInitialized();
   }
+  await _ensureExtendedImageCacheDirectory();
   runApp(BlocProvider<AppAuthBloc>.value(value: appAuthBloc, child: MyApp()));
+}
+
+Future<void> _ensureExtendedImageCacheDirectory() async {
+  if (kIsWeb) {
+    return;
+  }
+
+  try {
+    final Directory temporaryDirectory = await getTemporaryDirectory();
+
+    // `extended_image_library` writes network cache files into
+    // `<temporaryDirectory>/cacheimage`, but on macOS the parent cache path may
+    // not exist yet. Creating it recursively avoids PathNotFoundException.
+    await temporaryDirectory.create(recursive: true);
+    await Directory(
+      '${temporaryDirectory.path}${Platform.pathSeparator}cacheimage',
+    ).create(recursive: true);
+  } catch (error) {
+    debugPrint('Failed to prepare extended_image cache directory: $error');
+  }
 }
 
 class MyApp extends StatelessWidget {

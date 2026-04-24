@@ -203,6 +203,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.excludeSemantics.path,
   ),
   _ModuleLink(
+    label: 'extended_image Module',
+    routePath: AppRoute.extendedImage.path,
+  ),
+  _ModuleLink(
     label: 'fc_native_video_thumbnail Module',
     routePath: AppRoute.fcNativeVideoThumbnail.path,
   ),
