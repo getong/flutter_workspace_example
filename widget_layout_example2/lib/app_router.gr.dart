@@ -203,6 +203,22 @@ class AnimationTabRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AnimationsPage]
+class AnimationsPackageRoute extends PageRouteInfo<void> {
+  const AnimationsPackageRoute({List<PageRouteInfo>? children})
+    : super(AnimationsPackageRoute.name, initialChildren: children);
+
+  static const String name = 'AnimationsPackageRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AnimationsPage();
+    },
+  );
+}
+
+/// generated route for
 /// [AspectRatioPage]
 class AspectRatioRoute extends PageRouteInfo<void> {
   const AspectRatioRoute({List<PageRouteInfo>? children})
@@ -3654,6 +3670,22 @@ class TableRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const TablePage();
+    },
+  );
+}
+
+/// generated route for
+/// [TdesignFlutterPage]
+class TdesignFlutterRoute extends PageRouteInfo<void> {
+  const TdesignFlutterRoute({List<PageRouteInfo>? children})
+    : super(TdesignFlutterRoute.name, initialChildren: children);
+
+  static const String name = 'TdesignFlutterRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TdesignFlutterPage();
     },
   );
 }

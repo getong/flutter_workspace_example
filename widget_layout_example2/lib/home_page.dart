@@ -450,6 +450,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.smoothPageIndicator.path,
   ),
   _ModuleLink(label: 'Switch Module', routePath: AppRoute.switchExample.path),
+  _ModuleLink(
+    label: 'tdesign_flutter Module',
+    routePath: AppRoute.tdesignFlutter.path,
+  ),
   _ModuleLink(label: 'Text.rich Module', routePath: AppRoute.textRich.path),
   _ModuleLink(
     label: 'TextField + TextEditingController Module',
@@ -501,6 +505,10 @@ final List<_ModuleLink> _animationModules = <_ModuleLink>[
   _ModuleLink(
     label: 'AnimationController Module',
     routePath: AppRoute.animationController.path,
+  ),
+  _ModuleLink(
+    label: 'animations Module',
+    routePath: AppRoute.animationsPackage.path,
   ),
   _ModuleLink(
     label: 'CustomPaint Module',

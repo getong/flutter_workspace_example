@@ -125,6 +125,7 @@ abstract final class RouteName {
   static const dragTarget = 'DragTargetExampleRoute';
   static const expandableSection = 'ExpandableSectionRoute';
   static const richText = 'RichTextRoute';
+  static const tdesignFlutter = 'TdesignFlutterRoute';
   static const textStyle = 'TextStyleRoute';
   static const themeDataVisualDensity = 'ThemeDataVisualDensityRoute';
   static const bottomNavigationBar = 'BottomNavigationBarExampleRoute';
@@ -205,6 +206,7 @@ abstract final class RouteName {
   static const flutterSecureStorage = 'FlutterSecureStorageRoute';
   static const tooltip = 'TooltipRoute';
   static const animatedTextKit = 'AnimatedTextKitRoute';
+  static const animationsPackage = 'AnimationsPackageRoute';
   static const fcNativeVideoThumbnail = 'FcNativeVideoThumbnailRoute';
   static const flutterSlidable = 'FlutterSlidableRoute';
   static const flutterVideoCachingFvp = 'FlutterVideoCachingFvpRoute';
@@ -407,6 +409,7 @@ enum AppRoute {
   dragTarget('/drag-target-page', RouteName.dragTarget),
   expandableSection('/expandable-section-page', RouteName.expandableSection),
   richText('/rich-text-page', RouteName.richText),
+  tdesignFlutter('/tdesign-flutter-page', RouteName.tdesignFlutter),
   textStyle('/text-style-page', RouteName.textStyle),
   themeDataVisualDensity(
     '/theme-data-visual-density-page',
@@ -538,6 +541,7 @@ enum AppRoute {
   ),
   tooltip('/tooltip-page', RouteName.tooltip),
   animatedTextKit('/animated-text-kit-page', RouteName.animatedTextKit),
+  animationsPackage('/animations-page', RouteName.animationsPackage),
   fcNativeVideoThumbnail(
     '/fc-native-video-thumbnail-page',
     RouteName.fcNativeVideoThumbnail,

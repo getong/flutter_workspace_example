@@ -14,6 +14,7 @@ import 'package:widget_layout_example2/modules/animated_text_kit_page.dart';
 import 'package:widget_layout_example2/modules/animated_switcher_page.dart';
 import 'package:widget_layout_example2/modules/animated_toggle_switch_page.dart';
 import 'package:widget_layout_example2/modules/animation_controller_page.dart';
+import 'package:widget_layout_example2/modules/animations_page.dart';
 import 'package:widget_layout_example2/modules/alert_dialog_page.dart';
 import 'package:widget_layout_example2/modules/auto_route_usage_page.dart';
 import 'package:widget_layout_example2/modules/action_chip_page.dart';
@@ -173,6 +174,7 @@ import 'package:widget_layout_example2/modules/stream_builder_page.dart';
 import 'package:widget_layout_example2/modules/super_clipboard_page.dart';
 import 'package:widget_layout_example2/modules/switch_page.dart';
 import 'package:widget_layout_example2/modules/table_page.dart';
+import 'package:widget_layout_example2/modules/tdesign_flutter_page.dart';
 import 'package:widget_layout_example2/modules/time_picker_dialog_page.dart';
 import 'package:widget_layout_example2/modules/text_field_controller_page.dart';
 import 'package:widget_layout_example2/modules/text_rich_page.dart';
@@ -572,6 +574,10 @@ class AppRouter extends RootStackRouter {
       path: AppRoute.expandableSection.path,
     ),
     AutoRoute(page: RichTextRoute.page, path: AppRoute.richText.path),
+    AutoRoute(
+      page: TdesignFlutterRoute.page,
+      path: AppRoute.tdesignFlutter.path,
+    ),
     AutoRoute(page: TextStyleRoute.page, path: AppRoute.textStyle.path),
     AutoRoute(
       page: ThemeDataVisualDensityRoute.page,
@@ -766,6 +772,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: AnimatedTextKitRoute.page,
       path: AppRoute.animatedTextKit.path,
+    ),
+    AutoRoute(
+      page: AnimationsPackageRoute.page,
+      path: AppRoute.animationsPackage.path,
     ),
     AutoRoute(
       page: FlutterSlidableRoute.page,
