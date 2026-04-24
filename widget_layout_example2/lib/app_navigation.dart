@@ -142,6 +142,7 @@ abstract final class RouteName {
   static const dialog = 'DialogExampleRoute';
   static const dio = 'DioRoute';
   static const dioMultiUrl = 'DioMultiUrlRoute';
+  static const drawer = 'DrawerRoute';
   static const futureBuilder = 'FutureBuilderRoute';
   static const genui = 'GenuiRoute';
   static const flutterBloc = 'FlutterBlocRoute';
@@ -443,6 +444,7 @@ enum AppRoute {
   dialog('/dialog-page', RouteName.dialog),
   dio('/dio-page', RouteName.dio),
   dioMultiUrl('/dio-multi-url-page', RouteName.dioMultiUrl),
+  drawer('/drawer-page', RouteName.drawer),
   futureBuilder('/future-builder-page', RouteName.futureBuilder),
   genui('/genui-page', RouteName.genui),
   flutterBloc('/flutter-bloc-page', RouteName.flutterBloc),

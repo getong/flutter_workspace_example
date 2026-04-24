@@ -52,6 +52,7 @@ import 'package:widget_layout_example2/modules/decorated_box_page.dart';
 import 'package:widget_layout_example2/modules/dialog_page.dart';
 import 'package:widget_layout_example2/modules/dio_page.dart';
 import 'package:widget_layout_example2/modules/dio_multi_url_page.dart';
+import 'package:widget_layout_example2/modules/drawer_page.dart';
 import 'package:widget_layout_example2/modules/draggable_page.dart';
 import 'package:widget_layout_example2/modules/drag_target_page.dart';
 import 'package:widget_layout_example2/modules/drift_flutter_page.dart';
@@ -620,6 +621,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: DialogExampleRoute.page, path: AppRoute.dialog.path),
     AutoRoute(page: DioRoute.page, path: AppRoute.dio.path),
     AutoRoute(page: DioMultiUrlRoute.page, path: AppRoute.dioMultiUrl.path),
+    AutoRoute(page: DrawerRoute.page, path: AppRoute.drawer.path),
     AutoRoute(page: FutureBuilderRoute.page, path: AppRoute.futureBuilder.path),
     AutoRoute(page: GenuiRoute.page, path: AppRoute.genui.path),
     AutoRoute(page: FlutterBlocRoute.page, path: AppRoute.flutterBloc.path),

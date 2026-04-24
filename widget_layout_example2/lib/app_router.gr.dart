@@ -1644,6 +1644,22 @@ class DraggableExampleRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [DrawerPage]
+class DrawerRoute extends PageRouteInfo<void> {
+  const DrawerRoute({List<PageRouteInfo>? children})
+    : super(DrawerRoute.name, initialChildren: children);
+
+  static const String name = 'DrawerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DrawerPage();
+    },
+  );
+}
+
+/// generated route for
 /// [DriftFlutterPage]
 class DriftFlutterRoute extends PageRouteInfo<void> {
   const DriftFlutterRoute({List<PageRouteInfo>? children})

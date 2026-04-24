@@ -184,6 +184,7 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'dio + get_it Multi-URL Module',
     routePath: AppRoute.dioMultiUrl.path,
   ),
+  _ModuleLink(label: 'Drawer Module', routePath: AppRoute.drawer.path),
   _ModuleLink(label: 'DragTarget Module', routePath: AppRoute.dragTarget.path),
   _ModuleLink(label: 'Draggable Module', routePath: AppRoute.draggable.path),
   _ModuleLink(
