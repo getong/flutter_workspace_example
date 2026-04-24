@@ -2348,6 +2348,22 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [HugeiconsPage]
+class HugeiconsRoute extends PageRouteInfo<void> {
+  const HugeiconsRoute({List<PageRouteInfo>? children})
+    : super(HugeiconsRoute.name, initialChildren: children);
+
+  static const String name = 'HugeiconsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const HugeiconsPage();
+    },
+  );
+}
+
+/// generated route for
 /// [IPhoneLikeFloatingButtonPage]
 class IPhoneLikeFloatingButtonRoute extends PageRouteInfo<void> {
   const IPhoneLikeFloatingButtonRoute({List<PageRouteInfo>? children})

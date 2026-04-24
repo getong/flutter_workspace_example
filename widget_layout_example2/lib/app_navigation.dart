@@ -153,6 +153,7 @@ abstract final class RouteName {
   static const flutterTts = 'FlutterTtsRoute';
   static const freezedAnnotation = 'FreezedAnnotationRoute';
   static const graphqlFlutter = 'GraphqlFlutterRoute';
+  static const hugeicons = 'HugeiconsRoute';
   static const iconly = 'IconlyRoute';
   static const injectableGetIt = 'InjectableGetItRoute';
   static const injectable = 'InjectableRoute';
@@ -454,6 +455,7 @@ enum AppRoute {
   flutterTts('/flutter-tts-page', RouteName.flutterTts),
   freezedAnnotation('/freezed-annotation-page', RouteName.freezedAnnotation),
   graphqlFlutter('/graphql-flutter-page', RouteName.graphqlFlutter),
+  hugeicons('/hugeicons-page', RouteName.hugeicons),
   iconly('/iconly-page', RouteName.iconly),
   injectableGetIt('/injectable-get-it-page', RouteName.injectableGetIt),
   injectable('/injectable-page', RouteName.injectable),
