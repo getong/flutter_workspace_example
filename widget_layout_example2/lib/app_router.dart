@@ -26,6 +26,7 @@ import 'package:widget_layout_example2/modules/center_box_page.dart';
 import 'package:widget_layout_example2/modules/cached_network_image_ce_page.dart';
 import 'package:widget_layout_example2/modules/characters_page.dart';
 import 'package:widget_layout_example2/modules/chopper_page.dart';
+import 'package:widget_layout_example2/modules/cookie_jar_page.dart';
 import 'package:widget_layout_example2/modules/clipboard_page.dart';
 import 'package:widget_layout_example2/modules/checkbox_page.dart';
 import 'package:widget_layout_example2/modules/button_showcase_page.dart';
@@ -175,6 +176,7 @@ import 'package:widget_layout_example2/modules/sliver_snap_page.dart';
 import 'package:widget_layout_example2/modules/snack_bar_page.dart';
 import 'package:widget_layout_example2/modules/smooth_page_indicator_page.dart';
 import 'package:widget_layout_example2/modules/speech_to_text_page.dart';
+import 'package:widget_layout_example2/modules/spacer_page.dart';
 import 'package:widget_layout_example2/modules/stack_page.dart';
 import 'package:widget_layout_example2/modules/stream_builder_page.dart';
 import 'package:widget_layout_example2/modules/super_clipboard_page.dart';
@@ -319,6 +321,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: WrapRoute.page, path: AppRoute.wrap.path),
     AutoRoute(page: PositionedRoute.page, path: AppRoute.positioned.path),
     AutoRoute(page: SizedBoxRoute.page, path: AppRoute.sizedBox.path),
+    AutoRoute(page: SpacerRoute.page, path: AppRoute.spacer.path),
     AutoRoute(page: StackRoute.page, path: AppRoute.stack.path),
     AutoRoute(page: AlignRoute.page, path: AppRoute.align.path),
     AutoRoute(page: TransformExampleRoute.page, path: AppRoute.transform.path),
@@ -489,6 +492,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: JnigenRoute.page, path: AppRoute.jnigen.path),
     AutoRoute(page: CharactersRoute.page, path: AppRoute.characters.path),
     AutoRoute(page: ChopperRoute.page, path: AppRoute.chopper.path),
+    AutoRoute(page: CookieJarRoute.page, path: AppRoute.cookieJar.path),
     AutoRoute(page: SwitchExampleRoute.page, path: AppRoute.switchExample.path),
     AutoRoute(page: CheckboxExampleRoute.page, path: AppRoute.checkbox.path),
     AutoRoute(page: ClipboardRoute.page, path: AppRoute.clipboard.path),

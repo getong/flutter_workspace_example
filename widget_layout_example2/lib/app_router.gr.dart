@@ -1436,6 +1436,22 @@ class ContentTabRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CookieJarPage]
+class CookieJarRoute extends PageRouteInfo<void> {
+  const CookieJarRoute({List<PageRouteInfo>? children})
+    : super(CookieJarRoute.name, initialChildren: children);
+
+  static const String name = 'CookieJarRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CookieJarPage();
+    },
+  );
+}
+
+/// generated route for
 /// [CryptoPage]
 class CryptoRoute extends PageRouteInfo<void> {
   const CryptoRoute({List<PageRouteInfo>? children})
@@ -3670,6 +3686,22 @@ class SnackBarExampleRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const SnackBarExamplePage();
+    },
+  );
+}
+
+/// generated route for
+/// [SpacerPage]
+class SpacerRoute extends PageRouteInfo<void> {
+  const SpacerRoute({List<PageRouteInfo>? children})
+    : super(SpacerRoute.name, initialChildren: children);
+
+  static const String name = 'SpacerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SpacerPage();
     },
   );
 }

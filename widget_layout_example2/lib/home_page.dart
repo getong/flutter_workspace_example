@@ -91,6 +91,7 @@ final List<_ModuleLink> _layoutModules = <_ModuleLink>[
     label: 'SingleChildScrollView Module',
     routePath: AppRoute.singleChildScrollView.path,
   ),
+  _ModuleLink(label: 'Spacer Module', routePath: AppRoute.spacer.path),
   _ModuleLink(
     label: 'SliverAppBar Module',
     routePath: AppRoute.sliverAppBar.path,
@@ -164,6 +165,7 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
   ),
   _ModuleLink(label: 'characters Module', routePath: AppRoute.characters.path),
   _ModuleLink(label: 'chopper Module', routePath: AppRoute.chopper.path),
+  _ModuleLink(label: 'cookie_jar Module', routePath: AppRoute.cookieJar.path),
   _ModuleLink(label: 'clipboard Module', routePath: AppRoute.clipboard.path),
   _ModuleLink(label: 'Checkbox Module', routePath: AppRoute.checkbox.path),
   _ModuleLink(label: 'ChoiceChip Module', routePath: AppRoute.choiceChip.path),

@@ -46,6 +46,7 @@ dependencies:
   characters: ^1.4.1
   chopper: ^8.5.1
   clipboard: ^3.0.14
+  cookie_jar: ^4.0.9
   crypto: ^3.0.7
   cue: ^0.1.2+1
   cupertino_icons: ^1.0.8

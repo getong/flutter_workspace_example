@@ -29,6 +29,7 @@ abstract final class RouteName {
   static const layoutBuilder = 'LayoutBuilderExampleRoute';
   static const orientationBuilder = 'OrientationBuilderRoute';
   static const padding = 'PaddingRoute';
+  static const spacer = 'SpacerRoute';
   static const responsiveContainer = 'ResponsiveContainerRoute';
   static const wrap = 'WrapRoute';
   static const positioned = 'PositionedRoute';
@@ -81,6 +82,7 @@ abstract final class RouteName {
   static const jnigen = 'JnigenRoute';
   static const characters = 'CharactersRoute';
   static const chopper = 'ChopperRoute';
+  static const cookieJar = 'CookieJarRoute';
   static const switchExample = 'SwitchExampleRoute';
   static const checkbox = 'CheckboxExampleRoute';
   static const clipboard = 'ClipboardRoute';
@@ -270,6 +272,7 @@ enum AppRoute {
   layoutBuilder('/layout-builder-page', RouteName.layoutBuilder),
   orientationBuilder('/orientation-builder-page', RouteName.orientationBuilder),
   padding('/padding-page', RouteName.padding),
+  spacer('/spacer-page', RouteName.spacer),
   responsiveContainer(
     '/responsive-container-page',
     RouteName.responsiveContainer,
@@ -354,6 +357,7 @@ enum AppRoute {
   jnigen('/jnigen-page', RouteName.jnigen),
   characters('/characters-page', RouteName.characters),
   chopper('/chopper-page', RouteName.chopper),
+  cookieJar('/cookie-jar-page', RouteName.cookieJar),
   switchExample('/switch-page', RouteName.switchExample),
   checkbox('/checkbox-page', RouteName.checkbox),
   clipboard('/clipboard-page', RouteName.clipboard),
