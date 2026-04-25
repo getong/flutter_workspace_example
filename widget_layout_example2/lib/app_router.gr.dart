@@ -3208,6 +3208,22 @@ class PigeonRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [PinputPage]
+class PinputRoute extends PageRouteInfo<void> {
+  const PinputRoute({List<PageRouteInfo>? children})
+    : super(PinputRoute.name, initialChildren: children);
+
+  static const String name = 'PinputRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const PinputPage();
+    },
+  );
+}
+
+/// generated route for
 /// [PopScopePage]
 class PopScopeRoute extends PageRouteInfo<void> {
   const PopScopeRoute({List<PageRouteInfo>? children})

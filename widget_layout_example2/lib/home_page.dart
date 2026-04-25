@@ -421,6 +421,7 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'package_info_plus Module',
     routePath: AppRoute.packageInfoPlus.path,
   ),
+  _ModuleLink(label: 'pinput Module', routePath: AppRoute.pinput.path),
   _ModuleLink(label: 'pigeon Module', routePath: AppRoute.pigeon.path),
   _ModuleLink(label: 'PopScope Module', routePath: AppRoute.popScope.path),
   _ModuleLink(label: 'Radio Module', routePath: AppRoute.radio.path),

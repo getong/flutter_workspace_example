@@ -146,6 +146,7 @@ import 'package:widget_layout_example2/modules/overlay_menu_page.dart';
 import 'package:widget_layout_example2/modules/padding_page.dart';
 import 'package:widget_layout_example2/modules/permission_handler_page.dart';
 import 'package:widget_layout_example2/modules/package_info_plus_page.dart';
+import 'package:widget_layout_example2/modules/pinput_page.dart';
 import 'package:widget_layout_example2/modules/pigeon_page.dart';
 import 'package:widget_layout_example2/modules/pop_scope_page.dart';
 import 'package:widget_layout_example2/modules/positioned_page.dart';
@@ -755,6 +756,7 @@ class AppRouter extends RootStackRouter {
       page: PackageInfoPlusRoute.page,
       path: AppRoute.packageInfoPlus.path,
     ),
+    AutoRoute(page: PinputRoute.page, path: AppRoute.pinput.path),
     AutoRoute(page: PigeonRoute.page, path: AppRoute.pigeon.path),
     AutoRoute(page: PopScopeRoute.page, path: AppRoute.popScope.path),
     AutoRoute(page: SpeechToTextRoute.page, path: AppRoute.speechToText.path),

@@ -200,6 +200,7 @@ abstract final class RouteName {
   static const openFile = 'OpenFileRoute';
   static const permissionHandler = 'PermissionHandlerRoute';
   static const packageInfoPlus = 'PackageInfoPlusRoute';
+  static const pinput = 'PinputRoute';
   static const pigeon = 'PigeonRoute';
   static const popScope = 'PopScopeRoute';
   static const speechToText = 'SpeechToTextRoute';
@@ -529,6 +530,7 @@ enum AppRoute {
   openFile('/open-file-page', RouteName.openFile),
   permissionHandler('/permission-handler-page', RouteName.permissionHandler),
   packageInfoPlus('/package-info-plus-page', RouteName.packageInfoPlus),
+  pinput('/pinput-page', RouteName.pinput),
   pigeon('/pigeon-page', RouteName.pigeon),
   popScope('/pop-scope-page', RouteName.popScope),
   speechToText('/speech-to-text-page', RouteName.speechToText),
