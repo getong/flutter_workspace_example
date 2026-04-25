@@ -125,6 +125,7 @@ import 'package:widget_layout_example2/modules/json_annotation_page.dart';
 import 'package:widget_layout_example2/modules/keyboard_listener_page.dart';
 import 'package:widget_layout_example2/modules/layout_builder_page.dart';
 import 'package:widget_layout_example2/modules/linear_progress_indicator_page.dart';
+import 'package:widget_layout_example2/modules/local_auth_page.dart';
 import 'package:widget_layout_example2/modules/loot_reel_page.dart';
 import 'package:widget_layout_example2/modules/lucide_icons_flutter_page.dart';
 import 'package:widget_layout_example2/modules/lottie_page.dart';
@@ -530,6 +531,7 @@ class AppRouter extends RootStackRouter {
       page: LinearProgressIndicatorExampleRoute.page,
       path: AppRoute.linearProgressIndicator.path,
     ),
+    AutoRoute(page: LocalAuthRoute.page, path: AppRoute.localAuth.path),
     AutoRoute(page: LootReelRoute.page, path: AppRoute.lootReel.path),
     AutoRoute(
       page: LucideIconsFlutterRoute.page,

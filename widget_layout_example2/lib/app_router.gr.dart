@@ -2799,6 +2799,22 @@ class LinearProgressIndicatorExampleRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [LocalAuthPage]
+class LocalAuthRoute extends PageRouteInfo<void> {
+  const LocalAuthRoute({List<PageRouteInfo>? children})
+    : super(LocalAuthRoute.name, initialChildren: children);
+
+  static const String name = 'LocalAuthRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const LocalAuthPage();
+    },
+  );
+}
+
+/// generated route for
 /// [LoginPage]
 class LoginRoute extends PageRouteInfo<LoginRouteArgs> {
   LoginRoute({

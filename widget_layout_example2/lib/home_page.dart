@@ -364,6 +364,7 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'LinearProgressIndicator Module',
     routePath: AppRoute.linearProgressIndicator.path,
   ),
+  _ModuleLink(label: 'local_auth Module', routePath: AppRoute.localAuth.path),
   _ModuleLink(label: 'loot_reel Module', routePath: AppRoute.lootReel.path),
   _ModuleLink(
     label: 'lucide_icons_flutter Module',

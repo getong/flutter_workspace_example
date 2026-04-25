@@ -99,6 +99,7 @@ abstract final class RouteName {
   static const flexSeedScheme = 'FlexSeedSchemeRoute';
   static const actionChip = 'ActionChipRoute';
   static const linearProgressIndicator = 'LinearProgressIndicatorExampleRoute';
+  static const localAuth = 'LocalAuthRoute';
   static const lootReel = 'LootReelRoute';
   static const lucideIconsFlutter = 'LucideIconsFlutterRoute';
   static const lottie = 'LottieRoute';
@@ -380,6 +381,7 @@ enum AppRoute {
     '/linear-progress-indicator-page',
     RouteName.linearProgressIndicator,
   ),
+  localAuth('/local-auth-page', RouteName.localAuth),
   lootReel('/loot-reel-page', RouteName.lootReel),
   lucideIconsFlutter(
     '/lucide-icons-flutter-page',
