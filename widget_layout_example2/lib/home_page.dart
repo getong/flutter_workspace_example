@@ -318,6 +318,7 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'graphql_flutter Module',
     routePath: AppRoute.graphqlFlutter.path,
   ),
+  _ModuleLink(label: 'Hero Module', routePath: AppRoute.hero.path),
   _ModuleLink(label: 'hugeicons Module', routePath: AppRoute.hugeicons.path),
   _ModuleLink(label: 'Image Module', routePath: AppRoute.imageWidget.path),
   _ModuleLink(label: 'iconly Module', routePath: AppRoute.iconly.path),

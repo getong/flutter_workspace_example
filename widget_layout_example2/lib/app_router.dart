@@ -105,6 +105,7 @@ import 'package:widget_layout_example2/modules/future_builder_page.dart';
 import 'package:widget_layout_example2/modules/gesturedetector.dart';
 import 'package:widget_layout_example2/modules/genui_page.dart';
 import 'package:widget_layout_example2/modules/graphql_flutter_page.dart';
+import 'package:widget_layout_example2/modules/hero_page.dart';
 import 'package:widget_layout_example2/modules/hugeicons_page.dart';
 import 'package:widget_layout_example2/modules/iconly_page.dart';
 import 'package:widget_layout_example2/modules/image_widget_page.dart';
@@ -662,6 +663,7 @@ class AppRouter extends RootStackRouter {
       page: GraphqlFlutterRoute.page,
       path: AppRoute.graphqlFlutter.path,
     ),
+    AutoRoute(page: HeroRoute.page, path: AppRoute.hero.path),
     AutoRoute(page: IconlyRoute.page, path: AppRoute.iconly.path),
     AutoRoute(
       page: InjectableGetItRoute.page,
