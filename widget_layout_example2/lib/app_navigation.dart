@@ -205,6 +205,7 @@ abstract final class RouteName {
   static const sharePlus = 'SharePlusRoute';
   static const textFieldController = 'TextFieldControllerRoute';
   static const flutterAutoSizeText = 'FlutterAutoSizeTextRoute';
+  static const flutterAnimate = 'FlutterAnimateRoute';
   static const flutterLocalNotifications = 'FlutterLocalNotificationsRoute';
   static const flutterScreenutil = 'FlutterScreenutilRoute';
   static const flutterSecureStorage = 'FlutterSecureStorageRoute';
@@ -538,6 +539,7 @@ enum AppRoute {
     '/flutter-auto-size-text-page',
     RouteName.flutterAutoSizeText,
   ),
+  flutterAnimate('/flutter-animate-page', RouteName.flutterAnimate),
   flutterLocalNotifications(
     '/flutter-local-notifications-page',
     RouteName.flutterLocalNotifications,

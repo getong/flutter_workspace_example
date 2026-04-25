@@ -525,6 +525,10 @@ final List<_ModuleLink> _animationModules = <_ModuleLink>[
     routePath: AppRoute.customPaint.path,
   ),
   _ModuleLink(
+    label: 'flutter_animate Module',
+    routePath: AppRoute.flutterAnimate.path,
+  ),
+  _ModuleLink(
     label: 'SingleTickerProviderStateMixin Module',
     routePath: AppRoute.singleTickerProviderStateMixin.path,
   ),

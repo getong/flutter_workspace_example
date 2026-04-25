@@ -61,6 +61,7 @@ dependencies:
   flex_color_scheme: ^8.4.0
   flex_seed_scheme: ^4.0.1
   fluent_ui: ^4.15.1
+  flutter_animate: ^4.5.2
   flutter_auto_size_text: ^5.0.0
   flutter_bloc: ^9.1.1
   flutter_card_swiper: ^7.2.0

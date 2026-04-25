@@ -1980,6 +1980,22 @@ class FluentUiRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterAnimatePage]
+class FlutterAnimateRoute extends PageRouteInfo<void> {
+  const FlutterAnimateRoute({List<PageRouteInfo>? children})
+    : super(FlutterAnimateRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterAnimateRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterAnimatePage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterAutoSizeTextPage]
 class FlutterAutoSizeTextRoute extends PageRouteInfo<void> {
   const FlutterAutoSizeTextRoute({List<PageRouteInfo>? children})
