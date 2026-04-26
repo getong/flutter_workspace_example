@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/di/di.dart';
-import 'presentation/bloc/advice_bloc.dart';
-import 'presentation/views/advice_view.dart';
+import 'features/advice/presentation/bloc/advice_bloc.dart';
+import 'features/advice/presentation/views/advice_view.dart';
 
 void main() {
   configureDependencies();

@@ -15,7 +15,6 @@ Dio createPlatformDio(BaseOptions options) {
         ..autoUncompress = true
         ..userAgent = 'clean_architecture_dio_example/1.0';
 
-      // Avoid inheriting broken local proxy environment variables.
       client.findProxy = (_) => 'DIRECT';
 
       return client;
