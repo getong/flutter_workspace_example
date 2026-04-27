@@ -209,6 +209,7 @@ abstract final class RouteName {
   static const pigeon = 'PigeonRoute';
   static const popScope = 'PopScopeRoute';
   static const speechToText = 'SpeechToTextRoute';
+  static const shimmer = 'ShimmerRoute';
   static const syncfusionFlutterCharts = 'SyncfusionFlutterChartsRoute';
   static const smoothPageIndicator = 'SmoothPageIndicatorRoute';
   static const superClipboard = 'SuperClipboardRoute';
@@ -546,6 +547,7 @@ enum AppRoute {
   pigeon('/pigeon-page', RouteName.pigeon),
   popScope('/pop-scope-page', RouteName.popScope),
   speechToText('/speech-to-text-page', RouteName.speechToText),
+  shimmer('/shimmer-page', RouteName.shimmer),
   syncfusionFlutterCharts(
     '/syncfusion-flutter-charts-page',
     RouteName.syncfusionFlutterCharts,

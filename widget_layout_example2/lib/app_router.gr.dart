@@ -3560,6 +3560,22 @@ class SharedPreferencesRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ShimmerPage]
+class ShimmerRoute extends PageRouteInfo<void> {
+  const ShimmerRoute({List<PageRouteInfo>? children})
+    : super(ShimmerRoute.name, initialChildren: children);
+
+  static const String name = 'ShimmerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ShimmerPage();
+    },
+  );
+}
+
+/// generated route for
 /// [ShowDialogExamplePage]
 class ShowDialogExampleRoute extends PageRouteInfo<void> {
   const ShowDialogExampleRoute({List<PageRouteInfo>? children})

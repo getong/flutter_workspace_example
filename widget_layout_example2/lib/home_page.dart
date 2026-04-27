@@ -558,6 +558,7 @@ final List<_ModuleLink> _animationModules = <_ModuleLink>[
     label: 'flutter_animate Module',
     routePath: AppRoute.flutterAnimate.path,
   ),
+  _ModuleLink(label: 'shimmer Module', routePath: AppRoute.shimmer.path),
   _ModuleLink(
     label: 'SingleTickerProviderStateMixin Module',
     routePath: AppRoute.singleTickerProviderStateMixin.path,

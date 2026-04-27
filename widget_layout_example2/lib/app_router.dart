@@ -169,6 +169,7 @@ import 'package:widget_layout_example2/modules/shader_graph_page.dart';
 import 'package:widget_layout_example2/modules/shared_preferences_page.dart';
 import 'package:widget_layout_example2/modules/share_plus_page.dart';
 import 'package:widget_layout_example2/modules/show_dialog_page.dart';
+import 'package:widget_layout_example2/modules/shimmer_page.dart';
 import 'package:widget_layout_example2/modules/sized_box_page.dart';
 import 'package:widget_layout_example2/modules/single_child_scroll_view_page.dart';
 import 'package:widget_layout_example2/modules/single_ticker_provider_state_mixin_page.dart';
@@ -771,6 +772,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: PigeonRoute.page, path: AppRoute.pigeon.path),
     AutoRoute(page: PopScopeRoute.page, path: AppRoute.popScope.path),
     AutoRoute(page: SpeechToTextRoute.page, path: AppRoute.speechToText.path),
+    AutoRoute(page: ShimmerRoute.page, path: AppRoute.shimmer.path),
     AutoRoute(
       page: SyncfusionFlutterChartsRoute.page,
       path: AppRoute.syncfusionFlutterCharts.path,
