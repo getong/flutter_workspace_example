@@ -81,6 +81,7 @@ abstract final class RouteName {
   static const intl = 'IntlRoute';
   static const jnigen = 'JnigenRoute';
   static const characters = 'CharactersRoute';
+  static const chatBubbles = 'ChatBubblesRoute';
   static const chopper = 'ChopperRoute';
   static const cookieJar = 'CookieJarRoute';
   static const switchExample = 'SwitchExampleRoute';
@@ -160,8 +161,9 @@ abstract final class RouteName {
   static const flutterTts = 'FlutterTtsRoute';
   static const freezedAnnotation = 'FreezedAnnotationRoute';
   static const graphqlFlutter = 'GraphqlFlutterRoute';
-  static const hugeicons = 'HugeiconsRoute';
   static const hero = 'HeroRoute';
+  static const hugeicons = 'HugeiconsRoute';
+  static const imageCropper = 'ImageCropperRoute';
   static const iconly = 'IconlyRoute';
   static const injectableGetIt = 'InjectableGetItRoute';
   static const injectable = 'InjectableRoute';
@@ -358,6 +360,7 @@ enum AppRoute {
   intl('/intl-page', RouteName.intl),
   jnigen('/jnigen-page', RouteName.jnigen),
   characters('/characters-page', RouteName.characters),
+  chatBubbles('/chat-bubbles-page', RouteName.chatBubbles),
   chopper('/chopper-page', RouteName.chopper),
   cookieJar('/cookie-jar-page', RouteName.cookieJar),
   switchExample('/switch-page', RouteName.switchExample),
@@ -477,6 +480,7 @@ enum AppRoute {
   graphqlFlutter('/graphql-flutter-page', RouteName.graphqlFlutter),
   hero('/hero-page', RouteName.hero),
   hugeicons('/hugeicons-page', RouteName.hugeicons),
+  imageCropper('/image-cropper-page', RouteName.imageCropper),
   iconly('/iconly-page', RouteName.iconly),
   injectableGetIt('/injectable-get-it-page', RouteName.injectableGetIt),
   injectable('/injectable-page', RouteName.injectable),

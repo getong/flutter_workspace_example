@@ -25,6 +25,7 @@ import 'package:widget_layout_example2/modules/binary_serializable_page.dart';
 import 'package:widget_layout_example2/modules/center_box_page.dart';
 import 'package:widget_layout_example2/modules/cached_network_image_ce_page.dart';
 import 'package:widget_layout_example2/modules/characters_page.dart';
+import 'package:widget_layout_example2/modules/chat_bubbles_page.dart';
 import 'package:widget_layout_example2/modules/chopper_page.dart';
 import 'package:widget_layout_example2/modules/cookie_jar_page.dart';
 import 'package:widget_layout_example2/modules/clipboard_page.dart';
@@ -109,6 +110,7 @@ import 'package:widget_layout_example2/modules/graphql_flutter_page.dart';
 import 'package:widget_layout_example2/modules/hero_page.dart';
 import 'package:widget_layout_example2/modules/hugeicons_page.dart';
 import 'package:widget_layout_example2/modules/iconly_page.dart';
+import 'package:widget_layout_example2/modules/image_cropper_page.dart';
 import 'package:widget_layout_example2/modules/image_widget_page.dart';
 import 'package:widget_layout_example2/modules/ink_widgets_page.dart';
 import 'package:widget_layout_example2/modules/injectable_get_it_page.dart';
@@ -493,6 +495,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: IntlRoute.page, path: AppRoute.intl.path),
     AutoRoute(page: JnigenRoute.page, path: AppRoute.jnigen.path),
     AutoRoute(page: CharactersRoute.page, path: AppRoute.characters.path),
+    AutoRoute(page: ChatBubblesRoute.page, path: AppRoute.chatBubbles.path),
     AutoRoute(page: ChopperRoute.page, path: AppRoute.chopper.path),
     AutoRoute(page: CookieJarRoute.page, path: AppRoute.cookieJar.path),
     AutoRoute(page: SwitchExampleRoute.page, path: AppRoute.switchExample.path),
@@ -829,6 +832,7 @@ class AppRouter extends RootStackRouter {
       page: MaterialSymbolsIconsRoute.page,
       path: AppRoute.materialSymbolsIcons.path,
     ),
+    AutoRoute(page: ImageCropperRoute.page, path: AppRoute.imageCropper.path),
     AutoRoute(page: ImageWidgetRoute.page, path: AppRoute.imageWidget.path),
     AutoRoute(
       page: AnimatedSwitcherRoute.page,

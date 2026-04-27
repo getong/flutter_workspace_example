@@ -164,6 +164,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.cachedNetworkImageCe.path,
   ),
   _ModuleLink(label: 'characters Module', routePath: AppRoute.characters.path),
+  _ModuleLink(
+    label: 'chat_bubbles Module',
+    routePath: AppRoute.chatBubbles.path,
+  ),
   _ModuleLink(label: 'chopper Module', routePath: AppRoute.chopper.path),
   _ModuleLink(label: 'cookie_jar Module', routePath: AppRoute.cookieJar.path),
   _ModuleLink(label: 'clipboard Module', routePath: AppRoute.clipboard.path),
@@ -322,6 +326,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
   ),
   _ModuleLink(label: 'Hero Module', routePath: AppRoute.hero.path),
   _ModuleLink(label: 'hugeicons Module', routePath: AppRoute.hugeicons.path),
+  _ModuleLink(
+    label: 'image_cropper Module',
+    routePath: AppRoute.imageCropper.path,
+  ),
   _ModuleLink(label: 'Image Module', routePath: AppRoute.imageWidget.path),
   _ModuleLink(label: 'iconly Module', routePath: AppRoute.iconly.path),
   _ModuleLink(

@@ -1193,6 +1193,22 @@ class CharactersRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ChatBubblesPage]
+class ChatBubblesRoute extends PageRouteInfo<void> {
+  const ChatBubblesRoute({List<PageRouteInfo>? children})
+    : super(ChatBubblesRoute.name, initialChildren: children);
+
+  static const String name = 'ChatBubblesRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ChatBubblesPage();
+    },
+  );
+}
+
+/// generated route for
 /// [CheckboxExamplePage]
 class CheckboxExampleRoute extends PageRouteInfo<void> {
   const CheckboxExampleRoute({List<PageRouteInfo>? children})
@@ -2535,6 +2551,22 @@ class IconlyRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const IconlyPage();
+    },
+  );
+}
+
+/// generated route for
+/// [ImageCropperPage]
+class ImageCropperRoute extends PageRouteInfo<void> {
+  const ImageCropperRoute({List<PageRouteInfo>? children})
+    : super(ImageCropperRoute.name, initialChildren: children);
+
+  static const String name = 'ImageCropperRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ImageCropperPage();
     },
   );
 }
