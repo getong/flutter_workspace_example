@@ -18,6 +18,7 @@ import 'package:widget_layout_example2/modules/animations_page.dart';
 import 'package:widget_layout_example2/modules/alert_dialog_page.dart';
 import 'package:widget_layout_example2/modules/auto_route_usage_page.dart';
 import 'package:widget_layout_example2/modules/action_chip_page.dart';
+import 'package:widget_layout_example2/modules/animate_do_page.dart';
 import 'package:widget_layout_example2/modules/aspect_ratio_page.dart';
 import 'package:widget_layout_example2/modules/block_semantics_page.dart';
 import 'package:widget_layout_example2/modules/binarize_page.dart';
@@ -54,7 +55,9 @@ import 'package:widget_layout_example2/modules/date_picker_dialog_page.dart';
 import 'package:widget_layout_example2/modules/decorated_box_page.dart';
 import 'package:widget_layout_example2/modules/dialog_page.dart';
 import 'package:widget_layout_example2/modules/dio_page.dart';
+import 'package:widget_layout_example2/modules/dio_smart_retry_page.dart';
 import 'package:widget_layout_example2/modules/dio_multi_url_page.dart';
+import 'package:widget_layout_example2/modules/dotted_border_page.dart';
 import 'package:widget_layout_example2/modules/drawer_page.dart';
 import 'package:widget_layout_example2/modules/draggable_page.dart';
 import 'package:widget_layout_example2/modules/drag_target_page.dart';
@@ -185,6 +188,7 @@ import 'package:widget_layout_example2/modules/stack_page.dart';
 import 'package:widget_layout_example2/modules/stream_builder_page.dart';
 import 'package:widget_layout_example2/modules/super_clipboard_page.dart';
 import 'package:widget_layout_example2/modules/switch_page.dart';
+import 'package:widget_layout_example2/modules/syncfusion_flutter_charts_page.dart';
 import 'package:widget_layout_example2/modules/table_page.dart';
 import 'package:widget_layout_example2/modules/tdesign_flutter_page.dart';
 import 'package:widget_layout_example2/modules/time_picker_dialog_page.dart';
@@ -201,6 +205,7 @@ import 'package:widget_layout_example2/modules/tween_page.dart';
 import 'package:widget_layout_example2/modules/tween_sequence_interval_page.dart';
 import 'package:widget_layout_example2/modules/unconstrained_box_page.dart';
 import 'package:widget_layout_example2/modules/url_launcher_page.dart';
+import 'package:widget_layout_example2/modules/universal_html_page.dart';
 import 'package:widget_layout_example2/modules/wasm_ffi_page.dart';
 import 'package:widget_layout_example2/modules/webview_flutter_page.dart';
 import 'package:widget_layout_example2/modules/wrap_page.dart';
@@ -492,6 +497,7 @@ class AppRouter extends RootStackRouter {
       page: AutoRouteUnknownRoute.page,
       path: AppRoute.autoRouteUnknown.path,
     ),
+    AutoRoute(page: AnimateDoRoute.page, path: AppRoute.animateDo.path),
     AutoRoute(page: IntlRoute.page, path: AppRoute.intl.path),
     AutoRoute(page: JnigenRoute.page, path: AppRoute.jnigen.path),
     AutoRoute(page: CharactersRoute.page, path: AppRoute.characters.path),
@@ -637,7 +643,9 @@ class AppRouter extends RootStackRouter {
     ),
     AutoRoute(page: DialogExampleRoute.page, path: AppRoute.dialog.path),
     AutoRoute(page: DioRoute.page, path: AppRoute.dio.path),
+    AutoRoute(page: DioSmartRetryRoute.page, path: AppRoute.dioSmartRetry.path),
     AutoRoute(page: DioMultiUrlRoute.page, path: AppRoute.dioMultiUrl.path),
+    AutoRoute(page: DottedBorderRoute.page, path: AppRoute.dottedBorder.path),
     AutoRoute(page: DrawerRoute.page, path: AppRoute.drawer.path),
     AutoRoute(page: FutureBuilderRoute.page, path: AppRoute.futureBuilder.path),
     AutoRoute(page: GenuiRoute.page, path: AppRoute.genui.path),
@@ -764,6 +772,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: PopScopeRoute.page, path: AppRoute.popScope.path),
     AutoRoute(page: SpeechToTextRoute.page, path: AppRoute.speechToText.path),
     AutoRoute(
+      page: SyncfusionFlutterChartsRoute.page,
+      path: AppRoute.syncfusionFlutterCharts.path,
+    ),
+    AutoRoute(
       page: SmoothPageIndicatorRoute.page,
       path: AppRoute.smoothPageIndicator.path,
     ),
@@ -809,6 +821,7 @@ class AppRouter extends RootStackRouter {
       page: AnimationsPackageRoute.page,
       path: AppRoute.animationsPackage.path,
     ),
+    AutoRoute(page: UniversalHtmlRoute.page, path: AppRoute.universalHtml.path),
     AutoRoute(
       page: FlutterSlidableRoute.page,
       path: AppRoute.flutterSlidable.path,

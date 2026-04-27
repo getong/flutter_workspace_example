@@ -91,6 +91,22 @@ class AlignRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AnimateDoPage]
+class AnimateDoRoute extends PageRouteInfo<void> {
+  const AnimateDoRoute({List<PageRouteInfo>? children})
+    : super(AnimateDoRoute.name, initialChildren: children);
+
+  static const String name = 'AnimateDoRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AnimateDoPage();
+    },
+  );
+}
+
+/// generated route for
 /// [AnimatedDefaultTextStylePage]
 class AnimatedDefaultTextStyleRoute extends PageRouteInfo<void> {
   const AnimatedDefaultTextStyleRoute({List<PageRouteInfo>? children})
@@ -1655,6 +1671,38 @@ class DioRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const DioPage();
+    },
+  );
+}
+
+/// generated route for
+/// [DioSmartRetryPage]
+class DioSmartRetryRoute extends PageRouteInfo<void> {
+  const DioSmartRetryRoute({List<PageRouteInfo>? children})
+    : super(DioSmartRetryRoute.name, initialChildren: children);
+
+  static const String name = 'DioSmartRetryRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DioSmartRetryPage();
+    },
+  );
+}
+
+/// generated route for
+/// [DottedBorderPage]
+class DottedBorderRoute extends PageRouteInfo<void> {
+  const DottedBorderRoute({List<PageRouteInfo>? children})
+    : super(DottedBorderRoute.name, initialChildren: children);
+
+  static const String name = 'DottedBorderRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DottedBorderPage();
     },
   );
 }
@@ -3851,6 +3899,22 @@ class SwitchExampleRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [SyncfusionFlutterChartsPage]
+class SyncfusionFlutterChartsRoute extends PageRouteInfo<void> {
+  const SyncfusionFlutterChartsRoute({List<PageRouteInfo>? children})
+    : super(SyncfusionFlutterChartsRoute.name, initialChildren: children);
+
+  static const String name = 'SyncfusionFlutterChartsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SyncfusionFlutterChartsPage();
+    },
+  );
+}
+
+/// generated route for
 /// [TablePage]
 class TableRoute extends PageRouteInfo<void> {
   const TableRoute({List<PageRouteInfo>? children})
@@ -4086,6 +4150,22 @@ class UnconstrainedBoxExampleRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const UnconstrainedBoxExamplePage();
+    },
+  );
+}
+
+/// generated route for
+/// [UniversalHtmlPage]
+class UniversalHtmlRoute extends PageRouteInfo<void> {
+  const UniversalHtmlRoute({List<PageRouteInfo>? children})
+    : super(UniversalHtmlRoute.name, initialChildren: children);
+
+  static const String name = 'UniversalHtmlRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const UniversalHtmlPage();
     },
   );
 }

@@ -78,6 +78,7 @@ abstract final class RouteName {
   static const autoRouteLogin = 'AutoRouteLoginRoute';
   static const autoRouteSignup = 'AutoRouteSignupRoute';
   static const autoRouteUnknown = 'AutoRouteUnknownRoute';
+  static const animateDo = 'AnimateDoRoute';
   static const intl = 'IntlRoute';
   static const jnigen = 'JnigenRoute';
   static const characters = 'CharactersRoute';
@@ -146,7 +147,9 @@ abstract final class RouteName {
   static const simpleDialog = 'SimpleDialogExampleRoute';
   static const dialog = 'DialogExampleRoute';
   static const dio = 'DioRoute';
+  static const dioSmartRetry = 'DioSmartRetryRoute';
   static const dioMultiUrl = 'DioMultiUrlRoute';
+  static const dottedBorder = 'DottedBorderRoute';
   static const drawer = 'DrawerRoute';
   static const futureBuilder = 'FutureBuilderRoute';
   static const genui = 'GenuiRoute';
@@ -206,6 +209,7 @@ abstract final class RouteName {
   static const pigeon = 'PigeonRoute';
   static const popScope = 'PopScopeRoute';
   static const speechToText = 'SpeechToTextRoute';
+  static const syncfusionFlutterCharts = 'SyncfusionFlutterChartsRoute';
   static const smoothPageIndicator = 'SmoothPageIndicatorRoute';
   static const superClipboard = 'SuperClipboardRoute';
   static const sharedPreferences = 'SharedPreferencesRoute';
@@ -219,6 +223,7 @@ abstract final class RouteName {
   static const tooltip = 'TooltipRoute';
   static const animatedTextKit = 'AnimatedTextKitRoute';
   static const animationsPackage = 'AnimationsPackageRoute';
+  static const universalHtml = 'UniversalHtmlRoute';
   static const fcNativeVideoThumbnail = 'FcNativeVideoThumbnailRoute';
   static const flutterSlidable = 'FlutterSlidableRoute';
   static const flutterVideoCachingFvp = 'FlutterVideoCachingFvpRoute';
@@ -357,6 +362,7 @@ enum AppRoute {
   autoRouteLogin('/auto-route-page/login', RouteName.autoRouteLogin),
   autoRouteSignup('/auto-route-page/signup', RouteName.autoRouteSignup),
   autoRouteUnknown('/auto-route-page/*', RouteName.autoRouteUnknown),
+  animateDo('/animate-do-page', RouteName.animateDo),
   intl('/intl-page', RouteName.intl),
   jnigen('/jnigen-page', RouteName.jnigen),
   characters('/characters-page', RouteName.characters),
@@ -457,7 +463,9 @@ enum AppRoute {
   simpleDialog('/simple-dialog-page', RouteName.simpleDialog),
   dialog('/dialog-page', RouteName.dialog),
   dio('/dio-page', RouteName.dio),
+  dioSmartRetry('/dio-smart-retry-page', RouteName.dioSmartRetry),
   dioMultiUrl('/dio-multi-url-page', RouteName.dioMultiUrl),
+  dottedBorder('/dotted-border-page', RouteName.dottedBorder),
   drawer('/drawer-page', RouteName.drawer),
   futureBuilder('/future-builder-page', RouteName.futureBuilder),
   genui('/genui-page', RouteName.genui),
@@ -538,6 +546,10 @@ enum AppRoute {
   pigeon('/pigeon-page', RouteName.pigeon),
   popScope('/pop-scope-page', RouteName.popScope),
   speechToText('/speech-to-text-page', RouteName.speechToText),
+  syncfusionFlutterCharts(
+    '/syncfusion-flutter-charts-page',
+    RouteName.syncfusionFlutterCharts,
+  ),
   smoothPageIndicator(
     '/smooth-page-indicator-page',
     RouteName.smoothPageIndicator,
@@ -566,6 +578,7 @@ enum AppRoute {
   tooltip('/tooltip-page', RouteName.tooltip),
   animatedTextKit('/animated-text-kit-page', RouteName.animatedTextKit),
   animationsPackage('/animations-page', RouteName.animationsPackage),
+  universalHtml('/universal-html-page', RouteName.universalHtml),
   fcNativeVideoThumbnail(
     '/fc-native-video-thumbnail-page',
     RouteName.fcNativeVideoThumbnail,

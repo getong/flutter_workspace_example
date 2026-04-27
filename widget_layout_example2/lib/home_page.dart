@@ -191,8 +191,16 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(label: 'Dialog Module', routePath: AppRoute.dialog.path),
   _ModuleLink(label: 'dio Module', routePath: AppRoute.dio.path),
   _ModuleLink(
+    label: 'dio_smart_retry Module',
+    routePath: AppRoute.dioSmartRetry.path,
+  ),
+  _ModuleLink(
     label: 'dio + get_it Multi-URL Module',
     routePath: AppRoute.dioMultiUrl.path,
+  ),
+  _ModuleLink(
+    label: 'dotted_border Module',
+    routePath: AppRoute.dottedBorder.path,
   ),
   _ModuleLink(label: 'Drawer Module', routePath: AppRoute.drawer.path),
   _ModuleLink(label: 'DragTarget Module', routePath: AppRoute.dragTarget.path),
@@ -461,6 +469,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.speechToText.path,
   ),
   _ModuleLink(
+    label: 'syncfusion_flutter_charts Module',
+    routePath: AppRoute.syncfusionFlutterCharts.path,
+  ),
+  _ModuleLink(
     label: 'StreamBuilder Module',
     routePath: AppRoute.streamBuilder.path,
   ),
@@ -498,6 +510,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
   ),
   _ModuleLink(label: 'Tooltip Module', routePath: AppRoute.tooltip.path),
   _ModuleLink(
+    label: 'universal_html Module',
+    routePath: AppRoute.universalHtml.path,
+  ),
+  _ModuleLink(
     label: 'url_launcher Module',
     routePath: AppRoute.urlLauncher.path,
   ),
@@ -509,6 +525,7 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
 ];
 
 final List<_ModuleLink> _animationModules = <_ModuleLink>[
+  _ModuleLink(label: 'animate_do Module', routePath: AppRoute.animateDo.path),
   _ModuleLink(
     label: 'animated_text_kit Module',
     routePath: AppRoute.animatedTextKit.path,
