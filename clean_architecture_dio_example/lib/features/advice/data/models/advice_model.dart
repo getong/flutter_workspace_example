@@ -1,16 +1,11 @@
 import '../../domain/entities/advice.dart';
 
-class AdviceModel {
-  final int id;
-  final String message;
-  final String source;
-  final String? author;
-
+class AdviceModel extends Advice {
   const AdviceModel({
-    required this.id,
-    required this.message,
-    required this.source,
-    this.author,
+    required super.id,
+    required super.message,
+    required super.source,
+    super.author,
   });
 
   factory AdviceModel.fromJson(Map<String, dynamic> json) {
@@ -39,9 +34,5 @@ class AdviceModel {
       source: rawSource,
       author: rawAuthor is String && rawAuthor.isNotEmpty ? rawAuthor : null,
     );
-  }
-
-  Advice toEntity() {
-    return Advice(id: id, message: message, source: source, author: author);
   }
 }

@@ -41,7 +41,7 @@ class AdviceRepositoryImpl implements AdviceRepository {
 
   Future<Advice> _fetchRemoteAdvice() async {
     final adviceModel = await _apiService.fetchRandomAdvice();
-    return adviceModel.toEntity();
+    return adviceModel;
   }
 
   bool _shouldUseFallback(DioException error) {
