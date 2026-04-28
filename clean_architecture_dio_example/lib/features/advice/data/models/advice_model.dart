@@ -1,5 +1,10 @@
+import 'package:json_annotation/json_annotation.dart';
+
 import '../../domain/entities/advice.dart';
 
+part 'advice_model.g.dart';
+
+@JsonSerializable(createToJson: false, checked: true)
 class AdviceModel extends Advice {
   const AdviceModel({
     required super.id,
@@ -9,30 +14,48 @@ class AdviceModel extends Advice {
   });
 
   factory AdviceModel.fromJson(Map<String, dynamic> json) {
-    final rawId = json['id'];
-    final rawMessage = json['hitokoto'];
-    final rawSource = json['from'];
-    final rawAuthor = json['from_who'];
+    try {
+      final advice = _$AdviceModelFromJson(json);
 
-    final id = switch (rawId) {
-      int value => value,
-      String value => int.tryParse(value),
-      _ => null,
-    };
+      if (advice.message.isEmpty || advice.source.isEmpty) {
+        throw const FormatException('Advice payload is malformed.');
+      }
 
-    if (id == null ||
-        rawMessage is! String ||
-        rawMessage.isEmpty ||
-        rawSource is! String ||
-        rawSource.isEmpty) {
+      return advice;
+    } on CheckedFromJsonException {
       throw const FormatException('Advice payload is malformed.');
     }
+  }
 
-    return AdviceModel(
-      id: id,
-      message: rawMessage,
-      source: rawSource,
-      author: rawAuthor is String && rawAuthor.isNotEmpty ? rawAuthor : null,
-    );
+  @JsonKey(fromJson: _idFromJson)
+  @override
+  int get id;
+
+  @JsonKey(name: 'hitokoto')
+  @override
+  String get message;
+
+  @JsonKey(name: 'from')
+  @override
+  String get source;
+
+  @JsonKey(name: 'from_who', fromJson: _authorFromJson)
+  @override
+  String? get author;
+
+  static int _idFromJson(Object? value) {
+    return switch (value) {
+          int value => value,
+          String value => int.tryParse(value),
+          _ => null,
+        } ??
+        (throw const FormatException('Advice payload is malformed.'));
+  }
+
+  static String? _authorFromJson(Object? value) {
+    return switch (value) {
+      String value when value.isNotEmpty => value,
+      _ => null,
+    };
   }
 }
