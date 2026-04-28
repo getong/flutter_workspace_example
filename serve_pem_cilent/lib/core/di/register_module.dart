@@ -8,11 +8,16 @@ import '../../features/advice/data/services/fallback_advice_service.dart';
 import '../../features/advice/domain/repositories/advice_repository.dart';
 import '../../features/advice/domain/usecases/get_random_advice_usecase.dart';
 import '../../features/advice/presentation/bloc/advice_bloc.dart';
+import '../../features/serve_pem/data/services/serve_pem_chat_socket.dart';
 
 @module
 abstract class RegisterModule {
   @lazySingleton
   Dio get dio => createConfiguredDio();
+
+  @lazySingleton
+  ServePemWebSocketChannelFactory get servePemWebSocketChannelFactory =>
+      const ServePemWebSocketChannelFactory();
 
   // --- Data Layer Registration (LazySingleton) ---
   @LazySingleton()

@@ -31,6 +31,8 @@ import '../../features/serve_pem/data/services/serve_pem_api_service.dart'
     as _i22;
 import '../../features/serve_pem/data/services/serve_pem_chat_service.dart'
     as _i584;
+import '../../features/serve_pem/data/services/serve_pem_chat_socket.dart'
+    as _i676;
 import '../../features/serve_pem/domain/repositories/serve_pem_repository.dart'
     as _i654;
 import '../../features/serve_pem/domain/usecases/fetch_public_key_usecase.dart'
@@ -55,8 +57,10 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final registerModule = _$RegisterModule(this);
-    gh.factory<_i584.ServePemChatService>(() => _i584.ServePemChatService());
     gh.lazySingleton<_i361.Dio>(() => registerModule.dio);
+    gh.lazySingleton<_i676.ServePemWebSocketChannelFactory>(
+      () => registerModule.servePemWebSocketChannelFactory,
+    );
     gh.lazySingleton<_i396.FallbackAdviceService>(
       () => registerModule.fallbackAdviceService,
     );
@@ -64,9 +68,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i379.RegistrationEncryptor(),
     );
     gh.lazySingleton<_i22.ServePemApiService>(() => _i22.ServePemApiService());
-    gh.factory<_i462.ChatCubit>(
-      () => _i462.ChatCubit(gh<_i584.ServePemChatService>()),
-    );
     gh.lazySingleton<_i829.AdviceApiService>(
       () => registerModule.adviceApiService,
     );
@@ -74,6 +75,11 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i95.ServePemRepositoryImpl(
         gh<_i22.ServePemApiService>(),
         gh<_i379.RegistrationEncryptor>(),
+      ),
+    );
+    gh.factory<_i584.ServePemChatService>(
+      () => _i584.ServePemChatService(
+        gh<_i676.ServePemWebSocketChannelFactory>(),
       ),
     );
     gh.lazySingleton<_i154.AdviceRepository>(
@@ -87,6 +93,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i804.RegisterClientUseCase>(
       () => _i804.RegisterClientUseCase(gh<_i654.ServePemRepository>()),
+    );
+    gh.factory<_i462.ChatCubit>(
+      () => _i462.ChatCubit(gh<_i584.ServePemChatService>()),
     );
     gh.factory<_i828.RegisterCubit>(
       () => _i828.RegisterCubit(gh<_i804.RegisterClientUseCase>()),

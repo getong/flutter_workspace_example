@@ -1,6 +1,6 @@
-import 'serve_pem_chat_socket.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
-ServePemChatSocket connectPlatformServePemChatSocket(Uri uri) {
+WebSocketChannel connectPlatformServePemWebSocketChannel(Uri uri) {
   throw UnsupportedError(
     'WebSocket chat is not supported on this platform for $uri.',
   );

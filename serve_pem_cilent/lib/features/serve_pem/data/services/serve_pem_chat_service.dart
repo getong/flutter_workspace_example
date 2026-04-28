@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:injectable/injectable.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../../domain/entities/serve_pem_chat_event.dart';
 import 'serve_pem_chat_socket.dart';
@@ -21,11 +22,14 @@ class ServePemChatSession {
 
 @injectable
 class ServePemChatService {
+  final ServePemWebSocketChannelFactory _channelFactory;
   final _eventsController = StreamController<ServePemChatEvent>.broadcast();
 
-  ServePemChatSocket? _socket;
+  WebSocketChannel? _channel;
   StreamSubscription<String>? _socketSubscription;
   String? _activeUser;
+
+  ServePemChatService(this._channelFactory);
 
   Stream<ServePemChatEvent> get events => _eventsController.stream;
 
@@ -38,11 +42,16 @@ class ServePemChatService {
     await disconnect(emitEvent: false);
 
     final uri = buildServePemChatUri(room: normalizedRoom);
-    final socket = connectServePemChatSocket(uri);
+    final channel = _channelFactory.create(uri);
 
-    _socket = socket;
+    _eventsController.add(
+      ServePemChatEvent.localInfo('Connecting to $uri as "$normalizedUser".'),
+    );
+    await channel.ready;
+
+    _channel = channel;
     _activeUser = normalizedUser;
-    _socketSubscription = socket.messages.listen(
+    _socketSubscription = normalizeSocketMessages(channel.stream).listen(
       _handleRawMessage,
       onError: (Object error, StackTrace stackTrace) {
         _eventsController.add(
@@ -62,10 +71,6 @@ class ServePemChatService {
       cancelOnError: false,
     );
 
-    _eventsController.add(
-      ServePemChatEvent.localInfo('Connecting to $uri as "$normalizedUser".'),
-    );
-
     return ServePemChatSession(
       room: normalizedRoom,
       user: normalizedUser,
@@ -74,8 +79,8 @@ class ServePemChatService {
   }
 
   Future<void> sendMessage(String message) async {
-    final socket = _socket;
-    if (socket == null) {
+    final channel = _channel;
+    if (channel == null) {
       throw const FormatException('Connect to a room before sending messages.');
     }
 
@@ -92,7 +97,7 @@ class ServePemChatService {
       'payload': {'user': user, 'msg': trimmedMessage},
     });
 
-    await socket.sendText(payload);
+    channel.sink.add(payload);
   }
 
   Future<void> disconnect({bool emitEvent = true}) async {
@@ -100,11 +105,11 @@ class ServePemChatService {
     _socketSubscription = null;
     await subscription?.cancel();
 
-    final socket = _socket;
-    _socket = null;
+    final channel = _channel;
+    _channel = null;
     _activeUser = null;
-    if (socket != null) {
-      await socket.close();
+    if (channel != null) {
+      await channel.sink.close();
     }
 
     if (emitEvent) {

@@ -1,29 +1,9 @@
 import 'dart:io';
 
 import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
-import 'serve_pem_chat_socket.dart';
-
-class _IoServePemChatSocket implements ServePemChatSocket {
-  final IOWebSocketChannel _channel;
-
-  _IoServePemChatSocket(this._channel);
-
-  @override
-  Stream<String> get messages => normalizeSocketMessages(_channel.stream);
-
-  @override
-  Future<void> sendText(String text) async {
-    _channel.sink.add(text);
-  }
-
-  @override
-  Future<void> close([int? code, String? reason]) async {
-    await _channel.sink.close(code, reason);
-  }
-}
-
-ServePemChatSocket connectPlatformServePemChatSocket(Uri uri) {
+WebSocketChannel connectPlatformServePemWebSocketChannel(Uri uri) {
   final client = HttpClient()
     ..connectionTimeout = const Duration(seconds: 5)
     ..idleTimeout = const Duration(seconds: 30)
@@ -36,7 +16,5 @@ ServePemChatSocket connectPlatformServePemChatSocket(Uri uri) {
   };
   client.findProxy = (_) => 'DIRECT';
 
-  return _IoServePemChatSocket(
-    IOWebSocketChannel.connect(uri, customClient: client),
-  );
+  return IOWebSocketChannel.connect(uri, customClient: client);
 }
