@@ -28,6 +28,14 @@ Map<String, dynamic> _$JsonCatalogEntryToJson(JsonCatalogEntry instance) =>
       'published_at': instance.publishedAt.toIso8601String(),
     };
 
+JsonIncomingUser _$JsonIncomingUserFromJson(Map<String, dynamic> json) =>
+    JsonIncomingUser(
+      id: json['id'] as String,
+      username: json['username'] as String,
+      avatarUrl: json['avatar_url'] as String?,
+      role: json['role'] as String,
+    );
+
 JsonSeller _$JsonSellerFromJson(Map<String, dynamic> json) => JsonSeller(
   handle: json['handle'] as String,
   rating: (json['rating'] as num).toDouble(),

@@ -16,6 +16,7 @@ class JsonAnnotationPage extends StatefulWidget {
 
 class _JsonAnnotationPageState extends State<JsonAnnotationPage> {
   late JsonCatalogEntry _entry;
+  late JsonIncomingUser _incomingUser;
   late final TextEditingController _jsonController;
   String _status =
       'Encode or decode the sample payload to inspect `@JsonSerializable` output.';
@@ -59,10 +60,18 @@ class _JsonAnnotationPageState extends State<JsonAnnotationPage> {
     'published_at': '2026-05-02T08:00:00.000Z',
   };
 
+  static final Map<String, dynamic> _incomingUserPayload = <String, dynamic>{
+    'id': 'user_42',
+    'username': 'api_reader',
+    'avatar_url': 'https://example.com/avatars/api_reader.png',
+    'role': 'moderator',
+  };
+
   @override
   void initState() {
     super.initState();
     _entry = _sample;
+    _incomingUser = JsonIncomingUser.fromJson(_incomingUserPayload);
     _jsonController = TextEditingController(text: _prettyJson(_entry.toJson()));
   }
 
@@ -102,6 +111,14 @@ class _JsonAnnotationPageState extends State<JsonAnnotationPage> {
     }
   }
 
+  void _reloadIncomingUserExample() {
+    setState(() {
+      _incomingUser = JsonIncomingUser.fromJson(_incomingUserPayload);
+      _status =
+          'Decoded an incoming-only payload with `@JsonSerializable(createToJson: false)`.';
+    });
+  }
+
   String _prettyJson(Map<String, dynamic> json) {
     return const JsonEncoder.withIndent('  ').convert(json);
   }
@@ -131,8 +148,9 @@ class _JsonAnnotationPageState extends State<JsonAnnotationPage> {
                   Text(
                     'This module demonstrates `@JsonSerializable`, `fieldRename`, '
                     '`explicitToJson`, nested model generation, '
-                    '`@JsonKey(fromJson: ..., toJson: ...)`, plus real '
-                    '`fromJson` and `toJson` round-trips.',
+                    '`@JsonKey(fromJson: ..., toJson: ...)`, '
+                    '`createToJson: false`, plus real `fromJson` and `toJson` '
+                    'round-trips.',
                     style: theme.textTheme.bodyLarge,
                   ),
                   const SizedBox(height: 16),
@@ -179,6 +197,49 @@ class _JsonAnnotationPageState extends State<JsonAnnotationPage> {
                         'unitPrice=${point.unitPrice.toStringAsFixed(2)} ${point.currency}',
                       ),
                     ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(18),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Incoming-only Model Snapshot',
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    'Use `createToJson: false` when a model is only decoded from an API or auth provider and never sent back.',
+                    style: theme.textTheme.bodyLarge,
+                  ),
+                  const SizedBox(height: 12),
+                  Wrap(
+                    spacing: 10,
+                    runSpacing: 10,
+                    children: <Widget>[
+                      Chip(label: Text('id: ${_incomingUser.id}')),
+                      Chip(label: Text('username: ${_incomingUser.username}')),
+                      Chip(label: Text('role: ${_incomingUser.role}')),
+                      Chip(
+                        label: Text(
+                          'avatarUrl: ${_incomingUser.avatarUrl ?? 'null'}',
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  FilledButton.icon(
+                    onPressed: _reloadIncomingUserExample,
+                    icon: const Icon(Icons.download_for_offline_outlined),
+                    label: const Text('Decode Incoming User'),
                   ),
                 ],
               ),
@@ -254,6 +315,32 @@ class JsonCatalogEntry {
       _$JsonCatalogEntryFromJson(json);
 
   Map<String, dynamic> toJson() => _$JsonCatalogEntryToJson(this);
+}
+''',
+          ),
+          const SizedBox(height: 16),
+          _JsonCodeCard(
+            title: 'Incoming-only Pattern',
+            code: r'''
+@JsonSerializable(createToJson: false, fieldRename: FieldRename.snake)
+class JsonIncomingUser {
+  const JsonIncomingUser({
+    required this.id,
+    required this.username,
+    this.avatarUrl,
+    required this.role,
+  });
+
+  final String id;
+  final String username;
+
+  @JsonKey(name: 'avatar_url')
+  final String? avatarUrl;
+
+  final String role;
+
+  factory JsonIncomingUser.fromJson(Map<String, dynamic> json) =>
+      _$JsonIncomingUserFromJson(json);
 }
 ''',
           ),

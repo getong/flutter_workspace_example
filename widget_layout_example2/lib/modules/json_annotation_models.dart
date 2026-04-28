@@ -30,6 +30,27 @@ class JsonCatalogEntry {
   Map<String, dynamic> toJson() => _$JsonCatalogEntryToJson(this);
 }
 
+@JsonSerializable(createToJson: false, fieldRename: FieldRename.snake)
+class JsonIncomingUser {
+  const JsonIncomingUser({
+    required this.id,
+    required this.username,
+    this.avatarUrl,
+    required this.role,
+  });
+
+  final String id;
+  final String username;
+
+  @JsonKey(name: 'avatar_url')
+  final String? avatarUrl;
+
+  final String role;
+
+  factory JsonIncomingUser.fromJson(Map<String, dynamic> json) =>
+      _$JsonIncomingUserFromJson(json);
+}
+
 @JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class JsonSeller {
   const JsonSeller({required this.handle, required this.rating, this.region});
