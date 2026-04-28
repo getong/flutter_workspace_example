@@ -29,3 +29,33 @@ scopes generation to `lib/`.
 ## client of rust_example
 
 aws_lc_rs_workspace_example/serve_pem
+
+## Serve PEM Flow
+
+The Rust service now exposes three client-relevant endpoints:
+
+- `GET /public-key`
+- `POST /register`
+- `POST /login`
+
+The client fetches the server RSA public key from `/public-key`, generates a
+random 32-byte AES key plus a random 12-byte nonce, encrypts the JSON payload
+with `AES-256-GCM`, wraps the AES key with `RSA-OAEP-SHA256`, and posts:
+
+```json
+{
+  "wrapped_key_base64": "...",
+  "nonce_base64": "...",
+  "ciphertext_base64": "..."
+}
+```
+
+The `/register` and `/login` responses both include:
+
+```json
+{
+  "status": "registered or authenticated",
+  "user_id": 1,
+  "client_public_key_sha256": "..."
+}
+```

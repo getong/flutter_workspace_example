@@ -8,8 +8,8 @@ part 'registration_result_model.g.dart';
 class RegistrationResultModel extends RegistrationResult {
   const RegistrationResultModel({
     required super.status,
+    required super.userId,
     required super.clientPublicKeySha256,
-    required super.passwordSha256,
   });
 
   factory RegistrationResultModel.fromJson(Map<String, dynamic> json) {
@@ -17,23 +17,23 @@ class RegistrationResultModel extends RegistrationResult {
       final result = _$RegistrationResultModelFromJson(json);
 
       if (result.status.isEmpty) {
-        throw const FormatException('Register response payload is malformed.');
+        throw const FormatException('Auth response payload is malformed.');
       }
 
       return result;
     } on CheckedFromJsonException {
-      throw const FormatException('Register response payload is malformed.');
+      throw const FormatException('Auth response payload is malformed.');
     }
   }
 
   @override
   String get status;
 
+  @JsonKey(name: 'user_id')
+  @override
+  int get userId;
+
   @JsonKey(name: 'client_public_key_sha256')
   @override
   String get clientPublicKeySha256;
-
-  @JsonKey(name: 'password_sha256')
-  @override
-  String get passwordSha256;
 }

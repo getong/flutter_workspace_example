@@ -37,7 +37,7 @@ class HomeView extends StatelessWidget {
             const SizedBox(height: 12),
             Text(
               'This app talks to the local Axum demo from '
-              '`serve_pem`: fetch the RSA public key, then encrypt a compact JSON registration payload and submit it back to `/register`.',
+              '`serve_pem`: fetch the RSA public key, wrap a random AES key with RSA-OAEP-SHA256, encrypt the JSON payload with AES-256-GCM, and submit the hybrid-encrypted request to `/register` or `/login`.',
               style: theme.textTheme.bodyLarge,
             ),
             const SizedBox(height: 24),
@@ -46,7 +46,7 @@ class HomeView extends StatelessWidget {
             _ActionCard(
               title: 'Inspect /public-key',
               description:
-                  'Load the PEM, DER base64, SHA-256 fingerprint, and plaintext size limit returned by the Rust service.',
+                  'Load the PEM, DER base64, SHA-256 fingerprint, and hybrid transport metadata returned by the Rust service.',
               icon: Icons.key_outlined,
               onTap: () => context.pushRoute(const PublicKeyRoute()),
             ),
@@ -54,16 +54,24 @@ class HomeView extends StatelessWidget {
             _ActionCard(
               title: 'Submit /register',
               description:
-                  'Build the plaintext JSON expected by the server, encrypt it with RSA-OAEP-SHA256, and POST the ciphertext.',
+                  'Encrypt a registration payload with AES-256-GCM, wrap the AES key with RSA-OAEP-SHA256, and POST the full request body.',
               icon: Icons.lock_outline,
               onTap: () => context.pushRoute(const RegisterRoute()),
+            ),
+            const SizedBox(height: 16),
+            _ActionCard(
+              title: 'Submit /login',
+              description:
+                  'Send the same hybrid-encrypted request shape to authenticate a previously registered client.',
+              icon: Icons.login,
+              onTap: () => context.pushRoute(const LoginRoute()),
             ),
             const SizedBox(height: 24),
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Text(
-                  'Keep the payload short. The Rust server uses RSA-2048 OAEP-SHA256, so the plaintext limit is typically 190 bytes total.',
+                  'The RSA key only wraps a random 32-byte AES key now. Your JSON payload is encrypted with AES-256-GCM, so it is no longer constrained by the OAEP plaintext limit.',
                   style: theme.textTheme.bodyMedium,
                 ),
               ),

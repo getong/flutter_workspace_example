@@ -8,4 +8,9 @@ abstract interface class ServePemRepository {
     required String clientPublicKey,
     required String password,
   });
+
+  Future<RegistrationResult> login({
+    required String clientPublicKey,
+    required String password,
+  });
 }

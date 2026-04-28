@@ -2,33 +2,33 @@ import 'dart:convert';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/di/di.dart';
-import '../cubit/register_cubit.dart';
+import '../cubit/login_cubit.dart';
 
 @RoutePage()
-class RegisterView extends StatelessWidget {
-  const RegisterView({super.key});
+class LoginView extends StatelessWidget {
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt<RegisterCubit>(),
-      child: const _RegisterScreen(),
+      create: (_) => getIt<LoginCubit>(),
+      child: const _LoginScreen(),
     );
   }
 }
 
-class _RegisterScreen extends StatefulWidget {
-  const _RegisterScreen();
+class _LoginScreen extends StatefulWidget {
+  const _LoginScreen();
 
   @override
-  State<_RegisterScreen> createState() => _RegisterScreenState();
+  State<_LoginScreen> createState() => _LoginScreenState();
 }
 
-class _RegisterScreenState extends State<_RegisterScreen> {
+class _LoginScreenState extends State<_LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _clientPublicKeyController = TextEditingController(
     text: 'client-mobile-01',
@@ -45,7 +45,7 @@ class _RegisterScreenState extends State<_RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('/register')),
+      appBar: AppBar(title: const Text('/login')),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(24),
@@ -54,7 +54,7 @@ class _RegisterScreenState extends State<_RegisterScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Text(
-                  'The client first loads `/public-key`, then wraps a random AES-256 key with RSA-OAEP-SHA256 and encrypts the registration JSON with AES-256-GCM. The POST body sent to the Rust server contains `wrapped_key_base64`, `nonce_base64`, and `ciphertext_base64`.',
+                  'This uses the same hybrid transport as `/register`: fetch `/public-key`, wrap a random AES-256 key with RSA-OAEP-SHA256, encrypt the JSON payload with AES-256-GCM, and submit the three base64 fields to `/login`.',
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
@@ -67,10 +67,10 @@ class _RegisterScreenState extends State<_RegisterScreen> {
                   TextFormField(
                     controller: _clientPublicKeyController,
                     decoration: const InputDecoration(
-                      labelText: 'Client public key or short client id',
+                      labelText: 'Registered client public key or client id',
                       border: OutlineInputBorder(),
                       helperText:
-                          'This no longer has to fit inside the RSA limit, but the Rust server still caps this field at 8 KiB after decryption.',
+                          'Use the same client_public_key value that was registered with the Rust service.',
                     ),
                     minLines: 1,
                     maxLines: 3,
@@ -83,7 +83,7 @@ class _RegisterScreenState extends State<_RegisterScreen> {
                       labelText: 'Password',
                       border: OutlineInputBorder(),
                       helperText:
-                          'The Rust server caps this field at 1024 bytes after decryption.',
+                          'If the password or client_public_key is wrong, the server returns 401 invalid_credentials.',
                     ),
                     obscureText: true,
                     validator: _validateRequiredField,
@@ -92,16 +92,16 @@ class _RegisterScreenState extends State<_RegisterScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            BlocConsumer<RegisterCubit, RegisterState>(
+            BlocConsumer<LoginCubit, LoginState>(
               listener: (context, state) {
-                if (state is RegisterError) {
+                if (state is LoginError) {
                   ScaffoldMessenger.of(
                     context,
                   ).showSnackBar(SnackBar(content: Text(state.message)));
                 }
               },
               builder: (context, state) {
-                final isSubmitting = state is RegisterSubmitting;
+                final isSubmitting = state is LoginSubmitting;
 
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -114,24 +114,24 @@ class _RegisterScreenState extends State<_RegisterScreen> {
                               height: 18,
                               child: CircularProgressIndicator(strokeWidth: 2),
                             )
-                          : const Icon(Icons.lock),
+                          : const Icon(Icons.login),
                       label: Text(
                         isSubmitting
                             ? 'Encrypting and sending'
-                            : 'Submit registration',
+                            : 'Submit login',
                       ),
                     ),
                     const SizedBox(height: 20),
                     switch (state) {
-                      RegisterSuccess(:final result) => _RegisterResultCard(
+                      LoginSuccess(:final result) => _LoginResultCard(
                         status: result.status,
                         userId: result.userId,
                         clientPublicKeySha256: result.clientPublicKeySha256,
                       ),
-                      RegisterError(:final message) => _RegisterErrorCard(
+                      LoginError(:final message) => _LoginErrorCard(
                         message: message,
                       ),
-                      RegisterSubmitting() => const _PendingCard(),
+                      LoginSubmitting() => const _PendingCard(),
                       _ => const _IdleCard(),
                     },
                   ],
@@ -157,7 +157,7 @@ class _RegisterScreenState extends State<_RegisterScreen> {
       return;
     }
 
-    context.read<RegisterCubit>().submit(
+    context.read<LoginCubit>().submit(
       clientPublicKey: _clientPublicKeyController.text.trim(),
       password: _passwordController.text,
     );
@@ -173,7 +173,7 @@ class _IdleCard extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(20),
         child: Text(
-          'Enter a client key value and password, then submit to run the full `/public-key` -> hybrid encrypt -> `/register` flow.',
+          'Register a user first, then submit matching credentials to test the `/login` flow.',
         ),
       ),
     );
@@ -189,19 +189,19 @@ class _PendingCard extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(20),
         child: Text(
-          'Fetching the current server key, generating a random AES key and nonce, and encrypting the payload.',
+          'Fetching the current server key and encrypting the login payload.',
         ),
       ),
     );
   }
 }
 
-class _RegisterResultCard extends StatelessWidget {
+class _LoginResultCard extends StatelessWidget {
   final String status;
   final int userId;
   final String clientPublicKeySha256;
 
-  const _RegisterResultCard({
+  const _LoginResultCard({
     required this.status,
     required this.userId,
     required this.clientPublicKeySha256,
@@ -229,7 +229,7 @@ class _RegisterResultCard extends StatelessWidget {
                   TextButton.icon(
                     onPressed: () => _copyToClipboard(
                       context,
-                      label: 'Full register result JSON',
+                      label: 'Full login result JSON',
                       value: resultPayload,
                     ),
                     icon: const Icon(Icons.copy_all_outlined),
@@ -284,7 +284,7 @@ class _CopyableResultField extends StatelessWidget {
             Expanded(child: Text(label)),
             IconButton(
               tooltip: 'Copy $label',
-              onPressed: () => _RegisterResultCard._copyToClipboard(
+              onPressed: () => _LoginResultCard._copyToClipboard(
                 context,
                 label: label,
                 value: value,
@@ -300,10 +300,10 @@ class _CopyableResultField extends StatelessWidget {
   }
 }
 
-class _RegisterErrorCard extends StatelessWidget {
+class _LoginErrorCard extends StatelessWidget {
   final String message;
 
-  const _RegisterErrorCard({required this.message});
+  const _LoginErrorCard({required this.message});
 
   @override
   Widget build(BuildContext context) {

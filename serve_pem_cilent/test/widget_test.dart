@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:serve_pem_cilent/core/di/di.dart';
@@ -24,6 +25,20 @@ void main() {
 
     expect(find.text('Serve PEM Client'), findsOneWidget);
     expect(find.text('Rust service playground'), findsOneWidget);
+    expect(find.text('Active server endpoint'), findsOneWidget);
+
+    await tester.scrollUntilVisible(
+      find.text('Inspect /public-key'),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
     expect(find.text('Inspect /public-key'), findsOneWidget);
+
+    await tester.scrollUntilVisible(
+      find.text('Submit /login'),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
+    expect(find.text('Submit /login'), findsOneWidget);
   });
 }

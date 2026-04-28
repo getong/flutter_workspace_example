@@ -18,6 +18,8 @@ class ServePemRepositoryImpl implements ServePemRepository {
   Future<PublicKeyInfo> getPublicKey() async {
     try {
       return await _apiService.fetchPublicKey();
+    } on ServePemApiException catch (error) {
+      throw Exception(_decorateApiError(error));
     } on DioException catch (error) {
       throw Exception(
         _messageFromDioException(
@@ -36,20 +38,49 @@ class ServePemRepositoryImpl implements ServePemRepository {
     required String password,
   }) async {
     final publicKeyInfo = await getPublicKey();
-    final ciphertextBase64 = _encryptor.encrypt(
-      publicKeyPem: publicKeyInfo.publicKeyPem,
-      maxPlaintextBytes: publicKeyInfo.maxPlaintextBytes,
+    final encryptedRequest = _encryptor.encrypt(
+      publicKeyInfo: publicKeyInfo,
       clientPublicKey: clientPublicKey,
       password: password,
     );
 
     try {
-      return await _apiService.register(ciphertextBase64: ciphertextBase64);
+      return await _apiService.register(encryptedRequest: encryptedRequest);
+    } on ServePemApiException catch (error) {
+      throw Exception(_decorateApiError(error));
     } on DioException catch (error) {
       throw Exception(
         _messageFromDioException(
           error,
           fallback: 'Unable to submit the encrypted registration.',
+        ),
+      );
+    } on FormatException catch (error) {
+      throw Exception(error.message);
+    }
+  }
+
+  @override
+  Future<RegistrationResult> login({
+    required String clientPublicKey,
+    required String password,
+  }) async {
+    final publicKeyInfo = await getPublicKey();
+    final encryptedRequest = _encryptor.encrypt(
+      publicKeyInfo: publicKeyInfo,
+      clientPublicKey: clientPublicKey,
+      password: password,
+    );
+
+    try {
+      return await _apiService.login(encryptedRequest: encryptedRequest);
+    } on ServePemApiException catch (error) {
+      throw Exception(_decorateApiError(error));
+    } on DioException catch (error) {
+      throw Exception(
+        _messageFromDioException(
+          error,
+          fallback: 'Unable to submit the encrypted login.',
         ),
       );
     } on FormatException catch (error) {
@@ -63,8 +94,12 @@ class ServePemRepositoryImpl implements ServePemRepository {
   }) {
     final payload = error.response?.data;
     if (payload is Map<String, dynamic>) {
+      final serverCode = payload['code'];
       final serverMessage = payload['error'];
       if (serverMessage is String && serverMessage.trim().isNotEmpty) {
+        if (serverCode is String && serverCode.trim().isNotEmpty) {
+          return '$serverMessage (${serverCode.trim()})';
+        }
         return serverMessage;
       }
     }
@@ -75,5 +110,13 @@ class ServePemRepositoryImpl implements ServePemRepository {
     }
 
     return fallback;
+  }
+
+  String _decorateApiError(ServePemApiException error) {
+    if (error.code == null || error.code!.trim().isEmpty) {
+      return error.message;
+    }
+
+    return '${error.message} (${error.code!.trim()})';
   }
 }

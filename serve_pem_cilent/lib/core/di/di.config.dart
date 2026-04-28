@@ -33,8 +33,11 @@ import '../../features/serve_pem/domain/repositories/serve_pem_repository.dart'
     as _i654;
 import '../../features/serve_pem/domain/usecases/fetch_public_key_usecase.dart'
     as _i544;
+import '../../features/serve_pem/domain/usecases/login_client_usecase.dart'
+    as _i248;
 import '../../features/serve_pem/domain/usecases/register_client_usecase.dart'
     as _i804;
+import '../../features/serve_pem/presentation/cubit/login_cubit.dart' as _i229;
 import '../../features/serve_pem/presentation/cubit/public_key_cubit.dart'
     as _i60;
 import '../../features/serve_pem/presentation/cubit/register_cubit.dart'
@@ -72,11 +75,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i544.FetchPublicKeyUseCase>(
       () => _i544.FetchPublicKeyUseCase(gh<_i654.ServePemRepository>()),
     );
+    gh.factory<_i248.LoginClientUseCase>(
+      () => _i248.LoginClientUseCase(gh<_i654.ServePemRepository>()),
+    );
     gh.factory<_i804.RegisterClientUseCase>(
       () => _i804.RegisterClientUseCase(gh<_i654.ServePemRepository>()),
     );
     gh.factory<_i828.RegisterCubit>(
       () => _i828.RegisterCubit(gh<_i804.RegisterClientUseCase>()),
+    );
+    gh.factory<_i229.LoginCubit>(
+      () => _i229.LoginCubit(gh<_i248.LoginClientUseCase>()),
     );
     gh.factory<_i60.PublicKeyCubit>(
       () => _i60.PublicKeyCubit(gh<_i544.FetchPublicKeyUseCase>()),

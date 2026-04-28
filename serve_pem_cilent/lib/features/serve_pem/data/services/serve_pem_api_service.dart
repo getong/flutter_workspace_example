@@ -4,6 +4,14 @@ import 'package:injectable/injectable.dart';
 import '../../../../core/network/serve_pem_dio_factory.dart';
 import '../models/public_key_info_model.dart';
 import '../models/registration_result_model.dart';
+import 'registration_encryptor.dart';
+
+class ServePemApiException implements Exception {
+  final String message;
+  final String? code;
+
+  const ServePemApiException(this.message, {this.code});
+}
 
 @lazySingleton
 class ServePemApiService {
@@ -21,15 +29,29 @@ class ServePemApiService {
   }
 
   Future<RegistrationResultModel> register({
-    required String ciphertextBase64,
+    required EncryptedAuthRequest encryptedRequest,
   }) async {
     final response = await _dio.post<Map<String, dynamic>>(
       '/register',
-      data: <String, dynamic>{'ciphertext_base64': ciphertextBase64},
+      data: encryptedRequest.toJson(),
     );
     final payload = _requirePayload(
       response,
       'Register response is missing a JSON body.',
+    );
+    return RegistrationResultModel.fromJson(payload);
+  }
+
+  Future<RegistrationResultModel> login({
+    required EncryptedAuthRequest encryptedRequest,
+  }) async {
+    final response = await _dio.post<Map<String, dynamic>>(
+      '/login',
+      data: encryptedRequest.toJson(),
+    );
+    final payload = _requirePayload(
+      response,
+      'Login response is missing a JSON body.',
     );
     return RegistrationResultModel.fromJson(payload);
   }
@@ -39,7 +61,7 @@ class ServePemApiService {
     String errorMessage,
   ) {
     if (response.statusCode != 200 || response.data == null) {
-      throw Exception(errorMessage);
+      throw ServePemApiException(errorMessage);
     }
 
     return response.data!;

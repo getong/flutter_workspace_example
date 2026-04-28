@@ -35,14 +35,30 @@ class _PublicKeyScreen extends StatelessWidget {
               ),
               PublicKeyLoaded(:final publicKeyInfo) => ListView(
                 children: [
-                  _InfoTile(label: 'Algorithm', value: publicKeyInfo.algorithm),
+                  _InfoTile(label: 'Transport', value: publicKeyInfo.transport),
+                  _InfoTile(
+                    label: 'Key encryption',
+                    value: publicKeyInfo.keyEncryptionAlgorithm,
+                  ),
+                  _InfoTile(
+                    label: 'Content encryption',
+                    value: publicKeyInfo.contentEncryptionAlgorithm,
+                  ),
                   _InfoTile(
                     label: 'Key format',
                     value: publicKeyInfo.keyFormat,
                   ),
                   _InfoTile(
-                    label: 'Max plaintext bytes',
-                    value: publicKeyInfo.maxPlaintextBytes.toString(),
+                    label: 'Wrapped key bytes',
+                    value: publicKeyInfo.wrappedKeyBytes.toString(),
+                  ),
+                  _InfoTile(
+                    label: 'Nonce bytes',
+                    value: publicKeyInfo.nonceBytes.toString(),
+                  ),
+                  _InfoTile(
+                    label: 'Max wrapped key plaintext bytes',
+                    value: publicKeyInfo.maxWrappedKeyPlaintextBytes.toString(),
                   ),
                   _InfoTile(
                     label: 'SHA-256 fingerprint',
