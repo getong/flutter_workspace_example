@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../domain/entities/registration_result.dart';
+import '../../domain/entities/auth_flow_result.dart';
 import '../../domain/usecases/register_client_usecase.dart';
 
 sealed class RegisterState {
@@ -17,7 +17,7 @@ class RegisterSubmitting extends RegisterState {
 }
 
 class RegisterSuccess extends RegisterState {
-  final RegistrationResult result;
+  final AuthFlowResult result;
 
   const RegisterSuccess(this.result);
 }

@@ -1,15 +1,15 @@
+import '../entities/auth_flow_result.dart';
 import '../entities/public_key_info.dart';
-import '../entities/registration_result.dart';
 
 abstract interface class ServePemRepository {
   Future<PublicKeyInfo> getPublicKey();
 
-  Future<RegistrationResult> register({
+  Future<AuthFlowResult> register({
     required String clientPublicKey,
     required String password,
   });
 
-  Future<RegistrationResult> login({
+  Future<AuthFlowResult> login({
     required String clientPublicKey,
     required String password,
   });

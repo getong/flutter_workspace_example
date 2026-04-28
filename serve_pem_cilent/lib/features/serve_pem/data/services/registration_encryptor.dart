@@ -6,29 +6,12 @@ import 'package:basic_utils/basic_utils.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pointycastle/export.dart';
 
+import '../../domain/entities/encrypted_auth_payload.dart';
 import '../../domain/entities/public_key_info.dart';
-
-class EncryptedAuthRequest {
-  final String wrappedKeyBase64;
-  final String nonceBase64;
-  final String ciphertextBase64;
-
-  const EncryptedAuthRequest({
-    required this.wrappedKeyBase64,
-    required this.nonceBase64,
-    required this.ciphertextBase64,
-  });
-
-  Map<String, dynamic> toJson() => <String, dynamic>{
-    'wrapped_key_base64': wrappedKeyBase64,
-    'nonce_base64': nonceBase64,
-    'ciphertext_base64': ciphertextBase64,
-  };
-}
 
 @lazySingleton
 class RegistrationEncryptor {
-  EncryptedAuthRequest encrypt({
+  EncryptedAuthPayload encrypt({
     required PublicKeyInfo publicKeyInfo,
     required String clientPublicKey,
     required String password,
@@ -73,7 +56,7 @@ class RegistrationEncryptor {
       );
     final ciphertext = gcmCipher.process(plaintextBytes);
 
-    return EncryptedAuthRequest(
+    return EncryptedAuthPayload(
       wrappedKeyBase64: base64Encode(wrappedContentKey),
       nonceBase64: base64Encode(nonceBytes),
       ciphertextBase64: base64Encode(ciphertext),

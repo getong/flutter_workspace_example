@@ -1,12 +1,10 @@
-import 'dart:convert';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/services.dart';
 
 import '../../../../core/di/di.dart';
 import '../cubit/register_cubit.dart';
+import '../widgets/auth_flow_details.dart';
 
 @RoutePage()
 class RegisterView extends StatelessWidget {
@@ -54,7 +52,7 @@ class _RegisterScreenState extends State<_RegisterScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Text(
-                  'The client first loads `/public-key`, then wraps a random AES-256 key with RSA-OAEP-SHA256 and encrypts the registration JSON with AES-256-GCM. The POST body sent to the Rust server contains `wrapped_key_base64`, `nonce_base64`, and `ciphertext_base64`.',
+                  'The client first loads `/public-key` over HTTPS, then wraps a random AES-256 key with RSA-OAEP-SHA256 and encrypts the registration JSON with AES-256-GCM. The POST body sent to the Rust server contains `wrapped_key_base64`, `nonce_base64`, and `ciphertext_base64`.',
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
@@ -123,10 +121,16 @@ class _RegisterScreenState extends State<_RegisterScreen> {
                     ),
                     const SizedBox(height: 20),
                     switch (state) {
-                      RegisterSuccess(:final result) => _RegisterResultCard(
-                        status: result.status,
-                        userId: result.userId,
-                        clientPublicKeySha256: result.clientPublicKeySha256,
+                      RegisterSuccess(:final result) => Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ServerResultCard(title: 'Register', flow: result),
+                          const SizedBox(height: 16),
+                          EncryptedRequestCard(
+                            title: 'Encrypted request sent to /register',
+                            flow: result,
+                          ),
+                        ],
                       ),
                       RegisterError(:final message) => _RegisterErrorCard(
                         message: message,
@@ -173,7 +177,7 @@ class _IdleCard extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(20),
         child: Text(
-          'Enter a client key value and password, then submit to run the full `/public-key` -> hybrid encrypt -> `/register` flow.',
+          'Enter a client key value and password, then submit to run the full HTTPS `/public-key` -> hybrid encrypt -> `/register` flow.',
         ),
       ),
     );
@@ -189,113 +193,9 @@ class _PendingCard extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(20),
         child: Text(
-          'Fetching the current server key, generating a random AES key and nonce, and encrypting the payload.',
+          'Fetching the current server key over HTTPS, generating a random AES key and nonce, and encrypting the payload.',
         ),
       ),
-    );
-  }
-}
-
-class _RegisterResultCard extends StatelessWidget {
-  final String status;
-  final int userId;
-  final String clientPublicKeySha256;
-
-  const _RegisterResultCard({
-    required this.status,
-    required this.userId,
-    required this.clientPublicKeySha256,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final resultPayload = jsonEncode(<String, Object>{
-      'status': status,
-      'user_id': userId,
-      'client_public_key_sha256': clientPublicKeySha256,
-    });
-
-    return Card(
-      color: Theme.of(context).colorScheme.primaryContainer,
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: SelectionArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Expanded(child: Text('Status: $status')),
-                  TextButton.icon(
-                    onPressed: () => _copyToClipboard(
-                      context,
-                      label: 'Full register result JSON',
-                      value: resultPayload,
-                    ),
-                    icon: const Icon(Icons.copy_all_outlined),
-                    label: const Text('Copy JSON'),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-              _CopyableResultField(label: 'user_id', value: '$userId'),
-              const SizedBox(height: 12),
-              _CopyableResultField(
-                label: 'client_public_key_sha256',
-                value: clientPublicKeySha256,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  static Future<void> _copyToClipboard(
-    BuildContext context, {
-    required String label,
-    required String value,
-  }) async {
-    await Clipboard.setData(ClipboardData(text: value));
-
-    if (!context.mounted) {
-      return;
-    }
-
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text('$label copied to clipboard.')));
-  }
-}
-
-class _CopyableResultField extends StatelessWidget {
-  final String label;
-  final String value;
-
-  const _CopyableResultField({required this.label, required this.value});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Expanded(child: Text(label)),
-            IconButton(
-              tooltip: 'Copy $label',
-              onPressed: () => _RegisterResultCard._copyToClipboard(
-                context,
-                label: label,
-                value: value,
-              ),
-              icon: const Icon(Icons.copy_outlined),
-            ),
-          ],
-        ),
-        const SizedBox(height: 4),
-        SelectableText(value),
-      ],
     );
   }
 }

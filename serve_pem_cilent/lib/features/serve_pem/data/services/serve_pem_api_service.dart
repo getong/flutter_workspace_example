@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/network/serve_pem_dio_factory.dart';
+import '../../domain/entities/encrypted_auth_payload.dart';
 import '../models/public_key_info_model.dart';
 import '../models/registration_result_model.dart';
-import 'registration_encryptor.dart';
 
 class ServePemApiException implements Exception {
   final String message;
@@ -29,7 +29,7 @@ class ServePemApiService {
   }
 
   Future<RegistrationResultModel> register({
-    required EncryptedAuthRequest encryptedRequest,
+    required EncryptedAuthPayload encryptedRequest,
   }) async {
     final response = await _dio.post<Map<String, dynamic>>(
       '/register',
@@ -43,7 +43,7 @@ class ServePemApiService {
   }
 
   Future<RegistrationResultModel> login({
-    required EncryptedAuthRequest encryptedRequest,
+    required EncryptedAuthPayload encryptedRequest,
   }) async {
     final response = await _dio.post<Map<String, dynamic>>(
       '/login',

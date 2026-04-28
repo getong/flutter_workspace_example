@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 
-import '../entities/registration_result.dart';
+import '../entities/auth_flow_result.dart';
 import '../repositories/serve_pem_repository.dart';
 
 @injectable
@@ -9,7 +9,7 @@ class LoginClientUseCase {
 
   LoginClientUseCase(this._repository);
 
-  Future<RegistrationResult> call({
+  Future<AuthFlowResult> call({
     required String clientPublicKey,
     required String password,
   }) {

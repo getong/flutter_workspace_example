@@ -37,7 +37,7 @@ class HomeView extends StatelessWidget {
             const SizedBox(height: 12),
             Text(
               'This app talks to the local Axum demo from '
-              '`serve_pem`: fetch the RSA public key, wrap a random AES key with RSA-OAEP-SHA256, encrypt the JSON payload with AES-256-GCM, and submit the hybrid-encrypted request to `/register` or `/login`.',
+              '`serve_pem` over HTTPS: fetch the RSA public key, wrap a random AES key with RSA-OAEP-SHA256, encrypt the JSON payload with AES-256-GCM, and submit the hybrid-encrypted request to `/register` or `/login`.',
               style: theme.textTheme.bodyLarge,
             ),
             const SizedBox(height: 24),
@@ -71,7 +71,7 @@ class HomeView extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Text(
-                  'The RSA key only wraps a random 32-byte AES key now. Your JSON payload is encrypted with AES-256-GCM, so it is no longer constrained by the OAEP plaintext limit.',
+                  'The Rust server now serves HTTPS with a self-signed local certificate. IO builds of this app accept that certificate for loopback and emulator hosts only. Override the endpoint with `--dart-define=SERVE_PEM_BASE_URL=https://your-host:3030` when needed.',
                   style: theme.textTheme.bodyMedium,
                 ),
               ),
@@ -104,7 +104,7 @@ class _EndpointBanner extends StatelessWidget {
             SelectableText(baseUrl, style: theme.textTheme.bodyLarge),
             const SizedBox(height: 10),
             Text(
-              'Android emulators use `10.0.2.2`; desktop and iOS simulators use `127.0.0.1`.',
+              'Android emulators use `10.0.2.2`; desktop and iOS simulators use `127.0.0.1`. Both now use HTTPS on port `3030`.',
               style: theme.textTheme.bodyMedium,
             ),
           ],

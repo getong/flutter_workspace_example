@@ -1,12 +1,10 @@
-import 'dart:convert';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/di/di.dart';
 import '../cubit/login_cubit.dart';
+import '../widgets/auth_flow_details.dart';
 
 @RoutePage()
 class LoginView extends StatelessWidget {
@@ -54,7 +52,7 @@ class _LoginScreenState extends State<_LoginScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Text(
-                  'This uses the same hybrid transport as `/register`: fetch `/public-key`, wrap a random AES-256 key with RSA-OAEP-SHA256, encrypt the JSON payload with AES-256-GCM, and submit the three base64 fields to `/login`.',
+                  'This uses the same hybrid transport as `/register`: fetch `/public-key` over HTTPS, wrap a random AES-256 key with RSA-OAEP-SHA256, encrypt the JSON payload with AES-256-GCM, and submit the three base64 fields to `/login`.',
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
@@ -123,10 +121,16 @@ class _LoginScreenState extends State<_LoginScreen> {
                     ),
                     const SizedBox(height: 20),
                     switch (state) {
-                      LoginSuccess(:final result) => _LoginResultCard(
-                        status: result.status,
-                        userId: result.userId,
-                        clientPublicKeySha256: result.clientPublicKeySha256,
+                      LoginSuccess(:final result) => Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ServerResultCard(title: 'Login', flow: result),
+                          const SizedBox(height: 16),
+                          EncryptedRequestCard(
+                            title: 'Encrypted request sent to /login',
+                            flow: result,
+                          ),
+                        ],
                       ),
                       LoginError(:final message) => _LoginErrorCard(
                         message: message,
@@ -173,7 +177,7 @@ class _IdleCard extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(20),
         child: Text(
-          'Register a user first, then submit matching credentials to test the `/login` flow.',
+          'Register a user first, then submit matching credentials to test the HTTPS `/login` flow.',
         ),
       ),
     );
@@ -189,113 +193,9 @@ class _PendingCard extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(20),
         child: Text(
-          'Fetching the current server key and encrypting the login payload.',
+          'Fetching the current server key over HTTPS and encrypting the login payload.',
         ),
       ),
-    );
-  }
-}
-
-class _LoginResultCard extends StatelessWidget {
-  final String status;
-  final int userId;
-  final String clientPublicKeySha256;
-
-  const _LoginResultCard({
-    required this.status,
-    required this.userId,
-    required this.clientPublicKeySha256,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final resultPayload = jsonEncode(<String, Object>{
-      'status': status,
-      'user_id': userId,
-      'client_public_key_sha256': clientPublicKeySha256,
-    });
-
-    return Card(
-      color: Theme.of(context).colorScheme.primaryContainer,
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: SelectionArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Expanded(child: Text('Status: $status')),
-                  TextButton.icon(
-                    onPressed: () => _copyToClipboard(
-                      context,
-                      label: 'Full login result JSON',
-                      value: resultPayload,
-                    ),
-                    icon: const Icon(Icons.copy_all_outlined),
-                    label: const Text('Copy JSON'),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-              _CopyableResultField(label: 'user_id', value: '$userId'),
-              const SizedBox(height: 12),
-              _CopyableResultField(
-                label: 'client_public_key_sha256',
-                value: clientPublicKeySha256,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  static Future<void> _copyToClipboard(
-    BuildContext context, {
-    required String label,
-    required String value,
-  }) async {
-    await Clipboard.setData(ClipboardData(text: value));
-
-    if (!context.mounted) {
-      return;
-    }
-
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text('$label copied to clipboard.')));
-  }
-}
-
-class _CopyableResultField extends StatelessWidget {
-  final String label;
-  final String value;
-
-  const _CopyableResultField({required this.label, required this.value});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Expanded(child: Text(label)),
-            IconButton(
-              tooltip: 'Copy $label',
-              onPressed: () => _LoginResultCard._copyToClipboard(
-                context,
-                label: label,
-                value: value,
-              ),
-              icon: const Icon(Icons.copy_outlined),
-            ),
-          ],
-        ),
-        const SizedBox(height: 4),
-        SelectableText(value),
-      ],
     );
   }
 }

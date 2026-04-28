@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../domain/entities/auth_flow_result.dart';
 import '../../domain/entities/public_key_info.dart';
-import '../../domain/entities/registration_result.dart';
 import '../../domain/repositories/serve_pem_repository.dart';
 import '../services/registration_encryptor.dart';
 import '../services/serve_pem_api_service.dart';
@@ -33,7 +33,7 @@ class ServePemRepositoryImpl implements ServePemRepository {
   }
 
   @override
-  Future<RegistrationResult> register({
+  Future<AuthFlowResult> register({
     required String clientPublicKey,
     required String password,
   }) async {
@@ -45,7 +45,14 @@ class ServePemRepositoryImpl implements ServePemRepository {
     );
 
     try {
-      return await _apiService.register(encryptedRequest: encryptedRequest);
+      final serverResult = await _apiService.register(
+        encryptedRequest: encryptedRequest,
+      );
+      return AuthFlowResult(
+        serverResult: serverResult,
+        publicKeyInfo: publicKeyInfo,
+        encryptedRequest: encryptedRequest,
+      );
     } on ServePemApiException catch (error) {
       throw Exception(_decorateApiError(error));
     } on DioException catch (error) {
@@ -61,7 +68,7 @@ class ServePemRepositoryImpl implements ServePemRepository {
   }
 
   @override
-  Future<RegistrationResult> login({
+  Future<AuthFlowResult> login({
     required String clientPublicKey,
     required String password,
   }) async {
@@ -73,7 +80,14 @@ class ServePemRepositoryImpl implements ServePemRepository {
     );
 
     try {
-      return await _apiService.login(encryptedRequest: encryptedRequest);
+      final serverResult = await _apiService.login(
+        encryptedRequest: encryptedRequest,
+      );
+      return AuthFlowResult(
+        serverResult: serverResult,
+        publicKeyInfo: publicKeyInfo,
+        encryptedRequest: encryptedRequest,
+      );
     } on ServePemApiException catch (error) {
       throw Exception(_decorateApiError(error));
     } on DioException catch (error) {

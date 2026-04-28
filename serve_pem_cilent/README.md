@@ -59,3 +59,22 @@ The `/register` and `/login` responses both include:
   "client_public_key_sha256": "..."
 }
 ```
+
+## HTTPS Notes
+
+The Rust server now listens on HTTPS, not HTTP. This Flutter client uses:
+
+- `https://127.0.0.1:3030` on desktop and iOS simulator
+- `https://10.0.2.2:3030` on Android emulator
+
+For Flutter IO targets, the Dio `HttpClient` accepts the Rust demo's local
+self-signed certificate for `127.0.0.1`, `localhost`, `::1`, and `10.0.2.2`
+only. You can override the endpoint with:
+
+```bash
+flutter run --dart-define=SERVE_PEM_BASE_URL=https://your-host:3030
+```
+
+The register and login screens now show both the server response and the exact
+encrypted request body the client sent, including the wrapped AES key, nonce,
+and ciphertext fields.
