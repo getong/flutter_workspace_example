@@ -14,6 +14,7 @@ void main() {
 
     expect(find.text('Advice'), findsOneWidget);
     expect(find.text('Serve PEM'), findsOneWidget);
+    expect(find.text('Chat'), findsOneWidget);
     expect(find.text('Advice Generator'), findsOneWidget);
     expect(
       find.text('Tap the button to fetch advice from the API.'),
@@ -40,5 +41,17 @@ void main() {
       scrollable: find.byType(Scrollable).first,
     );
     expect(find.text('Submit /login'), findsOneWidget);
+
+    await tester.tap(find.text('Chat'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Chat Room'), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.text('Join room'),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
+    expect(find.text('Join room'), findsOneWidget);
+    expect(find.text('Disconnect'), findsOneWidget);
   });
 }

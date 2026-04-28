@@ -29,6 +29,8 @@ import '../../features/serve_pem/data/services/registration_encryptor.dart'
     as _i379;
 import '../../features/serve_pem/data/services/serve_pem_api_service.dart'
     as _i22;
+import '../../features/serve_pem/data/services/serve_pem_chat_service.dart'
+    as _i584;
 import '../../features/serve_pem/domain/repositories/serve_pem_repository.dart'
     as _i654;
 import '../../features/serve_pem/domain/usecases/fetch_public_key_usecase.dart'
@@ -37,6 +39,7 @@ import '../../features/serve_pem/domain/usecases/login_client_usecase.dart'
     as _i248;
 import '../../features/serve_pem/domain/usecases/register_client_usecase.dart'
     as _i804;
+import '../../features/serve_pem/presentation/cubit/chat_cubit.dart' as _i462;
 import '../../features/serve_pem/presentation/cubit/login_cubit.dart' as _i229;
 import '../../features/serve_pem/presentation/cubit/public_key_cubit.dart'
     as _i60;
@@ -52,6 +55,7 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final registerModule = _$RegisterModule(this);
+    gh.factory<_i584.ServePemChatService>(() => _i584.ServePemChatService());
     gh.lazySingleton<_i361.Dio>(() => registerModule.dio);
     gh.lazySingleton<_i396.FallbackAdviceService>(
       () => registerModule.fallbackAdviceService,
@@ -60,6 +64,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i379.RegistrationEncryptor(),
     );
     gh.lazySingleton<_i22.ServePemApiService>(() => _i22.ServePemApiService());
+    gh.factory<_i462.ChatCubit>(
+      () => _i462.ChatCubit(gh<_i584.ServePemChatService>()),
+    );
     gh.lazySingleton<_i829.AdviceApiService>(
       () => registerModule.adviceApiService,
     );

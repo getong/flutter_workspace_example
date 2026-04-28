@@ -10,7 +10,7 @@ class AppTabsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
-      routes: const [AdviceRoute(), HomeRoute()],
+      routes: const [AdviceRoute(), HomeRoute(), ChatRoute()],
       bottomNavigationBuilder: (context, tabsRouter) {
         return NavigationBar(
           selectedIndex: tabsRouter.activeIndex,
@@ -23,6 +23,10 @@ class AppTabsView extends StatelessWidget {
             NavigationDestination(
               icon: Icon(Icons.lock_outline),
               label: 'Serve PEM',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.forum_outlined),
+              label: 'Chat',
             ),
           ],
         );

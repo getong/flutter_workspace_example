@@ -43,6 +43,7 @@ dependencies:
   injectable: ^3.0.0
   json_annotation: ^4.11.0
   pointycastle: ^4.0.0
+  web_socket_channel: ^3.0.3
 
 dev_dependencies:
   flutter_test:

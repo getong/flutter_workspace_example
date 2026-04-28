@@ -43,6 +43,22 @@ class AppTabsRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ChatView]
+class ChatRoute extends PageRouteInfo<void> {
+  const ChatRoute({List<PageRouteInfo>? children})
+    : super(ChatRoute.name, initialChildren: children);
+
+  static const String name = 'ChatRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ChatView();
+    },
+  );
+}
+
+/// generated route for
 /// [HomeView]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 
 import '../../features/advice/presentation/views/advice_view.dart';
 import '../../features/serve_pem/presentation/views/app_tabs_view.dart';
+import '../../features/serve_pem/presentation/views/chat_view.dart';
 import '../../features/serve_pem/presentation/views/home_view.dart';
 import '../../features/serve_pem/presentation/views/login_view.dart';
 import '../../features/serve_pem/presentation/views/public_key_view.dart';
@@ -19,6 +20,7 @@ class AppRouter extends RootStackRouter {
       children: [
         AutoRoute(page: AdviceRoute.page, path: 'advice', initial: true),
         AutoRoute(page: HomeRoute.page, path: 'serve-pem'),
+        AutoRoute(page: ChatRoute.page, path: 'chat'),
       ],
     ),
     AutoRoute(page: LoginRoute.page),

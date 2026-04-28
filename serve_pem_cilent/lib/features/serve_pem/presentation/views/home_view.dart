@@ -66,12 +66,22 @@ class HomeView extends StatelessWidget {
               icon: Icons.login,
               onTap: () => context.pushRoute(const LoginRoute()),
             ),
+            const SizedBox(height: 16),
+            _ActionCard(
+              title: 'Join WSS chat',
+              description:
+                  'Open the room-scoped `/ws/{room}` websocket endpoint, watch `welcome` and `presence` events, and send `chat_message` payloads.',
+              icon: Icons.forum_outlined,
+              onTap: () => context.navigateTo(
+                const AppTabsRoute(children: [ChatRoute()]),
+              ),
+            ),
             const SizedBox(height: 24),
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Text(
-                  'The Rust server now serves HTTPS with a self-signed local certificate. IO builds of this app accept that certificate for loopback and emulator hosts only. Override the endpoint with `--dart-define=SERVE_PEM_BASE_URL=https://your-host:3030` when needed.',
+                  'The Rust server now serves HTTPS with a self-signed local certificate. IO builds of this app accept that certificate for loopback and emulator hosts only, and the same local trust rule is reused for `wss`. Override the endpoint with `--dart-define=SERVE_PEM_BASE_URL=https://your-host:3030` when needed.',
                   style: theme.textTheme.bodyMedium,
                 ),
               ),
