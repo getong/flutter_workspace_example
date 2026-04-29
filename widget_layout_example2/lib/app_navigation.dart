@@ -129,6 +129,7 @@ abstract final class RouteName {
   static const webviewFlutter = 'WebviewFlutterRoute';
   static const form = 'FormRoute';
   static const formField = 'FormFieldRoute';
+  static const formz = 'FormzRoute';
   static const draggable = 'DraggableExampleRoute';
   static const dragTarget = 'DragTargetExampleRoute';
   static const expandableSection = 'ExpandableSectionRoute';
@@ -437,6 +438,7 @@ enum AppRoute {
   webviewFlutter('/webview-flutter-page', RouteName.webviewFlutter),
   form('/form-page', RouteName.form),
   formField('/form-field-page', RouteName.formField),
+  formz('/formz-page', RouteName.formz),
   draggable('/draggable-page', RouteName.draggable),
   dragTarget('/drag-target-page', RouteName.dragTarget),
   expandableSection('/expandable-section-page', RouteName.expandableSection),

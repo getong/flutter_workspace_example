@@ -50,7 +50,7 @@ dependencies:
   clipboard: ^3.0.14
   cookie_jar: ^4.0.9
   crypto: ^3.0.7
-  cue: ^0.1.2+1
+  cue: ^0.2.0
   cupertino_icons: ^1.0.8
   dio: ^5.9.2
   dio_smart_retry: ^7.0.1
@@ -87,11 +87,12 @@ dependencies:
   flutter_video_caching: ^1.1.2
   fluttertoast: ^9.0.0
   font_awesome_flutter: ^11.0.0
+  formz: ^0.8.0
   forui: ^0.21.1
   freezed: ^3.2.5
   freezed_annotation: ^3.1.0
-  fvp: ^0.35.2
-  genui: ^0.8.0
+  fvp: ^0.36.1
+  genui: ^0.9.0
   get_it: ^9.2.1
   graphql_flutter: ^5.3.0
   http: ^1.5.0

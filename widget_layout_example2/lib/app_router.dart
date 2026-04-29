@@ -110,6 +110,7 @@ import 'package:widget_layout_example2/modules/font_awesome_flutter_page.dart';
 import 'package:widget_layout_example2/modules/forui_page.dart';
 import 'package:widget_layout_example2/modules/form_page.dart';
 import 'package:widget_layout_example2/modules/form_field_page.dart';
+import 'package:widget_layout_example2/modules/formz_page.dart';
 import 'package:widget_layout_example2/modules/future_builder_page.dart';
 import 'package:widget_layout_example2/modules/gesturedetector.dart';
 import 'package:widget_layout_example2/modules/genui_page.dart';
@@ -602,6 +603,7 @@ class AppRouter extends RootStackRouter {
     ),
     AutoRoute(page: FormRoute.page, path: AppRoute.form.path),
     AutoRoute(page: FormFieldRoute.page, path: AppRoute.formField.path),
+    AutoRoute(page: FormzRoute.page, path: AppRoute.formz.path),
     AutoRoute(page: DraggableExampleRoute.page, path: AppRoute.draggable.path),
     AutoRoute(
       page: DragTargetExampleRoute.page,

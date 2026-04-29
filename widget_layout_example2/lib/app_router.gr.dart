@@ -1548,22 +1548,6 @@ class CustomMultiChildLayoutRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [CustomScrollViewPage]
-class CustomScrollViewRoute extends PageRouteInfo<void> {
-  const CustomScrollViewRoute({List<PageRouteInfo>? children})
-    : super(CustomScrollViewRoute.name, initialChildren: children);
-
-  static const String name = 'CustomScrollViewRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const CustomScrollViewPage();
-    },
-  );
-}
-
-/// generated route for
 /// [CustomPaintPage]
 class CustomPaintRoute extends PageRouteInfo<void> {
   const CustomPaintRoute({List<PageRouteInfo>? children})
@@ -1575,6 +1559,22 @@ class CustomPaintRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const CustomPaintPage();
+    },
+  );
+}
+
+/// generated route for
+/// [CustomScrollViewPage]
+class CustomScrollViewRoute extends PageRouteInfo<void> {
+  const CustomScrollViewRoute({List<PageRouteInfo>? children})
+    : super(CustomScrollViewRoute.name, initialChildren: children);
+
+  static const String name = 'CustomScrollViewRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CustomScrollViewPage();
     },
   );
 }
@@ -1852,22 +1852,6 @@ class ExpandableSectionRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [ExpansionPanelListPage]
-class ExpansionPanelListRoute extends PageRouteInfo<void> {
-  const ExpansionPanelListRoute({List<PageRouteInfo>? children})
-    : super(ExpansionPanelListRoute.name, initialChildren: children);
-
-  static const String name = 'ExpansionPanelListRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const ExpansionPanelListPage();
-    },
-  );
-}
-
-/// generated route for
 /// [ExpandedPage]
 class ExpandedRoute extends PageRouteInfo<void> {
   const ExpandedRoute({List<PageRouteInfo>? children})
@@ -1879,6 +1863,22 @@ class ExpandedRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const ExpandedPage();
+    },
+  );
+}
+
+/// generated route for
+/// [ExpansionPanelListPage]
+class ExpansionPanelListRoute extends PageRouteInfo<void> {
+  const ExpansionPanelListRoute({List<PageRouteInfo>? children})
+    : super(ExpansionPanelListRoute.name, initialChildren: children);
+
+  static const String name = 'ExpansionPanelListRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ExpansionPanelListPage();
     },
   );
 }
@@ -2300,22 +2300,6 @@ class FlutterSecureStorageRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [FlutterTimezonePage]
-class FlutterTimezoneRoute extends PageRouteInfo<void> {
-  const FlutterTimezoneRoute({List<PageRouteInfo>? children})
-    : super(FlutterTimezoneRoute.name, initialChildren: children);
-
-  static const String name = 'FlutterTimezoneRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const FlutterTimezonePage();
-    },
-  );
-}
-
-/// generated route for
 /// [FlutterSlidablePage]
 class FlutterSlidableRoute extends PageRouteInfo<void> {
   const FlutterSlidableRoute({List<PageRouteInfo>? children})
@@ -2343,6 +2327,22 @@ class FlutterSvgRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const FlutterSvgPage();
+    },
+  );
+}
+
+/// generated route for
+/// [FlutterTimezonePage]
+class FlutterTimezoneRoute extends PageRouteInfo<void> {
+  const FlutterTimezoneRoute({List<PageRouteInfo>? children})
+    : super(FlutterTimezoneRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterTimezoneRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterTimezonePage();
     },
   );
 }
@@ -2471,6 +2471,22 @@ class FormRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const FormPage();
+    },
+  );
+}
+
+/// generated route for
+/// [FormzPage]
+class FormzRoute extends PageRouteInfo<void> {
+  const FormzRoute({List<PageRouteInfo>? children})
+    : super(FormzRoute.name, initialChildren: children);
+
+  static const String name = 'FormzRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FormzPage();
     },
   );
 }
@@ -4123,22 +4139,6 @@ class TimePickerDialogRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [TimeagoFlutterPage]
-class TimeagoFlutterRoute extends PageRouteInfo<void> {
-  const TimeagoFlutterRoute({List<PageRouteInfo>? children})
-    : super(TimeagoFlutterRoute.name, initialChildren: children);
-
-  static const String name = 'TimeagoFlutterRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const TimeagoFlutterPage();
-    },
-  );
-}
-
-/// generated route for
 /// [TimePickerPage]
 class TimePickerRoute extends PageRouteInfo<void> {
   const TimePickerRoute({List<PageRouteInfo>? children})
@@ -4150,6 +4150,22 @@ class TimePickerRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const TimePickerPage();
+    },
+  );
+}
+
+/// generated route for
+/// [TimeagoFlutterPage]
+class TimeagoFlutterRoute extends PageRouteInfo<void> {
+  const TimeagoFlutterRoute({List<PageRouteInfo>? children})
+    : super(TimeagoFlutterRoute.name, initialChildren: children);
+
+  static const String name = 'TimeagoFlutterRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TimeagoFlutterPage();
     },
   );
 }
