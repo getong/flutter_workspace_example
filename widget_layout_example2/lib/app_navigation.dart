@@ -132,6 +132,7 @@ abstract final class RouteName {
   static const dragTarget = 'DragTargetExampleRoute';
   static const expandableSection = 'ExpandableSectionRoute';
   static const richText = 'RichTextRoute';
+  static const expansionPanelList = 'ExpansionPanelListRoute';
   static const tdesignFlutter = 'TdesignFlutterRoute';
   static const textStyle = 'TextStyleRoute';
   static const themeDataVisualDensity = 'ThemeDataVisualDensityRoute';
@@ -436,6 +437,10 @@ enum AppRoute {
   draggable('/draggable-page', RouteName.draggable),
   dragTarget('/drag-target-page', RouteName.dragTarget),
   expandableSection('/expandable-section-page', RouteName.expandableSection),
+  expansionPanelList(
+    '/expansion-panel-list-page',
+    RouteName.expansionPanelList,
+  ),
   richText('/rich-text-page', RouteName.richText),
   tdesignFlutter('/tdesign-flutter-page', RouteName.tdesignFlutter),
   textStyle('/text-style-page', RouteName.textStyle),

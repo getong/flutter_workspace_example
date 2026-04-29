@@ -1836,6 +1836,22 @@ class ExpandableSectionRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ExpansionPanelListPage]
+class ExpansionPanelListRoute extends PageRouteInfo<void> {
+  const ExpansionPanelListRoute({List<PageRouteInfo>? children})
+    : super(ExpansionPanelListRoute.name, initialChildren: children);
+
+  static const String name = 'ExpansionPanelListRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ExpansionPanelListPage();
+    },
+  );
+}
+
+/// generated route for
 /// [ExpandedPage]
 class ExpandedRoute extends PageRouteInfo<void> {
   const ExpandedRoute({List<PageRouteInfo>? children})

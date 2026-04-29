@@ -222,6 +222,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.expandableSection.path,
   ),
   _ModuleLink(
+    label: 'ExpansionPanelList Module',
+    routePath: AppRoute.expansionPanelList.path,
+  ),
+  _ModuleLink(
     label: 'ExcludeSemantics Module',
     routePath: AppRoute.excludeSemantics.path,
   ),

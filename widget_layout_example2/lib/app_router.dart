@@ -66,6 +66,7 @@ import 'package:widget_layout_example2/modules/dynamic_color_page.dart';
 import 'package:widget_layout_example2/modules/encrypter_plus_page.dart';
 import 'package:widget_layout_example2/modules/extended_image_page.dart';
 import 'package:widget_layout_example2/modules/expandable_section_page.dart';
+import 'package:widget_layout_example2/modules/expansion_panel_list_page.dart';
 import 'package:widget_layout_example2/modules/expanded_page.dart';
 import 'package:widget_layout_example2/modules/date_picker_page.dart';
 import 'package:widget_layout_example2/modules/exclude_semantics_page.dart';
@@ -603,6 +604,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: ExpandableSectionRoute.page,
       path: AppRoute.expandableSection.path,
+    ),
+    AutoRoute(
+      page: ExpansionPanelListRoute.page,
+      path: AppRoute.expansionPanelList.path,
     ),
     AutoRoute(page: RichTextRoute.page, path: AppRoute.richText.path),
     AutoRoute(

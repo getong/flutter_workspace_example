@@ -57,6 +57,8 @@ void main() {
     expect(find.text('dynamic_color Module'), findsOneWidget);
     await dragUntilTextVisible('encrypter_plus Module');
     expect(find.text('encrypter_plus Module'), findsOneWidget);
+    await dragUntilTextVisible('ExpansionPanelList Module');
+    expect(find.text('ExpansionPanelList Module'), findsOneWidget);
     await dragUntilTextVisible('flutter_bloc Module');
     expect(find.text('flutter_bloc Module'), findsOneWidget);
     await dragUntilTextVisible('flutter_dotenv Module');
