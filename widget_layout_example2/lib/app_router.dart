@@ -99,6 +99,7 @@ import 'package:widget_layout_example2/modules/flutter_local_notifications_page.
 import 'package:widget_layout_example2/modules/flutter_screenutil_page.dart';
 import 'package:widget_layout_example2/modules/flutter_secure_storage_page.dart';
 import 'package:widget_layout_example2/modules/flutter_slidable_page.dart';
+import 'package:widget_layout_example2/modules/flutter_timezone_page.dart';
 import 'package:widget_layout_example2/modules/flutter_tts_page.dart';
 import 'package:widget_layout_example2/modules/flutter_video_caching_fvp_page.dart';
 import 'package:widget_layout_example2/modules/fluttertoast_page.dart';
@@ -198,6 +199,7 @@ import 'package:widget_layout_example2/modules/text_field_controller_page.dart';
 import 'package:widget_layout_example2/modules/text_rich_page.dart';
 import 'package:widget_layout_example2/modules/text_style_page.dart';
 import 'package:widget_layout_example2/modules/theme_data_visual_density_page.dart';
+import 'package:widget_layout_example2/modules/timeago_flutter_page.dart';
 import 'package:widget_layout_example2/modules/time_picker_page.dart';
 import 'package:widget_layout_example2/modules/toggle_switch_page.dart';
 import 'package:widget_layout_example2/modules/transform_page.dart';
@@ -575,6 +577,10 @@ class AppRouter extends RootStackRouter {
       page: DatePickerDialogRoute.page,
       path: AppRoute.datePickerDialog.path,
     ),
+    AutoRoute(
+      page: TimeagoFlutterRoute.page,
+      path: AppRoute.timeagoFlutter.path,
+    ),
     AutoRoute(page: TimePickerRoute.page, path: AppRoute.timePicker.path),
     AutoRoute(
       page: TimePickerDialogRoute.page,
@@ -815,6 +821,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: FlutterSecureStorageRoute.page,
       path: AppRoute.flutterSecureStorage.path,
+    ),
+    AutoRoute(
+      page: FlutterTimezoneRoute.page,
+      path: AppRoute.flutterTimezone.path,
     ),
     AutoRoute(page: TooltipRoute.page, path: AppRoute.tooltip.path),
     AutoRoute(

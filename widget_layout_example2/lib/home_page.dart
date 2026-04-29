@@ -307,6 +307,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.flutterSlidable.path,
   ),
   _ModuleLink(label: 'flutter_svg Module', routePath: AppRoute.flutterSvg.path),
+  _ModuleLink(
+    label: 'flutter_timezone Module',
+    routePath: AppRoute.flutterTimezone.path,
+  ),
   _ModuleLink(label: 'flutter_tts Module', routePath: AppRoute.flutterTts.path),
   _ModuleLink(
     label: 'fluttertoast Module',
@@ -502,6 +506,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(
     label: 'ThemeData VisualDensity Module',
     routePath: AppRoute.themeDataVisualDensity.path,
+  ),
+  _ModuleLink(
+    label: 'timeago_flutter Module',
+    routePath: AppRoute.timeagoFlutter.path,
   ),
   _ModuleLink(label: 'TimePicker Module', routePath: AppRoute.timePicker.path),
   _ModuleLink(

@@ -67,6 +67,8 @@ void main() {
     expect(find.text('flutter_inappwebview Module'), findsOneWidget);
     await dragUntilTextVisible('flutter_local_notifications Module');
     expect(find.text('flutter_local_notifications Module'), findsOneWidget);
+    await dragUntilTextVisible('flutter_timezone Module');
+    expect(find.text('flutter_timezone Module'), findsOneWidget);
     await dragUntilTextVisible('flutter_tts Module');
     expect(find.text('flutter_tts Module'), findsOneWidget);
     await dragUntilTextVisible('fluttertoast Module');
@@ -93,6 +95,8 @@ void main() {
     expect(find.text('StreamBuilder Module'), findsOneWidget);
     await dragUntilTextVisible('Text.rich Module');
     expect(find.text('Text.rich Module'), findsOneWidget);
+    await dragUntilTextVisible('timeago_flutter Module');
+    expect(find.text('timeago_flutter Module'), findsOneWidget);
     await dragUntilTextVisible('url_launcher Module');
     expect(find.text('url_launcher Module'), findsOneWidget);
     await dragUntilTextVisible('webview_flutter Module');

@@ -82,6 +82,7 @@ dependencies:
   flutter_secure_storage: ^10.0.0
   flutter_slidable: ^4.0.3
   flutter_svg: ^2.2.4
+  flutter_timezone: ^5.0.2
   flutter_tts: ^4.2.5
   flutter_video_caching: ^1.1.2
   fluttertoast: ^9.0.0
@@ -134,6 +135,7 @@ dependencies:
   super_clipboard: ^0.9.1
   syncfusion_flutter_charts: ^33.2.3
   tdesign_flutter: ^0.1.5
+  timeago_flutter: ^3.7.0
   toggle_switch: ^2.3.0
   universal_html: ^2.3.0
   url_launcher: ^6.3.2

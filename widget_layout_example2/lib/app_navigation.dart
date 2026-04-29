@@ -121,6 +121,7 @@ abstract final class RouteName {
   static const datePickerDialog = 'DatePickerDialogRoute';
   static const timePicker = 'TimePickerRoute';
   static const timePickerDialog = 'TimePickerDialogRoute';
+  static const timeagoFlutter = 'TimeagoFlutterRoute';
   static const toggleSwitch = 'ToggleSwitchRoute';
   static const urlLauncher = 'UrlLauncherRoute';
   static const wasmFfi = 'WasmFfiRoute';
@@ -222,6 +223,7 @@ abstract final class RouteName {
   static const flutterLocalNotifications = 'FlutterLocalNotificationsRoute';
   static const flutterScreenutil = 'FlutterScreenutilRoute';
   static const flutterSecureStorage = 'FlutterSecureStorageRoute';
+  static const flutterTimezone = 'FlutterTimezoneRoute';
   static const tooltip = 'TooltipRoute';
   static const animatedTextKit = 'AnimatedTextKitRoute';
   static const animationsPackage = 'AnimationsPackageRoute';
@@ -422,6 +424,7 @@ enum AppRoute {
   shaderGraph('/shader-graph-page', RouteName.shaderGraph),
   datePicker('/date-picker-page', RouteName.datePicker),
   datePickerDialog('/date-picker-dialog-page', RouteName.datePickerDialog),
+  timeagoFlutter('/timeago-flutter-page', RouteName.timeagoFlutter),
   timePicker('/time-picker-page', RouteName.timePicker),
   timePickerDialog('/time-picker-dialog-page', RouteName.timePickerDialog),
   toggleSwitch('/toggle-switch-page', RouteName.toggleSwitch),
@@ -579,6 +582,7 @@ enum AppRoute {
     '/flutter-secure-storage-page',
     RouteName.flutterSecureStorage,
   ),
+  flutterTimezone('/flutter-timezone-page', RouteName.flutterTimezone),
   tooltip('/tooltip-page', RouteName.tooltip),
   animatedTextKit('/animated-text-kit-page', RouteName.animatedTextKit),
   animationsPackage('/animations-page', RouteName.animationsPackage),

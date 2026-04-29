@@ -2268,6 +2268,22 @@ class FlutterSecureStorageRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterTimezonePage]
+class FlutterTimezoneRoute extends PageRouteInfo<void> {
+  const FlutterTimezoneRoute({List<PageRouteInfo>? children})
+    : super(FlutterTimezoneRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterTimezoneRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterTimezonePage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterSlidablePage]
 class FlutterSlidableRoute extends PageRouteInfo<void> {
   const FlutterSlidableRoute({List<PageRouteInfo>? children})
@@ -4054,6 +4070,22 @@ class TimePickerDialogRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const TimePickerDialogPage();
+    },
+  );
+}
+
+/// generated route for
+/// [TimeagoFlutterPage]
+class TimeagoFlutterRoute extends PageRouteInfo<void> {
+  const TimeagoFlutterRoute({List<PageRouteInfo>? children})
+    : super(TimeagoFlutterRoute.name, initialChildren: children);
+
+  static const String name = 'TimeagoFlutterRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TimeagoFlutterPage();
     },
   );
 }
