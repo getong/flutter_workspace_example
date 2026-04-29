@@ -753,6 +753,39 @@ await plugin.cancelAllPendingNotifications();
 await plugin.cancelAll();
 ''',
             ),
+            const SizedBox(height: 16),
+            const _NotificationsCodeCard(
+              title: 'Permissions and Android channel setup',
+              code: '''
+final AndroidFlutterLocalNotificationsPlugin? androidPlugin =
+    plugin.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>();
+
+await androidPlugin?.requestNotificationsPermission();
+await androidPlugin?.createNotificationChannel(
+  const AndroidNotificationChannel(
+    'demo_updates_channel',
+    'Demo Updates',
+    description: 'General local notification examples for this app.',
+    importance: Importance.high,
+  ),
+);
+''',
+            ),
+            const SizedBox(height: 16),
+            const _NotificationsCodeCard(
+              title: 'Notification response callback',
+              code: '''
+await plugin.initialize(
+  settings: settings,
+  onDidReceiveNotificationResponse: (NotificationResponse response) {
+    debugPrint(
+      'id=\${response.id}, action=\${response.actionId}, payload=\${response.payload}',
+    );
+  },
+);
+''',
+            ),
             const SizedBox(height: 24),
             Card(
               child: Padding(

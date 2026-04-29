@@ -177,6 +177,7 @@ abstract final class RouteName {
   static const overlayMenu = 'OverlayMenuRoute';
   static const streamBuilder = 'StreamBuilderRoute';
   static const driftFlutter = 'DriftFlutterRoute';
+  static const dynamicColor = 'DynamicColorRoute';
   static const encrypterPlus = 'EncrypterPlusRoute';
   static const extendedImage = 'ExtendedImageRoute';
   static const fluttertoast = 'FluttertoastRoute';
@@ -506,6 +507,7 @@ enum AppRoute {
   overlayMenu('/overlay-menu-page', RouteName.overlayMenu),
   streamBuilder('/stream-builder-page', RouteName.streamBuilder),
   driftFlutter('/drift-flutter-page', RouteName.driftFlutter),
+  dynamicColor('/dynamic-color-page', RouteName.dynamicColor),
   encrypterPlus('/encrypter-plus-page', RouteName.encrypterPlus),
   extendedImage('/extended-image-page', RouteName.extendedImage),
   fluttertoast('/fluttertoast-page', RouteName.fluttertoast),

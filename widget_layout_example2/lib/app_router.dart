@@ -62,6 +62,7 @@ import 'package:widget_layout_example2/modules/drawer_page.dart';
 import 'package:widget_layout_example2/modules/draggable_page.dart';
 import 'package:widget_layout_example2/modules/drag_target_page.dart';
 import 'package:widget_layout_example2/modules/drift_flutter_page.dart';
+import 'package:widget_layout_example2/modules/dynamic_color_page.dart';
 import 'package:widget_layout_example2/modules/encrypter_plus_page.dart';
 import 'package:widget_layout_example2/modules/extended_image_page.dart';
 import 'package:widget_layout_example2/modules/expandable_section_page.dart';
@@ -708,6 +709,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: OverlayMenuRoute.page, path: AppRoute.overlayMenu.path),
     AutoRoute(page: StreamBuilderRoute.page, path: AppRoute.streamBuilder.path),
     AutoRoute(page: DriftFlutterRoute.page, path: AppRoute.driftFlutter.path),
+    AutoRoute(page: DynamicColorRoute.page, path: AppRoute.dynamicColor.path),
     AutoRoute(page: EncrypterPlusRoute.page, path: AppRoute.encrypterPlus.path),
     AutoRoute(page: FluttertoastRoute.page, path: AppRoute.fluttertoast.path),
     AutoRoute(

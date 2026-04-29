@@ -6,6 +6,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_windows
   clipboard
   connectivity_plus
+  dynamic_color
   fc_native_video_thumbnail
   flutter_inappwebview_windows
   flutter_secure_storage_windows

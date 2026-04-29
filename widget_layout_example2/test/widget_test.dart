@@ -53,6 +53,8 @@ void main() {
     expect(find.text('auto_route Module'), findsOneWidget);
     await dragUntilTextVisible('cue Module');
     expect(find.text('cue Module'), findsOneWidget);
+    await dragUntilTextVisible('dynamic_color Module');
+    expect(find.text('dynamic_color Module'), findsOneWidget);
     await dragUntilTextVisible('encrypter_plus Module');
     expect(find.text('encrypter_plus Module'), findsOneWidget);
     await dragUntilTextVisible('flutter_bloc Module');
@@ -63,6 +65,8 @@ void main() {
     expect(find.text('flutter_hooks Module'), findsOneWidget);
     await dragUntilTextVisible('flutter_inappwebview Module');
     expect(find.text('flutter_inappwebview Module'), findsOneWidget);
+    await dragUntilTextVisible('flutter_local_notifications Module');
+    expect(find.text('flutter_local_notifications Module'), findsOneWidget);
     await dragUntilTextVisible('flutter_tts Module');
     expect(find.text('flutter_tts Module'), findsOneWidget);
     await dragUntilTextVisible('fluttertoast Module');
@@ -100,6 +104,7 @@ void main() {
     expect(find.text('Animation Modules'), findsOneWidget);
     expect(find.text('AnimatedSwitcher Module'), findsOneWidget);
     expect(find.text('AnimatedDefaultTextStyle Module'), findsOneWidget);
+    await dragUntilTextVisible('CustomPaint Module');
     expect(find.text('CustomPaint Module'), findsOneWidget);
 
     await tester.tap(find.byTooltip('Logout'));

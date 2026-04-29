@@ -210,6 +210,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.driftFlutter.path,
   ),
   _ModuleLink(
+    label: 'dynamic_color Module',
+    routePath: AppRoute.dynamicColor.path,
+  ),
+  _ModuleLink(
     label: 'encrypter_plus Module',
     routePath: AppRoute.encrypterPlus.path,
   ),

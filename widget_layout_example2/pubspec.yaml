@@ -57,6 +57,7 @@ dependencies:
   dotted_border: ^3.1.0
   drift: ^2.32.1
   drift_flutter: ^0.3.0
+  dynamic_color: ^1.8.1
   encrypter_plus: ^5.1.0
   extended_image: ^10.0.1
   fc_native_video_thumbnail: ^2.1.1
@@ -75,6 +76,7 @@ dependencies:
   flutter_dotenv: ^6.0.0
   flutter_hooks: ^0.21.3+1
   flutter_inappwebview: ^6.2.0-beta.3
+  flutter_launcher_icons: ^0.14.4
   flutter_local_notifications: ^21.0.0
   flutter_screenutil: ^6.0.0-alpha.1
   flutter_secure_storage: ^10.0.0

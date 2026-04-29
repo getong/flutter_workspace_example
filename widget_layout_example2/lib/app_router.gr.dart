@@ -1772,6 +1772,22 @@ class DriftFlutterRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [DynamicColorPage]
+class DynamicColorRoute extends PageRouteInfo<void> {
+  const DynamicColorRoute({List<PageRouteInfo>? children})
+    : super(DynamicColorRoute.name, initialChildren: children);
+
+  static const String name = 'DynamicColorRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DynamicColorPage();
+    },
+  );
+}
+
+/// generated route for
 /// [EncrypterPlusPage]
 class EncrypterPlusRoute extends PageRouteInfo<void> {
   const EncrypterPlusRoute({List<PageRouteInfo>? children})
