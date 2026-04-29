@@ -52,6 +52,7 @@ abstract final class RouteName {
   static const clipPath = 'ClipPathExampleRoute';
   static const customClipper = 'CustomClipperExampleRoute';
   static const customMultiChildLayout = 'CustomMultiChildLayoutRoute';
+  static const customScrollView = 'CustomScrollViewRoute';
   static const table = 'TableRoute';
   static const classicButtons = 'ButtonShowcaseRoute';
   static const cascade = 'CascadeRoute';
@@ -145,6 +146,7 @@ abstract final class RouteName {
   static const focusTraversalGroup = 'FocusTraversalGroupRoute';
   static const snackBar = 'SnackBarExampleRoute';
   static const showDialog = 'ShowDialogExampleRoute';
+  static const showGeneralDialog = 'ShowGeneralDialogRoute';
   static const alertDialog = 'AlertDialogExampleRoute';
   static const simpleDialog = 'SimpleDialogExampleRoute';
   static const dialog = 'DialogExampleRoute';
@@ -318,6 +320,7 @@ enum AppRoute {
     '/custom-multi-child-layout-page',
     RouteName.customMultiChildLayout,
   ),
+  customScrollView('/custom-scroll-view-page', RouteName.customScrollView),
   table('/table-page', RouteName.table),
   classicButtons('/classic-buttons-page', RouteName.classicButtons),
   cascade('/cascade', RouteName.cascade),
@@ -469,6 +472,7 @@ enum AppRoute {
   ),
   snackBar('/snack-bar-page', RouteName.snackBar),
   showDialog('/show-dialog-page', RouteName.showDialog),
+  showGeneralDialog('/show-general-dialog-page', RouteName.showGeneralDialog),
   alertDialog('/alert-dialog-page', RouteName.alertDialog),
   simpleDialog('/simple-dialog-page', RouteName.simpleDialog),
   dialog('/dialog-page', RouteName.dialog),

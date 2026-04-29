@@ -41,6 +41,10 @@ final List<_ModuleLink> _layoutModules = <_ModuleLink>[
     routePath: AppRoute.customMultiChildLayout.path,
   ),
   _ModuleLink(
+    label: 'CustomScrollView Module',
+    routePath: AppRoute.customScrollView.path,
+  ),
+  _ModuleLink(
     label: 'DecoratedBox Module',
     routePath: AppRoute.decoratedBox.path,
   ),
@@ -470,6 +474,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
   ),
   _ModuleLink(label: 'share_plus Module', routePath: AppRoute.sharePlus.path),
   _ModuleLink(label: 'showDialog Module', routePath: AppRoute.showDialog.path),
+  _ModuleLink(
+    label: 'showGeneralDialog Module',
+    routePath: AppRoute.showGeneralDialog.path,
+  ),
   _ModuleLink(
     label: 'SimpleDialog Module',
     routePath: AppRoute.simpleDialog.path,

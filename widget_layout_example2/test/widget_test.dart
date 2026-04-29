@@ -42,6 +42,8 @@ void main() {
     expect(find.text('Center Box Module'), findsOneWidget);
     await dragUntilTextVisible('Constrained Box Module');
     expect(find.text('Constrained Box Module'), findsOneWidget);
+    await dragUntilTextVisible('CustomScrollView Module');
+    expect(find.text('CustomScrollView Module'), findsOneWidget);
     expect(find.text('Layout'), findsOneWidget);
     expect(find.text('Content'), findsOneWidget);
     expect(find.text('Animation'), findsOneWidget);
@@ -91,6 +93,8 @@ void main() {
     expect(find.text('permission_handler Module'), findsOneWidget);
     await dragUntilTextVisible('Semantics Module');
     expect(find.text('Semantics Module'), findsOneWidget);
+    await dragUntilTextVisible('showGeneralDialog Module');
+    expect(find.text('showGeneralDialog Module'), findsOneWidget);
     await dragUntilTextVisible('speech_to_text Module');
     expect(find.text('speech_to_text Module'), findsOneWidget);
     await dragUntilTextVisible('StreamBuilder Module');

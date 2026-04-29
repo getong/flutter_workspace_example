@@ -47,6 +47,7 @@ import 'package:widget_layout_example2/modules/constrained_box_page.dart';
 import 'package:widget_layout_example2/modules/container_page.dart';
 import 'package:widget_layout_example2/modules/custom_clipper_page.dart';
 import 'package:widget_layout_example2/modules/custom_multi_child_layout_page.dart';
+import 'package:widget_layout_example2/modules/custom_scroll_view_page.dart';
 import 'package:widget_layout_example2/modules/custom_paint_page.dart';
 import 'package:widget_layout_example2/modules/crypto_page.dart';
 import 'package:widget_layout_example2/modules/cue_page.dart';
@@ -172,6 +173,7 @@ import 'package:widget_layout_example2/modules/shader_graph_page.dart';
 import 'package:widget_layout_example2/modules/shared_preferences_page.dart';
 import 'package:widget_layout_example2/modules/share_plus_page.dart';
 import 'package:widget_layout_example2/modules/show_dialog_page.dart';
+import 'package:widget_layout_example2/modules/show_general_dialog_page.dart';
 import 'package:widget_layout_example2/modules/shimmer_page.dart';
 import 'package:widget_layout_example2/modules/sized_box_page.dart';
 import 'package:widget_layout_example2/modules/single_child_scroll_view_page.dart';
@@ -365,6 +367,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: CustomMultiChildLayoutRoute.page,
       path: AppRoute.customMultiChildLayout.path,
+    ),
+    AutoRoute(
+      page: CustomScrollViewRoute.page,
+      path: AppRoute.customScrollView.path,
     ),
     AutoRoute(page: TableRoute.page, path: AppRoute.table.path),
     AutoRoute(
@@ -645,6 +651,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: ShowDialogExampleRoute.page,
       path: AppRoute.showDialog.path,
+    ),
+    AutoRoute(
+      page: ShowGeneralDialogRoute.page,
+      path: AppRoute.showGeneralDialog.path,
     ),
     AutoRoute(
       page: AlertDialogExampleRoute.page,

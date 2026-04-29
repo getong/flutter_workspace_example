@@ -1548,6 +1548,22 @@ class CustomMultiChildLayoutRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CustomScrollViewPage]
+class CustomScrollViewRoute extends PageRouteInfo<void> {
+  const CustomScrollViewRoute({List<PageRouteInfo>? children})
+    : super(CustomScrollViewRoute.name, initialChildren: children);
+
+  static const String name = 'CustomScrollViewRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CustomScrollViewPage();
+    },
+  );
+}
+
+/// generated route for
 /// [CustomPaintPage]
 class CustomPaintRoute extends PageRouteInfo<void> {
   const CustomPaintRoute({List<PageRouteInfo>? children})
@@ -3635,6 +3651,22 @@ class ShowDialogExampleRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const ShowDialogExamplePage();
+    },
+  );
+}
+
+/// generated route for
+/// [ShowGeneralDialogPage]
+class ShowGeneralDialogRoute extends PageRouteInfo<void> {
+  const ShowGeneralDialogRoute({List<PageRouteInfo>? children})
+    : super(ShowGeneralDialogRoute.name, initialChildren: children);
+
+  static const String name = 'ShowGeneralDialogRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ShowGeneralDialogPage();
     },
   );
 }
