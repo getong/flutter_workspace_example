@@ -79,7 +79,11 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Old advice'), findsOneWidget);
-    expect(find.text('Fresh advice'), findsNothing);
+    expect(find.text('Menu'), findsOneWidget);
+    expect(find.text('Advice'), findsOneWidget);
+    expect(find.text('Actions'), findsOneWidget);
+    expect(find.text('Overview'), findsWidgets);
+    expect(find.text('Inspect'), findsWidgets);
 
     await tester.tap(find.text('Fetch'));
     await tester.pumpAndSettle();
@@ -87,12 +91,14 @@ void main() {
     await tester.tap(find.text('Fetch Advice'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Fresh advice'), findsOneWidget);
+    expect(find.text('Fresh advice'), findsWidgets);
 
     await tester.tap(find.text('History'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Fresh advice'), findsOneWidget);
+    expect(find.text('Fresh advice'), findsWidgets);
     expect(find.text('Old advice'), findsOneWidget);
+    expect(find.text('Overview'), findsWidgets);
+    expect(find.text('Inspect'), findsWidgets);
   });
 }

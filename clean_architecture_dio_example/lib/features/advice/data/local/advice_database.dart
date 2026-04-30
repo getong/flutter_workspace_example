@@ -86,9 +86,9 @@ class AdviceDatabase extends _$AdviceDatabase {
   }
 
   Future<List<Advice>> getSavedAdvice() async {
-    final rows = await (select(adviceEntries)
-          ..orderBy([(table) => OrderingTerm.desc(table.updatedAt)]))
-        .get();
+    final rows = await (select(
+      adviceEntries,
+    )..orderBy([(table) => OrderingTerm.desc(table.updatedAt)])).get();
 
     return rows.map(_mapRowToAdvice).toList(growable: false);
   }
