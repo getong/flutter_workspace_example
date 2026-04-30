@@ -27,13 +27,13 @@ class AdviceRepositoryImpl implements AdviceRepository {
   Future<Advice> getRandomAdvice() async {
     try {
       final advice = await _fetchRemoteAdvice().timeout(_fastResponseBudget);
-      _cachedAdvice = advice;
-      await _adviceDatabase.cacheAdvice(advice);
-      return advice;
+      return _storeAndRemember(advice);
     } on TimeoutException {
-      return _cachedAdvice ??
+      final fallbackAdvice =
+          _cachedAdvice ??
           await _adviceDatabase.getLatestAdvice() ??
           _fallbackAdviceService.getRandomAdvice();
+      return _storeAndRemember(fallbackAdvice);
     } on DioException catch (error) {
       final statusCode = error.response?.statusCode;
       if (statusCode != null) {
@@ -41,15 +41,22 @@ class AdviceRepositoryImpl implements AdviceRepository {
       }
 
       if (_shouldUseFallback(error)) {
-        return _cachedAdvice ??
+        final fallbackAdvice =
+            _cachedAdvice ??
             await _adviceDatabase.getLatestAdvice() ??
             _fallbackAdviceService.getRandomAdvice();
+        return _storeAndRemember(fallbackAdvice);
       }
 
       throw Exception('Unable to reach the advice service.');
     } on FormatException catch (error) {
       throw Exception(error.message);
     }
+  }
+
+  @override
+  Future<List<Advice>> getSavedAdvice() {
+    return _adviceDatabase.getSavedAdvice();
   }
 
   @override
@@ -60,6 +67,12 @@ class AdviceRepositoryImpl implements AdviceRepository {
   Future<Advice> _fetchRemoteAdvice() async {
     final adviceModel = await _apiService.fetchRandomAdvice();
     return adviceModel;
+  }
+
+  Future<Advice> _storeAndRemember(Advice advice) async {
+    _cachedAdvice = advice;
+    await _adviceDatabase.cacheAdvice(advice);
+    return advice;
   }
 
   bool _shouldUseFallback(DioException error) {

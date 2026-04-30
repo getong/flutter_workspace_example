@@ -6,15 +6,45 @@ import '../../domain/entities/advice.dart';
 import '../../domain/repositories/advice_repository.dart';
 
 @RoutePage()
-class AdviceHistoryTabPage extends StatelessWidget {
+class AdviceHistoryTabPage extends StatefulWidget {
   const AdviceHistoryTabPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final repository = context.read<AdviceRepository>();
+  State<AdviceHistoryTabPage> createState() => _AdviceHistoryTabPageState();
+}
 
-    return StreamBuilder<List<Advice>>(
-      stream: repository.watchSavedAdvice(),
+class _AdviceHistoryTabPageState extends State<AdviceHistoryTabPage>
+    with AutoRouteAwareStateMixin<AdviceHistoryTabPage> {
+  late Future<List<Advice>> _savedAdviceFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _refreshSavedAdvice();
+  }
+
+  @override
+  void didInitTabRoute(TabPageRoute? previousRoute) {
+    _refreshSavedAdvice();
+  }
+
+  @override
+  void didChangeTabRoute(TabPageRoute previousRoute) {
+    _refreshSavedAdvice();
+  }
+
+  void _refreshSavedAdvice() {
+    _savedAdviceFuture = context.read<AdviceRepository>().getSavedAdvice();
+
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<Advice>>(
+      future: _savedAdviceFuture,
       builder: (context, snapshot) {
         final items = snapshot.data ?? const <Advice>[];
 
@@ -41,10 +71,11 @@ class AdviceHistoryTabPage extends StatelessWidget {
           separatorBuilder: (_, _) => const SizedBox(height: 12),
           itemBuilder: (context, index) {
             final advice = items[index];
+            final displayNumber = items.length - index;
 
             return Card(
               child: ListTile(
-                leading: CircleAvatar(child: Text('${index + 1}')),
+                leading: CircleAvatar(child: Text('$displayNumber')),
                 title: Text(advice.message),
                 subtitle: Text(
                   advice.author == null

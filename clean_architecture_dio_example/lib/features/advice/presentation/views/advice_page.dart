@@ -19,6 +19,7 @@ class AdvicePage extends StatelessWidget {
         create: (_) => getIt<AdviceBloc>()..add(const FetchAdviceEvent()),
         child: AutoTabsScaffold(
           routes: const [AdviceFetchTabRoute(), AdviceHistoryTabRoute()],
+          navigatorObservers: () => [AutoRouteObserver()],
           appBarBuilder: (context, tabsRouter) {
             final titles = ['Advice Generator', 'Fetched Advice'];
             return AppBar(title: Text(titles[tabsRouter.activeIndex]));

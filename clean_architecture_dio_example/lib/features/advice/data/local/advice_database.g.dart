@@ -9,14 +9,31 @@ class $AdviceEntriesTable extends AdviceEntries
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $AdviceEntriesTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  static const VerificationMeta _entryIdMeta = const VerificationMeta(
+    'entryId',
+  );
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-    'id',
+  late final GeneratedColumn<int> entryId = GeneratedColumn<int>(
+    'entry_id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _adviceIdMeta = const VerificationMeta(
+    'adviceId',
+  );
+  @override
+  late final GeneratedColumn<int> adviceId = GeneratedColumn<int>(
+    'advice_id',
     aliasedName,
     false,
     type: DriftSqlType.int,
-    requiredDuringInsert: false,
+    requiredDuringInsert: true,
   );
   static const VerificationMeta _messageMeta = const VerificationMeta(
     'message',
@@ -60,7 +77,8 @@ class $AdviceEntriesTable extends AdviceEntries
   );
   @override
   List<GeneratedColumn> get $columns => [
-    id,
+    entryId,
+    adviceId,
     message,
     source,
     author,
@@ -78,8 +96,19 @@ class $AdviceEntriesTable extends AdviceEntries
   }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    if (data.containsKey('entry_id')) {
+      context.handle(
+        _entryIdMeta,
+        entryId.isAcceptableOrUnknown(data['entry_id']!, _entryIdMeta),
+      );
+    }
+    if (data.containsKey('advice_id')) {
+      context.handle(
+        _adviceIdMeta,
+        adviceId.isAcceptableOrUnknown(data['advice_id']!, _adviceIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_adviceIdMeta);
     }
     if (data.containsKey('message')) {
       context.handle(
@@ -115,14 +144,18 @@ class $AdviceEntriesTable extends AdviceEntries
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {entryId};
   @override
   AdviceEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return AdviceEntry(
-      id: attachedDatabase.typeMapping.read(
+      entryId: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
-        data['${effectivePrefix}id'],
+        data['${effectivePrefix}entry_id'],
+      )!,
+      adviceId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}advice_id'],
       )!,
       message: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
@@ -150,13 +183,15 @@ class $AdviceEntriesTable extends AdviceEntries
 }
 
 class AdviceEntry extends DataClass implements Insertable<AdviceEntry> {
-  final int id;
+  final int entryId;
+  final int adviceId;
   final String message;
   final String source;
   final String? author;
   final DateTime updatedAt;
   const AdviceEntry({
-    required this.id,
+    required this.entryId,
+    required this.adviceId,
     required this.message,
     required this.source,
     this.author,
@@ -165,7 +200,8 @@ class AdviceEntry extends DataClass implements Insertable<AdviceEntry> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
+    map['entry_id'] = Variable<int>(entryId);
+    map['advice_id'] = Variable<int>(adviceId);
     map['message'] = Variable<String>(message);
     map['source'] = Variable<String>(source);
     if (!nullToAbsent || author != null) {
@@ -177,7 +213,8 @@ class AdviceEntry extends DataClass implements Insertable<AdviceEntry> {
 
   AdviceEntriesCompanion toCompanion(bool nullToAbsent) {
     return AdviceEntriesCompanion(
-      id: Value(id),
+      entryId: Value(entryId),
+      adviceId: Value(adviceId),
       message: Value(message),
       source: Value(source),
       author: author == null && nullToAbsent
@@ -193,7 +230,8 @@ class AdviceEntry extends DataClass implements Insertable<AdviceEntry> {
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return AdviceEntry(
-      id: serializer.fromJson<int>(json['id']),
+      entryId: serializer.fromJson<int>(json['entryId']),
+      adviceId: serializer.fromJson<int>(json['adviceId']),
       message: serializer.fromJson<String>(json['message']),
       source: serializer.fromJson<String>(json['source']),
       author: serializer.fromJson<String?>(json['author']),
@@ -204,7 +242,8 @@ class AdviceEntry extends DataClass implements Insertable<AdviceEntry> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
+      'entryId': serializer.toJson<int>(entryId),
+      'adviceId': serializer.toJson<int>(adviceId),
       'message': serializer.toJson<String>(message),
       'source': serializer.toJson<String>(source),
       'author': serializer.toJson<String?>(author),
@@ -213,13 +252,15 @@ class AdviceEntry extends DataClass implements Insertable<AdviceEntry> {
   }
 
   AdviceEntry copyWith({
-    int? id,
+    int? entryId,
+    int? adviceId,
     String? message,
     String? source,
     Value<String?> author = const Value.absent(),
     DateTime? updatedAt,
   }) => AdviceEntry(
-    id: id ?? this.id,
+    entryId: entryId ?? this.entryId,
+    adviceId: adviceId ?? this.adviceId,
     message: message ?? this.message,
     source: source ?? this.source,
     author: author.present ? author.value : this.author,
@@ -227,7 +268,8 @@ class AdviceEntry extends DataClass implements Insertable<AdviceEntry> {
   );
   AdviceEntry copyWithCompanion(AdviceEntriesCompanion data) {
     return AdviceEntry(
-      id: data.id.present ? data.id.value : this.id,
+      entryId: data.entryId.present ? data.entryId.value : this.entryId,
+      adviceId: data.adviceId.present ? data.adviceId.value : this.adviceId,
       message: data.message.present ? data.message.value : this.message,
       source: data.source.present ? data.source.value : this.source,
       author: data.author.present ? data.author.value : this.author,
@@ -238,7 +280,8 @@ class AdviceEntry extends DataClass implements Insertable<AdviceEntry> {
   @override
   String toString() {
     return (StringBuffer('AdviceEntry(')
-          ..write('id: $id, ')
+          ..write('entryId: $entryId, ')
+          ..write('adviceId: $adviceId, ')
           ..write('message: $message, ')
           ..write('source: $source, ')
           ..write('author: $author, ')
@@ -248,12 +291,14 @@ class AdviceEntry extends DataClass implements Insertable<AdviceEntry> {
   }
 
   @override
-  int get hashCode => Object.hash(id, message, source, author, updatedAt);
+  int get hashCode =>
+      Object.hash(entryId, adviceId, message, source, author, updatedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is AdviceEntry &&
-          other.id == this.id &&
+          other.entryId == this.entryId &&
+          other.adviceId == this.adviceId &&
           other.message == this.message &&
           other.source == this.source &&
           other.author == this.author &&
@@ -261,36 +306,42 @@ class AdviceEntry extends DataClass implements Insertable<AdviceEntry> {
 }
 
 class AdviceEntriesCompanion extends UpdateCompanion<AdviceEntry> {
-  final Value<int> id;
+  final Value<int> entryId;
+  final Value<int> adviceId;
   final Value<String> message;
   final Value<String> source;
   final Value<String?> author;
   final Value<DateTime> updatedAt;
   const AdviceEntriesCompanion({
-    this.id = const Value.absent(),
+    this.entryId = const Value.absent(),
+    this.adviceId = const Value.absent(),
     this.message = const Value.absent(),
     this.source = const Value.absent(),
     this.author = const Value.absent(),
     this.updatedAt = const Value.absent(),
   });
   AdviceEntriesCompanion.insert({
-    this.id = const Value.absent(),
+    this.entryId = const Value.absent(),
+    required int adviceId,
     required String message,
     required String source,
     this.author = const Value.absent(),
     required DateTime updatedAt,
-  }) : message = Value(message),
+  }) : adviceId = Value(adviceId),
+       message = Value(message),
        source = Value(source),
        updatedAt = Value(updatedAt);
   static Insertable<AdviceEntry> custom({
-    Expression<int>? id,
+    Expression<int>? entryId,
+    Expression<int>? adviceId,
     Expression<String>? message,
     Expression<String>? source,
     Expression<String>? author,
     Expression<DateTime>? updatedAt,
   }) {
     return RawValuesInsertable({
-      if (id != null) 'id': id,
+      if (entryId != null) 'entry_id': entryId,
+      if (adviceId != null) 'advice_id': adviceId,
       if (message != null) 'message': message,
       if (source != null) 'source': source,
       if (author != null) 'author': author,
@@ -299,14 +350,16 @@ class AdviceEntriesCompanion extends UpdateCompanion<AdviceEntry> {
   }
 
   AdviceEntriesCompanion copyWith({
-    Value<int>? id,
+    Value<int>? entryId,
+    Value<int>? adviceId,
     Value<String>? message,
     Value<String>? source,
     Value<String?>? author,
     Value<DateTime>? updatedAt,
   }) {
     return AdviceEntriesCompanion(
-      id: id ?? this.id,
+      entryId: entryId ?? this.entryId,
+      adviceId: adviceId ?? this.adviceId,
       message: message ?? this.message,
       source: source ?? this.source,
       author: author ?? this.author,
@@ -317,8 +370,11 @@ class AdviceEntriesCompanion extends UpdateCompanion<AdviceEntry> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
+    if (entryId.present) {
+      map['entry_id'] = Variable<int>(entryId.value);
+    }
+    if (adviceId.present) {
+      map['advice_id'] = Variable<int>(adviceId.value);
     }
     if (message.present) {
       map['message'] = Variable<String>(message.value);
@@ -338,7 +394,8 @@ class AdviceEntriesCompanion extends UpdateCompanion<AdviceEntry> {
   @override
   String toString() {
     return (StringBuffer('AdviceEntriesCompanion(')
-          ..write('id: $id, ')
+          ..write('entryId: $entryId, ')
+          ..write('adviceId: $adviceId, ')
           ..write('message: $message, ')
           ..write('source: $source, ')
           ..write('author: $author, ')
@@ -361,7 +418,8 @@ abstract class _$AdviceDatabase extends GeneratedDatabase {
 
 typedef $$AdviceEntriesTableCreateCompanionBuilder =
     AdviceEntriesCompanion Function({
-      Value<int> id,
+      Value<int> entryId,
+      required int adviceId,
       required String message,
       required String source,
       Value<String?> author,
@@ -369,7 +427,8 @@ typedef $$AdviceEntriesTableCreateCompanionBuilder =
     });
 typedef $$AdviceEntriesTableUpdateCompanionBuilder =
     AdviceEntriesCompanion Function({
-      Value<int> id,
+      Value<int> entryId,
+      Value<int> adviceId,
       Value<String> message,
       Value<String> source,
       Value<String?> author,
@@ -385,8 +444,13 @@ class $$AdviceEntriesTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(
-    column: $table.id,
+  ColumnFilters<int> get entryId => $composableBuilder(
+    column: $table.entryId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get adviceId => $composableBuilder(
+    column: $table.adviceId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -420,8 +484,13 @@ class $$AdviceEntriesTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(
-    column: $table.id,
+  ColumnOrderings<int> get entryId => $composableBuilder(
+    column: $table.entryId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get adviceId => $composableBuilder(
+    column: $table.adviceId,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -455,8 +524,11 @@ class $$AdviceEntriesTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get entryId =>
+      $composableBuilder(column: $table.entryId, builder: (column) => column);
+
+  GeneratedColumn<int> get adviceId =>
+      $composableBuilder(column: $table.adviceId, builder: (column) => column);
 
   GeneratedColumn<String> get message =>
       $composableBuilder(column: $table.message, builder: (column) => column);
@@ -504,13 +576,15 @@ class $$AdviceEntriesTableTableManager
               $$AdviceEntriesTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
-                Value<int> id = const Value.absent(),
+                Value<int> entryId = const Value.absent(),
+                Value<int> adviceId = const Value.absent(),
                 Value<String> message = const Value.absent(),
                 Value<String> source = const Value.absent(),
                 Value<String?> author = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
               }) => AdviceEntriesCompanion(
-                id: id,
+                entryId: entryId,
+                adviceId: adviceId,
                 message: message,
                 source: source,
                 author: author,
@@ -518,13 +592,15 @@ class $$AdviceEntriesTableTableManager
               ),
           createCompanionCallback:
               ({
-                Value<int> id = const Value.absent(),
+                Value<int> entryId = const Value.absent(),
+                required int adviceId,
                 required String message,
                 required String source,
                 Value<String?> author = const Value.absent(),
                 required DateTime updatedAt,
               }) => AdviceEntriesCompanion.insert(
-                id: id,
+                entryId: entryId,
+                adviceId: adviceId,
                 message: message,
                 source: source,
                 author: author,
