@@ -195,6 +195,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(label: 'Dialog Module', routePath: AppRoute.dialog.path),
   _ModuleLink(label: 'dio Module', routePath: AppRoute.dio.path),
   _ModuleLink(
+    label: 'dio_cookie_manager Module',
+    routePath: AppRoute.dioCookieManager.path,
+  ),
+  _ModuleLink(
     label: 'dio_smart_retry Module',
     routePath: AppRoute.dioSmartRetry.path,
   ),

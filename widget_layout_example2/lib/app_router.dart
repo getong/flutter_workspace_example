@@ -56,6 +56,7 @@ import 'package:widget_layout_example2/modules/date_picker_dialog_page.dart';
 import 'package:widget_layout_example2/modules/decorated_box_page.dart';
 import 'package:widget_layout_example2/modules/dialog_page.dart';
 import 'package:widget_layout_example2/modules/dio_page.dart';
+import 'package:widget_layout_example2/modules/dio_cookie_manager_page.dart';
 import 'package:widget_layout_example2/modules/dio_smart_retry_page.dart';
 import 'package:widget_layout_example2/modules/dio_multi_url_page.dart';
 import 'package:widget_layout_example2/modules/dotted_border_page.dart';
@@ -672,6 +673,10 @@ class AppRouter extends RootStackRouter {
     ),
     AutoRoute(page: DialogExampleRoute.page, path: AppRoute.dialog.path),
     AutoRoute(page: DioRoute.page, path: AppRoute.dio.path),
+    AutoRoute(
+      page: DioCookieManagerRoute.page,
+      path: AppRoute.dioCookieManager.path,
+    ),
     AutoRoute(page: DioSmartRetryRoute.page, path: AppRoute.dioSmartRetry.path),
     AutoRoute(page: DioMultiUrlRoute.page, path: AppRoute.dioMultiUrl.path),
     AutoRoute(page: DottedBorderRoute.page, path: AppRoute.dottedBorder.path),

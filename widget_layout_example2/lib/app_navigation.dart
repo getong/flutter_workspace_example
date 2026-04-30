@@ -152,6 +152,7 @@ abstract final class RouteName {
   static const simpleDialog = 'SimpleDialogExampleRoute';
   static const dialog = 'DialogExampleRoute';
   static const dio = 'DioRoute';
+  static const dioCookieManager = 'DioCookieManagerRoute';
   static const dioSmartRetry = 'DioSmartRetryRoute';
   static const dioMultiUrl = 'DioMultiUrlRoute';
   static const dottedBorder = 'DottedBorderRoute';
@@ -483,6 +484,7 @@ enum AppRoute {
   simpleDialog('/simple-dialog-page', RouteName.simpleDialog),
   dialog('/dialog-page', RouteName.dialog),
   dio('/dio-page', RouteName.dio),
+  dioCookieManager('/dio-cookie-manager-page', RouteName.dioCookieManager),
   dioSmartRetry('/dio-smart-retry-page', RouteName.dioSmartRetry),
   dioMultiUrl('/dio-multi-url-page', RouteName.dioMultiUrl),
   dottedBorder('/dotted-border-page', RouteName.dottedBorder),

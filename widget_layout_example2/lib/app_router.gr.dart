@@ -1660,6 +1660,22 @@ class DialogExampleRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [DioCookieManagerPage]
+class DioCookieManagerRoute extends PageRouteInfo<void> {
+  const DioCookieManagerRoute({List<PageRouteInfo>? children})
+    : super(DioCookieManagerRoute.name, initialChildren: children);
+
+  static const String name = 'DioCookieManagerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DioCookieManagerPage();
+    },
+  );
+}
+
+/// generated route for
 /// [DioMultiUrlPage]
 class DioMultiUrlRoute extends PageRouteInfo<void> {
   const DioMultiUrlRoute({List<PageRouteInfo>? children})
