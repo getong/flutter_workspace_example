@@ -31,34 +31,8 @@ class AdviceDatabase extends _$AdviceDatabase {
   MigrationStrategy get migration => MigrationStrategy(
     onUpgrade: (migrator, from, to) async {
       if (from < 2) {
-        await migrator.renameColumn(
-          adviceEntries,
-          'id',
-          adviceEntries.adviceId,
-        );
-        await customStatement(
-          'ALTER TABLE advice_entries ADD COLUMN entry_id INTEGER;',
-        );
-        await customStatement('''
-          CREATE TABLE advice_entries_v2 (
-            entry_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-            advice_id INTEGER NOT NULL,
-            message TEXT NOT NULL,
-            source TEXT NOT NULL,
-            author TEXT,
-            updated_at TEXT NOT NULL
-          );
-          ''');
-        await customStatement('''
-          INSERT INTO advice_entries_v2 (advice_id, message, source, author, updated_at)
-          SELECT advice_id, message, source, author, updated_at
-          FROM advice_entries
-          ORDER BY updated_at ASC;
-          ''');
-        await customStatement('DROP TABLE advice_entries;');
-        await customStatement(
-          'ALTER TABLE advice_entries_v2 RENAME TO advice_entries;',
-        );
+        // await customStatement('DROP TABLE IF EXISTS advice_entries;');
+        await migrator.createTable(adviceEntries);
       }
     },
   );
