@@ -3336,6 +3336,22 @@ class PaddingRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [PedanticMonoPage]
+class PedanticMonoRoute extends PageRouteInfo<void> {
+  const PedanticMonoRoute({List<PageRouteInfo>? children})
+    : super(PedanticMonoRoute.name, initialChildren: children);
+
+  static const String name = 'PedanticMonoRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const PedanticMonoPage();
+    },
+  );
+}
+
+/// generated route for
 /// [PermissionHandlerPage]
 class PermissionHandlerRoute extends PageRouteInfo<void> {
   const PermissionHandlerRoute({List<PageRouteInfo>? children})
@@ -3416,6 +3432,22 @@ class PositionedRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [PrettyDioLoggerPage]
+class PrettyDioLoggerRoute extends PageRouteInfo<void> {
+  const PrettyDioLoggerRoute({List<PageRouteInfo>? children})
+    : super(PrettyDioLoggerRoute.name, initialChildren: children);
+
+  static const String name = 'PrettyDioLoggerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const PrettyDioLoggerPage();
+    },
+  );
+}
+
+/// generated route for
 /// [ProfilePage]
 class ProfileRoute extends PageRouteInfo<void> {
   const ProfileRoute({List<PageRouteInfo>? children})
@@ -3459,6 +3491,22 @@ class ResponsiveContainerRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const ResponsiveContainerPage();
+    },
+  );
+}
+
+/// generated route for
+/// [RetrofitPage]
+class RetrofitRoute extends PageRouteInfo<void> {
+  const RetrofitRoute({List<PageRouteInfo>? children})
+    : super(RetrofitRoute.name, initialChildren: children);
+
+  static const String name = 'RetrofitRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const RetrofitPage();
     },
   );
 }
@@ -4022,6 +4070,22 @@ class SyncfusionFlutterChartsRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const SyncfusionFlutterChartsPage();
+    },
+  );
+}
+
+/// generated route for
+/// [TableCalendarPage]
+class TableCalendarRoute extends PageRouteInfo<void> {
+  const TableCalendarRoute({List<PageRouteInfo>? children})
+    : super(TableCalendarRoute.name, initialChildren: children);
+
+  static const String name = 'TableCalendarRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TableCalendarPage();
     },
   );
 }

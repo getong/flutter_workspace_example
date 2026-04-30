@@ -454,11 +454,20 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'package_info_plus Module',
     routePath: AppRoute.packageInfoPlus.path,
   ),
+  _ModuleLink(
+    label: 'pedantic_mono Module',
+    routePath: AppRoute.pedanticMono.path,
+  ),
   _ModuleLink(label: 'pinput Module', routePath: AppRoute.pinput.path),
   _ModuleLink(label: 'pigeon Module', routePath: AppRoute.pigeon.path),
   _ModuleLink(label: 'PopScope Module', routePath: AppRoute.popScope.path),
+  _ModuleLink(
+    label: 'pretty_dio_logger Module',
+    routePath: AppRoute.prettyDioLogger.path,
+  ),
   _ModuleLink(label: 'Radio Module', routePath: AppRoute.radio.path),
   _ModuleLink(label: 'RichText Module', routePath: AppRoute.richText.path),
+  _ModuleLink(label: 'retrofit Module', routePath: AppRoute.retrofit.path),
   _ModuleLink(
     label: 'sensors_plus Module',
     routePath: AppRoute.sensorsPlus.path,
@@ -506,6 +515,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.smoothPageIndicator.path,
   ),
   _ModuleLink(label: 'Switch Module', routePath: AppRoute.switchExample.path),
+  _ModuleLink(
+    label: 'table_calendar Module',
+    routePath: AppRoute.tableCalendar.path,
+  ),
   _ModuleLink(
     label: 'tdesign_flutter Module',
     routePath: AppRoute.tdesignFlutter.path,

@@ -209,13 +209,16 @@ abstract final class RouteName {
   static const mergeSemantics = 'MergeSemanticsRoute';
   static const onboardingOverlay = 'OnboardingOverlayRoute';
   static const openFile = 'OpenFileRoute';
+  static const pedanticMono = 'PedanticMonoRoute';
   static const permissionHandler = 'PermissionHandlerRoute';
   static const packageInfoPlus = 'PackageInfoPlusRoute';
   static const pinput = 'PinputRoute';
   static const pigeon = 'PigeonRoute';
   static const popScope = 'PopScopeRoute';
+  static const prettyDioLogger = 'PrettyDioLoggerRoute';
   static const speechToText = 'SpeechToTextRoute';
   static const shimmer = 'ShimmerRoute';
+  static const retrofit = 'RetrofitRoute';
   static const syncfusionFlutterCharts = 'SyncfusionFlutterChartsRoute';
   static const smoothPageIndicator = 'SmoothPageIndicatorRoute';
   static const superClipboard = 'SuperClipboardRoute';
@@ -250,6 +253,7 @@ abstract final class RouteName {
   static const animationController = 'AnimationControllerRoute';
   static const singleTickerProviderStateMixin =
       'SingleTickerProviderStateMixinRoute';
+  static const tableCalendar = 'TableCalendarRoute';
   static const tween = 'TweenRoute';
   static const tweenSequenceInterval = 'TweenSequenceIntervalRoute';
   static const flutterSvg = 'FlutterSvgRoute';
@@ -557,13 +561,16 @@ enum AppRoute {
   mergeSemantics('/merge-semantics-page', RouteName.mergeSemantics),
   onboardingOverlay('/onboarding-overlay-page', RouteName.onboardingOverlay),
   openFile('/open-file-page', RouteName.openFile),
+  pedanticMono('/pedantic-mono-page', RouteName.pedanticMono),
   permissionHandler('/permission-handler-page', RouteName.permissionHandler),
   packageInfoPlus('/package-info-plus-page', RouteName.packageInfoPlus),
   pinput('/pinput-page', RouteName.pinput),
   pigeon('/pigeon-page', RouteName.pigeon),
   popScope('/pop-scope-page', RouteName.popScope),
+  prettyDioLogger('/pretty-dio-logger-page', RouteName.prettyDioLogger),
   speechToText('/speech-to-text-page', RouteName.speechToText),
   shimmer('/shimmer-page', RouteName.shimmer),
+  retrofit('/retrofit-page', RouteName.retrofit),
   syncfusionFlutterCharts(
     '/syncfusion-flutter-charts-page',
     RouteName.syncfusionFlutterCharts,
@@ -645,6 +652,7 @@ enum AppRoute {
     '/single-ticker-provider-state-mixin-page',
     RouteName.singleTickerProviderStateMixin,
   ),
+  tableCalendar('/table-calendar-page', RouteName.tableCalendar),
   tween('/tween-page', RouteName.tween),
   tweenSequenceInterval(
     '/tween-sequence-interval-page',

@@ -154,14 +154,17 @@ import 'package:widget_layout_example2/modules/onboarding_overlay_page.dart';
 import 'package:widget_layout_example2/modules/orientation_builder_page.dart';
 import 'package:widget_layout_example2/modules/overlay_menu_page.dart';
 import 'package:widget_layout_example2/modules/padding_page.dart';
+import 'package:widget_layout_example2/modules/pedantic_mono_page.dart';
 import 'package:widget_layout_example2/modules/permission_handler_page.dart';
 import 'package:widget_layout_example2/modules/package_info_plus_page.dart';
 import 'package:widget_layout_example2/modules/pinput_page.dart';
 import 'package:widget_layout_example2/modules/pigeon_page.dart';
 import 'package:widget_layout_example2/modules/pop_scope_page.dart';
 import 'package:widget_layout_example2/modules/positioned_page.dart';
+import 'package:widget_layout_example2/modules/pretty_dio_logger_page.dart';
 import 'package:widget_layout_example2/modules/radio_page.dart';
 import 'package:widget_layout_example2/modules/responsive_container_page.dart';
+import 'package:widget_layout_example2/modules/retrofit_page.dart';
 import 'package:widget_layout_example2/modules/rich_text_page.dart';
 import 'package:widget_layout_example2/modules/row_expanded_page.dart';
 import 'package:widget_layout_example2/modules/rotated_box_page.dart';
@@ -196,6 +199,7 @@ import 'package:widget_layout_example2/modules/stream_builder_page.dart';
 import 'package:widget_layout_example2/modules/super_clipboard_page.dart';
 import 'package:widget_layout_example2/modules/switch_page.dart';
 import 'package:widget_layout_example2/modules/syncfusion_flutter_charts_page.dart';
+import 'package:widget_layout_example2/modules/table_calendar_page.dart';
 import 'package:widget_layout_example2/modules/table_page.dart';
 import 'package:widget_layout_example2/modules/tdesign_flutter_page.dart';
 import 'package:widget_layout_example2/modules/time_picker_dialog_page.dart';
@@ -785,6 +789,7 @@ class AppRouter extends RootStackRouter {
       path: AppRoute.onboardingOverlay.path,
     ),
     AutoRoute(page: OpenFileRoute.page, path: AppRoute.openFile.path),
+    AutoRoute(page: PedanticMonoRoute.page, path: AppRoute.pedanticMono.path),
     AutoRoute(
       page: PermissionHandlerRoute.page,
       path: AppRoute.permissionHandler.path,
@@ -796,8 +801,13 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: PinputRoute.page, path: AppRoute.pinput.path),
     AutoRoute(page: PigeonRoute.page, path: AppRoute.pigeon.path),
     AutoRoute(page: PopScopeRoute.page, path: AppRoute.popScope.path),
+    AutoRoute(
+      page: PrettyDioLoggerRoute.page,
+      path: AppRoute.prettyDioLogger.path,
+    ),
     AutoRoute(page: SpeechToTextRoute.page, path: AppRoute.speechToText.path),
     AutoRoute(page: ShimmerRoute.page, path: AppRoute.shimmer.path),
+    AutoRoute(page: RetrofitRoute.page, path: AppRoute.retrofit.path),
     AutoRoute(
       page: SyncfusionFlutterChartsRoute.page,
       path: AppRoute.syncfusionFlutterCharts.path,
@@ -903,6 +913,7 @@ class AppRouter extends RootStackRouter {
       page: SingleTickerProviderStateMixinRoute.page,
       path: AppRoute.singleTickerProviderStateMixin.path,
     ),
+    AutoRoute(page: TableCalendarRoute.page, path: AppRoute.tableCalendar.path),
     AutoRoute(page: TweenRoute.page, path: AppRoute.tween.path),
     AutoRoute(
       page: TweenSequenceIntervalRoute.page,
