@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:auto_route/auto_route.dart';
+
 import '../bloc/advice_bloc.dart';
 
+@RoutePage(name: 'AdviceFetchTabRoute')
 class AdviceView extends StatelessWidget {
   const AdviceView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Advice Generator')),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(24),

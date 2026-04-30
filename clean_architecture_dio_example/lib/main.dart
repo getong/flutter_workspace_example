@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'app_router.dart';
 import 'core/di/di.dart';
-import 'features/advice/presentation/bloc/advice_bloc.dart';
-import 'features/advice/presentation/views/advice_view.dart';
 
 void main() {
   configureDependencies();
@@ -15,16 +13,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final appRouter = getIt<AppRouter>();
+
+    return MaterialApp.router(
       title: 'Advice Generator',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         useMaterial3: true,
       ),
-      home: BlocProvider(
-        create: (_) => getIt<AdviceBloc>(),
-        child: const AdviceView(),
-      ),
+      routerConfig: appRouter.config(),
     );
   }
 }

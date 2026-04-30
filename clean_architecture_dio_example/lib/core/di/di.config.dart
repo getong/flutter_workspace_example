@@ -13,6 +13,8 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../../app_router.dart' as _i342;
+import '../../features/advice/data/local/advice_database.dart' as _i17;
 import '../../features/advice/data/repositories/advice_repository_impl.dart'
     as _i431;
 import '../../features/advice/data/services/advice_api_service.dart' as _i829;
@@ -34,6 +36,8 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final registerModule = _$RegisterModule(this);
     gh.lazySingleton<_i361.Dio>(() => registerModule.dio);
+    gh.lazySingleton<_i342.AppRouter>(() => registerModule.appRouter);
+    gh.lazySingleton<_i17.AdviceDatabase>(() => registerModule.adviceDatabase);
     gh.lazySingleton<_i396.FallbackAdviceService>(
       () => registerModule.fallbackAdviceService,
     );
@@ -41,7 +45,11 @@ extension GetItInjectableX on _i174.GetIt {
       () => registerModule.adviceApiService,
     );
     gh.lazySingleton<_i154.AdviceRepository>(
-      () => registerModule.adviceRepository,
+      () => _i431.AdviceRepositoryImpl(
+        gh<_i829.AdviceApiService>(),
+        gh<_i17.AdviceDatabase>(),
+        gh<_i396.FallbackAdviceService>(),
+      ),
     );
     gh.factory<_i183.GetRandomAdviceUseCase>(
       () => registerModule.getRandomAdviceUseCase,
@@ -63,12 +71,6 @@ class _$RegisterModule extends _i291.RegisterModule {
   @override
   _i829.AdviceApiService get adviceApiService =>
       _i829.AdviceApiService(_getIt<_i361.Dio>());
-
-  @override
-  _i431.AdviceRepositoryImpl get adviceRepository => _i431.AdviceRepositoryImpl(
-    _getIt<_i829.AdviceApiService>(),
-    _getIt<_i396.FallbackAdviceService>(),
-  );
 
   @override
   _i183.GetRandomAdviceUseCase get getRandomAdviceUseCase =>
