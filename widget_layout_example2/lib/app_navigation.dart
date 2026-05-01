@@ -215,6 +215,7 @@ abstract final class RouteName {
   static const openFile = 'OpenFileRoute';
   static const pedanticMono = 'PedanticMonoRoute';
   static const permissionHandler = 'PermissionHandlerRoute';
+  static const percentIndicator = 'PercentIndicatorRoute';
   static const packageInfoPlus = 'PackageInfoPlusRoute';
   static const pinput = 'PinputRoute';
   static const pigeon = 'PigeonRoute';
@@ -579,6 +580,7 @@ enum AppRoute {
   openFile('/open-file-page', RouteName.openFile),
   pedanticMono('/pedantic-mono-page', RouteName.pedanticMono),
   permissionHandler('/permission-handler-page', RouteName.permissionHandler),
+  percentIndicator('/percent-indicator-page', RouteName.percentIndicator),
   packageInfoPlus('/package-info-plus-page', RouteName.packageInfoPlus),
   pinput('/pinput-page', RouteName.pinput),
   pigeon('/pigeon-page', RouteName.pigeon),

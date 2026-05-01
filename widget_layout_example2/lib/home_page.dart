@@ -479,6 +479,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.permissionHandler.path,
   ),
   _ModuleLink(
+    label: 'percent_indicator Module',
+    routePath: AppRoute.percentIndicator.path,
+  ),
+  _ModuleLink(
     label: 'package_info_plus Module',
     routePath: AppRoute.packageInfoPlus.path,
   ),

@@ -3448,6 +3448,22 @@ class PedanticMonoRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [PercentIndicatorPage]
+class PercentIndicatorRoute extends PageRouteInfo<void> {
+  const PercentIndicatorRoute({List<PageRouteInfo>? children})
+    : super(PercentIndicatorRoute.name, initialChildren: children);
+
+  static const String name = 'PercentIndicatorRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const PercentIndicatorPage();
+    },
+  );
+}
+
+/// generated route for
 /// [PermissionHandlerPage]
 class PermissionHandlerRoute extends PageRouteInfo<void> {
   const PermissionHandlerRoute({List<PageRouteInfo>? children})

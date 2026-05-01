@@ -159,6 +159,7 @@ import 'package:widget_layout_example2/modules/orientation_builder_page.dart';
 import 'package:widget_layout_example2/modules/overlay_menu_page.dart';
 import 'package:widget_layout_example2/modules/padding_page.dart';
 import 'package:widget_layout_example2/modules/pedantic_mono_page.dart';
+import 'package:widget_layout_example2/modules/percent_indicator_page.dart';
 import 'package:widget_layout_example2/modules/permission_handler_page.dart';
 import 'package:widget_layout_example2/modules/package_info_plus_page.dart';
 import 'package:widget_layout_example2/modules/pinput_page.dart';
@@ -815,6 +816,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: PermissionHandlerRoute.page,
       path: AppRoute.permissionHandler.path,
+    ),
+    AutoRoute(
+      page: PercentIndicatorRoute.page,
+      path: AppRoute.percentIndicator.path,
     ),
     AutoRoute(
       page: PackageInfoPlusRoute.page,
