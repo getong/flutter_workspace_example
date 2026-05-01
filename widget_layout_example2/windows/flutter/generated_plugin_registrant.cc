@@ -9,6 +9,7 @@
 #include <audioplayers_windows/audioplayers_windows_plugin.h>
 #include <clipboard/clipboard_plugin.h>
 #include <connectivity_plus/connectivity_plus_windows_plugin.h>
+#include <desktop_multi_window/desktop_multi_window_plugin.h>
 #include <dynamic_color/dynamic_color_plugin_c_api.h>
 #include <fc_native_video_thumbnail/fc_native_video_thumbnail_plugin_c_api.h>
 #include <flutter_inappwebview_windows/flutter_inappwebview_windows_plugin_c_api.h>
@@ -33,6 +34,8 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("ClipboardPlugin"));
   ConnectivityPlusWindowsPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("ConnectivityPlusWindowsPlugin"));
+  DesktopMultiWindowPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("DesktopMultiWindowPlugin"));
   DynamicColorPluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("DynamicColorPluginCApi"));
   FcNativeVideoThumbnailPluginCApiRegisterWithRegistrar(

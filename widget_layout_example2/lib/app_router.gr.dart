@@ -1644,6 +1644,22 @@ class DecoratedBoxRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [DesktopMultiWindowPage]
+class DesktopMultiWindowRoute extends PageRouteInfo<void> {
+  const DesktopMultiWindowRoute({List<PageRouteInfo>? children})
+    : super(DesktopMultiWindowRoute.name, initialChildren: children);
+
+  static const String name = 'DesktopMultiWindowRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DesktopMultiWindowPage();
+    },
+  );
+}
+
+/// generated route for
 /// [DialogExamplePage]
 class DialogExampleRoute extends PageRouteInfo<void> {
   const DialogExampleRoute({List<PageRouteInfo>? children})

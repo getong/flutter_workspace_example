@@ -200,6 +200,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'DatePickerDialog Module',
     routePath: AppRoute.datePickerDialog.path,
   ),
+  _ModuleLink(
+    label: 'desktop_multi_window Module',
+    routePath: AppRoute.desktopMultiWindow.path,
+  ),
   _ModuleLink(label: 'Dialog Module', routePath: AppRoute.dialog.path),
   _ModuleLink(label: 'dio Module', routePath: AppRoute.dio.path),
   _ModuleLink(

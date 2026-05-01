@@ -52,6 +52,7 @@ import 'package:widget_layout_example2/modules/custom_paint_page.dart';
 import 'package:widget_layout_example2/modules/crypto_page.dart';
 import 'package:widget_layout_example2/modules/cue_page.dart';
 import 'package:widget_layout_example2/modules/data_table_page.dart';
+import 'package:widget_layout_example2/modules/desktop_multi_window_page.dart';
 import 'package:widget_layout_example2/modules/date_picker_dialog_page.dart';
 import 'package:widget_layout_example2/modules/decorated_box_page.dart';
 import 'package:widget_layout_example2/modules/dialog_page.dart';
@@ -892,6 +893,10 @@ class AppRouter extends RootStackRouter {
       path: AppRoute.cachedNetworkImageCe.path,
     ),
     AutoRoute(page: DataTableRoute.page, path: AppRoute.dataTable.path),
+    AutoRoute(
+      page: DesktopMultiWindowRoute.page,
+      path: AppRoute.desktopMultiWindow.path,
+    ),
     AutoRoute(page: FlChartRoute.page, path: AppRoute.flChart.path),
     AutoRoute(
       page: FontAwesomeFlutterRoute.page,
