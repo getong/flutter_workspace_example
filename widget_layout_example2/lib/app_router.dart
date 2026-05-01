@@ -152,6 +152,7 @@ import 'package:widget_layout_example2/modules/mouse_region_page.dart';
 import 'package:widget_layout_example2/modules/native_device_orientation_communicator_page.dart';
 import 'package:widget_layout_example2/modules/native_device_orientation_oriented_widget_page.dart';
 import 'package:widget_layout_example2/modules/native_device_orientation_reader_page.dart';
+import 'package:widget_layout_example2/modules/nested_scroll_view_page.dart';
 import 'package:widget_layout_example2/modules/open_file_page.dart';
 import 'package:widget_layout_example2/modules/onboarding_overlay_page.dart';
 import 'package:widget_layout_example2/modules/orientation_builder_page.dart';
@@ -774,6 +775,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: NativeDeviceOrientationReaderRoute.page,
       path: AppRoute.nativeDeviceOrientationReader.path,
+    ),
+    AutoRoute(
+      page: NestedScrollViewRoute.page,
+      path: AppRoute.nestedScrollView.path,
     ),
     AutoRoute(page: TextRichRoute.page, path: AppRoute.textRich.path),
     AutoRoute(

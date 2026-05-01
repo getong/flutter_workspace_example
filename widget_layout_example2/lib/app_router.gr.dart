@@ -3320,6 +3320,22 @@ class NativeDeviceOrientationReaderRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [NestedScrollViewPage]
+class NestedScrollViewRoute extends PageRouteInfo<void> {
+  const NestedScrollViewRoute({List<PageRouteInfo>? children})
+    : super(NestedScrollViewRoute.name, initialChildren: children);
+
+  static const String name = 'NestedScrollViewRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const NestedScrollViewPage();
+    },
+  );
+}
+
+/// generated route for
 /// [OnboardingOverlayPage]
 class OnboardingOverlayRoute extends PageRouteInfo<void> {
   const OnboardingOverlayRoute({List<PageRouteInfo>? children})

@@ -199,6 +199,7 @@ abstract final class RouteName {
       'NativeDeviceOrientationOrientedWidgetRoute';
   static const nativeDeviceOrientationReader =
       'NativeDeviceOrientationReaderRoute';
+  static const nestedScrollView = 'NestedScrollViewRoute';
   static const textRich = 'TextRichRoute';
   static const singleChildScrollView = 'SingleChildScrollViewRoute';
   static const sliverWidgets = 'SliverExamplesRoute';
@@ -559,6 +560,7 @@ enum AppRoute {
     '/native-device-orientation-reader-page',
     RouteName.nativeDeviceOrientationReader,
   ),
+  nestedScrollView('/nested-scroll-view-page', RouteName.nestedScrollView),
   textRich('/text-rich-page', RouteName.textRich),
   singleChildScrollView(
     '/single-child-scroll-view-page',

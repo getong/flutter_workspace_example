@@ -461,6 +461,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'native_device_orientation Reader Module',
     routePath: AppRoute.nativeDeviceOrientationReader.path,
   ),
+  _ModuleLink(
+    label: 'NestedScrollView Module',
+    routePath: AppRoute.nestedScrollView.path,
+  ),
   _ModuleLink(label: 'open_file Module', routePath: AppRoute.openFile.path),
   _ModuleLink(
     label: 'onboarding_overlay Module',
