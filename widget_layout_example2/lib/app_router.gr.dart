@@ -1724,6 +1724,22 @@ class DioSmartRetryRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [DividerPage]
+class DividerRoute extends PageRouteInfo<void> {
+  const DividerRoute({List<PageRouteInfo>? children})
+    : super(DividerRoute.name, initialChildren: children);
+
+  static const String name = 'DividerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DividerPage();
+    },
+  );
+}
+
+/// generated route for
 /// [DottedBorderPage]
 class DottedBorderRoute extends PageRouteInfo<void> {
   const DottedBorderRoute({List<PageRouteInfo>? children})
@@ -3184,6 +3200,22 @@ class MergeSemanticsRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [MobileScannerPage]
+class MobileScannerRoute extends PageRouteInfo<void> {
+  const MobileScannerRoute({List<PageRouteInfo>? children})
+    : super(MobileScannerRoute.name, initialChildren: children);
+
+  static const String name = 'MobileScannerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const MobileScannerPage();
+    },
+  );
+}
+
+/// generated route for
 /// [MouseRegionPage]
 class MouseRegionRoute extends PageRouteInfo<void> {
   const MouseRegionRoute({List<PageRouteInfo>? children})
@@ -3411,6 +3443,22 @@ class PinputRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const PinputPage();
+    },
+  );
+}
+
+/// generated route for
+/// [PlaceholderPage]
+class PlaceholderExampleRoute extends PageRouteInfo<void> {
+  const PlaceholderExampleRoute({List<PageRouteInfo>? children})
+    : super(PlaceholderExampleRoute.name, initialChildren: children);
+
+  static const String name = 'PlaceholderExampleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const PlaceholderPage();
     },
   );
 }
@@ -4406,6 +4454,22 @@ class UrlLauncherRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const UrlLauncherPage();
+    },
+  );
+}
+
+/// generated route for
+/// [VectorMathPage]
+class VectorMathRoute extends PageRouteInfo<void> {
+  const VectorMathRoute({List<PageRouteInfo>? children})
+    : super(VectorMathRoute.name, initialChildren: children);
+
+  static const String name = 'VectorMathRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const VectorMathPage();
     },
   );
 }

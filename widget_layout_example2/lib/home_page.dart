@@ -45,6 +45,10 @@ final List<_ModuleLink> _layoutModules = <_ModuleLink>[
     routePath: AppRoute.customScrollView.path,
   ),
   _ModuleLink(
+    label: 'Divider + VerticalDivider Module',
+    routePath: AppRoute.divider.path,
+  ),
+  _ModuleLink(
     label: 'DecoratedBox Module',
     routePath: AppRoute.decoratedBox.path,
   ),
@@ -78,6 +82,10 @@ final List<_ModuleLink> _layoutModules = <_ModuleLink>[
     routePath: AppRoute.orientationBuilder.path,
   ),
   _ModuleLink(label: 'Padding Module', routePath: AppRoute.padding.path),
+  _ModuleLink(
+    label: 'Placeholder Module',
+    routePath: AppRoute.placeholder.path,
+  ),
   _ModuleLink(label: 'Positioned Module', routePath: AppRoute.positioned.path),
   _ModuleLink(
     label: 'ResponsiveContainer Module',
@@ -426,8 +434,12 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.mergeSemantics.path,
   ),
   _ModuleLink(
-    label: 'MouseRegion Module',
+    label: 'Mouse Region Module',
     routePath: AppRoute.mouseRegion.path,
+  ),
+  _ModuleLink(
+    label: 'mobile_scanner Module',
+    routePath: AppRoute.mobileScanner.path,
   ),
   _ModuleLink(
     label: 'native_device_orientation Communicator Module',
@@ -564,6 +576,7 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'webview_flutter Module',
     routePath: AppRoute.webviewFlutter.path,
   ),
+  _ModuleLink(label: 'vector_math Module', routePath: AppRoute.vectorMath.path),
 ];
 
 final List<_ModuleLink> _animationModules = <_ModuleLink>[

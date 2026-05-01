@@ -224,7 +224,11 @@ import 'package:widget_layout_example2/modules/wasm_ffi_page.dart';
 import 'package:widget_layout_example2/modules/webview_flutter_page.dart';
 import 'package:widget_layout_example2/modules/wrap_page.dart';
 import 'package:widget_layout_example2/modules/choice_chip_page.dart';
+import 'package:widget_layout_example2/modules/divider_page.dart';
+import 'package:widget_layout_example2/modules/mobile_scanner_page.dart';
+import 'package:widget_layout_example2/modules/placeholder_page.dart';
 import 'package:widget_layout_example2/modules/sliver_to_box_adapter_page.dart';
+import 'package:widget_layout_example2/modules/vector_math_page.dart';
 
 part 'app_router.gr.dart';
 
@@ -927,5 +931,12 @@ class AppRouter extends RootStackRouter {
       path: AppRoute.tweenSequenceInterval.path,
     ),
     AutoRoute(page: FlutterSvgRoute.page, path: AppRoute.flutterSvg.path),
+    AutoRoute(page: DividerRoute.page, path: AppRoute.divider.path),
+    AutoRoute(
+      page: PlaceholderExampleRoute.page,
+      path: AppRoute.placeholder.path,
+    ),
+    AutoRoute(page: VectorMathRoute.page, path: AppRoute.vectorMath.path),
+    AutoRoute(page: MobileScannerRoute.page, path: AppRoute.mobileScanner.path),
   ];
 }

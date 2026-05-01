@@ -116,6 +116,7 @@ dependencies:
   marionette_flutter: ^0.5.0
   material_color_utilities: ^0.13.0
   material_symbols_icons: ^4.2928.1
+  mobile_scanner: ^7.2.0
   native_device_orientation: ^2.1.0
   onboarding_overlay: ^3.2.3
   open_file: ^3.5.11
@@ -151,6 +152,7 @@ dependencies:
   wasm_ffi: ^2.3.0
   webview_flutter: ^4.13.1
   youtube_explode_dart: ^3.0.5
+  vector_math: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -169,6 +171,7 @@ dev_dependencies:
   injectable_generator: ^3.0.2
   json_serializable: ^6.13.1
   retrofit_generator: ^10.0.1
+  mockito: ^5.6.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

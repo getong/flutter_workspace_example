@@ -259,6 +259,10 @@ abstract final class RouteName {
   static const tween = 'TweenRoute';
   static const tweenSequenceInterval = 'TweenSequenceIntervalRoute';
   static const flutterSvg = 'FlutterSvgRoute';
+  static const divider = 'DividerRoute';
+  static const placeholder = 'PlaceholderExampleRoute';
+  static const vectorMath = 'VectorMathRoute';
+  static const mobileScanner = 'MobileScannerRoute';
 }
 
 enum AppRoute {
@@ -662,7 +666,11 @@ enum AppRoute {
     '/tween-sequence-interval-page',
     RouteName.tweenSequenceInterval,
   ),
-  flutterSvg('/flutter-svg-page', RouteName.flutterSvg);
+  flutterSvg('/flutter-svg-page', RouteName.flutterSvg),
+  divider('/divider-page', RouteName.divider),
+  placeholder('/placeholder-page', RouteName.placeholder),
+  vectorMath('/vector-math-page', RouteName.vectorMath),
+  mobileScanner('/mobile-scanner-page', RouteName.mobileScanner);
 
   final String path;
   final String routeName;
