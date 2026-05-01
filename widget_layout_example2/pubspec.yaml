@@ -153,6 +153,7 @@ dependencies:
   webview_flutter: ^4.13.1
   youtube_explode_dart: ^3.0.5
   vector_math: ^2.2.0
+  flutter_bloc_event_bus: ^1.0.0
 
 dev_dependencies:
   flutter_test:

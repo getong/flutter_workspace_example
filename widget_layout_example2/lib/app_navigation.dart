@@ -161,6 +161,7 @@ abstract final class RouteName {
   static const futureBuilder = 'FutureBuilderRoute';
   static const genui = 'GenuiRoute';
   static const flutterBloc = 'FlutterBlocRoute';
+  static const flutterBlocEventBus = 'FlutterBlocEventBusRoute';
   static const flutterCardSwiper = 'FlutterCardSwiperRoute';
   static const flutterCustomTabs = 'FlutterCustomTabsRoute';
   static const flutterDebounceThrottle = 'FlutterDebounceThrottleRoute';
@@ -498,6 +499,10 @@ enum AppRoute {
   futureBuilder('/future-builder-page', RouteName.futureBuilder),
   genui('/genui-page', RouteName.genui),
   flutterBloc('/flutter-bloc-page', RouteName.flutterBloc),
+  flutterBlocEventBus(
+    '/flutter-bloc-event-bus-page',
+    RouteName.flutterBlocEventBus,
+  ),
   flutterCardSwiper('/flutter-card-swiper-page', RouteName.flutterCardSwiper),
   flutterCustomTabs('/flutter-custom-tabs-page', RouteName.flutterCustomTabs),
   flutterDebounceThrottle(

@@ -92,6 +92,7 @@ import 'package:widget_layout_example2/modules/flutter_svg_page.dart';
 import 'package:widget_layout_example2/modules/flutter_auto_size_text_page.dart';
 import 'package:widget_layout_example2/modules/flutter_animate_page.dart';
 import 'package:widget_layout_example2/modules/flutter_bloc_page.dart';
+import 'package:widget_layout_example2/modules/flutter_bloc_event_bus_page.dart';
 import 'package:widget_layout_example2/modules/flutter_card_swiper_page.dart';
 import 'package:widget_layout_example2/modules/flutter_custom_tabs_page.dart';
 import 'package:widget_layout_example2/modules/flutter_debounce_throttle_page.dart';
@@ -690,6 +691,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: FutureBuilderRoute.page, path: AppRoute.futureBuilder.path),
     AutoRoute(page: GenuiRoute.page, path: AppRoute.genui.path),
     AutoRoute(page: FlutterBlocRoute.page, path: AppRoute.flutterBloc.path),
+    AutoRoute(
+      page: FlutterBlocEventBusRoute.page,
+      path: AppRoute.flutterBlocEventBus.path,
+    ),
     AutoRoute(
       page: FlutterCardSwiperRoute.page,
       path: AppRoute.flutterCardSwiper.path,

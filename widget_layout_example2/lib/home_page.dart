@@ -291,6 +291,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.flutterBloc.path,
   ),
   _ModuleLink(
+    label: 'flutter_bloc_event_bus Module',
+    routePath: AppRoute.flutterBlocEventBus.path,
+  ),
+  _ModuleLink(
     label: 'flutter_card_swiper Module',
     routePath: AppRoute.flutterCardSwiper.path,
   ),

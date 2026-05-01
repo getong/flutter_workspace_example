@@ -2172,6 +2172,22 @@ class FlutterAutoSizeTextRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterBlocEventBusPage]
+class FlutterBlocEventBusRoute extends PageRouteInfo<void> {
+  const FlutterBlocEventBusRoute({List<PageRouteInfo>? children})
+    : super(FlutterBlocEventBusRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterBlocEventBusRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterBlocEventBusPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterBlocPage]
 class FlutterBlocRoute extends PageRouteInfo<void> {
   const FlutterBlocRoute({List<PageRouteInfo>? children})
