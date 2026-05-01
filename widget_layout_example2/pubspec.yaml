@@ -127,6 +127,8 @@ dependencies:
   pinput: ^6.0.2
   pretty_dio_logger: ^1.4.0
   retrofit: ^4.9.2
+  rive: ^0.14.6
+  rive_native: ^0.1.6
   sensors_plus: ^7.0.0
   shadcn_ui: ^0.54.0
   shader_graph: ^0.1.3

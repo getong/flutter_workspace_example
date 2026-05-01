@@ -3544,6 +3544,22 @@ class RichTextRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [RivePage]
+class RiveRoute extends PageRouteInfo<void> {
+  const RiveRoute({List<PageRouteInfo>? children})
+    : super(RiveRoute.name, initialChildren: children);
+
+  static const String name = 'RiveRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const RivePage();
+    },
+  );
+}
+
+/// generated route for
 /// [RotatedBoxExamplePage]
 class RotatedBoxExampleRoute extends PageRouteInfo<void> {
   const RotatedBoxExampleRoute({List<PageRouteInfo>? children})

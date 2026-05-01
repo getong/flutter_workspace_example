@@ -106,6 +106,7 @@ abstract final class RouteName {
   static const lootReel = 'LootReelRoute';
   static const lucideIconsFlutter = 'LucideIconsFlutterRoute';
   static const lottie = 'LottieRoute';
+  static const rive = 'RiveRoute';
   static const fluentUi = 'FluentUiRoute';
   static const materialColorUtilities = 'MaterialColorUtilitiesRoute';
   static const materialStateProperty = 'MaterialStatePropertyRoute';
@@ -412,6 +413,7 @@ enum AppRoute {
     RouteName.lucideIconsFlutter,
   ),
   lottie('/lottie-page', RouteName.lottie),
+  rive('/rive-page', RouteName.rive),
   fluentUi('/fluent-ui-page', RouteName.fluentUi),
   materialColorUtilities(
     '/material-color-utilities-page',

@@ -12,9 +12,12 @@ class ButtonShowcasePage extends StatefulWidget {
 
 class _ButtonShowcasePageState extends State<ButtonShowcasePage> {
   String _selectedPriority = 'Normal';
+  String? _selectedAssignee;
+  String _selectedViewMode = 'Board';
   String _selectedMenuAction = 'Nothing selected yet';
   final List<bool> _selectedFormats = <bool>[true, false, false];
   bool _notificationsEnabled = true;
+  bool _menuShowArchived = false;
 
   void _showMessage(String message) {
     ScaffoldMessenger.of(
@@ -82,7 +85,7 @@ class _ButtonShowcasePageState extends State<ButtonShowcasePage> {
             _ButtonExampleCard(
               title: '2. DropdownButton',
               description:
-                  'DropdownButton is useful when one value must be selected from a compact list of options.',
+                  'DropdownButton is useful when one value must be selected from a compact list of options. The examples below show a normal styled dropdown, a nullable picker with hint text, and a compact toolbar-style variant.',
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -123,6 +126,123 @@ class _ButtonShowcasePageState extends State<ButtonShowcasePage> {
                   ),
                   const SizedBox(height: 12),
                   Text('Selected priority: $_selectedPriority'),
+                  const SizedBox(height: 20),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'Optional assignee',
+                              style: textTheme.titleSmall?.copyWith(
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: colorScheme.outline),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  value: _selectedAssignee,
+                                  hint: const Text('Select owner'),
+                                  isExpanded: true,
+                                  items: const <DropdownMenuItem<String>>[
+                                    DropdownMenuItem(
+                                      value: 'Ava',
+                                      child: Text('Ava - Product'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'Noah',
+                                      child: Text('Noah - Design'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'Mia',
+                                      child: Text('Mia - QA'),
+                                    ),
+                                  ],
+                                  onChanged: (String? value) {
+                                    setState(() {
+                                      _selectedAssignee = value;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              _selectedAssignee == null
+                                  ? 'No assignee selected yet'
+                                  : 'Assigned to $_selectedAssignee',
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'Compact toolbar dropdown',
+                              style: textTheme.titleSmall?.copyWith(
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                              ),
+                              decoration: BoxDecoration(
+                                color: colorScheme.surfaceContainerHighest
+                                    .withValues(alpha: 0.55),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  value: _selectedViewMode,
+                                  isDense: true,
+                                  icon: const Icon(Icons.keyboard_arrow_down),
+                                  items: const <DropdownMenuItem<String>>[
+                                    DropdownMenuItem(
+                                      value: 'Board',
+                                      child: Text('Board View'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'Timeline',
+                                      child: Text('Timeline View'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'Calendar',
+                                      child: Text('Calendar View'),
+                                    ),
+                                  ],
+                                  onChanged: (String? value) {
+                                    if (value == null) {
+                                      return;
+                                    }
+                                    setState(() {
+                                      _selectedViewMode = value;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text('Current view: $_selectedViewMode'),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -166,53 +286,134 @@ class _ButtonShowcasePageState extends State<ButtonShowcasePage> {
             _ButtonExampleCard(
               title: '4. PopupMenuButton',
               description:
-                  'PopupMenuButton reveals a small menu anchored to a button or icon for overflow actions.',
-              child: Row(
+                  'PopupMenuButton reveals a small menu anchored to a button or icon for overflow actions. This section shows a custom child trigger, a toolbar icon trigger, separators, checked items, and disabled entries.',
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  PopupMenuButton<String>(
-                    onSelected: (String value) {
-                      setState(() {
-                        _selectedMenuAction = value;
-                      });
-                    },
-                    itemBuilder: (BuildContext context) {
-                      return const <PopupMenuEntry<String>>[
-                        PopupMenuItem<String>(
-                          value: 'Duplicate draft',
-                          child: Text('Duplicate draft'),
+                  Row(
+                    children: <Widget>[
+                      PopupMenuButton<String>(
+                        onSelected: (String value) {
+                          setState(() {
+                            _selectedMenuAction = value;
+                          });
+                        },
+                        itemBuilder: (BuildContext context) {
+                          return const <PopupMenuEntry<String>>[
+                            PopupMenuItem<String>(
+                              value: 'Duplicate draft',
+                              child: Text('Duplicate draft'),
+                            ),
+                            PopupMenuItem<String>(
+                              value: 'Archive item',
+                              child: Text('Archive item'),
+                            ),
+                            PopupMenuItem<String>(
+                              value: 'Share link',
+                              child: Text('Share link'),
+                            ),
+                          ];
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
+                          ),
+                          decoration: BoxDecoration(
+                            color: colorScheme.primary.withValues(alpha: 0.08),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: const Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Icon(Icons.more_horiz),
+                              SizedBox(width: 8),
+                              Text('Open menu'),
+                            ],
+                          ),
                         ),
-                        PopupMenuItem<String>(
-                          value: 'Archive item',
-                          child: Text('Archive item'),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Text('Last menu action: $_selectedMenuAction'),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: colorScheme.surfaceContainerHighest.withValues(
+                        alpha: 0.45,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          'Toolbar actions',
+                          style: textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
-                        PopupMenuItem<String>(
-                          value: 'Share link',
-                          child: Text('Share link'),
+                        const Spacer(),
+                        PopupMenuButton<String>(
+                          tooltip: 'View options',
+                          icon: const Icon(Icons.tune),
+                          onSelected: (String value) {
+                            if (value == 'toggle-archived') {
+                              setState(() {
+                                _menuShowArchived = !_menuShowArchived;
+                                _selectedMenuAction = _menuShowArchived
+                                    ? 'Archived items are now visible'
+                                    : 'Archived items are now hidden';
+                              });
+                              return;
+                            }
+
+                            setState(() {
+                              _selectedMenuAction = value;
+                            });
+                          },
+                          itemBuilder: (BuildContext context) {
+                            return <PopupMenuEntry<String>>[
+                              PopupMenuItem<String>(
+                                value: 'Sort by date',
+                                child: const ListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  leading: Icon(Icons.schedule),
+                                  title: Text('Sort by date'),
+                                ),
+                              ),
+                              PopupMenuItem<String>(
+                                value: 'Sort by priority',
+                                child: const ListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  leading: Icon(Icons.flag_outlined),
+                                  title: Text('Sort by priority'),
+                                ),
+                              ),
+                              const PopupMenuDivider(),
+                              CheckedPopupMenuItem<String>(
+                                value: 'toggle-archived',
+                                checked: _menuShowArchived,
+                                child: const Text('Show archived'),
+                              ),
+                              const PopupMenuItem<String>(
+                                enabled: false,
+                                value: 'Export PDF',
+                                child: Text('Export PDF (coming soon)'),
+                              ),
+                            ];
+                          },
                         ),
-                      ];
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
-                      ),
-                      decoration: BoxDecoration(
-                        color: colorScheme.primary.withValues(alpha: 0.08),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Icon(Icons.more_horiz),
-                          SizedBox(width: 8),
-                          Text('Open menu'),
-                        ],
-                      ),
+                      ],
                     ),
                   ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Text('Last menu action: $_selectedMenuAction'),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Archived visibility: ${_menuShowArchived ? 'shown' : 'hidden'}',
                   ),
                 ],
               ),

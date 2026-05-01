@@ -167,6 +167,7 @@ import 'package:widget_layout_example2/modules/radio_page.dart';
 import 'package:widget_layout_example2/modules/responsive_container_page.dart';
 import 'package:widget_layout_example2/modules/retrofit_page.dart';
 import 'package:widget_layout_example2/modules/rich_text_page.dart';
+import 'package:widget_layout_example2/modules/rive_page.dart';
 import 'package:widget_layout_example2/modules/row_expanded_page.dart';
 import 'package:widget_layout_example2/modules/rotated_box_page.dart';
 import 'package:widget_layout_example2/modules/safe_area_page.dart';
@@ -565,6 +566,7 @@ class AppRouter extends RootStackRouter {
       path: AppRoute.lucideIconsFlutter.path,
     ),
     AutoRoute(page: LottieRoute.page, path: AppRoute.lottie.path),
+    AutoRoute(page: RiveRoute.page, path: AppRoute.rive.path),
     AutoRoute(page: FluentUiRoute.page, path: AppRoute.fluentUi.path),
     AutoRoute(
       page: MaterialColorUtilitiesRoute.page,

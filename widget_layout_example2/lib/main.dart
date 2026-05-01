@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:rive/rive.dart' as rive;
 import 'package:widget_layout_example2/auto_route_demo_support.dart';
 import 'package:widget_layout_example2/app_router.dart';
 import 'package:widget_layout_example2/auth/auth.dart';
@@ -21,6 +22,7 @@ Future<void> main() async {
     WidgetsFlutterBinding.ensureInitialized();
   }
   await _ensureExtendedImageCacheDirectory();
+  await _initializeRiveNative();
   runApp(BlocProvider<AppAuthBloc>.value(value: appAuthBloc, child: MyApp()));
 }
 
@@ -41,6 +43,17 @@ Future<void> _ensureExtendedImageCacheDirectory() async {
     ).create(recursive: true);
   } catch (error) {
     debugPrint('Failed to prepare extended_image cache directory: $error');
+  }
+}
+
+Future<void> _initializeRiveNative() async {
+  try {
+    final bool initialized = await rive.RiveNative.init();
+    if (!initialized) {
+      debugPrint('RiveNative.init() returned false.');
+    }
+  } catch (error) {
+    debugPrint('Failed to initialize RiveNative: $error');
   }
 }
 

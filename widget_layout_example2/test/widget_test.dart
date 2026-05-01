@@ -116,6 +116,8 @@ void main() {
     expect(find.text('AnimatedDefaultTextStyle Module'), findsOneWidget);
     await dragUntilTextVisible('CustomPaint Module');
     expect(find.text('CustomPaint Module'), findsOneWidget);
+    await dragUntilTextVisible('rive Module');
+    expect(find.text('rive Module'), findsOneWidget);
 
     await tester.tap(find.byTooltip('Logout'));
     await tester.pumpAndSettle();
