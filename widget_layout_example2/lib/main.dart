@@ -9,9 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rive/rive.dart' as rive;
-import 'package:widget_layout_example2/auto_route_demo_support.dart';
+import 'package:widget_layout_example2/features/auto_route_demo/presentation/support/auto_route_demo_support.dart';
 import 'package:widget_layout_example2/app_router.dart';
-import 'package:widget_layout_example2/auth/auth.dart';
+import 'package:widget_layout_example2/features/auth/auth.dart';
 import 'package:marionette_flutter/marionette_flutter.dart';
 
 Future<void> main() async {

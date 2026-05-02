@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:widget_layout_example2/app_navigation.dart';
-import 'package:widget_layout_example2/auto_route_demo_support.dart';
+import 'package:widget_layout_example2/features/auto_route_demo/presentation/support/auto_route_demo_support.dart';
 
 final List<_ModuleLink> _layoutModules = <_ModuleLink>[
   _ModuleLink(label: 'Align Module', routePath: AppRoute.align.path),
