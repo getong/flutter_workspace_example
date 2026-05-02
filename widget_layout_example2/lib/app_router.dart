@@ -77,6 +77,7 @@ import 'package:widget_layout_example2/modules/fc_native_video_thumbnail_page.da
 import 'package:widget_layout_example2/modules/ffigen_page.dart';
 import 'package:widget_layout_example2/modules/flash_page.dart';
 import 'package:widget_layout_example2/modules/filled_button_page.dart';
+import 'package:widget_layout_example2/modules/fixed_left_panel_page.dart';
 import 'package:widget_layout_example2/modules/filter_chip_page.dart';
 import 'package:widget_layout_example2/modules/fl_chart_page.dart';
 import 'package:widget_layout_example2/modules/flex_color_scheme_page.dart';
@@ -153,6 +154,7 @@ import 'package:widget_layout_example2/modules/native_device_orientation_communi
 import 'package:widget_layout_example2/modules/native_device_orientation_oriented_widget_page.dart';
 import 'package:widget_layout_example2/modules/native_device_orientation_reader_page.dart';
 import 'package:widget_layout_example2/modules/nested_scroll_view_page.dart';
+import 'package:widget_layout_example2/modules/nested_scroll_view_split_page.dart';
 import 'package:widget_layout_example2/modules/open_file_page.dart';
 import 'package:widget_layout_example2/modules/onboarding_overlay_page.dart';
 import 'package:widget_layout_example2/modules/orientation_builder_page.dart';
@@ -780,6 +782,14 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: NestedScrollViewRoute.page,
       path: AppRoute.nestedScrollView.path,
+    ),
+    AutoRoute(
+      page: NestedScrollViewSplitRoute.page,
+      path: AppRoute.nestedScrollViewSplit.path,
+    ),
+    AutoRoute(
+      page: FixedLeftPanelRoute.page,
+      path: AppRoute.fixedLeftPanel.path,
     ),
     AutoRoute(page: TextRichRoute.page, path: AppRoute.textRich.path),
     AutoRoute(

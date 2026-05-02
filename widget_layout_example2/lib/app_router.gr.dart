@@ -2028,6 +2028,22 @@ class FittedBoxRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FixedLeftPanelPage]
+class FixedLeftPanelRoute extends PageRouteInfo<void> {
+  const FixedLeftPanelRoute({List<PageRouteInfo>? children})
+    : super(FixedLeftPanelRoute.name, initialChildren: children);
+
+  static const String name = 'FixedLeftPanelRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FixedLeftPanelPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlChartPage]
 class FlChartRoute extends PageRouteInfo<void> {
   const FlChartRoute({List<PageRouteInfo>? children})
@@ -3331,6 +3347,22 @@ class NestedScrollViewRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const NestedScrollViewPage();
+    },
+  );
+}
+
+/// generated route for
+/// [NestedScrollViewSplitPage]
+class NestedScrollViewSplitRoute extends PageRouteInfo<void> {
+  const NestedScrollViewSplitRoute({List<PageRouteInfo>? children})
+    : super(NestedScrollViewSplitRoute.name, initialChildren: children);
+
+  static const String name = 'NestedScrollViewSplitRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const NestedScrollViewSplitPage();
     },
   );
 }

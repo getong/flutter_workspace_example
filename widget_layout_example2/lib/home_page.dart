@@ -465,6 +465,14 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'NestedScrollView Module',
     routePath: AppRoute.nestedScrollView.path,
   ),
+  _ModuleLink(
+    label: 'NestedScrollView Split (Fixed Left + Scrollable Right)',
+    routePath: AppRoute.nestedScrollViewSplit.path,
+  ),
+  _ModuleLink(
+    label: 'Fixed Left Panel Module',
+    routePath: AppRoute.fixedLeftPanel.path,
+  ),
   _ModuleLink(label: 'open_file Module', routePath: AppRoute.openFile.path),
   _ModuleLink(
     label: 'onboarding_overlay Module',
