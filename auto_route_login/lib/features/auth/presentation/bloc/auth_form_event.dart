@@ -8,10 +8,7 @@ sealed class AuthFormEvent extends Equatable {
 }
 
 class LoginSubmitted extends AuthFormEvent {
-  const LoginSubmitted({
-    required this.email,
-    required this.password,
-  });
+  const LoginSubmitted({required this.email, required this.password});
 
   final String email;
   final String password;
@@ -21,10 +18,7 @@ class LoginSubmitted extends AuthFormEvent {
 }
 
 class SignupSubmitted extends AuthFormEvent {
-  const SignupSubmitted({
-    required this.email,
-    required this.password,
-  });
+  const SignupSubmitted({required this.email, required this.password});
 
   final String email;
   final String password;

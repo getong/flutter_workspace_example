@@ -40,7 +40,7 @@ class _AuthFormState extends State<AuthForm> {
 
     await widget.onSubmit(
       _emailController.text.trim(),
-      _passwordController.text.trim(),
+      _passwordController.text,
     );
   }
 
@@ -89,7 +89,7 @@ class _AuthFormState extends State<AuthForm> {
               hintText: 'Minimum 6 characters',
             ),
             validator: (value) {
-              final text = value?.trim() ?? '';
+              final text = value ?? '';
               if (text.isEmpty) {
                 return 'Please enter your password.';
               }

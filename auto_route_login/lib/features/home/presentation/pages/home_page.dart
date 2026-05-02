@@ -1,16 +1,22 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_route_login/app/router/app_router.dart';
 import 'package:auto_route_login/features/auth/domain/entities/user.dart';
+import 'package:auto_route_login/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
 class HomePage extends StatelessWidget {
-  const HomePage({
-    super.key,
-    required this.user,
-  });
+  const HomePage({super.key, required this.user});
 
   final User user;
+
+  /// Shows only the first 8 characters of the token followed by asterisks,
+  /// so the raw value is never fully exposed in the UI.
+  String _maskToken(String token) {
+    if (token.length <= 8) return '****';
+    return '${token.substring(0, 8)}••••••••';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +25,10 @@ class HomePage extends StatelessWidget {
         title: const Text('Main Home Page'),
         actions: <Widget>[
           TextButton(
-            onPressed: () => context.router.replace(const LoginRoute()),
+            onPressed: () {
+              context.read<AuthCubit>().logout();
+              context.router.replace(const LoginRoute());
+            },
             child: const Text('Logout'),
           ),
         ],
@@ -53,7 +62,7 @@ class HomePage extends StatelessWidget {
                         const SizedBox(height: 8),
                         Text('Email: ${user.email}'),
                         const SizedBox(height: 8),
-                        Text('Token: ${user.token}'),
+                        Text('Token: ${_maskToken(user.token)}'),
                       ],
                     ),
                   ),

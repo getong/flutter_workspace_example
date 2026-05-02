@@ -3,15 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<UserModel> login({
-    required String email,
-    required String password,
-  });
+  Future<UserModel> login({required String email, required String password});
 
-  Future<UserModel> signup({
-    required String email,
-    required String password,
-  });
+  Future<UserModel> signup({required String email, required String password});
 }
 
 @LazySingleton(as: AuthRemoteDataSource)
@@ -27,10 +21,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }) async {
     final response = await _dio.post<Map<String, dynamic>>(
       '/login',
-      data: <String, dynamic>{
-        'email': email,
-        'password': password,
-      },
+      data: <String, dynamic>{'email': email, 'password': password},
     );
 
     return UserModel.fromJson(response.data ?? <String, dynamic>{});
@@ -43,10 +34,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }) async {
     final response = await _dio.post<Map<String, dynamic>>(
       '/signup',
-      data: <String, dynamic>{
-        'email': email,
-        'password': password,
-      },
+      data: <String, dynamic>{'email': email, 'password': password},
     );
 
     return UserModel.fromJson(response.data ?? <String, dynamic>{});

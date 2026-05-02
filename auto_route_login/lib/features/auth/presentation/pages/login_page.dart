@@ -23,9 +23,9 @@ class LoginPage extends StatelessWidget {
 
           if (state.status == AuthFormStatus.failure &&
               state.errorMessage != null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.errorMessage!)),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(state.errorMessage!)));
           }
         },
         builder: (context, state) {
@@ -34,12 +34,13 @@ class LoginPage extends StatelessWidget {
             subtitle: 'Login with the demo account to enter the app.',
             child: AuthForm(
               submitLabel: 'Login',
-              helperText: 'Demo account: demo@demo.com / any password >= 6 chars',
+              helperText:
+                  'Demo account: demo@demo.com / any password >= 6 chars',
               loading: state.status == AuthFormStatus.loading,
               onSubmit: (email, password) async {
                 context.read<AuthFormBloc>().add(
-                      LoginSubmitted(email: email, password: password),
-                    );
+                  LoginSubmitted(email: email, password: password),
+                );
               },
               footer: Align(
                 child: TextButton(

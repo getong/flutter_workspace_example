@@ -1,3 +1,4 @@
+import 'package:auto_route_login/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bloc/bloc.dart';
 import 'package:auto_route_login/features/auth/domain/entities/user.dart';
 import 'package:auto_route_login/features/auth/domain/usecases/login_use_case.dart';
@@ -11,16 +12,15 @@ part 'auth_form_state.dart';
 
 @injectable
 class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
-  AuthFormBloc(
-    this._loginUseCase,
-    this._signupUseCase,
-  ) : super(const AuthFormState()) {
+  AuthFormBloc(this._loginUseCase, this._signupUseCase, this._authCubit)
+    : super(const AuthFormState()) {
     on<LoginSubmitted>(_onLoginSubmitted);
     on<SignupSubmitted>(_onSignupSubmitted);
   }
 
   final LoginUseCase _loginUseCase;
   final SignupUseCase _signupUseCase;
+  final AuthCubit _authCubit;
 
   Future<void> _onLoginSubmitted(
     LoginSubmitted event,
@@ -32,6 +32,7 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
         email: event.email,
         password: event.password,
       );
+      _authCubit.authenticate(user);
       emit(AuthFormState(status: AuthFormStatus.success, user: user));
     } on DioException catch (error) {
       emit(
@@ -60,6 +61,7 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
         email: event.email,
         password: event.password,
       );
+      _authCubit.authenticate(user);
       emit(AuthFormState(status: AuthFormStatus.success, user: user));
     } on DioException catch (error) {
       emit(

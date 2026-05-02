@@ -49,9 +49,8 @@ class AuthShell extends StatelessWidget {
                         const SizedBox(height: 8),
                         Text(
                           subtitle,
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                color: Colors.black54,
-                              ),
+                          style: Theme.of(context).textTheme.bodyLarge
+                              ?.copyWith(color: Colors.black54),
                         ),
                         const SizedBox(height: 24),
                         child,

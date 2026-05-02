@@ -23,9 +23,9 @@ class SignupPage extends StatelessWidget {
 
           if (state.status == AuthFormStatus.failure &&
               state.errorMessage != null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.errorMessage!)),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(state.errorMessage!)));
           }
         },
         builder: (context, state) {
@@ -37,8 +37,8 @@ class SignupPage extends StatelessWidget {
               loading: state.status == AuthFormStatus.loading,
               onSubmit: (email, password) async {
                 context.read<AuthFormBloc>().add(
-                      SignupSubmitted(email: email, password: password),
-                    );
+                  SignupSubmitted(email: email, password: password),
+                );
               },
               footer: Align(
                 child: TextButton(

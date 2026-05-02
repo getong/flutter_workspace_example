@@ -9,8 +9,7 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route_login/app/di/register_module.dart'
-    as _i890;
+import 'package:auto_route_login/app/di/register_module.dart' as _i890;
 import 'package:auto_route_login/features/auth/data/datasources/auth_remote_data_source.dart'
     as _i931;
 import 'package:auto_route_login/features/auth/data/repositories/auth_repository_impl.dart'
@@ -23,6 +22,8 @@ import 'package:auto_route_login/features/auth/domain/usecases/signup_use_case.d
     as _i917;
 import 'package:auto_route_login/features/auth/presentation/bloc/auth_form_bloc.dart'
     as _i569;
+import 'package:auto_route_login/features/auth/presentation/cubit/auth_cubit.dart'
+    as _i100;
 import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
@@ -36,6 +37,7 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final registerModule = _$RegisterModule();
     gh.lazySingleton<_i361.Dio>(() => registerModule.dio());
+    gh.lazySingleton<_i100.AuthCubit>(() => _i100.AuthCubit());
     gh.lazySingleton<_i931.AuthRemoteDataSource>(
       () => _i931.AuthRemoteDataSourceImpl(gh<_i361.Dio>()),
     );
@@ -52,6 +54,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i569.AuthFormBloc(
         gh<_i563.LoginUseCase>(),
         gh<_i917.SignupUseCase>(),
+        gh<_i100.AuthCubit>(),
       ),
     );
     return this;
