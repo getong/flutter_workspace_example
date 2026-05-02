@@ -45,7 +45,8 @@ class SignupPage extends StatelessWidget {
               },
               footer: Align(
                 child: TextButton(
-                  onPressed: () => context.router.pop(),
+                  onPressed: () =>
+                      context.router.popUntilRouteWithName(LoginRoute.name),
                   child: const Text('Already have an account? Login'),
                 ),
               ),
