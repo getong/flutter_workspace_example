@@ -470,6 +470,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.nestedScrollViewSplit.path,
   ),
   _ModuleLink(
+    label: 'CustomScrollView Split (Fixed Left + Scrollable Right)',
+    routePath: AppRoute.customScrollViewSplit.path,
+  ),
+  _ModuleLink(
     label: 'Fixed Left Panel Module',
     routePath: AppRoute.fixedLeftPanel.path,
   ),

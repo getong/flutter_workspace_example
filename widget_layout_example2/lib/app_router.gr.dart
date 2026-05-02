@@ -727,22 +727,6 @@ class AutoRouteSettingsTabRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [AutoRouteSignupPage]
-class AutoRouteSignupRoute extends PageRouteInfo<void> {
-  const AutoRouteSignupRoute({List<PageRouteInfo>? children})
-    : super(AutoRouteSignupRoute.name, initialChildren: children);
-
-  static const String name = 'AutoRouteSignupRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const AutoRouteSignupPage();
-    },
-  );
-}
-
-/// generated route for
 /// [AutoRouteUnknownPage]
 class AutoRouteUnknownRoute extends PageRouteInfo<void> {
   const AutoRouteUnknownRoute({List<PageRouteInfo>? children})
@@ -1575,6 +1559,22 @@ class CustomScrollViewRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const CustomScrollViewPage();
+    },
+  );
+}
+
+/// generated route for
+/// [CustomScrollViewSplitPage]
+class CustomScrollViewSplitRoute extends PageRouteInfo<void> {
+  const CustomScrollViewSplitRoute({List<PageRouteInfo>? children})
+    : super(CustomScrollViewSplitRoute.name, initialChildren: children);
+
+  static const String name = 'CustomScrollViewSplitRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CustomScrollViewSplitPage();
     },
   );
 }
@@ -3907,6 +3907,22 @@ class ShowGeneralDialogRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const ShowGeneralDialogPage();
+    },
+  );
+}
+
+/// generated route for
+/// [SignUpPage]
+class SignUpRoute extends PageRouteInfo<void> {
+  const SignUpRoute({List<PageRouteInfo>? children})
+    : super(SignUpRoute.name, initialChildren: children);
+
+  static const String name = 'SignUpRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SignUpPage();
     },
   );
 }

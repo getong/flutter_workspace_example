@@ -8,6 +8,7 @@ import 'package:widget_layout_example2/app_router.dart';
 /// Usage: @RoutePage(name: RouteName.login)
 abstract final class RouteName {
   static const login = 'LoginRoute';
+  static const signUp = 'SignUpRoute';
   static const home = 'HomeRoute';
   static const homeLayout = 'LayoutTabRoute';
   static const homeContent = 'ContentTabRoute';
@@ -201,6 +202,7 @@ abstract final class RouteName {
       'NativeDeviceOrientationReaderRoute';
   static const nestedScrollView = 'NestedScrollViewRoute';
   static const nestedScrollViewSplit = 'NestedScrollViewSplitRoute';
+  static const customScrollViewSplit = 'CustomScrollViewSplitRoute';
   static const fixedLeftPanel = 'FixedLeftPanelRoute';
   static const textRich = 'TextRichRoute';
   static const singleChildScrollView = 'SingleChildScrollViewRoute';
@@ -385,6 +387,7 @@ enum AppRoute {
   autoRouteWrapped('/auto-route-page/wrapped', RouteName.autoRouteWrapped),
   autoRouteObserver('/auto-route-page/observer', RouteName.autoRouteObserver),
   autoRouteLogin('/auto-route-page/login', RouteName.autoRouteLogin),
+  signUp('/signup', RouteName.signUp),
   autoRouteSignup('/auto-route-page/signup', RouteName.autoRouteSignup),
   autoRouteUnknown('/auto-route-page/*', RouteName.autoRouteUnknown),
   animateDo('/animate-do-page', RouteName.animateDo),
@@ -567,6 +570,10 @@ enum AppRoute {
   nestedScrollViewSplit(
     '/nested-scroll-view-split-page',
     RouteName.nestedScrollViewSplit,
+  ),
+  customScrollViewSplit(
+    '/custom-scroll-view-split-page',
+    RouteName.customScrollViewSplit,
   ),
   fixedLeftPanel('/fixed-left-panel-page', RouteName.fixedLeftPanel),
   textRich('/text-rich-page', RouteName.textRich),
@@ -800,7 +807,7 @@ extension AppRouteTargetX on AppRouteTarget {
       case AppRouteTarget.login:
         return LoginRoute();
       case AppRouteTarget.signUp:
-        return const AutoRouteSignupRoute();
+        return const SignUpRoute();
       case AppRouteTarget.autoRouteUsage:
         return const AutoRouteUsageRoute();
       case AppRouteTarget.autoRouteNested:

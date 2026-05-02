@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
-import 'package:widget_layout_example2/auth/bloc/app_auth_event.dart';
-import 'package:widget_layout_example2/auth/bloc/app_auth_state.dart';
+import 'package:widget_layout_example2/auth/shared/bloc/app_auth_event.dart';
+import 'package:widget_layout_example2/auth/shared/bloc/app_auth_state.dart';
 
 class AppAuthBloc extends Bloc<AppAuthEvent, AppAuthState> {
   AppAuthBloc() : super(const AppAuthUnauthenticated()) {

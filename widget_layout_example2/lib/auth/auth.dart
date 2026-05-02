@@ -1,4 +1,5 @@
-export 'bloc/app_auth_bloc.dart';
-export 'bloc/app_auth_event.dart';
-export 'bloc/app_auth_state.dart';
-export 'view/login_page.dart';
+export 'login/login_page.dart';
+export 'shared/bloc/app_auth_bloc.dart';
+export 'shared/bloc/app_auth_event.dart';
+export 'shared/bloc/app_auth_state.dart';
+export 'signup/signup_page.dart';

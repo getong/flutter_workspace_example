@@ -154,6 +154,7 @@ import 'package:widget_layout_example2/modules/native_device_orientation_communi
 import 'package:widget_layout_example2/modules/native_device_orientation_oriented_widget_page.dart';
 import 'package:widget_layout_example2/modules/native_device_orientation_reader_page.dart';
 import 'package:widget_layout_example2/modules/nested_scroll_view_page.dart';
+import 'package:widget_layout_example2/modules/custom_scroll_view_split_page.dart';
 import 'package:widget_layout_example2/modules/nested_scroll_view_split_page.dart';
 import 'package:widget_layout_example2/modules/open_file_page.dart';
 import 'package:widget_layout_example2/modules/onboarding_overlay_page.dart';
@@ -270,8 +271,8 @@ class AppRouter extends RootStackRouter {
     AutoRouteGuard.simple((NavigationResolver resolver, StackRouter router) {
       if (demoAuthController.isLoggedIn ||
           resolver.routeName == LoginRoute.name ||
-          resolver.routeName == AutoRouteLoginRoute.name ||
-          resolver.routeName == AutoRouteSignupRoute.name) {
+          resolver.routeName == SignUpRoute.name ||
+          resolver.routeName == AutoRouteLoginRoute.name) {
         resolver.next();
         return;
       }
@@ -293,6 +294,7 @@ class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => <AutoRoute>[
     AutoRoute(page: LoginRoute.page, path: AppRoute.login.path),
+    AutoRoute(page: SignUpRoute.page, path: AppRoute.signUp.path),
     AutoRoute(
       page: HomeRoute.page,
       path: AppRoute.home.path,
@@ -516,10 +518,6 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: AutoRouteLoginRoute.page,
       path: AppRoute.autoRouteLogin.path,
-    ),
-    AutoRoute(
-      page: AutoRouteSignupRoute.page,
-      path: AppRoute.autoRouteSignup.path,
     ),
     AutoRoute(
       page: AutoRouteUnknownRoute.page,
@@ -786,6 +784,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: NestedScrollViewSplitRoute.page,
       path: AppRoute.nestedScrollViewSplit.path,
+    ),
+    AutoRoute(
+      page: CustomScrollViewSplitRoute.page,
+      path: AppRoute.customScrollViewSplit.path,
     ),
     AutoRoute(
       page: FixedLeftPanelRoute.page,
