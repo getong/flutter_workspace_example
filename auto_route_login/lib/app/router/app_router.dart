@@ -1,10 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_route_login/app/router/auth_guard.dart';
-import 'package:auto_route_login/features/auth/domain/entities/user.dart';
 import 'package:auto_route_login/features/auth/presentation/pages/login_page.dart';
 import 'package:auto_route_login/features/auth/presentation/pages/signup_page.dart';
 import 'package:auto_route_login/features/home/presentation/pages/home_page.dart';
-import 'package:flutter/material.dart';
 
 part 'app_router.gr.dart';
 

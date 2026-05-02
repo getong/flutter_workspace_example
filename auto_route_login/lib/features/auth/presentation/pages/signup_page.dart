@@ -17,8 +17,11 @@ class SignupPage extends StatelessWidget {
       create: (_) => getIt<AuthFormBloc>(),
       child: BlocConsumer<AuthFormBloc, AuthFormState>(
         listener: (context, state) {
-          if (state.status == AuthFormStatus.success && state.user != null) {
-            context.router.replace(HomeRoute(user: state.user!));
+          if (state.status == AuthFormStatus.success) {
+            context.router.pushAndPopUntil(
+              const HomeRoute(),
+              predicate: (_) => false,
+            );
           }
 
           if (state.status == AuthFormStatus.failure &&

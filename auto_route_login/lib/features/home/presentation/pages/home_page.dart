@@ -1,15 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_route_login/app/router/app_router.dart';
-import 'package:auto_route_login/features/auth/domain/entities/user.dart';
 import 'package:auto_route_login/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
 class HomePage extends StatelessWidget {
-  const HomePage({super.key, required this.user});
-
-  final User user;
+  const HomePage({super.key});
 
   /// Shows only the first 8 characters of the token followed by asterisks,
   /// so the raw value is never fully exposed in the UI.
@@ -20,6 +17,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<AuthCubit>().state;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Main Home Page'),
@@ -43,7 +41,7 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'Hello, ${user.name}',
+                  'Hello, ${user?.name ?? ''}',
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
                 const SizedBox(height: 12),
@@ -58,11 +56,11 @@ class HomePage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text('User ID: ${user.id}'),
+                        Text('User ID: ${user?.id ?? ''}'),
                         const SizedBox(height: 8),
-                        Text('Email: ${user.email}'),
+                        Text('Email: ${user?.email ?? ''}'),
                         const SizedBox(height: 8),
-                        Text('Token: ${_maskToken(user.token)}'),
+                        Text('Token: ${_maskToken(user?.token ?? '')}'),
                       ],
                     ),
                   ),

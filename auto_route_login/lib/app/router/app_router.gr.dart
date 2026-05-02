@@ -12,46 +12,18 @@ part of 'app_router.dart';
 
 /// generated route for
 /// [HomePage]
-class HomeRoute extends PageRouteInfo<HomeRouteArgs> {
-  HomeRoute({Key? key, required User user, List<PageRouteInfo>? children})
-    : super(
-        HomeRoute.name,
-        args: HomeRouteArgs(key: key, user: user),
-        initialChildren: children,
-      );
+class HomeRoute extends PageRouteInfo<void> {
+  const HomeRoute({List<PageRouteInfo>? children})
+    : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<HomeRouteArgs>();
-      return HomePage(key: args.key, user: args.user);
+      return const HomePage();
     },
   );
-}
-
-class HomeRouteArgs {
-  const HomeRouteArgs({this.key, required this.user});
-
-  final Key? key;
-
-  final User user;
-
-  @override
-  String toString() {
-    return 'HomeRouteArgs{key: $key, user: $user}';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    if (other is! HomeRouteArgs) return false;
-    return key == other.key && user == other.user;
-  }
-
-  @override
-  int get hashCode => key.hashCode ^ user.hashCode;
 }
 
 /// generated route for
