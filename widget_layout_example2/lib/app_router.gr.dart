@@ -1532,6 +1532,26 @@ class CustomMultiChildLayoutRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CustomMultiChildLayoutVsLayoutBuilderPage]
+class CustomMultiChildLayoutVsLayoutBuilderRoute extends PageRouteInfo<void> {
+  const CustomMultiChildLayoutVsLayoutBuilderRoute({
+    List<PageRouteInfo>? children,
+  }) : super(
+         CustomMultiChildLayoutVsLayoutBuilderRoute.name,
+         initialChildren: children,
+       );
+
+  static const String name = 'CustomMultiChildLayoutVsLayoutBuilderRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CustomMultiChildLayoutVsLayoutBuilderPage();
+    },
+  );
+}
+
+/// generated route for
 /// [CustomPaintPage]
 class CustomPaintRoute extends PageRouteInfo<void> {
   const CustomPaintRoute({List<PageRouteInfo>? children})
@@ -1911,6 +1931,22 @@ class ExpandedRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const ExpandedPage();
+    },
+  );
+}
+
+/// generated route for
+/// [ExpandedVsFlexiblePage]
+class ExpandedVsFlexibleRoute extends PageRouteInfo<void> {
+  const ExpandedVsFlexibleRoute({List<PageRouteInfo>? children})
+    : super(ExpandedVsFlexibleRoute.name, initialChildren: children);
+
+  static const String name = 'ExpandedVsFlexibleRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ExpandedVsFlexiblePage();
     },
   );
 }

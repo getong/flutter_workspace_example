@@ -41,6 +41,10 @@ final List<_ModuleLink> _layoutModules = <_ModuleLink>[
     routePath: AppRoute.customMultiChildLayout.path,
   ),
   _ModuleLink(
+    label: 'CustomMultiChildLayout vs LayoutBuilder Module',
+    routePath: AppRoute.customMultiChildLayoutVsLayoutBuilder.path,
+  ),
+  _ModuleLink(
     label: 'CustomScrollView Module',
     routePath: AppRoute.customScrollView.path,
   ),
@@ -53,6 +57,10 @@ final List<_ModuleLink> _layoutModules = <_ModuleLink>[
     routePath: AppRoute.decoratedBox.path,
   ),
   _ModuleLink(label: 'Expanded Module', routePath: AppRoute.expanded.path),
+  _ModuleLink(
+    label: 'Expanded vs Flexible Module',
+    routePath: AppRoute.expandedVsFlexible.path,
+  ),
   _ModuleLink(
     label: 'FilledButton Module',
     routePath: AppRoute.filledButton.path,

@@ -47,6 +47,7 @@ import 'package:widget_layout_example2/features/constrained_box/presentation/pag
 import 'package:widget_layout_example2/features/container/presentation/pages/container_page.dart';
 import 'package:widget_layout_example2/features/custom_clipper/presentation/pages/custom_clipper_page.dart';
 import 'package:widget_layout_example2/features/custom_multi_child_layout/presentation/pages/custom_multi_child_layout_page.dart';
+import 'package:widget_layout_example2/features/custom_multi_child_layout_vs_layout_builder/presentation/pages/custom_multi_child_layout_vs_layout_builder_page.dart';
 import 'package:widget_layout_example2/features/custom_scroll_view/presentation/pages/custom_scroll_view_page.dart';
 import 'package:widget_layout_example2/features/custom_paint/presentation/pages/custom_paint_page.dart';
 import 'package:widget_layout_example2/features/crypto/presentation/pages/crypto_page.dart';
@@ -71,6 +72,7 @@ import 'package:widget_layout_example2/features/extended_image/presentation/page
 import 'package:widget_layout_example2/features/expandable_section/presentation/pages/expandable_section_page.dart';
 import 'package:widget_layout_example2/features/expansion_panel_list/presentation/pages/expansion_panel_list_page.dart';
 import 'package:widget_layout_example2/features/expanded/presentation/pages/expanded_page.dart';
+import 'package:widget_layout_example2/features/expanded_vs_flexible/presentation/pages/expanded_vs_flexible_page.dart';
 import 'package:widget_layout_example2/features/date_picker/presentation/pages/date_picker_page.dart';
 import 'package:widget_layout_example2/features/exclude_semantics/presentation/pages/exclude_semantics_page.dart';
 import 'package:widget_layout_example2/features/fc_native_video_thumbnail/presentation/pages/fc_native_video_thumbnail_page.dart';
@@ -867,6 +869,14 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: TextFieldControllerRoute.page,
       path: AppRoute.textFieldController.path,
+    ),
+    AutoRoute(
+      page: CustomMultiChildLayoutVsLayoutBuilderRoute.page,
+      path: AppRoute.customMultiChildLayoutVsLayoutBuilder.path,
+    ),
+    AutoRoute(
+      page: ExpandedVsFlexibleRoute.page,
+      path: AppRoute.expandedVsFlexible.path,
     ),
     AutoRoute(
       page: FlutterAutoSizeTextRoute.page,

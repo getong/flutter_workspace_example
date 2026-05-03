@@ -234,6 +234,9 @@ abstract final class RouteName {
   static const sharedPreferences = 'SharedPreferencesRoute';
   static const sharePlus = 'SharePlusRoute';
   static const textFieldController = 'TextFieldControllerRoute';
+  static const customMultiChildLayoutVsLayoutBuilder =
+      'CustomMultiChildLayoutVsLayoutBuilderRoute';
+  static const expandedVsFlexible = 'ExpandedVsFlexibleRoute';
   static const flutterAutoSizeText = 'FlutterAutoSizeTextRoute';
   static const flutterAnimate = 'FlutterAnimateRoute';
   static const flutterLocalNotifications = 'FlutterLocalNotificationsRoute';
@@ -617,6 +620,14 @@ enum AppRoute {
   textFieldController(
     '/text-field-controller-page',
     RouteName.textFieldController,
+  ),
+  customMultiChildLayoutVsLayoutBuilder(
+    '/custom-multi-child-layout-vs-layout-builder-page',
+    RouteName.customMultiChildLayoutVsLayoutBuilder,
+  ),
+  expandedVsFlexible(
+    '/expanded-vs-flexible-page',
+    RouteName.expandedVsFlexible,
   ),
   flutterAutoSizeText(
     '/flutter-auto-size-text-page',
