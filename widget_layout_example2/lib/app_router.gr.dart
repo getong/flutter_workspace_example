@@ -3040,6 +3040,22 @@ class LayoutBuilderExampleRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [LayoutBuilderVsStackPage]
+class LayoutBuilderVsStackRoute extends PageRouteInfo<void> {
+  const LayoutBuilderVsStackRoute({List<PageRouteInfo>? children})
+    : super(LayoutBuilderVsStackRoute.name, initialChildren: children);
+
+  static const String name = 'LayoutBuilderVsStackRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const LayoutBuilderVsStackPage();
+    },
+  );
+}
+
+/// generated route for
 /// [LayoutTabPage]
 class LayoutTabRoute extends PageRouteInfo<void> {
   const LayoutTabRoute({List<PageRouteInfo>? children})

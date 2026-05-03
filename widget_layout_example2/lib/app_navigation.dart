@@ -237,6 +237,7 @@ abstract final class RouteName {
   static const customMultiChildLayoutVsLayoutBuilder =
       'CustomMultiChildLayoutVsLayoutBuilderRoute';
   static const expandedVsFlexible = 'ExpandedVsFlexibleRoute';
+  static const layoutBuilderVsStack = 'LayoutBuilderVsStackRoute';
   static const flutterAutoSizeText = 'FlutterAutoSizeTextRoute';
   static const flutterAnimate = 'FlutterAnimateRoute';
   static const flutterLocalNotifications = 'FlutterLocalNotificationsRoute';
@@ -628,6 +629,10 @@ enum AppRoute {
   expandedVsFlexible(
     '/expanded-vs-flexible-page',
     RouteName.expandedVsFlexible,
+  ),
+  layoutBuilderVsStack(
+    '/layout-builder-vs-stack-page',
+    RouteName.layoutBuilderVsStack,
   ),
   flutterAutoSizeText(
     '/flutter-auto-size-text-page',

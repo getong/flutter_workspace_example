@@ -140,6 +140,7 @@ import 'package:widget_layout_example2/features/jnigen/presentation/pages/jnigen
 import 'package:widget_layout_example2/features/json_annotation/presentation/pages/json_annotation_page.dart';
 import 'package:widget_layout_example2/features/keyboard_listener/presentation/pages/keyboard_listener_page.dart';
 import 'package:widget_layout_example2/features/layout_builder/presentation/pages/layout_builder_page.dart';
+import 'package:widget_layout_example2/features/layout_builder_vs_stack/presentation/pages/layout_builder_vs_stack_page.dart';
 import 'package:widget_layout_example2/features/linear_progress_indicator/presentation/pages/linear_progress_indicator_page.dart';
 import 'package:widget_layout_example2/features/local_auth/presentation/pages/local_auth_page.dart';
 import 'package:widget_layout_example2/features/loot_reel/presentation/pages/loot_reel_page.dart';
@@ -877,6 +878,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: ExpandedVsFlexibleRoute.page,
       path: AppRoute.expandedVsFlexible.path,
+    ),
+    AutoRoute(
+      page: LayoutBuilderVsStackRoute.page,
+      path: AppRoute.layoutBuilderVsStack.path,
     ),
     AutoRoute(
       page: FlutterAutoSizeTextRoute.page,

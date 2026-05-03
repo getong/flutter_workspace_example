@@ -84,6 +84,10 @@ final List<_ModuleLink> _layoutModules = <_ModuleLink>[
     label: 'LayoutBuilder Module',
     routePath: AppRoute.layoutBuilder.path,
   ),
+  _ModuleLink(
+    label: 'LayoutBuilder vs Stack Module',
+    routePath: AppRoute.layoutBuilderVsStack.path,
+  ),
   _ModuleLink(label: 'MediaQuery Module', routePath: AppRoute.mediaQuery.path),
   _ModuleLink(
     label: 'OrientationBuilder Module',
