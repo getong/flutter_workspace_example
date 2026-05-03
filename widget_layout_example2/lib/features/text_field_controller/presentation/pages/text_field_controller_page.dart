@@ -16,27 +16,61 @@ class _TextFieldControllerPageState extends State<TextFieldControllerPage> {
     text: 'Flutter learner',
   );
   final TextEditingController _messageController = TextEditingController();
+  final TextEditingController _sharedController = TextEditingController(
+    text: 'Shared controller text',
+  );
+  final TextEditingController _firstSeparateController = TextEditingController(
+    text: 'First separate value',
+  );
+  final TextEditingController _secondSeparateController = TextEditingController(
+    text: 'Second separate value',
+  );
 
   String _liveName = 'Flutter learner';
   String _submittedMessage = 'Nothing submitted yet.';
+  String _sharedValue = 'Shared controller text';
+  String _firstSeparateValue = 'First separate value';
+  String _secondSeparateValue = 'Second separate value';
 
   @override
   void initState() {
     super.initState();
     _nameController.addListener(_handleNameChanged);
+    _sharedController.addListener(_handleSharedChanged);
+    _firstSeparateController.addListener(_handleSeparateChanged);
+    _secondSeparateController.addListener(_handleSeparateChanged);
   }
 
   @override
   void dispose() {
     _nameController.removeListener(_handleNameChanged);
+    _sharedController.removeListener(_handleSharedChanged);
+    _firstSeparateController.removeListener(_handleSeparateChanged);
+    _secondSeparateController.removeListener(_handleSeparateChanged);
     _nameController.dispose();
     _messageController.dispose();
+    _sharedController.dispose();
+    _firstSeparateController.dispose();
+    _secondSeparateController.dispose();
     super.dispose();
   }
 
   void _handleNameChanged() {
     setState(() {
       _liveName = _nameController.text;
+    });
+  }
+
+  void _handleSharedChanged() {
+    setState(() {
+      _sharedValue = _sharedController.text;
+    });
+  }
+
+  void _handleSeparateChanged() {
+    setState(() {
+      _firstSeparateValue = _firstSeparateController.text;
+      _secondSeparateValue = _secondSeparateController.text;
     });
   }
 
@@ -164,6 +198,101 @@ class _TextFieldControllerPageState extends State<TextFieldControllerPage> {
                     Text(
                       'Submitted message: $_submittedMessage',
                       style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Card(
+              clipBehavior: Clip.antiAlias,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Two TextFields, One TextEditingController',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Both TextFields below use the same controller. Editing either field updates the other one immediately.',
+                    ),
+                    const SizedBox(height: 16),
+                    TextField(
+                      controller: _sharedController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Shared Field A',
+                        hintText: 'Type here',
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    TextField(
+                      controller: _sharedController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Shared Field B',
+                        hintText: 'The same text appears here',
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Shared value: ${_sharedValue.isEmpty ? '(empty)' : _sharedValue}',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Card(
+              clipBehavior: Clip.antiAlias,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Two TextFields, Two TextEditingControllers',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'These TextFields use different controllers, so each field keeps its own value.',
+                    ),
+                    const SizedBox(height: 16),
+                    TextField(
+                      controller: _firstSeparateController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Separate Field A',
+                        hintText: 'First controller',
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    TextField(
+                      controller: _secondSeparateController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Separate Field B',
+                        hintText: 'Second controller',
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Field A value: ${_firstSeparateValue.isEmpty ? '(empty)' : _firstSeparateValue}',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Field B value: ${_secondSeparateValue.isEmpty ? '(empty)' : _secondSeparateValue}',
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ],
                 ),
