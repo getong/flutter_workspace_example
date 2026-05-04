@@ -88,6 +88,28 @@ class $FlutterChatMessagesTable extends FlutterChatMessages
     type: DriftSqlType.dateTime,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _payloadJsonMeta = const VerificationMeta(
+    'payloadJson',
+  );
+  @override
+  late final GeneratedColumn<String> payloadJson = GeneratedColumn<String>(
+    'payload_json',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     localId,
@@ -96,6 +118,8 @@ class $FlutterChatMessagesTable extends FlutterChatMessages
     body,
     createdAt,
     sentAt,
+    updatedAt,
+    payloadJson,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -153,6 +177,21 @@ class $FlutterChatMessagesTable extends FlutterChatMessages
         sentAt.isAcceptableOrUnknown(data['sent_at']!, _sentAtMeta),
       );
     }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    }
+    if (data.containsKey('payload_json')) {
+      context.handle(
+        _payloadJsonMeta,
+        payloadJson.isAcceptableOrUnknown(
+          data['payload_json']!,
+          _payloadJsonMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -189,6 +228,14 @@ class $FlutterChatMessagesTable extends FlutterChatMessages
         DriftSqlType.dateTime,
         data['${effectivePrefix}sent_at'],
       ),
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      ),
+      payloadJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}payload_json'],
+      ),
     );
   }
 
@@ -206,6 +253,8 @@ class FlutterChatMessageEntry extends DataClass
   final String body;
   final DateTime createdAt;
   final DateTime? sentAt;
+  final DateTime? updatedAt;
+  final String? payloadJson;
   const FlutterChatMessageEntry({
     required this.localId,
     required this.messageId,
@@ -213,6 +262,8 @@ class FlutterChatMessageEntry extends DataClass
     required this.body,
     required this.createdAt,
     this.sentAt,
+    this.updatedAt,
+    this.payloadJson,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -224,6 +275,12 @@ class FlutterChatMessageEntry extends DataClass
     map['created_at'] = Variable<DateTime>(createdAt);
     if (!nullToAbsent || sentAt != null) {
       map['sent_at'] = Variable<DateTime>(sentAt);
+    }
+    if (!nullToAbsent || updatedAt != null) {
+      map['updated_at'] = Variable<DateTime>(updatedAt);
+    }
+    if (!nullToAbsent || payloadJson != null) {
+      map['payload_json'] = Variable<String>(payloadJson);
     }
     return map;
   }
@@ -238,6 +295,12 @@ class FlutterChatMessageEntry extends DataClass
       sentAt: sentAt == null && nullToAbsent
           ? const Value.absent()
           : Value(sentAt),
+      updatedAt: updatedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(updatedAt),
+      payloadJson: payloadJson == null && nullToAbsent
+          ? const Value.absent()
+          : Value(payloadJson),
     );
   }
 
@@ -253,6 +316,8 @@ class FlutterChatMessageEntry extends DataClass
       body: serializer.fromJson<String>(json['body']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       sentAt: serializer.fromJson<DateTime?>(json['sentAt']),
+      updatedAt: serializer.fromJson<DateTime?>(json['updatedAt']),
+      payloadJson: serializer.fromJson<String?>(json['payloadJson']),
     );
   }
   @override
@@ -265,6 +330,8 @@ class FlutterChatMessageEntry extends DataClass
       'body': serializer.toJson<String>(body),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'sentAt': serializer.toJson<DateTime?>(sentAt),
+      'updatedAt': serializer.toJson<DateTime?>(updatedAt),
+      'payloadJson': serializer.toJson<String?>(payloadJson),
     };
   }
 
@@ -275,6 +342,8 @@ class FlutterChatMessageEntry extends DataClass
     String? body,
     DateTime? createdAt,
     Value<DateTime?> sentAt = const Value.absent(),
+    Value<DateTime?> updatedAt = const Value.absent(),
+    Value<String?> payloadJson = const Value.absent(),
   }) => FlutterChatMessageEntry(
     localId: localId ?? this.localId,
     messageId: messageId ?? this.messageId,
@@ -282,6 +351,8 @@ class FlutterChatMessageEntry extends DataClass
     body: body ?? this.body,
     createdAt: createdAt ?? this.createdAt,
     sentAt: sentAt.present ? sentAt.value : this.sentAt,
+    updatedAt: updatedAt.present ? updatedAt.value : this.updatedAt,
+    payloadJson: payloadJson.present ? payloadJson.value : this.payloadJson,
   );
   FlutterChatMessageEntry copyWithCompanion(FlutterChatMessagesCompanion data) {
     return FlutterChatMessageEntry(
@@ -291,6 +362,10 @@ class FlutterChatMessageEntry extends DataClass
       body: data.body.present ? data.body.value : this.body,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       sentAt: data.sentAt.present ? data.sentAt.value : this.sentAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      payloadJson: data.payloadJson.present
+          ? data.payloadJson.value
+          : this.payloadJson,
     );
   }
 
@@ -302,14 +377,24 @@ class FlutterChatMessageEntry extends DataClass
           ..write('authorId: $authorId, ')
           ..write('body: $body, ')
           ..write('createdAt: $createdAt, ')
-          ..write('sentAt: $sentAt')
+          ..write('sentAt: $sentAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('payloadJson: $payloadJson')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode =>
-      Object.hash(localId, messageId, authorId, body, createdAt, sentAt);
+  int get hashCode => Object.hash(
+    localId,
+    messageId,
+    authorId,
+    body,
+    createdAt,
+    sentAt,
+    updatedAt,
+    payloadJson,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -319,7 +404,9 @@ class FlutterChatMessageEntry extends DataClass
           other.authorId == this.authorId &&
           other.body == this.body &&
           other.createdAt == this.createdAt &&
-          other.sentAt == this.sentAt);
+          other.sentAt == this.sentAt &&
+          other.updatedAt == this.updatedAt &&
+          other.payloadJson == this.payloadJson);
 }
 
 class FlutterChatMessagesCompanion
@@ -330,6 +417,8 @@ class FlutterChatMessagesCompanion
   final Value<String> body;
   final Value<DateTime> createdAt;
   final Value<DateTime?> sentAt;
+  final Value<DateTime?> updatedAt;
+  final Value<String?> payloadJson;
   const FlutterChatMessagesCompanion({
     this.localId = const Value.absent(),
     this.messageId = const Value.absent(),
@@ -337,6 +426,8 @@ class FlutterChatMessagesCompanion
     this.body = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.sentAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.payloadJson = const Value.absent(),
   });
   FlutterChatMessagesCompanion.insert({
     this.localId = const Value.absent(),
@@ -345,6 +436,8 @@ class FlutterChatMessagesCompanion
     required String body,
     required DateTime createdAt,
     this.sentAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.payloadJson = const Value.absent(),
   }) : messageId = Value(messageId),
        authorId = Value(authorId),
        body = Value(body),
@@ -356,6 +449,8 @@ class FlutterChatMessagesCompanion
     Expression<String>? body,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? sentAt,
+    Expression<DateTime>? updatedAt,
+    Expression<String>? payloadJson,
   }) {
     return RawValuesInsertable({
       if (localId != null) 'local_id': localId,
@@ -364,6 +459,8 @@ class FlutterChatMessagesCompanion
       if (body != null) 'body': body,
       if (createdAt != null) 'created_at': createdAt,
       if (sentAt != null) 'sent_at': sentAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (payloadJson != null) 'payload_json': payloadJson,
     });
   }
 
@@ -374,6 +471,8 @@ class FlutterChatMessagesCompanion
     Value<String>? body,
     Value<DateTime>? createdAt,
     Value<DateTime?>? sentAt,
+    Value<DateTime?>? updatedAt,
+    Value<String?>? payloadJson,
   }) {
     return FlutterChatMessagesCompanion(
       localId: localId ?? this.localId,
@@ -382,6 +481,8 @@ class FlutterChatMessagesCompanion
       body: body ?? this.body,
       createdAt: createdAt ?? this.createdAt,
       sentAt: sentAt ?? this.sentAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      payloadJson: payloadJson ?? this.payloadJson,
     );
   }
 
@@ -406,6 +507,12 @@ class FlutterChatMessagesCompanion
     if (sentAt.present) {
       map['sent_at'] = Variable<DateTime>(sentAt.value);
     }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (payloadJson.present) {
+      map['payload_json'] = Variable<String>(payloadJson.value);
+    }
     return map;
   }
 
@@ -417,7 +524,9 @@ class FlutterChatMessagesCompanion
           ..write('authorId: $authorId, ')
           ..write('body: $body, ')
           ..write('createdAt: $createdAt, ')
-          ..write('sentAt: $sentAt')
+          ..write('sentAt: $sentAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('payloadJson: $payloadJson')
           ..write(')'))
         .toString();
   }
@@ -444,6 +553,8 @@ typedef $$FlutterChatMessagesTableCreateCompanionBuilder =
       required String body,
       required DateTime createdAt,
       Value<DateTime?> sentAt,
+      Value<DateTime?> updatedAt,
+      Value<String?> payloadJson,
     });
 typedef $$FlutterChatMessagesTableUpdateCompanionBuilder =
     FlutterChatMessagesCompanion Function({
@@ -453,6 +564,8 @@ typedef $$FlutterChatMessagesTableUpdateCompanionBuilder =
       Value<String> body,
       Value<DateTime> createdAt,
       Value<DateTime?> sentAt,
+      Value<DateTime?> updatedAt,
+      Value<String?> payloadJson,
     });
 
 class $$FlutterChatMessagesTableFilterComposer
@@ -491,6 +604,16 @@ class $$FlutterChatMessagesTableFilterComposer
 
   ColumnFilters<DateTime> get sentAt => $composableBuilder(
     column: $table.sentAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get payloadJson => $composableBuilder(
+    column: $table.payloadJson,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -533,6 +656,16 @@ class $$FlutterChatMessagesTableOrderingComposer
     column: $table.sentAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get payloadJson => $composableBuilder(
+    column: $table.payloadJson,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$FlutterChatMessagesTableAnnotationComposer
@@ -561,6 +694,14 @@ class $$FlutterChatMessagesTableAnnotationComposer
 
   GeneratedColumn<DateTime> get sentAt =>
       $composableBuilder(column: $table.sentAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<String> get payloadJson => $composableBuilder(
+    column: $table.payloadJson,
+    builder: (column) => column,
+  );
 }
 
 class $$FlutterChatMessagesTableTableManager
@@ -612,6 +753,8 @@ class $$FlutterChatMessagesTableTableManager
                 Value<String> body = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime?> sentAt = const Value.absent(),
+                Value<DateTime?> updatedAt = const Value.absent(),
+                Value<String?> payloadJson = const Value.absent(),
               }) => FlutterChatMessagesCompanion(
                 localId: localId,
                 messageId: messageId,
@@ -619,6 +762,8 @@ class $$FlutterChatMessagesTableTableManager
                 body: body,
                 createdAt: createdAt,
                 sentAt: sentAt,
+                updatedAt: updatedAt,
+                payloadJson: payloadJson,
               ),
           createCompanionCallback:
               ({
@@ -628,6 +773,8 @@ class $$FlutterChatMessagesTableTableManager
                 required String body,
                 required DateTime createdAt,
                 Value<DateTime?> sentAt = const Value.absent(),
+                Value<DateTime?> updatedAt = const Value.absent(),
+                Value<String?> payloadJson = const Value.absent(),
               }) => FlutterChatMessagesCompanion.insert(
                 localId: localId,
                 messageId: messageId,
@@ -635,6 +782,8 @@ class $$FlutterChatMessagesTableTableManager
                 body: body,
                 createdAt: createdAt,
                 sentAt: sentAt,
+                updatedAt: updatedAt,
+                payloadJson: payloadJson,
               ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))

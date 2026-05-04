@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_core/flutter_chat_core.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:widget_layout_example2/app_navigation.dart';
+import 'package:widget_layout_example2/features/flutter_chat_ui/data/controllers/drift_flutter_chat_ui_controller.dart';
 import 'package:widget_layout_example2/features/flutter_chat_ui/data/datasources/flutter_chat_ui_database.dart';
 
 @RoutePage(name: RouteName.flutterChatUi)
@@ -45,34 +46,35 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
   };
 
   late final FlutterChatUiDatabase _chatDatabase;
-  late final InMemoryChatController _chatController;
-  StreamSubscription<List<Message>>? _messageSubscription;
+  late final DriftFlutterChatUiController _chatController;
+  Timer? _assistantReplyTimer;
   int _messageSeed = 0;
+  bool _isGeneratingReply = false;
 
   @override
   void initState() {
     super.initState();
     _chatDatabase = FlutterChatUiDatabase();
-    _chatController = InMemoryChatController();
-    _messageSubscription = _chatDatabase.watchMessages().listen((
-      List<Message> messages,
-    ) {
-      unawaited(_chatController.setMessages(messages));
-    });
-    unawaited(_chatDatabase.seedDemoData());
+    _chatController = DriftFlutterChatUiController(database: _chatDatabase);
+    unawaited(_initializeChat());
   }
 
   @override
   void dispose() {
-    _messageSubscription?.cancel();
+    _assistantReplyTimer?.cancel();
     _chatController.dispose();
     _chatDatabase.close();
     super.dispose();
   }
 
+  Future<void> _initializeChat() async {
+    await _chatDatabase.seedDemoData();
+    await _chatController.loadInitialMessages();
+  }
+
   String _nextMessageId() {
     _messageSeed += 1;
-    return 'message-$_messageSeed';
+    return 'message-${DateTime.now().microsecondsSinceEpoch}-$_messageSeed';
   }
 
   Future<User> _resolveUser(String userId) async {
@@ -89,50 +91,126 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
       return;
     }
 
-    await _chatDatabase.insertTextMessage(
-      messageId: _nextMessageId(),
-      authorId: _currentUserId,
-      text: trimmed,
-      createdAt: DateTime.now(),
-      sentAt: DateTime.now(),
+    await _chatController.insertMessage(
+      Message.text(
+        id: _nextMessageId(),
+        authorId: _currentUserId,
+        text: trimmed,
+        createdAt: DateTime.now(),
+        sentAt: DateTime.now(),
+        status: MessageStatus.sent,
+      ),
     );
 
-    unawaited(_simulateAssistantReply(trimmed));
+    final String assistantMessageId = _nextMessageId();
+    await _chatController.insertMessage(
+      Message.text(
+        id: assistantMessageId,
+        authorId: _assistantUserId,
+        text: 'Thinking...',
+        createdAt: DateTime.now(),
+        metadata: const <String, dynamic>{'sending': true},
+        status: MessageStatus.sending,
+      ),
+    );
+
+    if (mounted) {
+      setState(() {
+        _isGeneratingReply = true;
+      });
+    }
+
+    unawaited(_simulateAssistantReply(trimmed, assistantMessageId));
   }
 
-  Future<void> _simulateAssistantReply(String userText) async {
-    await Future<void>.delayed(const Duration(milliseconds: 700));
-    if (!mounted) {
+  Future<void> _simulateAssistantReply(
+    String userText,
+    String assistantMessageId,
+  ) async {
+    _assistantReplyTimer?.cancel();
+    _assistantReplyTimer = Timer(const Duration(milliseconds: 700), () async {
+      if (!mounted) {
+        return;
+      }
+
+      final String lowerText = userText.toLowerCase();
+      final String replyText;
+      if (lowerText.contains('theme')) {
+        replyText =
+            'The chat colors and bubble shape are customized through `ChatTheme.fromThemeData(...).copyWith(...)`.';
+      } else if (lowerText.contains('controller') ||
+          lowerText.contains('state')) {
+        replyText =
+            'This enhanced example uses a drift-backed ChatController, so insert and update operations stay aligned with SQLite persistence.';
+      } else if (lowerText.contains('user')) {
+        replyText =
+            'The `Chat` widget asks for `currentUserId` and `resolveUser`, so message authors stay lightweight.';
+      } else if (lowerText.contains('drift') || lowerText.contains('sqlite')) {
+        replyText =
+            'Like the OneChatGPT sample, this module now inserts a placeholder assistant message first and then updates that same drift row.';
+      } else if (lowerText.contains('stop') || lowerText.contains('cancel')) {
+        replyText =
+            'While the placeholder is active, use the stop button to cancel generation and update that pending assistant message.';
+      } else {
+        replyText =
+            'This example wires flutter_chat_ui, drift persistence, a custom drift-backed controller, and assistant placeholder updates into one flow.';
+      }
+
+      final Message oldMessage = _chatController.messages.singleWhere(
+        (Message message) => message.id == assistantMessageId,
+      );
+
+      await _chatController.updateMessage(
+        oldMessage,
+        Message.text(
+          id: assistantMessageId,
+          authorId: _assistantUserId,
+          text: replyText,
+          createdAt: oldMessage.createdAt,
+          sentAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+          status: MessageStatus.sent,
+        ),
+      );
+
+      if (mounted) {
+        setState(() {
+          _isGeneratingReply = false;
+        });
+      }
+    });
+  }
+
+  Future<void> _stopAssistantReply() async {
+    if (!_isGeneratingReply) {
       return;
     }
 
-    final String lowerText = userText.toLowerCase();
-    final String replyText;
-    if (lowerText.contains('theme')) {
-      replyText =
-          'The chat colors and bubble shape are customized through `ChatTheme.fromThemeData(...).copyWith(...)`.';
-    } else if (lowerText.contains('controller') ||
-        lowerText.contains('state')) {
-      replyText =
-          'Messages are persisted with drift, and the chat UI refreshes from a watched SQLite stream.';
-    } else if (lowerText.contains('user')) {
-      replyText =
-          'The `Chat` widget asks for `currentUserId` and `resolveUser`, so message authors stay lightweight.';
-    } else if (lowerText.contains('drift') || lowerText.contains('sqlite')) {
-      replyText =
-          'This page now stores messages in drift. Reopening the module keeps the chat history.';
-    } else {
-      replyText =
-          'This example wires `Chat`, drift persistence, a watch stream, and `Message.text(...)` into one self-contained feature.';
+    _assistantReplyTimer?.cancel();
+
+    final List<Message> pendingMessages = _chatController.messages
+        .where((Message message) => message.metadata?['sending'] == true)
+        .toList();
+
+    for (final Message pendingMessage in pendingMessages) {
+      await _chatController.updateMessage(
+        pendingMessage,
+        Message.text(
+          id: pendingMessage.id,
+          authorId: pendingMessage.authorId,
+          text: 'Generation stopped.',
+          createdAt: pendingMessage.createdAt,
+          updatedAt: DateTime.now(),
+          status: MessageStatus.error,
+        ),
+      );
     }
 
-    await _chatDatabase.insertTextMessage(
-      messageId: _nextMessageId(),
-      authorId: _assistantUserId,
-      text: replyText,
-      createdAt: DateTime.now(),
-      sentAt: DateTime.now(),
-    );
+    if (mounted) {
+      setState(() {
+        _isGeneratingReply = false;
+      });
+    }
   }
 
   @override
@@ -182,7 +260,7 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'This demo persists messages with drift, watches SQLite for updates, syncs those rows into flutter_chat_ui, and keeps the emoji composer built with flutter_bloc.',
+                      'This enhanced demo uses a drift-backed chat controller, inserts a placeholder assistant message first, and updates that same SQLite row when the reply completes.',
                       style: theme.textTheme.bodyMedium,
                     ),
                   ],
@@ -190,6 +268,18 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
               ),
             ),
             const SizedBox(height: 16),
+            if (_isGeneratingReply)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: FilledButton.icon(
+                    onPressed: _stopAssistantReply,
+                    icon: const Icon(Icons.stop_circle_outlined),
+                    label: const Text('Stop Generation'),
+                  ),
+                ),
+              ),
             Expanded(
               child: BlocProvider<_EmojiComposerCubit>(
                 create: (_) => _EmojiComposerCubit(),
@@ -201,8 +291,10 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
                     chatController: _chatController,
                     theme: chatTheme,
                     builders: Builders(
-                      composerBuilder: (BuildContext context) =>
-                          _EmojiComposer(emojiChoices: _emojiChoices),
+                      composerBuilder: (BuildContext context) => _EmojiComposer(
+                        emojiChoices: _emojiChoices,
+                        isGeneratingReply: _isGeneratingReply,
+                      ),
                     ),
                     onMessageSend: _handleMessageSend,
                   ),
@@ -217,9 +309,13 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
 }
 
 class _EmojiComposer extends StatefulWidget {
-  const _EmojiComposer({required this.emojiChoices});
+  const _EmojiComposer({
+    required this.emojiChoices,
+    required this.isGeneratingReply,
+  });
 
   final List<String> emojiChoices;
+  final bool isGeneratingReply;
 
   @override
   State<_EmojiComposer> createState() => _EmojiComposerState();
@@ -346,11 +442,20 @@ class _EmojiComposerState extends State<_EmojiComposer> {
                           : theme.colors.primary,
                     ),
                     IconButton(
-                      onPressed: canSend && onMessageSend != null
+                      onPressed:
+                          canSend &&
+                              onMessageSend != null &&
+                              !widget.isGeneratingReply
                           ? () => _handleSubmit(onMessageSend)
                           : null,
                       tooltip: 'Send message',
-                      icon: const Icon(Icons.send),
+                      icon: widget.isGeneratingReply
+                          ? const SizedBox(
+                              width: 18,
+                              height: 18,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : const Icon(Icons.send),
                     ),
                   ],
                 ),
