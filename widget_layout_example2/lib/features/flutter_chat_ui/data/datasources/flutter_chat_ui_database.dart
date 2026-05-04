@@ -625,7 +625,7 @@ class FlutterChatUiDatabase extends _$FlutterChatUiDatabase {
             double? height,
             int? size,
             bool? hasOverlay,
-          ) => text ?? '[image]',
+          ) => text ?? metadata?['fileName'] as String? ?? '[image]',
       file:
           (
             String id,

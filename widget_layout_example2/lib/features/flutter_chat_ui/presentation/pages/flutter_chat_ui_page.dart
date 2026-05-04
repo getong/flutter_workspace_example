@@ -1,13 +1,17 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_core/flutter_chat_core.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:widget_layout_example2/app_navigation.dart';
 import 'package:widget_layout_example2/features/flutter_chat_ui/data/controllers/drift_flutter_chat_ui_controller.dart';
 import 'package:widget_layout_example2/features/flutter_chat_ui/data/datasources/flutter_chat_ui_database.dart';
+import 'package:widget_layout_example2/features/flutter_chat_ui/data/services/flutter_chat_ui_image_storage.dart';
 
 @RoutePage(name: RouteName.flutterChatUi)
 class FlutterChatUiPage extends StatefulWidget {
@@ -31,7 +35,6 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
 
   static const String _currentUserId = 'flutter-learner';
   static const String _assistantUserId = 'demo-assistant';
-
   final Map<String, User> _users = <String, User>{
     _currentUserId: const User(
       id: _currentUserId,
@@ -45,11 +48,14 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
     ),
   };
 
+  final ImagePicker _imagePicker = ImagePicker();
+
   late final FlutterChatUiDatabase _chatDatabase;
   late final DriftFlutterChatUiController _chatController;
   Timer? _assistantReplyTimer;
   int _messageSeed = 0;
   bool _isGeneratingReply = false;
+  bool _isPickingImage = false;
   String _activeSessionId = FlutterChatUiDatabase.defaultSessionId;
   bool _isSwitchingSession = false;
 
@@ -168,12 +174,17 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
       } else if (lowerText.contains('drift') || lowerText.contains('sqlite')) {
         replyText =
             'This version persists both chat sessions and their messages in drift, so the drawer can switch across saved histories.';
+      } else if (lowerText.contains('image') ||
+          lowerText.contains('photo') ||
+          lowerText.contains('preview')) {
+        replyText =
+            'Images are picked from the gallery, copied into app storage for durable chat history, and can be previewed fullscreen or saved into the system album.';
       } else if (lowerText.contains('stop') || lowerText.contains('cancel')) {
         replyText =
             'While the placeholder is active, use the stop button to cancel generation and update that pending assistant message.';
       } else {
         replyText =
-            'This example wires flutter_chat_ui, drift persistence, a custom session-aware controller, and assistant placeholder updates into one flow.';
+            'This example wires flutter_chat_ui, drift persistence, image attachments, gallery export, and assistant placeholder updates into one flow.';
       }
 
       final Message? oldMessage = _chatController.messages
@@ -236,6 +247,104 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
         _isGeneratingReply = false;
       });
     }
+  }
+
+  Future<void> _handleAttachmentTap() async {
+    if (_isPickingImage || _isSwitchingSession) {
+      return;
+    }
+
+    if (mounted) {
+      setState(() {
+        _isPickingImage = true;
+      });
+    }
+
+    try {
+      final XFile? pickedFile = await _imagePicker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 92,
+      );
+      if (pickedFile == null) {
+        return;
+      }
+
+      final StoredChatImage storedImage = await persistPickedChatImage(
+        pickedFile,
+      );
+      final bool isEmptyConversation = _chatController.messages.isEmpty;
+      if (isEmptyConversation &&
+          _activeSessionId == FlutterChatUiDatabase.defaultSessionId) {
+        await _chatController.createAndSwitchSession(
+          firstMessagePreview: pickedFile.name.isEmpty
+              ? 'Image'
+              : pickedFile.name,
+        );
+        _activeSessionId = _chatController.activeSessionId;
+      }
+
+      final Message imageMessage = Message.image(
+        id: _nextMessageId(),
+        authorId: _currentUserId,
+        createdAt: DateTime.now(),
+        sentAt: DateTime.now(),
+        status: MessageStatus.sent,
+        source: storedImage.source,
+        size: storedImage.size,
+        text: pickedFile.name.isEmpty ? 'Image' : pickedFile.name,
+        metadata: <String, dynamic>{'fileName': pickedFile.name},
+      );
+
+      await _chatController.insertMessage(imageMessage);
+      _showStatus('Image sent. Tap the image to preview or save it.');
+    } on UnsupportedError {
+      _showStatus('This platform does not support local image attachments.');
+    } catch (error) {
+      _showStatus('Image send failed: $error');
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isPickingImage = false;
+        });
+      }
+    }
+  }
+
+  Future<String> _exportImageToSystem(ImageMessage message) {
+    return exportChatImageToSystem(
+      source: message.source,
+      suggestedName: message.text ?? message.metadata?['fileName'] as String?,
+    );
+  }
+
+  void _handleMessageTap(
+    BuildContext context,
+    Message message, {
+    required int index,
+    required TapUpDetails details,
+  }) {
+    if (message is! ImageMessage) {
+      return;
+    }
+
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) => _ChatImagePreviewPage(
+          message: message,
+          heroTag: 'chat-image-${message.id}',
+          onSaveRequested: () => _exportImageToSystem(message),
+        ),
+      ),
+    );
+  }
+
+  void _showStatus(String message) {
+    final ScaffoldMessengerState? messenger = ScaffoldMessenger.maybeOf(
+      context,
+    );
+    messenger
+      ?..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text(message)));
   }
 
   Future<void> _switchSession(String sessionId) async {
@@ -376,7 +485,7 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              'This enhanced demo uses drift-backed sessions and messages, supports switching historical conversations from the drawer, and keeps each thread in SQLite.',
+                              'This enhanced demo uses drift-backed sessions and messages, supports image picking, fullscreen preview, and keeps selected images in durable app storage. Export to the system photo library or Downloads folder is handled explicitly from preview.',
                               style: theme.textTheme.bodyMedium,
                             ),
                           ],
@@ -413,8 +522,23 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
                                       _EmojiComposer(
                                         emojiChoices: _emojiChoices,
                                         isGeneratingReply: _isGeneratingReply,
+                                        isPickingImage: _isPickingImage,
+                                      ),
+                                  imageMessageBuilder:
+                                      (
+                                        BuildContext context,
+                                        ImageMessage message,
+                                        int index, {
+                                        required bool isSentByMe,
+                                        MessageGroupStatus? groupStatus,
+                                      }) => _ChatImageBubble(
+                                        message: message,
+                                        isSentByMe: isSentByMe,
+                                        heroTag: 'chat-image-${message.id}',
                                       ),
                                 ),
+                                onAttachmentTap: _handleAttachmentTap,
+                                onMessageTap: _handleMessageTap,
                                 onMessageSend: _handleMessageSend,
                               ),
                               if (_isSwitchingSession)
@@ -546,10 +670,12 @@ class _EmojiComposer extends StatefulWidget {
   const _EmojiComposer({
     required this.emojiChoices,
     required this.isGeneratingReply,
+    required this.isPickingImage,
   });
 
   final List<String> emojiChoices;
   final bool isGeneratingReply;
+  final bool isPickingImage;
 
   @override
   State<_EmojiComposer> createState() => _EmojiComposerState();
@@ -582,6 +708,8 @@ class _EmojiComposerState extends State<_EmojiComposer> {
     final ChatTheme theme = context.read<ChatTheme>();
     final OnMessageSendCallback? onMessageSend = context
         .read<OnMessageSendCallback?>();
+    final VoidCallback? onAttachmentTap = context
+        .read<OnAttachmentTapCallback?>();
     final double bottomSafeArea = MediaQuery.of(context).padding.bottom;
     final Color iconColor = theme.colors.onSurface.withValues(alpha: 0.65);
 
@@ -641,6 +769,22 @@ class _EmojiComposerState extends State<_EmojiComposer> {
                   ),
                 Row(
                   children: <Widget>[
+                    IconButton(
+                      onPressed:
+                          onAttachmentTap != null &&
+                              !widget.isGeneratingReply &&
+                              !widget.isPickingImage
+                          ? onAttachmentTap
+                          : null,
+                      tooltip: 'Pick image',
+                      icon: widget.isPickingImage
+                          ? const SizedBox(
+                              width: 18,
+                              height: 18,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : const Icon(Icons.add_photo_alternate_outlined),
+                    ),
                     Expanded(
                       child: TextField(
                         controller: _textController,
@@ -679,7 +823,8 @@ class _EmojiComposerState extends State<_EmojiComposer> {
                       onPressed:
                           canSend &&
                               onMessageSend != null &&
-                              !widget.isGeneratingReply
+                              !widget.isGeneratingReply &&
+                              !widget.isPickingImage
                           ? () => _handleSubmit(onMessageSend)
                           : null,
                       tooltip: 'Send message',
@@ -795,5 +940,179 @@ class _EmojiComposerStateData {
       showEmojiPicker: showEmojiPicker ?? this.showEmojiPicker,
       selectedEmoji: selectedEmoji ?? this.selectedEmoji,
     );
+  }
+}
+
+class _ChatImageBubble extends StatelessWidget {
+  const _ChatImageBubble({
+    required this.message,
+    required this.isSentByMe,
+    required this.heroTag,
+  });
+
+  final ImageMessage message;
+  final bool isSentByMe;
+  final String heroTag;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final double maxWidth = math
+        .min(MediaQuery.of(context).size.width * 0.62, 260)
+        .toDouble();
+    final double aspectRatio = _resolvedAspectRatio(message);
+    final String? caption = message.text?.trim().isEmpty == true
+        ? null
+        : message.text?.trim();
+
+    return Container(
+      constraints: BoxConstraints(maxWidth: maxWidth),
+      padding: const EdgeInsets.all(6),
+      decoration: BoxDecoration(
+        color: isSentByMe
+            ? theme.colorScheme.primaryContainer
+            : theme.colorScheme.surfaceContainerHigh,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(
+          color: theme.colorScheme.outlineVariant.withValues(alpha: 0.45),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Hero(
+            tag: heroTag,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(14),
+              child: AspectRatio(
+                aspectRatio: aspectRatio,
+                child: Image(
+                  image: chatImageProvider(message.source),
+                  fit: BoxFit.cover,
+                  errorBuilder:
+                      (
+                        BuildContext context,
+                        Object error,
+                        StackTrace? stackTrace,
+                      ) => DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.surfaceContainerHighest,
+                        ),
+                        child: Center(
+                          child: Icon(
+                            Icons.broken_image_outlined,
+                            color: theme.colorScheme.error,
+                            size: 32,
+                          ),
+                        ),
+                      ),
+                ),
+              ),
+            ),
+          ),
+          if (caption != null) ...<Widget>[
+            const SizedBox(height: 8),
+            Text(
+              caption,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurface,
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  double _resolvedAspectRatio(ImageMessage message) {
+    final double? width = message.width;
+    final double? height = message.height;
+    if (width == null || height == null || width <= 0 || height <= 0) {
+      return 1;
+    }
+
+    return (width / height).clamp(0.75, 1.4);
+  }
+}
+
+class _ChatImagePreviewPage extends StatefulWidget {
+  const _ChatImagePreviewPage({
+    required this.message,
+    required this.heroTag,
+    required this.onSaveRequested,
+  });
+
+  final ImageMessage message;
+  final String heroTag;
+  final Future<String> Function() onSaveRequested;
+
+  @override
+  State<_ChatImagePreviewPage> createState() => _ChatImagePreviewPageState();
+}
+
+class _ChatImagePreviewPageState extends State<_ChatImagePreviewPage> {
+  bool _isSaving = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final String title = widget.message.text?.trim().isNotEmpty == true
+        ? widget.message.text!.trim()
+        : 'Image Preview';
+
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+        title: Text(title, maxLines: 1, overflow: TextOverflow.ellipsis),
+        actions: <Widget>[
+          IconButton(
+            onPressed: _isSaving ? null : _handleSavePressed,
+            tooltip: 'Save image',
+            icon: _isSaving
+                ? const SizedBox(
+                    width: 18,
+                    height: 18,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    ),
+                  )
+                : const Icon(Icons.download_outlined),
+          ),
+        ],
+      ),
+      body: PhotoView(
+        imageProvider: chatImageProvider(widget.message.source),
+        backgroundDecoration: const BoxDecoration(color: Colors.black),
+        heroAttributes: PhotoViewHeroAttributes(tag: widget.heroTag),
+      ),
+    );
+  }
+
+  Future<void> _handleSavePressed() async {
+    setState(() {
+      _isSaving = true;
+    });
+
+    try {
+      final String result = await widget.onSaveRequested();
+      if (!mounted) {
+        return;
+      }
+
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(result)));
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isSaving = false;
+        });
+      }
+    }
   }
 }

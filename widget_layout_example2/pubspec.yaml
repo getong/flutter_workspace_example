@@ -107,6 +107,7 @@ dependencies:
   http: ^1.5.0
   hugeicons: ^1.1.6
   iconly: ^1.0.1
+  image_picker: ^1.2.1
   image_cropper: ^12.2.1
   infinite_scroll_pagination: ^5.1.1
   injectable: ^3.0.0
