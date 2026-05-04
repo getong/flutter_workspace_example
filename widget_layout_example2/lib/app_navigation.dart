@@ -235,6 +235,7 @@ abstract final class RouteName {
   static const sharePlus = 'SharePlusRoute';
   static const dashChat3 = 'DashChat3Route';
   static const flutterChatUi = 'FlutterChatUiRoute';
+  static const flutterGenAiChatUi = 'FlutterGenAiChatUiRoute';
   static const gal = 'GalRoute';
   static const photoView = 'PhotoViewRoute';
   static const flutterMarkdownPlus = 'FlutterMarkdownPlusRoute';
@@ -625,6 +626,10 @@ enum AppRoute {
   sharePlus('/share-plus-page', RouteName.sharePlus),
   dashChat3('/dash-chat-3-page', RouteName.dashChat3),
   flutterChatUi('/flutter-chat-ui-page', RouteName.flutterChatUi),
+  flutterGenAiChatUi(
+    '/flutter-gen-ai-chat-ui-page',
+    RouteName.flutterGenAiChatUi,
+  ),
   gal('/gal-page', RouteName.gal),
   photoView('/photo-view-page', RouteName.photoView),
   flutterMarkdownPlus(

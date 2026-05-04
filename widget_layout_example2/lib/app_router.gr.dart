@@ -2368,6 +2368,22 @@ class FlutterDotenvRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterGenAiChatUiPage]
+class FlutterGenAiChatUiRoute extends PageRouteInfo<void> {
+  const FlutterGenAiChatUiRoute({List<PageRouteInfo>? children})
+    : super(FlutterGenAiChatUiRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterGenAiChatUiRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterGenAiChatUiPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterHooksPage]
 class FlutterHooksRoute extends PageRouteInfo<void> {
   const FlutterHooksRoute({List<PageRouteInfo>? children})

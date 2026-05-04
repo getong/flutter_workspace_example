@@ -103,6 +103,7 @@ import 'package:widget_layout_example2/features/flutter_chat_ui/presentation/pag
 import 'package:widget_layout_example2/features/flutter_custom_tabs/presentation/pages/flutter_custom_tabs_page.dart';
 import 'package:widget_layout_example2/features/flutter_debounce_throttle/presentation/pages/flutter_debounce_throttle_page.dart';
 import 'package:widget_layout_example2/features/flutter_dotenv/presentation/pages/flutter_dotenv_page.dart';
+import 'package:widget_layout_example2/features/flutter_gen_ai_chat_ui/presentation/pages/flutter_gen_ai_chat_ui_page.dart';
 import 'package:widget_layout_example2/features/flutter_hooks/presentation/pages/flutter_hooks_page.dart';
 import 'package:widget_layout_example2/features/flutter_inappwebview/presentation/pages/flutter_inappwebview_page.dart';
 import 'package:widget_layout_example2/features/flutter_markdown_plus/presentation/pages/flutter_markdown_plus_page.dart';
@@ -874,6 +875,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: SharePlusRoute.page, path: AppRoute.sharePlus.path),
     AutoRoute(page: DashChat3Route.page, path: AppRoute.dashChat3.path),
     AutoRoute(page: FlutterChatUiRoute.page, path: AppRoute.flutterChatUi.path),
+    AutoRoute(
+      page: FlutterGenAiChatUiRoute.page,
+      path: AppRoute.flutterGenAiChatUi.path,
+    ),
     AutoRoute(page: GalRoute.page, path: AppRoute.gal.path),
     AutoRoute(page: PhotoViewRoute.page, path: AppRoute.photoView.path),
     AutoRoute(
