@@ -234,6 +234,7 @@ abstract final class RouteName {
   static const sharedPreferences = 'SharedPreferencesRoute';
   static const sharePlus = 'SharePlusRoute';
   static const dashChat3 = 'DashChat3Route';
+  static const flutterChatUi = 'FlutterChatUiRoute';
   static const textFieldController = 'TextFieldControllerRoute';
   static const customMultiChildLayoutVsLayoutBuilder =
       'CustomMultiChildLayoutVsLayoutBuilderRoute';
@@ -620,6 +621,7 @@ enum AppRoute {
   sharedPreferences('/shared-preferences-page', RouteName.sharedPreferences),
   sharePlus('/share-plus-page', RouteName.sharePlus),
   dashChat3('/dash-chat-3-page', RouteName.dashChat3),
+  flutterChatUi('/flutter-chat-ui-page', RouteName.flutterChatUi),
   textFieldController(
     '/text-field-controller-page',
     RouteName.textFieldController,

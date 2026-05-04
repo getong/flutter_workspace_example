@@ -2304,6 +2304,22 @@ class FlutterCardSwiperRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterChatUiPage]
+class FlutterChatUiRoute extends PageRouteInfo<void> {
+  const FlutterChatUiRoute({List<PageRouteInfo>? children})
+    : super(FlutterChatUiRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterChatUiRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterChatUiPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterCustomTabsPage]
 class FlutterCustomTabsRoute extends PageRouteInfo<void> {
   const FlutterCustomTabsRoute({List<PageRouteInfo>? children})

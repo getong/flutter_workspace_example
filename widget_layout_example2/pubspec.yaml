@@ -75,6 +75,8 @@ dependencies:
   flutter_bloc: ^9.1.1
   flutter_bloc_event_bus: ^1.0.0
   flutter_card_swiper: ^7.2.0
+  flutter_chat_core: ^2.9.0
+  flutter_chat_ui: ^2.11.1
   flutter_custom_tabs: ^2.5.0
   flutter_debounce_throttle: ^2.4.5
   flutter_dotenv: ^6.0.0

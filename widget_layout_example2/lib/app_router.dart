@@ -99,6 +99,7 @@ import 'package:widget_layout_example2/features/flutter_animate/presentation/pag
 import 'package:widget_layout_example2/features/flutter_bloc/presentation/pages/flutter_bloc_page.dart';
 import 'package:widget_layout_example2/features/flutter_bloc_event_bus/presentation/pages/flutter_bloc_event_bus_page.dart';
 import 'package:widget_layout_example2/features/flutter_card_swiper/presentation/pages/flutter_card_swiper_page.dart';
+import 'package:widget_layout_example2/features/flutter_chat_ui/presentation/pages/flutter_chat_ui_page.dart';
 import 'package:widget_layout_example2/features/flutter_custom_tabs/presentation/pages/flutter_custom_tabs_page.dart';
 import 'package:widget_layout_example2/features/flutter_debounce_throttle/presentation/pages/flutter_debounce_throttle_page.dart';
 import 'package:widget_layout_example2/features/flutter_dotenv/presentation/pages/flutter_dotenv_page.dart';
@@ -869,6 +870,7 @@ class AppRouter extends RootStackRouter {
     ),
     AutoRoute(page: SharePlusRoute.page, path: AppRoute.sharePlus.path),
     AutoRoute(page: DashChat3Route.page, path: AppRoute.dashChat3.path),
+    AutoRoute(page: FlutterChatUiRoute.page, path: AppRoute.flutterChatUi.path),
     AutoRoute(
       page: TextFieldControllerRoute.page,
       path: AppRoute.textFieldController.path,
