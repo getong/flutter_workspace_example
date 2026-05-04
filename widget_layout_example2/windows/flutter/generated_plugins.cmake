@@ -14,6 +14,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_timezone
   flutter_tts
   fvp
+  gal
   irondash_engine_context
   local_auth_windows
   permission_handler_windows

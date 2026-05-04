@@ -2416,6 +2416,22 @@ class FlutterLocalNotificationsRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterMarkdownPlusPage]
+class FlutterMarkdownPlusRoute extends PageRouteInfo<void> {
+  const FlutterMarkdownPlusRoute({List<PageRouteInfo>? children})
+    : super(FlutterMarkdownPlusRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterMarkdownPlusRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterMarkdownPlusPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterScreenutilPage]
 class FlutterScreenutilRoute extends PageRouteInfo<void> {
   const FlutterScreenutilRoute({List<PageRouteInfo>? children})
@@ -2699,6 +2715,22 @@ class FutureBuilderRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const FutureBuilderPage();
+    },
+  );
+}
+
+/// generated route for
+/// [GalPage]
+class GalRoute extends PageRouteInfo<void> {
+  const GalRoute({List<PageRouteInfo>? children})
+    : super(GalRoute.name, initialChildren: children);
+
+  static const String name = 'GalRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const GalPage();
     },
   );
 }
@@ -3591,6 +3623,22 @@ class PermissionHandlerRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const PermissionHandlerPage();
+    },
+  );
+}
+
+/// generated route for
+/// [PhotoViewPage]
+class PhotoViewRoute extends PageRouteInfo<void> {
+  const PhotoViewRoute({List<PageRouteInfo>? children})
+    : super(PhotoViewRoute.name, initialChildren: children);
+
+  static const String name = 'PhotoViewRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const PhotoViewPage();
     },
   );
 }

@@ -105,6 +105,7 @@ import 'package:widget_layout_example2/features/flutter_debounce_throttle/presen
 import 'package:widget_layout_example2/features/flutter_dotenv/presentation/pages/flutter_dotenv_page.dart';
 import 'package:widget_layout_example2/features/flutter_hooks/presentation/pages/flutter_hooks_page.dart';
 import 'package:widget_layout_example2/features/flutter_inappwebview/presentation/pages/flutter_inappwebview_page.dart';
+import 'package:widget_layout_example2/features/flutter_markdown_plus/presentation/pages/flutter_markdown_plus_page.dart';
 import 'package:widget_layout_example2/features/flutter_local_notifications/presentation/pages/flutter_local_notifications_page.dart';
 import 'package:widget_layout_example2/features/flutter_screenutil/presentation/pages/flutter_screenutil_page.dart';
 import 'package:widget_layout_example2/features/flutter_secure_storage/presentation/pages/flutter_secure_storage_page.dart';
@@ -120,6 +121,7 @@ import 'package:widget_layout_example2/features/form/presentation/pages/form_pag
 import 'package:widget_layout_example2/features/form_field/presentation/pages/form_field_page.dart';
 import 'package:widget_layout_example2/features/formz/presentation/pages/formz_page.dart';
 import 'package:widget_layout_example2/features/future_builder/presentation/pages/future_builder_page.dart';
+import 'package:widget_layout_example2/features/gal/presentation/pages/gal_page.dart';
 import 'package:widget_layout_example2/features/gesturedetector/presentation/pages/gesturedetector.dart';
 import 'package:widget_layout_example2/features/genui/presentation/pages/genui_page.dart';
 import 'package:widget_layout_example2/features/graphql_flutter/presentation/pages/graphql_flutter_page.dart';
@@ -168,6 +170,7 @@ import 'package:widget_layout_example2/features/overlay_menu/presentation/pages/
 import 'package:widget_layout_example2/features/padding/presentation/pages/padding_page.dart';
 import 'package:widget_layout_example2/features/pedantic_mono/presentation/pages/pedantic_mono_page.dart';
 import 'package:widget_layout_example2/features/percent_indicator/presentation/pages/percent_indicator_page.dart';
+import 'package:widget_layout_example2/features/photo_view/presentation/pages/photo_view_page.dart';
 import 'package:widget_layout_example2/features/permission_handler/presentation/pages/permission_handler_page.dart';
 import 'package:widget_layout_example2/features/package_info_plus/presentation/pages/package_info_plus_page.dart';
 import 'package:widget_layout_example2/features/pinput/presentation/pages/pinput_page.dart';
@@ -871,6 +874,12 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: SharePlusRoute.page, path: AppRoute.sharePlus.path),
     AutoRoute(page: DashChat3Route.page, path: AppRoute.dashChat3.path),
     AutoRoute(page: FlutterChatUiRoute.page, path: AppRoute.flutterChatUi.path),
+    AutoRoute(page: GalRoute.page, path: AppRoute.gal.path),
+    AutoRoute(page: PhotoViewRoute.page, path: AppRoute.photoView.path),
+    AutoRoute(
+      page: FlutterMarkdownPlusRoute.page,
+      path: AppRoute.flutterMarkdownPlus.path,
+    ),
     AutoRoute(
       page: TextFieldControllerRoute.page,
       path: AppRoute.textFieldController.path,

@@ -544,6 +544,12 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'flutter_chat_ui Module',
     routePath: AppRoute.flutterChatUi.path,
   ),
+  _ModuleLink(label: 'gal Module', routePath: AppRoute.gal.path),
+  _ModuleLink(label: 'photo_view Module', routePath: AppRoute.photoView.path),
+  _ModuleLink(
+    label: 'flutter_markdown_plus Module',
+    routePath: AppRoute.flutterMarkdownPlus.path,
+  ),
   _ModuleLink(label: 'showDialog Module', routePath: AppRoute.showDialog.path),
   _ModuleLink(
     label: 'showGeneralDialog Module',
