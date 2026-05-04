@@ -12,15 +12,41 @@ class DriftFlutterChatUiController implements ChatController {
       StreamController<ChatOperation>.broadcast();
 
   List<Message> _messages = <Message>[];
+  String _activeSessionId = FlutterChatUiDatabase.defaultSessionId;
 
-  Future<void> loadInitialMessages() async {
-    _messages = await _database.getMessages();
+  String get activeSessionId => _activeSessionId;
+
+  Future<void> loadInitialMessages({String? sessionId}) async {
+    _activeSessionId = sessionId ?? _activeSessionId;
+    _messages = await _database.getMessages(_activeSessionId);
     _operationsController.add(ChatOperation.set(_messages, animated: false));
+  }
+
+  Future<void> switchSession(String sessionId) async {
+    if (_activeSessionId == sessionId) {
+      _messages = await _database.getMessages(_activeSessionId);
+      _operationsController.add(ChatOperation.set(_messages, animated: false));
+      return;
+    }
+
+    _activeSessionId = sessionId;
+    _messages = await _database.getMessages(_activeSessionId);
+    _operationsController.add(ChatOperation.set(_messages, animated: false));
+  }
+
+  Future<void> createAndSwitchSession({String? firstMessagePreview}) async {
+    final String sessionId = await _database.createNextSession(
+      firstMessagePreview: firstMessagePreview,
+    );
+    await switchSession(sessionId);
   }
 
   @override
   Future<void> insertMessage(Message message, {int? index}) async {
-    await _database.upsertMessage(message);
+    await _database.upsertMessage(
+      sessionId: _activeSessionId,
+      message: message,
+    );
 
     final int insertIndex = index ?? _messages.length;
     if (index == null || index >= _messages.length) {
@@ -41,7 +67,10 @@ class DriftFlutterChatUiController implements ChatController {
     if (index == null || index >= _messages.length) {
       final int startIndex = _messages.length;
       for (final Message message in messages) {
-        await _database.upsertMessage(message);
+        await _database.upsertMessage(
+          sessionId: _activeSessionId,
+          message: message,
+        );
       }
       _messages.addAll(messages);
       _operationsController.add(ChatOperation.insertAll(messages, startIndex));
@@ -50,7 +79,10 @@ class DriftFlutterChatUiController implements ChatController {
 
     final List<Message> nextMessages = List<Message>.from(_messages)
       ..insertAll(index, messages);
-    await _database.replaceAllMessages(nextMessages);
+    await _database.replaceAllMessages(
+      sessionId: _activeSessionId,
+      messages: nextMessages,
+    );
     _messages = nextMessages;
     _operationsController.add(ChatOperation.insertAll(messages, index));
   }
@@ -69,7 +101,10 @@ class DriftFlutterChatUiController implements ChatController {
       return;
     }
 
-    await _database.upsertMessage(newMessage);
+    await _database.upsertMessage(
+      sessionId: _activeSessionId,
+      message: newMessage,
+    );
     _messages[index] = newMessage;
     _operationsController.add(
       ChatOperation.update(currentOldMessage, newMessage, index),
@@ -93,7 +128,10 @@ class DriftFlutterChatUiController implements ChatController {
 
   @override
   Future<void> setMessages(List<Message> messages) async {
-    await _database.replaceAllMessages(messages);
+    await _database.replaceAllMessages(
+      sessionId: _activeSessionId,
+      messages: messages,
+    );
     _messages = List<Message>.from(messages);
     _operationsController.add(ChatOperation.set(_messages));
   }
