@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_core/flutter_chat_core.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:widget_layout_example2/app_navigation.dart';
+import 'package:widget_layout_example2/features/flutter_chat_ui/data/datasources/flutter_chat_ui_database.dart';
 
 @RoutePage(name: RouteName.flutterChatUi)
 class FlutterChatUiPage extends StatefulWidget {
@@ -43,41 +44,29 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
     ),
   };
 
+  late final FlutterChatUiDatabase _chatDatabase;
   late final InMemoryChatController _chatController;
+  StreamSubscription<List<Message>>? _messageSubscription;
   int _messageSeed = 0;
 
   @override
   void initState() {
     super.initState();
-    _chatController = InMemoryChatController(
-      messages: <Message>[
-        Message.text(
-          id: _nextMessageId(),
-          authorId: _assistantUserId,
-          createdAt: DateTime(2026, 5, 4, 10, 0),
-          text:
-              'This module uses flutter_chat_core for message state and flutter_chat_ui for rendering.',
-        ),
-        Message.text(
-          id: _nextMessageId(),
-          authorId: _currentUserId,
-          createdAt: DateTime(2026, 5, 4, 10, 1),
-          text: 'I want a minimal but interactive chat example.',
-        ),
-        Message.text(
-          id: _nextMessageId(),
-          authorId: _assistantUserId,
-          createdAt: DateTime(2026, 5, 4, 10, 2),
-          text:
-              'Send a message below. I will insert a local reply so the demo feels complete.',
-        ),
-      ],
-    );
+    _chatDatabase = FlutterChatUiDatabase();
+    _chatController = InMemoryChatController();
+    _messageSubscription = _chatDatabase.watchMessages().listen((
+      List<Message> messages,
+    ) {
+      unawaited(_chatController.setMessages(messages));
+    });
+    unawaited(_chatDatabase.seedDemoData());
   }
 
   @override
   void dispose() {
+    _messageSubscription?.cancel();
     _chatController.dispose();
+    _chatDatabase.close();
     super.dispose();
   }
 
@@ -100,14 +89,13 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
       return;
     }
 
-    final Message outbound = Message.text(
-      id: _nextMessageId(),
+    await _chatDatabase.insertTextMessage(
+      messageId: _nextMessageId(),
       authorId: _currentUserId,
+      text: trimmed,
       createdAt: DateTime.now(),
       sentAt: DateTime.now(),
-      text: trimmed,
     );
-    await _chatController.insertMessage(outbound);
 
     unawaited(_simulateAssistantReply(trimmed));
   }
@@ -126,23 +114,24 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
     } else if (lowerText.contains('controller') ||
         lowerText.contains('state')) {
       replyText =
-          'Message state is owned by `InMemoryChatController`, which makes this demo local and easy to understand.';
+          'Messages are persisted with drift, and the chat UI refreshes from a watched SQLite stream.';
     } else if (lowerText.contains('user')) {
       replyText =
           'The `Chat` widget asks for `currentUserId` and `resolveUser`, so message authors stay lightweight.';
+    } else if (lowerText.contains('drift') || lowerText.contains('sqlite')) {
+      replyText =
+          'This page now stores messages in drift. Reopening the module keeps the chat history.';
     } else {
       replyText =
-          'This example wires `Chat`, `InMemoryChatController`, `User`, and `Message.text(...)` into one self-contained feature.';
+          'This example wires `Chat`, drift persistence, a watch stream, and `Message.text(...)` into one self-contained feature.';
     }
 
-    await _chatController.insertMessage(
-      Message.text(
-        id: _nextMessageId(),
-        authorId: _assistantUserId,
-        createdAt: DateTime.now(),
-        sentAt: DateTime.now(),
-        text: replyText,
-      ),
+    await _chatDatabase.insertTextMessage(
+      messageId: _nextMessageId(),
+      authorId: _assistantUserId,
+      text: replyText,
+      createdAt: DateTime.now(),
+      sentAt: DateTime.now(),
     );
   }
 
@@ -193,7 +182,7 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'This demo uses an in-memory controller, user resolution, local send handling, and a themed message list in one self-contained page.',
+                      'This demo persists messages with drift, watches SQLite for updates, syncs those rows into flutter_chat_ui, and keeps the emoji composer built with flutter_bloc.',
                       style: theme.textTheme.bodyMedium,
                     ),
                   ],
