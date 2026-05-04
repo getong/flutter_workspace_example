@@ -539,6 +539,7 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.sharedPreferences.path,
   ),
   _ModuleLink(label: 'share_plus Module', routePath: AppRoute.sharePlus.path),
+  _ModuleLink(label: 'dash_chat_3 Module', routePath: AppRoute.dashChat3.path),
   _ModuleLink(label: 'showDialog Module', routePath: AppRoute.showDialog.path),
   _ModuleLink(
     label: 'showGeneralDialog Module',

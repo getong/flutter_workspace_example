@@ -52,6 +52,7 @@ dependencies:
   crypto: ^3.0.7
   cue: ^0.2.0
   cupertino_icons: ^1.0.8
+  dash_chat_3: ^1.0.1
   desktop_multi_window: ^0.3.0
   dio: ^5.9.2
   dio_cookie_manager: ^3.4.0

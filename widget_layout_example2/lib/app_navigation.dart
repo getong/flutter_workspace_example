@@ -233,6 +233,7 @@ abstract final class RouteName {
   static const superClipboard = 'SuperClipboardRoute';
   static const sharedPreferences = 'SharedPreferencesRoute';
   static const sharePlus = 'SharePlusRoute';
+  static const dashChat3 = 'DashChat3Route';
   static const textFieldController = 'TextFieldControllerRoute';
   static const customMultiChildLayoutVsLayoutBuilder =
       'CustomMultiChildLayoutVsLayoutBuilderRoute';
@@ -618,6 +619,7 @@ enum AppRoute {
   superClipboard('/super-clipboard-page', RouteName.superClipboard),
   sharedPreferences('/shared-preferences-page', RouteName.sharedPreferences),
   sharePlus('/share-plus-page', RouteName.sharePlus),
+  dashChat3('/dash-chat-3-page', RouteName.dashChat3),
   textFieldController(
     '/text-field-controller-page',
     RouteName.textFieldController,

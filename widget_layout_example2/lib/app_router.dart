@@ -52,6 +52,7 @@ import 'package:widget_layout_example2/features/custom_scroll_view/presentation/
 import 'package:widget_layout_example2/features/custom_paint/presentation/pages/custom_paint_page.dart';
 import 'package:widget_layout_example2/features/crypto/presentation/pages/crypto_page.dart';
 import 'package:widget_layout_example2/features/cue/presentation/pages/cue_page.dart';
+import 'package:widget_layout_example2/features/dash_chat_3/presentation/pages/dash_chat_3_page.dart';
 import 'package:widget_layout_example2/features/data_table/presentation/pages/data_table_page.dart';
 import 'package:widget_layout_example2/features/desktop_multi_window/presentation/pages/desktop_multi_window_page.dart';
 import 'package:widget_layout_example2/features/date_picker_dialog/presentation/pages/date_picker_dialog_page.dart';
@@ -867,6 +868,7 @@ class AppRouter extends RootStackRouter {
       path: AppRoute.sharedPreferences.path,
     ),
     AutoRoute(page: SharePlusRoute.page, path: AppRoute.sharePlus.path),
+    AutoRoute(page: DashChat3Route.page, path: AppRoute.dashChat3.path),
     AutoRoute(
       page: TextFieldControllerRoute.page,
       path: AppRoute.textFieldController.path,

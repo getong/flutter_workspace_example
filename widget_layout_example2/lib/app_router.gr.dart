@@ -1600,6 +1600,22 @@ class CustomScrollViewSplitRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [DashChat3Page]
+class DashChat3Route extends PageRouteInfo<void> {
+  const DashChat3Route({List<PageRouteInfo>? children})
+    : super(DashChat3Route.name, initialChildren: children);
+
+  static const String name = 'DashChat3Route';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DashChat3Page();
+    },
+  );
+}
+
+/// generated route for
 /// [DataTablePage]
 class DataTableRoute extends PageRouteInfo<void> {
   const DataTableRoute({List<PageRouteInfo>? children})
