@@ -191,6 +191,7 @@ import 'package:widget_layout_example2/features/row_expanded/presentation/pages/
 import 'package:widget_layout_example2/features/rotated_box/presentation/pages/rotated_box_page.dart';
 import 'package:widget_layout_example2/features/safe_area/presentation/pages/safe_area_page.dart';
 import 'package:widget_layout_example2/features/scrollbar/presentation/pages/scrollbar_page.dart';
+import 'package:widget_layout_example2/features/scaffold_demo/presentation/pages/scaffold_demo_page.dart';
 import 'package:widget_layout_example2/features/sensors_plus/presentation/pages/sensors_plus_page.dart';
 import 'package:widget_layout_example2/features/semantics/presentation/pages/semantics_page.dart';
 import 'package:widget_layout_example2/features/shadcn_ui/presentation/pages/shadcn_ui_page.dart';
@@ -877,6 +878,7 @@ class AppRouter extends RootStackRouter {
       path: AppRoute.sharedPreferences.path,
     ),
     AutoRoute(page: SharePlusRoute.page, path: AppRoute.sharePlus.path),
+    AutoRoute(page: ScaffoldDemoRoute.page, path: AppRoute.scaffoldDemo.path),
     AutoRoute(page: DashChat3Route.page, path: AppRoute.dashChat3.path),
     AutoRoute(page: FlutterChatUiRoute.page, path: AppRoute.flutterChatUi.path),
     AutoRoute(

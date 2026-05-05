@@ -203,6 +203,7 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'CircularProgressIndicator Module',
     routePath: AppRoute.circularProgressIndicator.path,
   ),
+  _ModuleLink(label: 'Scaffold Module', routePath: AppRoute.scaffoldDemo.path),
   _ModuleLink(label: 'crypto Module', routePath: AppRoute.crypto.path),
   _ModuleLink(label: 'cue Module', routePath: AppRoute.cue.path),
   _ModuleLink(

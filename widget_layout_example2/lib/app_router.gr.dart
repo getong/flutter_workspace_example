@@ -3948,6 +3948,22 @@ class SafeAreaRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ScaffoldExamplePage]
+class ScaffoldDemoRoute extends PageRouteInfo<void> {
+  const ScaffoldDemoRoute({List<PageRouteInfo>? children})
+    : super(ScaffoldDemoRoute.name, initialChildren: children);
+
+  static const String name = 'ScaffoldDemoRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ScaffoldExamplePage();
+    },
+  );
+}
+
+/// generated route for
 /// [ScrollbarPage]
 class ScrollbarRoute extends PageRouteInfo<void> {
   const ScrollbarRoute({List<PageRouteInfo>? children})

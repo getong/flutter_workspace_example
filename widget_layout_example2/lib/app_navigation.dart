@@ -233,6 +233,7 @@ abstract final class RouteName {
   static const superClipboard = 'SuperClipboardRoute';
   static const sharedPreferences = 'SharedPreferencesRoute';
   static const sharePlus = 'SharePlusRoute';
+  static const scaffoldDemo = 'ScaffoldDemoRoute';
   static const dashChat3 = 'DashChat3Route';
   static const flutterChatUi = 'FlutterChatUiRoute';
   static const flutterGenAiChatUi = 'FlutterGenAiChatUiRoute';
@@ -628,6 +629,7 @@ enum AppRoute {
   superClipboard('/super-clipboard-page', RouteName.superClipboard),
   sharedPreferences('/shared-preferences-page', RouteName.sharedPreferences),
   sharePlus('/share-plus-page', RouteName.sharePlus),
+  scaffoldDemo('/scaffold-demo-page', RouteName.scaffoldDemo),
   dashChat3('/dash-chat-3-page', RouteName.dashChat3),
   flutterChatUi('/flutter-chat-ui-page', RouteName.flutterChatUi),
   flutterGenAiChatUi(
