@@ -3612,6 +3612,22 @@ class PaddingRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [PageViewPage]
+class PageViewRoute extends PageRouteInfo<void> {
+  const PageViewRoute({List<PageRouteInfo>? children})
+    : super(PageViewRoute.name, initialChildren: children);
+
+  static const String name = 'PageViewRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const PageViewPage();
+    },
+  );
+}
+
+/// generated route for
 /// [PedanticMonoPage]
 class PedanticMonoRoute extends PageRouteInfo<void> {
   const PedanticMonoRoute({List<PageRouteInfo>? children})
@@ -4442,6 +4458,22 @@ class SyncfusionFlutterChartsRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const SyncfusionFlutterChartsPage();
+    },
+  );
+}
+
+/// generated route for
+/// [TabBarViewPage]
+class TabBarViewRoute extends PageRouteInfo<void> {
+  const TabBarViewRoute({List<PageRouteInfo>? children})
+    : super(TabBarViewRoute.name, initialChildren: children);
+
+  static const String name = 'TabBarViewRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TabBarViewPage();
     },
   );
 }

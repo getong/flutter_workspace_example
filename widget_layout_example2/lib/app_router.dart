@@ -174,6 +174,7 @@ import 'package:widget_layout_example2/features/percent_indicator/presentation/p
 import 'package:widget_layout_example2/features/photo_view/presentation/pages/photo_view_page.dart';
 import 'package:widget_layout_example2/features/permission_handler/presentation/pages/permission_handler_page.dart';
 import 'package:widget_layout_example2/features/package_info_plus/presentation/pages/package_info_plus_page.dart';
+import 'package:widget_layout_example2/features/page_view/presentation/pages/page_view_page.dart';
 import 'package:widget_layout_example2/features/pinput/presentation/pages/pinput_page.dart';
 import 'package:widget_layout_example2/features/pigeon/presentation/pages/pigeon_page.dart';
 import 'package:widget_layout_example2/features/pop_scope/presentation/pages/pop_scope_page.dart';
@@ -221,6 +222,7 @@ import 'package:widget_layout_example2/features/switch/presentation/pages/switch
 import 'package:widget_layout_example2/features/syncfusion_flutter_charts/presentation/pages/syncfusion_flutter_charts_page.dart';
 import 'package:widget_layout_example2/features/table_calendar/presentation/pages/table_calendar_page.dart';
 import 'package:widget_layout_example2/features/table/presentation/pages/table_page.dart';
+import 'package:widget_layout_example2/features/tab_bar_view/presentation/pages/tab_bar_view_page.dart';
 import 'package:widget_layout_example2/features/tdesign_flutter/presentation/pages/tdesign_flutter_page.dart';
 import 'package:widget_layout_example2/features/time_picker_dialog/presentation/pages/time_picker_dialog_page.dart';
 import 'package:widget_layout_example2/features/text_field_controller/presentation/pages/text_field_controller_page.dart';
@@ -895,6 +897,8 @@ class AppRouter extends RootStackRouter {
       page: PullDownButtonRoute.page,
       path: AppRoute.pullDownButton.path,
     ),
+    AutoRoute(page: PageViewRoute.page, path: AppRoute.pageView.path),
+    AutoRoute(page: TabBarViewRoute.page, path: AppRoute.tabBarView.path),
     AutoRoute(
       page: TextFieldControllerRoute.page,
       path: AppRoute.textFieldController.path,

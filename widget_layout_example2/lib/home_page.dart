@@ -94,6 +94,7 @@ final List<_ModuleLink> _layoutModules = <_ModuleLink>[
     routePath: AppRoute.orientationBuilder.path,
   ),
   _ModuleLink(label: 'Padding Module', routePath: AppRoute.padding.path),
+  _ModuleLink(label: 'PageView Module', routePath: AppRoute.pageView.path),
   _ModuleLink(
     label: 'Placeholder Module',
     routePath: AppRoute.placeholder.path,
@@ -137,6 +138,7 @@ final List<_ModuleLink> _layoutModules = <_ModuleLink>[
     routePath: AppRoute.sliverWidgets.path,
   ),
   _ModuleLink(label: 'Stack Module', routePath: AppRoute.stack.path),
+  _ModuleLink(label: 'TabBarView Module', routePath: AppRoute.tabBarView.path),
   _ModuleLink(label: 'Table Module', routePath: AppRoute.table.path),
   _ModuleLink(label: 'Transform Module', routePath: AppRoute.transform.path),
   _ModuleLink(

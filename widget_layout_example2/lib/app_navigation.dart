@@ -241,6 +241,8 @@ abstract final class RouteName {
   static const flutterMarkdownPlus = 'FlutterMarkdownPlusRoute';
   static const flutterLinkPreviewer = 'FlutterLinkPreviewerRoute';
   static const pullDownButton = 'PullDownButtonRoute';
+  static const pageView = 'PageViewRoute';
+  static const tabBarView = 'TabBarViewRoute';
   static const textFieldController = 'TextFieldControllerRoute';
   static const customMultiChildLayoutVsLayoutBuilder =
       'CustomMultiChildLayoutVsLayoutBuilderRoute';
@@ -643,6 +645,8 @@ enum AppRoute {
     RouteName.flutterLinkPreviewer,
   ),
   pullDownButton('/pull-down-button-page', RouteName.pullDownButton),
+  pageView('/page-view-page', RouteName.pageView),
+  tabBarView('/tab-bar-view-page', RouteName.tabBarView),
   textFieldController(
     '/text-field-controller-page',
     RouteName.textFieldController,
