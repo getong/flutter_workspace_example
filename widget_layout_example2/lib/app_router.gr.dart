@@ -2416,6 +2416,22 @@ class FlutterInappwebviewRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterLinkPreviewerPage]
+class FlutterLinkPreviewerRoute extends PageRouteInfo<void> {
+  const FlutterLinkPreviewerRoute({List<PageRouteInfo>? children})
+    : super(FlutterLinkPreviewerRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterLinkPreviewerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterLinkPreviewerPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterLocalNotificationsPage]
 class FlutterLocalNotificationsRoute extends PageRouteInfo<void> {
   const FlutterLocalNotificationsRoute({List<PageRouteInfo>? children})

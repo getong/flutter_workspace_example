@@ -239,6 +239,7 @@ abstract final class RouteName {
   static const gal = 'GalRoute';
   static const photoView = 'PhotoViewRoute';
   static const flutterMarkdownPlus = 'FlutterMarkdownPlusRoute';
+  static const flutterLinkPreviewer = 'FlutterLinkPreviewerRoute';
   static const pullDownButton = 'PullDownButtonRoute';
   static const textFieldController = 'TextFieldControllerRoute';
   static const customMultiChildLayoutVsLayoutBuilder =
@@ -636,6 +637,10 @@ enum AppRoute {
   flutterMarkdownPlus(
     '/flutter-markdown-plus-page',
     RouteName.flutterMarkdownPlus,
+  ),
+  flutterLinkPreviewer(
+    '/flutter-link-previewer-page',
+    RouteName.flutterLinkPreviewer,
   ),
   pullDownButton('/pull-down-button-page', RouteName.pullDownButton),
   textFieldController(

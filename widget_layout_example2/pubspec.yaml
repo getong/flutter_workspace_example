@@ -84,6 +84,7 @@ dependencies:
   flutter_hooks: ^0.21.3+1
   flutter_inappwebview: ^6.2.0-beta.3
   flutter_launcher_icons: ^0.14.4
+  flutter_link_previewer: ^4.2.0
   flutter_local_notifications: ^21.0.0
   flutter_markdown_plus: ^1.0.7
   flutter_screenutil: ^6.0.0-alpha.1

@@ -596,6 +596,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
   ),
   _ModuleLink(label: 'Text.rich Module', routePath: AppRoute.textRich.path),
   _ModuleLink(
+    label: 'flutter_link_previewer Module',
+    routePath: AppRoute.flutterLinkPreviewer.path,
+  ),
+  _ModuleLink(
     label: 'pull_down_button Module',
     routePath: AppRoute.pullDownButton.path,
   ),
