@@ -49,6 +49,7 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
   };
 
   final ImagePicker _imagePicker = ImagePicker();
+  final ScrollController _chatScrollController = ScrollController();
 
   late final FlutterChatUiDatabase _chatDatabase;
   late final DriftFlutterChatUiController _chatController;
@@ -70,6 +71,7 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
   @override
   void dispose() {
     _assistantReplyTimer?.cancel();
+    _chatScrollController.dispose();
     _chatController.dispose();
     _chatDatabase.close();
     super.dispose();
@@ -81,6 +83,7 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
     if (mounted) {
       setState(() {});
     }
+    _scheduleScrollToBottom(animated: false);
   }
 
   String _nextMessageId() {
@@ -99,6 +102,64 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
       return User(id: userId, name: userId);
     }
     return user;
+  }
+
+  bool _isNearChatBottom({double tolerance = 16}) {
+    if (!_chatScrollController.hasClients) {
+      return false;
+    }
+
+    return (_chatScrollController.position.maxScrollExtent -
+                _chatScrollController.position.pixels)
+            .abs() <=
+        tolerance;
+  }
+
+  Future<void> _scrollChatToBottom({required bool animated}) async {
+    if (!mounted || !_chatScrollController.hasClients) {
+      return;
+    }
+
+    final double target = _chatScrollController.position.maxScrollExtent;
+    if (target <= 0) {
+      return;
+    }
+
+    if (!animated || _isNearChatBottom()) {
+      _chatScrollController.jumpTo(target);
+      return;
+    }
+
+    await _chatScrollController.animateTo(
+      target,
+      duration: const Duration(milliseconds: 220),
+      curve: Curves.easeOutCubic,
+    );
+  }
+
+  void _scheduleScrollToBottom({bool animated = true}) {
+    unawaited(_settleScrollToBottom(animated: animated));
+  }
+
+  Future<void> _settleScrollToBottom({required bool animated}) async {
+    for (int attempt = 0; attempt < 3; attempt += 1) {
+      await WidgetsBinding.instance.endOfFrame;
+      if (!mounted || !_chatScrollController.hasClients) {
+        return;
+      }
+
+      try {
+        await _scrollChatToBottom(animated: animated && attempt == 0);
+      } on AssertionError {
+        return;
+      }
+
+      if (_isNearChatBottom()) {
+        return;
+      }
+
+      await Future<void>.delayed(const Duration(milliseconds: 32));
+    }
   }
 
   Future<void> _handleMessageSend(String text) async {
@@ -138,12 +199,14 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
         status: MessageStatus.sending,
       ),
     );
+    _scheduleScrollToBottom();
 
     if (mounted) {
       setState(() {
         _isGeneratingReply = true;
       });
     }
+    _scheduleScrollToBottom();
 
     unawaited(_simulateAssistantReply(trimmed, assistantMessageId));
   }
@@ -208,12 +271,14 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
           status: MessageStatus.sent,
         ),
       );
+      _scheduleScrollToBottom();
 
       if (mounted) {
         setState(() {
           _isGeneratingReply = false;
         });
       }
+      _scheduleScrollToBottom();
     });
   }
 
@@ -247,6 +312,7 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
         _isGeneratingReply = false;
       });
     }
+    _scheduleScrollToBottom();
   }
 
   Future<void> _handleAttachmentTap() async {
@@ -296,6 +362,7 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
       );
 
       await _chatController.insertMessage(imageMessage);
+      _scheduleScrollToBottom();
       _showStatus('Image sent. Tap the image to preview or save it.');
     } on UnsupportedError {
       _showStatus('This platform does not support local image attachments.');
@@ -378,6 +445,7 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
       _activeSessionId = sessionId;
       _isSwitchingSession = false;
     });
+    _scheduleScrollToBottom(animated: false);
 
     Navigator.of(context).maybePop();
   }
@@ -406,6 +474,7 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
       _activeSessionId = _chatController.activeSessionId;
       _isSwitchingSession = false;
     });
+    _scheduleScrollToBottom(animated: false);
 
     Navigator.of(context).maybePop();
   }
@@ -546,6 +615,15 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
                                     chatController: _chatController,
                                     theme: chatTheme,
                                     builders: Builders(
+                                      chatAnimatedListBuilder:
+                                          (
+                                            BuildContext context,
+                                            ChatItem itemBuilder,
+                                          ) => ChatAnimatedList(
+                                            itemBuilder: itemBuilder,
+                                            scrollController:
+                                                _chatScrollController,
+                                          ),
                                       composerBuilder: (BuildContext context) =>
                                           _EmojiComposer(
                                             emojiChoices: _emojiChoices,
