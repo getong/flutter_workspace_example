@@ -4543,6 +4543,22 @@ class TdesignFlutterRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [TextFieldControllerJasprPage]
+class TextFieldControllerJasprRoute extends PageRouteInfo<void> {
+  const TextFieldControllerJasprRoute({List<PageRouteInfo>? children})
+    : super(TextFieldControllerJasprRoute.name, initialChildren: children);
+
+  static const String name = 'TextFieldControllerJasprRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TextFieldControllerJasprPage();
+    },
+  );
+}
+
+/// generated route for
 /// [TextFieldControllerPage]
 class TextFieldControllerRoute extends PageRouteInfo<void> {
   const TextFieldControllerRoute({List<PageRouteInfo>? children})

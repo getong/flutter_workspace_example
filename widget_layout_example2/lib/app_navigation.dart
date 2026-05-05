@@ -245,6 +245,7 @@ abstract final class RouteName {
   static const pageView = 'PageViewRoute';
   static const tabBarView = 'TabBarViewRoute';
   static const textFieldController = 'TextFieldControllerRoute';
+  static const textFieldControllerJaspr = 'TextFieldControllerJasprRoute';
   static const customMultiChildLayoutVsLayoutBuilder =
       'CustomMultiChildLayoutVsLayoutBuilderRoute';
   static const expandedVsFlexible = 'ExpandedVsFlexibleRoute';
@@ -652,6 +653,10 @@ enum AppRoute {
   textFieldController(
     '/text-field-controller-page',
     RouteName.textFieldController,
+  ),
+  textFieldControllerJaspr(
+    '/text-field-controller-jaspr-page',
+    RouteName.textFieldControllerJaspr,
   ),
   customMultiChildLayoutVsLayoutBuilder(
     '/custom-multi-child-layout-vs-layout-builder-page',
