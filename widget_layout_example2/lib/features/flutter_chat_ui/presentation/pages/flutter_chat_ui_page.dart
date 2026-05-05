@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'dart:math' as math;
 
 import 'package:auto_route/auto_route.dart';
+import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_core/flutter_chat_core.dart';
@@ -338,6 +338,12 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
     );
   }
 
+  String _formatMessageTime(DateTime time) {
+    final String h = time.hour.toString().padLeft(2, '0');
+    final String m = time.minute.toString().padLeft(2, '0');
+    return '$h:$m';
+  }
+
   void _showStatus(String message) {
     final ScaffoldMessengerState? messenger = ScaffoldMessenger.maybeOf(
       context,
@@ -466,103 +472,330 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
                   ),
                 ],
               ),
-              body: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: <Widget>[
-                    Card(
-                      clipBehavior: Clip.antiAlias,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'flutter_chat_ui renders the chat surface, while flutter_chat_core provides the message models, controller, and theme primitives.',
-                              style: theme.textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              'This enhanced demo uses drift-backed sessions and messages, supports image picking, fullscreen preview, and keeps selected images in durable app storage. Export to the system photo library or Downloads folder is handled explicitly from preview.',
-                              style: theme.textTheme.bodyMedium,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    if (_isGeneratingReply)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: FilledButton.icon(
-                            onPressed: _stopAssistantReply,
-                            icon: const Icon(Icons.stop_circle_outlined),
-                            label: const Text('Stop Generation'),
-                          ),
-                        ),
-                      ),
-                    Expanded(
-                      child: BlocProvider<_EmojiComposerCubit>(
-                        create: (_) => _EmojiComposerCubit(),
-                        child: Card(
-                          clipBehavior: Clip.antiAlias,
-                          child: Stack(
-                            children: <Widget>[
-                              Chat(
-                                currentUserId: _currentUserId,
-                                resolveUser: _resolveUser,
-                                chatController: _chatController,
-                                theme: chatTheme,
-                                builders: Builders(
-                                  composerBuilder: (BuildContext context) =>
-                                      _EmojiComposer(
-                                        emojiChoices: _emojiChoices,
-                                        isGeneratingReply: _isGeneratingReply,
-                                        isPickingImage: _isPickingImage,
-                                      ),
-                                  imageMessageBuilder:
-                                      (
-                                        BuildContext context,
-                                        ImageMessage message,
-                                        int index, {
-                                        required bool isSentByMe,
-                                        MessageGroupStatus? groupStatus,
-                                      }) => _ChatImageBubble(
-                                        message: message,
-                                        isSentByMe: isSentByMe,
-                                        heroTag: 'chat-image-${message.id}',
-                                      ),
-                                ),
-                                onAttachmentTap: _handleAttachmentTap,
-                                onMessageTap: _handleMessageTap,
-                                onMessageSend: _handleMessageSend,
-                              ),
-                              if (_isSwitchingSession)
-                                Positioned.fill(
-                                  child: ColoredBox(
-                                    color: colorScheme.surface.withValues(
-                                      alpha: 0.72,
-                                    ),
-                                    child: const Center(
-                                      child: CircularProgressIndicator(),
+              body: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  // Reserve ≥55% of screen height for the chat surface.
+                  // The top section (description + preview card) is scrollable
+                  // and limited to the remaining budget.
+                  final double topMaxHeight = (constraints.maxHeight * 0.42)
+                      .clamp(0.0, 260.0);
+
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: <Widget>[
+                        ConstrainedBox(
+                          constraints: BoxConstraints(maxHeight: topMaxHeight),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Card(
+                                  clipBehavior: Clip.antiAlias,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          'flutter_chat_ui renders the chat surface, while flutter_chat_core provides the message models, controller, and theme primitives.',
+                                          style: theme.textTheme.titleMedium
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          'This enhanced demo uses drift-backed sessions and messages, supports image picking, fullscreen preview, and keeps selected images in durable app storage. Export to the system photo library or Downloads folder is handled explicitly from preview.',
+                                          style: theme.textTheme.bodyMedium,
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
-                            ],
+                                const SizedBox(height: 16),
+                                const _ChatBubblesPreviewCard(),
+                                const SizedBox(height: 16),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
+                        if (_isGeneratingReply)
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 16),
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: FilledButton.icon(
+                                onPressed: _stopAssistantReply,
+                                icon: const Icon(Icons.stop_circle_outlined),
+                                label: const Text('Stop Generation'),
+                              ),
+                            ),
+                          ),
+                        Expanded(
+                          child: BlocProvider<_EmojiComposerCubit>(
+                            create: (_) => _EmojiComposerCubit(),
+                            child: Card(
+                              clipBehavior: Clip.antiAlias,
+                              child: Stack(
+                                children: <Widget>[
+                                  Chat(
+                                    currentUserId: _currentUserId,
+                                    resolveUser: _resolveUser,
+                                    chatController: _chatController,
+                                    theme: chatTheme,
+                                    builders: Builders(
+                                      composerBuilder: (BuildContext context) =>
+                                          _EmojiComposer(
+                                            emojiChoices: _emojiChoices,
+                                            isGeneratingReply:
+                                                _isGeneratingReply,
+                                            isPickingImage: _isPickingImage,
+                                          ),
+                                      textMessageBuilder:
+                                          (
+                                            BuildContext context,
+                                            TextMessage message,
+                                            int index, {
+                                            required bool isSentByMe,
+                                            MessageGroupStatus? groupStatus,
+                                          }) {
+                                            final bool showTail =
+                                                groupStatus == null ||
+                                                groupStatus.isLast;
+                                            final String? sentAt =
+                                                message.sentAt != null
+                                                ? _formatMessageTime(
+                                                    message.sentAt!,
+                                                  )
+                                                : null;
+                                            final double screenWidth =
+                                                MediaQuery.of(
+                                                  context,
+                                                ).size.width;
+                                            final double maxAllowed =
+                                                screenWidth * 0.72;
+                                            final TextStyle
+                                            msgStyle = TextStyle(
+                                              color: isSentByMe
+                                                  ? colorScheme.onPrimary
+                                                  : colorScheme
+                                                        .onSecondaryContainer,
+                                              fontSize: 14,
+                                            );
+                                            // Measure the natural single-line width
+                                            // so the bubble is exactly as wide as it
+                                            // needs to be (no wasted space for short
+                                            // messages, wrapping for long ones).
+                                            final TextPainter tp =
+                                                TextPainter(
+                                                  text: TextSpan(
+                                                    text: message.text,
+                                                    style: msgStyle,
+                                                  ),
+                                                  textDirection:
+                                                      TextDirection.ltr,
+                                                )..layout(
+                                                  maxWidth: double.infinity,
+                                                );
+                                            // 46 = bubble horizontal margins + tail
+                                            // 100 = min width to fit timestamp + tick
+                                            final double bubbleWidth =
+                                                (tp.width + 46).clamp(
+                                                  100.0,
+                                                  maxAllowed,
+                                                );
+                                            return BubbleSpecialOne(
+                                              constraints: BoxConstraints(
+                                                maxWidth: bubbleWidth,
+                                              ),
+                                              text: message.text,
+                                              isSender: isSentByMe,
+                                              tail: showTail,
+                                              color: isSentByMe
+                                                  ? colorScheme.primary
+                                                  : colorScheme
+                                                        .secondaryContainer,
+                                              textStyle: msgStyle,
+                                              sent:
+                                                  isSentByMe &&
+                                                  message.status ==
+                                                      MessageStatus.sent,
+                                              seen:
+                                                  isSentByMe &&
+                                                  message.status ==
+                                                      MessageStatus.seen,
+                                              timestamp: sentAt,
+                                            );
+                                          },
+                                      imageMessageBuilder:
+                                          (
+                                            BuildContext context,
+                                            ImageMessage message,
+                                            int index, {
+                                            required bool isSentByMe,
+                                            MessageGroupStatus? groupStatus,
+                                          }) => _ChatImageBubble(
+                                            message: message,
+                                            isSentByMe: isSentByMe,
+                                            heroTag: 'chat-image-${message.id}',
+                                            groupStatus: groupStatus,
+                                          ),
+                                    ),
+                                    onAttachmentTap: _handleAttachmentTap,
+                                    onMessageTap: _handleMessageTap,
+                                    onMessageSend: _handleMessageSend,
+                                  ),
+                                  if (_isSwitchingSession)
+                                    Positioned.fill(
+                                      child: ColoredBox(
+                                        color: colorScheme.surface.withValues(
+                                          alpha: 0.72,
+                                        ),
+                                        child: const Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  );
+                },
               ),
             );
           },
     );
+  }
+}
+
+class _ChatBubblesPreviewCard extends StatefulWidget {
+  const _ChatBubblesPreviewCard();
+
+  @override
+  State<_ChatBubblesPreviewCard> createState() =>
+      _ChatBubblesPreviewCardState();
+}
+
+class _ChatBubblesPreviewCardState extends State<_ChatBubblesPreviewCard> {
+  bool _expanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme cs = theme.colorScheme;
+
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          InkWell(
+            onTap: () => setState(() => _expanded = !_expanded),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: Row(
+                children: <Widget>[
+                  Icon(Icons.chat_bubble_outline, color: cs.primary, size: 20),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      'chat_bubbles Styles',
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                  Icon(
+                    _expanded ? Icons.expand_less : Icons.expand_more,
+                    color: cs.onSurfaceVariant,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          if (_expanded) ...<Widget>[
+            const Divider(height: 1),
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxHeight: 320),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    DateChip(
+                      date: DateTime.now(),
+                      color: cs.surfaceContainerHighest,
+                    ),
+                    BubbleSpecialOne(
+                      text: 'Welcome! I\'m powered by chat_bubbles.',
+                      isSender: false,
+                      color: cs.secondaryContainer,
+                      textStyle: TextStyle(
+                        color: cs.onSecondaryContainer,
+                        fontSize: 13,
+                      ),
+                    ),
+                    BubbleSpecialOne(
+                      text: 'Nice! The tail and timestamp look great.',
+                      isSender: true,
+                      color: cs.primary,
+                      textStyle: TextStyle(color: cs.onPrimary, fontSize: 13),
+                      sent: true,
+                      seen: true,
+                    ),
+                    BubbleSpecialTwo(
+                      text: 'BubbleSpecialTwo gives a different tail shape.',
+                      isSender: false,
+                      color: cs.tertiaryContainer,
+                      textStyle: TextStyle(
+                        color: cs.onTertiaryContainer,
+                        fontSize: 13,
+                      ),
+                      delivered: true,
+                    ),
+                    BubbleReply(
+                      repliedMessage: 'The tail and timestamp look great.',
+                      repliedMessageSender: 'You',
+                      text: 'BubbleReply quotes any prior message inline.',
+                      isSender: false,
+                      color: cs.secondaryContainer,
+                      replyBorderColor: cs.primary,
+                      timestamp: _nowTime(),
+                    ),
+                    BubbleNormal(
+                      text:
+                          'BubbleNormal is ideal for plain messages with status ticks.',
+                      isSender: true,
+                      color: cs.primaryContainer,
+                      textStyle: TextStyle(
+                        color: cs.onPrimaryContainer,
+                        fontSize: 13,
+                      ),
+                      sent: true,
+                      seen: true,
+                      tail: true,
+                      timestamp: _nowTime(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  String _nowTime() {
+    final DateTime now = DateTime.now();
+    final String h = now.hour.toString().padLeft(2, '0');
+    final String m = now.minute.toString().padLeft(2, '0');
+    return '$h:$m';
   }
 }
 
@@ -948,82 +1181,51 @@ class _ChatImageBubble extends StatelessWidget {
     required this.message,
     required this.isSentByMe,
     required this.heroTag,
+    this.groupStatus,
   });
 
   final ImageMessage message;
   final bool isSentByMe;
   final String heroTag;
+  final MessageGroupStatus? groupStatus;
 
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    final double maxWidth = math
-        .min(MediaQuery.of(context).size.width * 0.62, 260)
-        .toDouble();
+    final ColorScheme cs = theme.colorScheme;
+    final bool showTail = groupStatus == null || groupStatus!.isLast;
     final double aspectRatio = _resolvedAspectRatio(message);
-    final String? caption = message.text?.trim().isEmpty == true
-        ? null
-        : message.text?.trim();
+    final String? sentAt = message.sentAt != null
+        ? _formatTime(message.sentAt!)
+        : null;
 
-    return Container(
-      constraints: BoxConstraints(maxWidth: maxWidth),
-      padding: const EdgeInsets.all(6),
-      decoration: BoxDecoration(
-        color: isSentByMe
-            ? theme.colorScheme.primaryContainer
-            : theme.colorScheme.surfaceContainerHigh,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: theme.colorScheme.outlineVariant.withValues(alpha: 0.45),
+    return BubbleNormalImage(
+      id: heroTag,
+      image: AspectRatio(
+        aspectRatio: aspectRatio,
+        child: Image(
+          image: chatImageProvider(message.source),
+          fit: BoxFit.cover,
+          errorBuilder:
+              (BuildContext context, Object error, StackTrace? stackTrace) =>
+                  DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: cs.surfaceContainerHighest,
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.broken_image_outlined,
+                        color: cs.error,
+                        size: 32,
+                      ),
+                    ),
+                  ),
         ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Hero(
-            tag: heroTag,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(14),
-              child: AspectRatio(
-                aspectRatio: aspectRatio,
-                child: Image(
-                  image: chatImageProvider(message.source),
-                  fit: BoxFit.cover,
-                  errorBuilder:
-                      (
-                        BuildContext context,
-                        Object error,
-                        StackTrace? stackTrace,
-                      ) => DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: theme.colorScheme.surfaceContainerHighest,
-                        ),
-                        child: Center(
-                          child: Icon(
-                            Icons.broken_image_outlined,
-                            color: theme.colorScheme.error,
-                            size: 32,
-                          ),
-                        ),
-                      ),
-                ),
-              ),
-            ),
-          ),
-          if (caption != null) ...<Widget>[
-            const SizedBox(height: 8),
-            Text(
-              caption,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurface,
-              ),
-            ),
-          ],
-        ],
-      ),
+      color: isSentByMe ? cs.primaryContainer : cs.surfaceContainerHigh,
+      isSender: isSentByMe,
+      tail: showTail,
+      timestamp: sentAt,
     );
   }
 
@@ -1033,8 +1235,13 @@ class _ChatImageBubble extends StatelessWidget {
     if (width == null || height == null || width <= 0 || height <= 0) {
       return 1;
     }
-
     return (width / height).clamp(0.75, 1.4);
+  }
+
+  String _formatTime(DateTime time) {
+    final String h = time.hour.toString().padLeft(2, '0');
+    final String m = time.minute.toString().padLeft(2, '0');
+    return '$h:$m';
   }
 }
 
