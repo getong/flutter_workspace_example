@@ -3772,6 +3772,22 @@ class ProfileRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [PullDownButtonPage]
+class PullDownButtonRoute extends PageRouteInfo<void> {
+  const PullDownButtonRoute({List<PageRouteInfo>? children})
+    : super(PullDownButtonRoute.name, initialChildren: children);
+
+  static const String name = 'PullDownButtonRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const PullDownButtonPage();
+    },
+  );
+}
+
+/// generated route for
 /// [RadioExamplePage]
 class RadioExampleRoute extends PageRouteInfo<void> {
   const RadioExampleRoute({List<PageRouteInfo>? children})

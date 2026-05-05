@@ -179,6 +179,7 @@ import 'package:widget_layout_example2/features/pigeon/presentation/pages/pigeon
 import 'package:widget_layout_example2/features/pop_scope/presentation/pages/pop_scope_page.dart';
 import 'package:widget_layout_example2/features/positioned/presentation/pages/positioned_page.dart';
 import 'package:widget_layout_example2/features/pretty_dio_logger/presentation/pages/pretty_dio_logger_page.dart';
+import 'package:widget_layout_example2/features/pull_down_button/presentation/pages/pull_down_button_page.dart';
 import 'package:widget_layout_example2/features/radio/presentation/pages/radio_page.dart';
 import 'package:widget_layout_example2/features/responsive_container/presentation/pages/responsive_container_page.dart';
 import 'package:widget_layout_example2/features/retrofit/presentation/pages/retrofit_page.dart';
@@ -884,6 +885,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: FlutterMarkdownPlusRoute.page,
       path: AppRoute.flutterMarkdownPlus.path,
+    ),
+    AutoRoute(
+      page: PullDownButtonRoute.page,
+      path: AppRoute.pullDownButton.path,
     ),
     AutoRoute(
       page: TextFieldControllerRoute.page,
