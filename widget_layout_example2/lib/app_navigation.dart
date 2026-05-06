@@ -245,6 +245,8 @@ abstract final class RouteName {
   static const pageView = 'PageViewRoute';
   static const tabBarView = 'TabBarViewRoute';
   static const inheritedWidget = 'InheritedWidgetRoute';
+  static const internetConnectionCheckerPlus =
+      'InternetConnectionCheckerPlusRoute';
   static const textFieldController = 'TextFieldControllerRoute';
   static const textFieldControllerJaspr = 'TextFieldControllerJasprRoute';
   static const customMultiChildLayoutVsLayoutBuilder =
@@ -652,6 +654,10 @@ enum AppRoute {
   pageView('/page-view-page', RouteName.pageView),
   tabBarView('/tab-bar-view-page', RouteName.tabBarView),
   inheritedWidget('/inherited-widget-page', RouteName.inheritedWidget),
+  internetConnectionCheckerPlus(
+    '/internet-connection-checker-plus-page',
+    RouteName.internetConnectionCheckerPlus,
+  ),
   textFieldController(
     '/text-field-controller-page',
     RouteName.textFieldController,

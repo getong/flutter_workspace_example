@@ -3056,6 +3056,22 @@ class InteractiveCardRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [InternetConnectionCheckerPlusPage]
+class InternetConnectionCheckerPlusRoute extends PageRouteInfo<void> {
+  const InternetConnectionCheckerPlusRoute({List<PageRouteInfo>? children})
+    : super(InternetConnectionCheckerPlusRoute.name, initialChildren: children);
+
+  static const String name = 'InternetConnectionCheckerPlusRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const InternetConnectionCheckerPlusPage();
+    },
+  );
+}
+
+/// generated route for
 /// [IntlPage]
 class IntlRoute extends PageRouteInfo<void> {
   const IntlRoute({List<PageRouteInfo>? children})

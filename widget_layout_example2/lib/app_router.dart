@@ -227,6 +227,7 @@ import 'package:widget_layout_example2/features/tab_bar_view/presentation/pages/
 import 'package:widget_layout_example2/features/tdesign_flutter/presentation/pages/tdesign_flutter_page.dart';
 import 'package:widget_layout_example2/features/time_picker_dialog/presentation/pages/time_picker_dialog_page.dart';
 import 'package:widget_layout_example2/features/inherited_widget/presentation/pages/inherited_widget_page.dart';
+import 'package:widget_layout_example2/features/internet_connection_checker_plus/presentation/pages/internet_connection_checker_plus_page.dart';
 import 'package:widget_layout_example2/features/text_field_controller/presentation/pages/text_field_controller_page.dart';
 import 'package:widget_layout_example2/features/text_field_controller/presentation/pages/text_field_controller_jaspr_page.dart';
 import 'package:widget_layout_example2/features/text_rich/presentation/pages/text_rich_page.dart';
@@ -906,6 +907,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: InheritedWidgetRoute.page,
       path: AppRoute.inheritedWidget.path,
+    ),
+    AutoRoute(
+      page: InternetConnectionCheckerPlusRoute.page,
+      path: AppRoute.internetConnectionCheckerPlus.path,
     ),
     AutoRoute(
       page: TextFieldControllerRoute.page,

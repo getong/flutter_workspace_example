@@ -611,6 +611,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.inheritedWidget.path,
   ),
   _ModuleLink(
+    label: 'internet_connection_checker_plus Module',
+    routePath: AppRoute.internetConnectionCheckerPlus.path,
+  ),
+  _ModuleLink(
     label: 'TextField + TextEditingController Module',
     routePath: AppRoute.textFieldController.path,
   ),
