@@ -630,6 +630,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'TextField + Jaspr State Module',
     routePath: AppRoute.textFieldControllerJaspr.path,
   ),
+  _ModuleLink(
+    label: 'RefreshIndicator Module',
+    routePath: AppRoute.refreshIndicator.path,
+  ),
   _ModuleLink(label: 'TextStyle Module', routePath: AppRoute.textStyle.path),
   _ModuleLink(
     label: 'ThemeData VisualDensity Module',

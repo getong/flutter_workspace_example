@@ -183,6 +183,7 @@ import 'package:widget_layout_example2/features/pretty_dio_logger/presentation/p
 import 'package:widget_layout_example2/features/flutter_link_previewer/presentation/pages/flutter_link_previewer_page.dart';
 import 'package:widget_layout_example2/features/pull_down_button/presentation/pages/pull_down_button_page.dart';
 import 'package:widget_layout_example2/features/radio/presentation/pages/radio_page.dart';
+import 'package:widget_layout_example2/features/refresh_indicator/presentation/pages/refresh_indicator_page.dart';
 import 'package:widget_layout_example2/features/responsive_container/presentation/pages/responsive_container_page.dart';
 import 'package:widget_layout_example2/features/retrofit/presentation/pages/retrofit_page.dart';
 import 'package:widget_layout_example2/features/rich_text/presentation/pages/rich_text_page.dart';
@@ -929,6 +930,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: TextFieldControllerJasprRoute.page,
       path: AppRoute.textFieldControllerJaspr.path,
+    ),
+    AutoRoute(
+      page: RefreshIndicatorRoute.page,
+      path: AppRoute.refreshIndicator.path,
     ),
     AutoRoute(
       page: CustomMultiChildLayoutVsLayoutBuilderRoute.page,

@@ -3903,6 +3903,22 @@ class RadioExampleRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [RefreshIndicatorPage]
+class RefreshIndicatorRoute extends PageRouteInfo<void> {
+  const RefreshIndicatorRoute({List<PageRouteInfo>? children})
+    : super(RefreshIndicatorRoute.name, initialChildren: children);
+
+  static const String name = 'RefreshIndicatorRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const RefreshIndicatorPage();
+    },
+  );
+}
+
+/// generated route for
 /// [ResponsiveContainerPage]
 class ResponsiveContainerRoute extends PageRouteInfo<void> {
   const ResponsiveContainerRoute({List<PageRouteInfo>? children})

@@ -252,6 +252,7 @@ abstract final class RouteName {
       'FlutterStaggeredAnimationsPlusRoute';
   static const textFieldController = 'TextFieldControllerRoute';
   static const textFieldControllerJaspr = 'TextFieldControllerJasprRoute';
+  static const refreshIndicator = 'RefreshIndicatorRoute';
   static const customMultiChildLayoutVsLayoutBuilder =
       'CustomMultiChildLayoutVsLayoutBuilderRoute';
   static const expandedVsFlexible = 'ExpandedVsFlexibleRoute';
@@ -677,6 +678,7 @@ enum AppRoute {
     '/text-field-controller-jaspr-page',
     RouteName.textFieldControllerJaspr,
   ),
+  refreshIndicator('/refresh-indicator-page', RouteName.refreshIndicator),
   customMultiChildLayoutVsLayoutBuilder(
     '/custom-multi-child-layout-vs-layout-builder-page',
     RouteName.customMultiChildLayoutVsLayoutBuilder,
