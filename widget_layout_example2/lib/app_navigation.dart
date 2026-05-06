@@ -244,6 +244,7 @@ abstract final class RouteName {
   static const pullDownButton = 'PullDownButtonRoute';
   static const pageView = 'PageViewRoute';
   static const tabBarView = 'TabBarViewRoute';
+  static const inheritedWidget = 'InheritedWidgetRoute';
   static const textFieldController = 'TextFieldControllerRoute';
   static const textFieldControllerJaspr = 'TextFieldControllerJasprRoute';
   static const customMultiChildLayoutVsLayoutBuilder =
@@ -650,6 +651,7 @@ enum AppRoute {
   pullDownButton('/pull-down-button-page', RouteName.pullDownButton),
   pageView('/page-view-page', RouteName.pageView),
   tabBarView('/tab-bar-view-page', RouteName.tabBarView),
+  inheritedWidget('/inherited-widget-page', RouteName.inheritedWidget),
   textFieldController(
     '/text-field-controller-page',
     RouteName.textFieldController,

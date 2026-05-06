@@ -607,6 +607,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.pullDownButton.path,
   ),
   _ModuleLink(
+    label: 'InheritedWidget Module',
+    routePath: AppRoute.inheritedWidget.path,
+  ),
+  _ModuleLink(
     label: 'TextField + TextEditingController Module',
     routePath: AppRoute.textFieldController.path,
   ),

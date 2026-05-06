@@ -226,6 +226,7 @@ import 'package:widget_layout_example2/features/table/presentation/pages/table_p
 import 'package:widget_layout_example2/features/tab_bar_view/presentation/pages/tab_bar_view_page.dart';
 import 'package:widget_layout_example2/features/tdesign_flutter/presentation/pages/tdesign_flutter_page.dart';
 import 'package:widget_layout_example2/features/time_picker_dialog/presentation/pages/time_picker_dialog_page.dart';
+import 'package:widget_layout_example2/features/inherited_widget/presentation/pages/inherited_widget_page.dart';
 import 'package:widget_layout_example2/features/text_field_controller/presentation/pages/text_field_controller_page.dart';
 import 'package:widget_layout_example2/features/text_field_controller/presentation/pages/text_field_controller_jaspr_page.dart';
 import 'package:widget_layout_example2/features/text_rich/presentation/pages/text_rich_page.dart';
@@ -902,6 +903,10 @@ class AppRouter extends RootStackRouter {
     ),
     AutoRoute(page: PageViewRoute.page, path: AppRoute.pageView.path),
     AutoRoute(page: TabBarViewRoute.page, path: AppRoute.tabBarView.path),
+    AutoRoute(
+      page: InheritedWidgetRoute.page,
+      path: AppRoute.inheritedWidget.path,
+    ),
     AutoRoute(
       page: TextFieldControllerRoute.page,
       path: AppRoute.textFieldController.path,

@@ -2960,6 +2960,22 @@ class InfiniteScrollPaginationRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [InheritedWidgetPage]
+class InheritedWidgetRoute extends PageRouteInfo<void> {
+  const InheritedWidgetRoute({List<PageRouteInfo>? children})
+    : super(InheritedWidgetRoute.name, initialChildren: children);
+
+  static const String name = 'InheritedWidgetRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const InheritedWidgetPage();
+    },
+  );
+}
+
+/// generated route for
 /// [InjectableGetItPage]
 class InjectableGetItRoute extends PageRouteInfo<void> {
   const InjectableGetItRoute({List<PageRouteInfo>? children})
