@@ -227,6 +227,8 @@ import 'package:widget_layout_example2/features/tab_bar_view/presentation/pages/
 import 'package:widget_layout_example2/features/tdesign_flutter/presentation/pages/tdesign_flutter_page.dart';
 import 'package:widget_layout_example2/features/time_picker_dialog/presentation/pages/time_picker_dialog_page.dart';
 import 'package:widget_layout_example2/features/inherited_widget/presentation/pages/inherited_widget_page.dart';
+import 'package:widget_layout_example2/features/flutter_staggered_animations_plus/presentation/pages/flutter_staggered_animations_plus_page.dart';
+import 'package:widget_layout_example2/features/flutter_staggered_grid_view/presentation/pages/flutter_staggered_grid_view_page.dart';
 import 'package:widget_layout_example2/features/internet_connection_checker_plus/presentation/pages/internet_connection_checker_plus_page.dart';
 import 'package:widget_layout_example2/features/text_field_controller/presentation/pages/text_field_controller_page.dart';
 import 'package:widget_layout_example2/features/text_field_controller/presentation/pages/text_field_controller_jaspr_page.dart';
@@ -911,6 +913,14 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: InternetConnectionCheckerPlusRoute.page,
       path: AppRoute.internetConnectionCheckerPlus.path,
+    ),
+    AutoRoute(
+      page: FlutterStaggeredGridViewRoute.page,
+      path: AppRoute.flutterStaggeredGridView.path,
+    ),
+    AutoRoute(
+      page: FlutterStaggeredAnimationsPlusRoute.page,
+      path: AppRoute.flutterStaggeredAnimationsPlus.path,
     ),
     AutoRoute(
       page: TextFieldControllerRoute.page,

@@ -615,6 +615,14 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.internetConnectionCheckerPlus.path,
   ),
   _ModuleLink(
+    label: 'flutter_staggered_grid_view Module',
+    routePath: AppRoute.flutterStaggeredGridView.path,
+  ),
+  _ModuleLink(
+    label: 'flutter_staggered_animations_plus Module',
+    routePath: AppRoute.flutterStaggeredAnimationsPlus.path,
+  ),
+  _ModuleLink(
     label: 'TextField + TextEditingController Module',
     routePath: AppRoute.textFieldController.path,
   ),

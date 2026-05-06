@@ -2512,6 +2512,41 @@ class FlutterSlidableRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterStaggeredAnimationsPlusPage]
+class FlutterStaggeredAnimationsPlusRoute extends PageRouteInfo<void> {
+  const FlutterStaggeredAnimationsPlusRoute({List<PageRouteInfo>? children})
+    : super(
+        FlutterStaggeredAnimationsPlusRoute.name,
+        initialChildren: children,
+      );
+
+  static const String name = 'FlutterStaggeredAnimationsPlusRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterStaggeredAnimationsPlusPage();
+    },
+  );
+}
+
+/// generated route for
+/// [FlutterStaggeredGridViewPage]
+class FlutterStaggeredGridViewRoute extends PageRouteInfo<void> {
+  const FlutterStaggeredGridViewRoute({List<PageRouteInfo>? children})
+    : super(FlutterStaggeredGridViewRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterStaggeredGridViewRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterStaggeredGridViewPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterSvgPage]
 class FlutterSvgRoute extends PageRouteInfo<void> {
   const FlutterSvgRoute({List<PageRouteInfo>? children})

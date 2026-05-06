@@ -247,6 +247,9 @@ abstract final class RouteName {
   static const inheritedWidget = 'InheritedWidgetRoute';
   static const internetConnectionCheckerPlus =
       'InternetConnectionCheckerPlusRoute';
+  static const flutterStaggeredGridView = 'FlutterStaggeredGridViewRoute';
+  static const flutterStaggeredAnimationsPlus =
+      'FlutterStaggeredAnimationsPlusRoute';
   static const textFieldController = 'TextFieldControllerRoute';
   static const textFieldControllerJaspr = 'TextFieldControllerJasprRoute';
   static const customMultiChildLayoutVsLayoutBuilder =
@@ -657,6 +660,14 @@ enum AppRoute {
   internetConnectionCheckerPlus(
     '/internet-connection-checker-plus-page',
     RouteName.internetConnectionCheckerPlus,
+  ),
+  flutterStaggeredGridView(
+    '/flutter-staggered-grid-view-page',
+    RouteName.flutterStaggeredGridView,
+  ),
+  flutterStaggeredAnimationsPlus(
+    '/flutter-staggered-animations-plus-page',
+    RouteName.flutterStaggeredAnimationsPlus,
   ),
   textFieldController(
     '/text-field-controller-page',
