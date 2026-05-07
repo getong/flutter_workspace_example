@@ -2627,6 +2627,22 @@ class FlutterVideoCachingFvpRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterZoomDrawerPage]
+class FlutterZoomDrawerRoute extends PageRouteInfo<void> {
+  const FlutterZoomDrawerRoute({List<PageRouteInfo>? children})
+    : super(FlutterZoomDrawerRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterZoomDrawerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterZoomDrawerPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FluttertoastPage]
 class FluttertoastRoute extends PageRouteInfo<void> {
   const FluttertoastRoute({List<PageRouteInfo>? children})

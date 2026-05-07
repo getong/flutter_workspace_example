@@ -627,6 +627,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.flutterSliderDrawer.path,
   ),
   _ModuleLink(
+    label: 'flutter_zoom_drawer Module',
+    routePath: AppRoute.flutterZoomDrawer.path,
+  ),
+  _ModuleLink(
     label: 'TextField + TextEditingController Module',
     routePath: AppRoute.textFieldController.path,
   ),

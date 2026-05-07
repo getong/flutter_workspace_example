@@ -97,6 +97,7 @@ dependencies:
   flutter_timezone: ^5.0.2
   flutter_tts: ^4.2.5
   flutter_video_caching: ^1.1.2
+  flutter_zoom_drawer: ^3.2.0
   fluttertoast: ^9.0.0
   font_awesome_flutter: ^11.0.0
   formz: ^0.8.0

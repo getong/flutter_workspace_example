@@ -259,6 +259,7 @@ abstract final class RouteName {
   static const layoutBuilderVsStack = 'LayoutBuilderVsStackRoute';
   static const flutterAutoSizeText = 'FlutterAutoSizeTextRoute';
   static const flutterSliderDrawer = 'FlutterSliderDrawerRoute';
+  static const flutterZoomDrawer = 'FlutterZoomDrawerRoute';
   static const flutterAnimate = 'FlutterAnimateRoute';
   static const flutterLocalNotifications = 'FlutterLocalNotificationsRoute';
   static const flutterScreenutil = 'FlutterScreenutilRoute';
@@ -700,6 +701,7 @@ enum AppRoute {
     '/flutter-slider-drawer-page',
     RouteName.flutterSliderDrawer,
   ),
+  flutterZoomDrawer('/flutter-zoom-drawer-page', RouteName.flutterZoomDrawer),
   flutterAnimate('/flutter-animate-page', RouteName.flutterAnimate),
   flutterLocalNotifications(
     '/flutter-local-notifications-page',
