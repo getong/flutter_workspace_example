@@ -2512,6 +2512,22 @@ class FlutterSlidableRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterSliderDrawerPage]
+class FlutterSliderDrawerRoute extends PageRouteInfo<void> {
+  const FlutterSliderDrawerRoute({List<PageRouteInfo>? children})
+    : super(FlutterSliderDrawerRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterSliderDrawerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterSliderDrawerPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterStaggeredAnimationsPlusPage]
 class FlutterStaggeredAnimationsPlusRoute extends PageRouteInfo<void> {
   const FlutterStaggeredAnimationsPlusRoute({List<PageRouteInfo>? children})

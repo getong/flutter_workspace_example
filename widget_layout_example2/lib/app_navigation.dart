@@ -258,6 +258,7 @@ abstract final class RouteName {
   static const expandedVsFlexible = 'ExpandedVsFlexibleRoute';
   static const layoutBuilderVsStack = 'LayoutBuilderVsStackRoute';
   static const flutterAutoSizeText = 'FlutterAutoSizeTextRoute';
+  static const flutterSliderDrawer = 'FlutterSliderDrawerRoute';
   static const flutterAnimate = 'FlutterAnimateRoute';
   static const flutterLocalNotifications = 'FlutterLocalNotificationsRoute';
   static const flutterScreenutil = 'FlutterScreenutilRoute';
@@ -694,6 +695,10 @@ enum AppRoute {
   flutterAutoSizeText(
     '/flutter-auto-size-text-page',
     RouteName.flutterAutoSizeText,
+  ),
+  flutterSliderDrawer(
+    '/flutter-slider-drawer-page',
+    RouteName.flutterSliderDrawer,
   ),
   flutterAnimate('/flutter-animate-page', RouteName.flutterAnimate),
   flutterLocalNotifications(

@@ -623,6 +623,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.flutterStaggeredAnimationsPlus.path,
   ),
   _ModuleLink(
+    label: 'flutter_slider_drawer Module',
+    routePath: AppRoute.flutterSliderDrawer.path,
+  ),
+  _ModuleLink(
     label: 'TextField + TextEditingController Module',
     routePath: AppRoute.textFieldController.path,
   ),

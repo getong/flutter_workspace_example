@@ -95,6 +95,7 @@ import 'package:widget_layout_example2/features/flow/presentation/pages/flow_pag
 import 'package:widget_layout_example2/features/fractionally_sized_box/presentation/pages/fractionally_sized_box_page.dart';
 import 'package:widget_layout_example2/features/flutter_svg/presentation/pages/flutter_svg_page.dart';
 import 'package:widget_layout_example2/features/flutter_auto_size_text/presentation/pages/flutter_auto_size_text_page.dart';
+import 'package:widget_layout_example2/features/flutter_slider_drawer/presentation/pages/flutter_slider_drawer_page.dart';
 import 'package:widget_layout_example2/features/flutter_animate/presentation/pages/flutter_animate_page.dart';
 import 'package:widget_layout_example2/features/flutter_bloc/presentation/pages/flutter_bloc_page.dart';
 import 'package:widget_layout_example2/features/flutter_bloc_event_bus/presentation/pages/flutter_bloc_event_bus_page.dart';
@@ -950,6 +951,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: FlutterAutoSizeTextRoute.page,
       path: AppRoute.flutterAutoSizeText.path,
+    ),
+    AutoRoute(
+      page: FlutterSliderDrawerRoute.page,
+      path: AppRoute.flutterSliderDrawer.path,
     ),
     AutoRoute(
       page: FlutterAnimateRoute.page,
