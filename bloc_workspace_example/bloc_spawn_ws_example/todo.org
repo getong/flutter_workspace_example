@@ -1,4 +1,4 @@
 1 Isolate spawn a web_socket client
 2 isolate flow web_socket client binary data to bloc event, and store binary data as bloc state
 3 home page read the bloc state and show it
-4 take a look at /Users/gerald/personal_infos/flutter_workspace_example/bloc_ws_example for a reference
+4 take a look at flutter_workspace_example/bloc_ws_example for a reference

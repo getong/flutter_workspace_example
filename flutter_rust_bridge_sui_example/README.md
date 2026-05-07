@@ -8,7 +8,7 @@
 - Flutter 调 Rust 做 Sui 地址规范化
 
 Rust 侧 Sui 逻辑参考了：
-`/Users/gerald/personal_infos/rust_example/sui_workspace_example`
+`rust_example/sui_workspace_example`
 
 ## 目录结构
 

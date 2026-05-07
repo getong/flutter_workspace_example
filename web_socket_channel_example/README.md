@@ -2,7 +2,7 @@
 
 This Flutter app is configured to connect to the Axum websocket endpoint in:
 
-- `/Users/gerald/personal_infos/rust_example/supabase_workspace_example/supabase_rs_signup_signin_example`
+- `rust_example/supabase_workspace_example/supabase_rs_signup_signin_example`
 
 ## Screens
 

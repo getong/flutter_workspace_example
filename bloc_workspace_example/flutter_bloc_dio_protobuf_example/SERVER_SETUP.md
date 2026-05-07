@@ -7,7 +7,7 @@
 
 2. **Run the server:**
    ```bash
-   cd /Users/gerald/personal_infos/flutter_workspace_example/bloc_workspace_example/flutter_bloc_dio_protobuf_example
+   cd flutter_workspace_example/bloc_workspace_example/flutter_bloc_dio_protobuf_example
    node server.js
    ```
 
