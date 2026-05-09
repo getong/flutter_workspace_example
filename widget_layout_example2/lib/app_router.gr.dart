@@ -3527,6 +3527,22 @@ class MouseRegionRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [MultiSplitViewPage]
+class MultiSplitViewRoute extends PageRouteInfo<void> {
+  const MultiSplitViewRoute({List<PageRouteInfo>? children})
+    : super(MultiSplitViewRoute.name, initialChildren: children);
+
+  static const String name = 'MultiSplitViewRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const MultiSplitViewPage();
+    },
+  );
+}
+
+/// generated route for
 /// [NativeDeviceOrientationCommunicatorPage]
 class NativeDeviceOrientationCommunicatorRoute extends PageRouteInfo<void> {
   const NativeDeviceOrientationCommunicatorRoute({

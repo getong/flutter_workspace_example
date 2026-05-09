@@ -133,6 +133,7 @@ dependencies:
   material_color_utilities: ^0.13.0
   material_symbols_icons: ^4.2928.1
   mobile_scanner: ^7.2.0
+  multi_split_view: ^3.6.1
   native_device_orientation: ^2.1.0
   onboarding_overlay: ^3.2.3
   open_file: ^3.5.11

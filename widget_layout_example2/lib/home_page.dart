@@ -639,6 +639,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.textFieldControllerJaspr.path,
   ),
   _ModuleLink(
+    label: 'multi_split_view Module',
+    routePath: AppRoute.multiSplitView.path,
+  ),
+  _ModuleLink(
     label: 'RefreshIndicator Module',
     routePath: AppRoute.refreshIndicator.path,
   ),

@@ -255,6 +255,7 @@ import 'package:widget_layout_example2/features/wrap/presentation/pages/wrap_pag
 import 'package:widget_layout_example2/features/choice_chip/presentation/pages/choice_chip_page.dart';
 import 'package:widget_layout_example2/features/divider/presentation/pages/divider_page.dart';
 import 'package:widget_layout_example2/features/mobile_scanner/presentation/pages/mobile_scanner_page.dart';
+import 'package:widget_layout_example2/features/multi_split_view/presentation/pages/multi_split_view_page.dart';
 import 'package:widget_layout_example2/features/placeholder/presentation/pages/placeholder_page.dart';
 import 'package:widget_layout_example2/features/sliver_to_box_adapter/presentation/pages/sliver_to_box_adapter_page.dart';
 import 'package:widget_layout_example2/features/vector_math/presentation/pages/vector_math_page.dart';
@@ -932,6 +933,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: TextFieldControllerJasprRoute.page,
       path: AppRoute.textFieldControllerJaspr.path,
+    ),
+    AutoRoute(
+      page: MultiSplitViewRoute.page,
+      path: AppRoute.multiSplitView.path,
     ),
     AutoRoute(
       page: RefreshIndicatorRoute.page,
