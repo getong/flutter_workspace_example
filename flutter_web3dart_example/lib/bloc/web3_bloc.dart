@@ -1,82 +1,155 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:web3dart/web3dart.dart';
-import 'package:wallet/wallet.dart';
-import 'package:dio/dio.dart';
+
+import '../models/web3_demo_models.dart';
+import '../services/web3_demo_service.dart';
 import 'web3_event.dart';
 import 'web3_state.dart';
 
-// Custom Dio Web3 client
-class DioWeb3Client {
-  final Dio _dio;
-  final String _rpcUrl;
-
-  DioWeb3Client(this._rpcUrl)
-      : _dio = Dio(BaseOptions(
-          connectTimeout: const Duration(seconds: 10),
-          receiveTimeout: const Duration(seconds: 10),
-          headers: {'Content-Type': 'application/json'},
-        ));
-
-  Future<int> getNetworkId() async {
-    final response = await _dio.post(_rpcUrl, data: {
-      'jsonrpc': '2.0',
-      'method': 'net_version',
-      'params': [],
-      'id': 1,
-    });
-    return int.parse(response.data['result']);
-  }
-
-  Future<BigInt> getBalance(String address) async {
-    final response = await _dio.post(_rpcUrl, data: {
-      'jsonrpc': '2.0',
-      'method': 'eth_getBalance',
-      'params': [address, 'latest'],
-      'id': 1,
-    });
-    return BigInt.parse(response.data['result'].substring(2), radix: 16);
-  }
-
-  void dispose() {
-    _dio.close();
-  }
-}
-
 class Web3Bloc extends Bloc<Web3Event, Web3State> {
-  late DioWeb3Client _client;
-
-  Web3Bloc() : super(Web3Initial()) {
-    _client = DioWeb3Client('https://ethereum-rpc.publicnode.com');
-    on<ConnectToNetwork>(_onConnectToNetwork);
-    on<GetBalance>(_onGetBalance);
+  Web3Bloc({
+    Web3DemoService? service,
+  })  : _service = service ?? Web3DemoService(),
+        super(const Web3State()) {
+    on<LoadWeb3Overview>(_onLoadWeb3Overview);
+    on<InspectAddressRequested>(_onInspectAddressRequested);
+    on<InspectTokenRequested>(_onInspectTokenRequested);
+    on<DemonstrateEncodingRequested>(_onDemonstrateEncodingRequested);
+    on<InspectWalletRequested>(_onInspectWalletRequested);
   }
 
-  void _onConnectToNetwork(
-      ConnectToNetwork event, Emitter<Web3State> emit) async {
-    emit(Web3Loading());
+  final Web3DemoService _service;
+
+  Future<void> _onLoadWeb3Overview(
+    LoadWeb3Overview event,
+    Emitter<Web3State> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        isOverviewLoading: true,
+        clearOverviewError: true,
+      ),
+    );
+
     try {
-      final networkId = await _client.getNetworkId();
-      emit(Web3Connected('Ethereum Mainnet (ID: $networkId)'));
+      final sections = await _service.loadOverview();
+      emit(
+        state.copyWith(
+          isOverviewLoading: false,
+          sections: {
+            for (final section in sections)
+              section.id: Web3SectionStatus(section: section),
+          },
+        ),
+      );
     } catch (e) {
-      emit(Web3Error('Failed to connect: ${e.toString()}'));
+      emit(
+        state.copyWith(
+          isOverviewLoading: false,
+          overviewError: 'Failed to load overview: $e',
+        ),
+      );
     }
   }
 
-  void _onGetBalance(GetBalance event, Emitter<Web3State> emit) async {
-    emit(Web3Loading());
+  Future<void> _onInspectAddressRequested(
+    InspectAddressRequested event,
+    Emitter<Web3State> emit,
+  ) async {
+    await _updateSection(
+      emit: emit,
+      sectionId: 'address',
+      loader: () => _service.inspectAddress(event.address),
+    );
+  }
+
+  Future<void> _onInspectTokenRequested(
+    InspectTokenRequested event,
+    Emitter<Web3State> emit,
+  ) async {
+    await _updateSection(
+      emit: emit,
+      sectionId: 'erc20',
+      loader: () => _service.inspectToken(
+        event.tokenAddress,
+        event.ownerAddress,
+      ),
+    );
+  }
+
+  Future<void> _onDemonstrateEncodingRequested(
+    DemonstrateEncodingRequested event,
+    Emitter<Web3State> emit,
+  ) async {
+    await _updateSection(
+      emit: emit,
+      sectionId: 'encoding',
+      loader: () => _service.demonstrateEncoding(
+        event.tokenAddress,
+        event.recipientAddress,
+      ),
+    );
+  }
+
+  Future<void> _onInspectWalletRequested(
+    InspectWalletRequested event,
+    Emitter<Web3State> emit,
+  ) async {
+    await _updateSection(
+      emit: emit,
+      sectionId: 'wallet',
+      loader: () => _service.inspectWallet(
+        event.privateKey,
+        event.message,
+      ),
+    );
+  }
+
+  Future<void> _updateSection({
+    required Emitter<Web3State> emit,
+    required String sectionId,
+    required Future<Web3DemoSection> Function() loader,
+  }) async {
+    final current = state.sections[sectionId] ?? const Web3SectionStatus();
+    emit(
+      state.copyWith(
+        sections: {
+          ...state.sections,
+          sectionId: current.copyWith(
+            isLoading: true,
+            clearError: true,
+          ),
+        },
+      ),
+    );
+
     try {
-      final balance = await _client.getBalance(event.address);
-      // Convert Wei to Ether manually (1 ETH = 10^18 Wei)
-      final balanceInEther = balance / BigInt.from(10).pow(18);
-      emit(Web3BalanceLoaded(balanceInEther.toString(), event.address));
+      final section = await loader();
+      emit(
+        state.copyWith(
+          sections: {
+            ...state.sections,
+            sectionId: Web3SectionStatus(section: section),
+          },
+        ),
+      );
     } catch (e) {
-      emit(Web3Error('Failed to get balance: ${e.toString()}'));
+      emit(
+        state.copyWith(
+          sections: {
+            ...state.sections,
+            sectionId: current.copyWith(
+              isLoading: false,
+              error: e.toString(),
+            ),
+          },
+        ),
+      );
     }
   }
 
   @override
-  Future<void> close() {
-    _client.dispose();
+  Future<void> close() async {
+    await _service.dispose();
     return super.close();
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'bloc/web3_bloc.dart';
 import 'screens/home_page.dart';
 
@@ -13,13 +14,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Web3 BLoC Demo',
+      title: 'Flutter web3dart Showcase',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
       ),
       home: BlocProvider(
         create: (context) => Web3Bloc(),
-        child: const MyHomePage(title: 'Flutter Web3 BLoC Demo'),
+        child: const MyHomePage(title: 'Flutter web3dart Showcase'),
       ),
     );
   }
