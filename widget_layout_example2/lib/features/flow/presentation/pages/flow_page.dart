@@ -87,6 +87,13 @@ class _FlowExamplePageState extends State<FlowExamplePage> {
                 'Compared with Wrap, Flow gives you lower-level placement control through a delegate.',
               ),
             ),
+            const SizedBox(height: 16),
+            const _ExampleCard(
+              title: 'Animated Flow Menu',
+              description:
+                  'Tap the menu icon (last button) to animate items into view. Each child is painted using a transform driven by an AnimationController, showing how Flow integrates with animations.',
+              child: _FlowMenu(),
+            ),
           ],
         ),
       ),
@@ -117,6 +124,105 @@ class _StaggeredFlowDelegate extends FlowDelegate {
   @override
   bool shouldRepaint(covariant _StaggeredFlowDelegate oldDelegate) {
     return oldDelegate.spacing != spacing;
+  }
+}
+
+class _FlowMenu extends StatefulWidget {
+  const _FlowMenu();
+
+  @override
+  State<_FlowMenu> createState() => _FlowMenuState();
+}
+
+class _FlowMenuState extends State<_FlowMenu>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _menuAnimation;
+  IconData _lastTapped = Icons.notifications;
+  final List<IconData> _menuItems = <IconData>[
+    Icons.home,
+    Icons.new_releases,
+    Icons.notifications,
+    Icons.settings,
+    Icons.menu,
+  ];
+
+  void _updateMenu(IconData icon) {
+    if (icon != Icons.menu) {
+      setState(() => _lastTapped = icon);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _menuAnimation = AnimationController(
+      duration: const Duration(milliseconds: 250),
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    _menuAnimation.dispose();
+    super.dispose();
+  }
+
+  Widget _flowMenuItem(IconData icon) {
+    final double buttonDiameter =
+        MediaQuery.of(context).size.width / _menuItems.length;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: RawMaterialButton(
+        fillColor: _lastTapped == icon ? Colors.amber[700] : Colors.blue,
+        splashColor: Colors.amber[100],
+        shape: const CircleBorder(),
+        constraints: BoxConstraints.tight(Size(buttonDiameter, buttonDiameter)),
+        onPressed: () {
+          _updateMenu(icon);
+          _menuAnimation.status == AnimationStatus.completed
+              ? _menuAnimation.reverse()
+              : _menuAnimation.forward();
+        },
+        child: Icon(icon, color: Colors.white, size: 45.0),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 100,
+      child: Flow(
+        delegate: _FlowMenuDelegate(menuAnimation: _menuAnimation),
+        children: _menuItems
+            .map<Widget>((IconData icon) => _flowMenuItem(icon))
+            .toList(),
+      ),
+    );
+  }
+}
+
+class _FlowMenuDelegate extends FlowDelegate {
+  _FlowMenuDelegate({required this.menuAnimation})
+    : super(repaint: menuAnimation);
+
+  final Animation<double> menuAnimation;
+
+  @override
+  bool shouldRepaint(_FlowMenuDelegate oldDelegate) {
+    return menuAnimation != oldDelegate.menuAnimation;
+  }
+
+  @override
+  void paintChildren(FlowPaintingContext context) {
+    double dx = 0.0;
+    for (int i = 0; i < context.childCount; ++i) {
+      dx = context.getChildSize(i)!.width * i;
+      context.paintChild(
+        i,
+        transform: Matrix4.translationValues(dx * menuAnimation.value, 0, 0),
+      );
+    }
   }
 }
 
