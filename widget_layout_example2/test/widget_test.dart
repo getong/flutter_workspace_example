@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:widget_layout_example2/app_bootstrap.dart';
 import 'package:widget_layout_example2/auto_route_demo_support.dart';
-import 'package:widget_layout_example2/auth/auth.dart';
-import 'package:widget_layout_example2/main.dart';
 
 void main() {
   testWidgets('Login gates the app before showing the home tabs', (
@@ -23,9 +21,7 @@ void main() {
 
     demoAuthController.logout();
 
-    await tester.pumpWidget(
-      BlocProvider<AppAuthBloc>.value(value: appAuthBloc, child: MyApp()),
-    );
+    await tester.pumpWidget(createWidgetLayoutApp());
     await tester.pumpAndSettle();
 
     expect(find.text('Login'), findsOneWidget);

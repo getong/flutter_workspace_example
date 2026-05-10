@@ -746,9 +746,10 @@ class HomePage extends StatelessWidget {
         final AppTab activeTab = AppTab.values[tabsRouter.activeIndex];
         return AppBar(
           automaticallyImplyLeading: false,
-          title: Text(activeTab.title),
+          title: Text(activeTab.title, key: const Key('home.activeTabTitle')),
           actions: <Widget>[
             IconButton(
+              key: const Key('home.logout'),
               tooltip: 'Logout',
               onPressed: demoAuthController.logout,
               icon: const Icon(Icons.logout),
@@ -758,6 +759,7 @@ class HomePage extends StatelessWidget {
       },
       bottomNavigationBuilder: (BuildContext context, TabsRouter tabsRouter) {
         return NavigationBar(
+          key: const Key('home.navigationBar'),
           selectedIndex: tabsRouter.activeIndex,
           onDestinationSelected: tabsRouter.setActiveIndex,
           destinations: AppTab.values
@@ -814,6 +816,7 @@ class _ModuleTabView extends StatelessWidget {
 
     return SelectionArea(
       child: ListView.separated(
+        key: const Key('home.moduleList'),
         padding: const EdgeInsets.all(24),
         itemCount: sortedModules.length,
         separatorBuilder: (BuildContext context, int index) {
@@ -824,6 +827,7 @@ class _ModuleTabView extends StatelessWidget {
           return SizedBox(
             width: double.infinity,
             child: ElevatedButton(
+              key: Key('module.${module.label}'),
               onPressed: () => context.router.root.pushPath(module.routePath),
               child: Text(module.label),
             ),

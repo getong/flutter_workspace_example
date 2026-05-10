@@ -52,6 +52,7 @@ class _ChoiceChipPageState extends State<ChoiceChipPage> {
                           'Navigator 2.0',
                         ].map((String option) {
                           return ChoiceChip(
+                            key: Key('choiceChip.framework.$option'),
                             avatar: Icon(switch (option) {
                               'auto_route' => Icons.route,
                               'go_router' => Icons.alt_route,
@@ -68,7 +69,10 @@ class _ChoiceChipPageState extends State<ChoiceChipPage> {
                         }).toList(),
                   ),
                   const SizedBox(height: 16),
-                  Text('Selected framework: $_selectedFramework'),
+                  Text(
+                    'Selected framework: $_selectedFramework',
+                    key: const Key('choiceChip.selectedFramework'),
+                  ),
                 ],
               ),
             ),
@@ -86,6 +90,7 @@ class _ChoiceChipPageState extends State<ChoiceChipPage> {
                     children: <String>['Compact', 'Comfortable', 'Expanded']
                         .map((String option) {
                           return ChoiceChip(
+                            key: Key('choiceChip.density.$option'),
                             label: Text(option),
                             selectedColor: Colors.blue.withValues(alpha: 0.18),
                             showCheckmark: false,
@@ -101,6 +106,7 @@ class _ChoiceChipPageState extends State<ChoiceChipPage> {
                   ),
                   const SizedBox(height: 16),
                   AnimatedContainer(
+                    key: const Key('choiceChip.densityPreview'),
                     duration: const Duration(milliseconds: 220),
                     width: double.infinity,
                     padding: switch (_selectedDensity) {
@@ -141,6 +147,7 @@ class _ChoiceChipPageState extends State<ChoiceChipPage> {
                           (label: 'Slate', color: Colors.blueGrey),
                         ].map((({Color color, String label}) option) {
                           return ChoiceChip(
+                            key: Key('choiceChip.theme.${option.label}'),
                             label: Text(option.label),
                             avatar: CircleAvatar(
                               backgroundColor: option.color,
@@ -158,6 +165,7 @@ class _ChoiceChipPageState extends State<ChoiceChipPage> {
                   ),
                   const SizedBox(height: 16),
                   Container(
+                    key: const Key('choiceChip.activeTheme'),
                     width: double.infinity,
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
@@ -177,6 +185,7 @@ class _ChoiceChipPageState extends State<ChoiceChipPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
+        key: const Key('choiceChip.homeFab'),
         onPressed: () => context.router.replacePath('/'),
         icon: const Icon(Icons.home),
         label: const Text('Home'),

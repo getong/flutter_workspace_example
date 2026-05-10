@@ -73,6 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 32),
                   TextField(
+                    key: const Key('login.username'),
                     controller: _usernameController,
                     decoration: const InputDecoration(
                       labelText: 'Username',
@@ -82,6 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 16),
                   TextField(
+                    key: const Key('login.password'),
                     controller: _passwordController,
                     decoration: const InputDecoration(
                       labelText: 'Password',
@@ -91,9 +93,14 @@ class _LoginPageState extends State<LoginPage> {
                     onSubmitted: (_) => _submit(),
                   ),
                   const SizedBox(height: 20),
-                  FilledButton(onPressed: _submit, child: const Text('Log In')),
+                  FilledButton(
+                    key: const Key('login.submit'),
+                    onPressed: _submit,
+                    child: const Text('Log In'),
+                  ),
                   const SizedBox(height: 12),
                   OutlinedButton.icon(
+                    key: const Key('login.goToSignUp'),
                     onPressed: () => context.router.push(const SignUpRoute()),
                     icon: const Icon(Icons.person_add_outlined),
                     label: const Text('Go To Sign Up'),

@@ -254,3 +254,9 @@ hooks:
     sqlite3:
       source: system
       name: sqlite3
+
+patrol:
+  android:
+    package_name: com.example.widget_layout_example2
+  ios:
+    bundle_id: com.manojoinpo.widgetLayoutExample2
