@@ -195,6 +195,12 @@ dev_dependencies:
   retrofit_generator: ^10.2.6
   patrol: ^4.5.0
 
+# Pin gpt_markdown to 1.1.6 because 1.1.7 broke imageBuilder signature
+# (added double? width, height params) which is incompatible with
+# flutter_streaming_text_markdown 1.7.2 (transitive via flutter_gen_ai_chat_ui).
+dependency_overrides:
+  gpt_markdown: 1.1.6
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
