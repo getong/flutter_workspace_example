@@ -4,15 +4,19 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flash/flash.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fluent;
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:marionette_flutter/marionette_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rive/rive.dart' as rive;
 import 'package:widget_layout_example2/app_router.dart';
 import 'package:widget_layout_example2/features/auth/auth.dart';
 import 'package:widget_layout_example2/features/auto_route_demo/presentation/support/auto_route_demo_support.dart';
+import 'package:widget_layout_example2/features/hydrated_bloc_demo/hydrated_bloc_demo.dart';
+import 'package:widget_layout_example2/features/text_field_persist/text_field_persist.dart';
 
 Future<void> bootstrapWidgetLayoutApp() async {
   if (kDebugMode) {
@@ -23,10 +27,18 @@ Future<void> bootstrapWidgetLayoutApp() async {
 
   await _ensureExtendedImageCacheDirectory();
   await _initializeRiveNative();
+  await _initializeHydratedStorage();
 }
 
 Widget createWidgetLayoutApp() {
-  return BlocProvider<AppAuthBloc>.value(value: appAuthBloc, child: MyApp());
+  return MultiBlocProvider(
+    providers: <BlocProvider<dynamic>>[
+      BlocProvider<AppAuthBloc>.value(value: appAuthBloc),
+      BlocProvider<TextPersistenceBloc>.value(value: textPersistenceBloc),
+      BlocProvider<HydratedTodoBloc>.value(value: hydratedTodoBloc),
+    ],
+    child: MyApp(),
+  );
 }
 
 Future<void> _ensureExtendedImageCacheDirectory() async {
@@ -47,6 +59,15 @@ Future<void> _ensureExtendedImageCacheDirectory() async {
   } catch (error) {
     debugPrint('Failed to prepare extended_image cache directory: $error');
   }
+}
+
+Future<void> _initializeHydratedStorage() async {
+  final HydratedStorageDirectory directory = kIsWeb
+      ? HydratedStorageDirectory.web
+      : HydratedStorageDirectory((await getTemporaryDirectory()).path);
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: directory,
+  );
 }
 
 Future<void> _initializeRiveNative() async {

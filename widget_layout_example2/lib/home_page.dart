@@ -639,6 +639,14 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.textFieldControllerJaspr.path,
   ),
   _ModuleLink(
+    label: 'Persistent TextField (BLoC + Clean Arch)',
+    routePath: AppRoute.textFieldPersist.path,
+  ),
+  _ModuleLink(
+    label: 'HydratedBloc Demo (auto-persist + Clean Arch)',
+    routePath: AppRoute.hydratedBlocDemo.path,
+  ),
+  _ModuleLink(
     label: 'multi_split_view Module',
     routePath: AppRoute.multiSplitView.path,
   ),

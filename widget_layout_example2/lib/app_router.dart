@@ -235,6 +235,8 @@ import 'package:widget_layout_example2/features/flutter_staggered_grid_view/pres
 import 'package:widget_layout_example2/features/internet_connection_checker_plus/presentation/pages/internet_connection_checker_plus_page.dart';
 import 'package:widget_layout_example2/features/text_field_controller/presentation/pages/text_field_controller_page.dart';
 import 'package:widget_layout_example2/features/text_field_controller/presentation/pages/text_field_controller_jaspr_page.dart';
+import 'package:widget_layout_example2/features/hydrated_bloc_demo/presentation/pages/hydrated_bloc_demo_page.dart';
+import 'package:widget_layout_example2/features/text_field_persist/presentation/pages/text_field_persist_page.dart';
 import 'package:widget_layout_example2/features/text_rich/presentation/pages/text_rich_page.dart';
 import 'package:widget_layout_example2/features/text_style/presentation/pages/text_style_page.dart';
 import 'package:widget_layout_example2/features/theme_data_visual_density/presentation/pages/theme_data_visual_density_page.dart';
@@ -933,6 +935,14 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: TextFieldControllerJasprRoute.page,
       path: AppRoute.textFieldControllerJaspr.path,
+    ),
+    AutoRoute(
+      page: TextFieldPersistRoute.page,
+      path: AppRoute.textFieldPersist.path,
+    ),
+    AutoRoute(
+      page: HydratedBlocDemoRoute.page,
+      path: AppRoute.hydratedBlocDemo.path,
     ),
     AutoRoute(
       page: MultiSplitViewRoute.page,

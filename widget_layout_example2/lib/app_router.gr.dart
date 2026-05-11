@@ -2931,6 +2931,22 @@ class HugeiconsRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [HydratedBlocDemoPage]
+class HydratedBlocDemoRoute extends PageRouteInfo<void> {
+  const HydratedBlocDemoRoute({List<PageRouteInfo>? children})
+    : super(HydratedBlocDemoRoute.name, initialChildren: children);
+
+  static const String name = 'HydratedBlocDemoRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const HydratedBlocDemoPage();
+    },
+  );
+}
+
+/// generated route for
 /// [IPhoneLikeFloatingButtonPage]
 class IPhoneLikeFloatingButtonRoute extends PageRouteInfo<void> {
   const IPhoneLikeFloatingButtonRoute({List<PageRouteInfo>? children})
@@ -4701,6 +4717,22 @@ class TextFieldControllerRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const TextFieldControllerPage();
+    },
+  );
+}
+
+/// generated route for
+/// [TextFieldPersistPage]
+class TextFieldPersistRoute extends PageRouteInfo<void> {
+  const TextFieldPersistRoute({List<PageRouteInfo>? children})
+    : super(TextFieldPersistRoute.name, initialChildren: children);
+
+  static const String name = 'TextFieldPersistRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TextFieldPersistPage();
     },
   );
 }
