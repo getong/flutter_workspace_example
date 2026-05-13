@@ -346,6 +346,11 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.flutterLocalNotifications.path,
   ),
   _ModuleLink(
+    label: 'flutter_background_service Module',
+    routePath: AppRoute.flutterBackgroundService.path,
+  ),
+  _ModuleLink(label: 'home_widget Module', routePath: AppRoute.homeWidget.path),
+  _ModuleLink(
     label: 'flutter_secure_storage Module',
     routePath: AppRoute.flutterSecureStorage.path,
   ),

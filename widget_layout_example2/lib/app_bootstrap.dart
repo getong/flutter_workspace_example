@@ -15,6 +15,8 @@ import 'package:rive/rive.dart' as rive;
 import 'package:widget_layout_example2/app_router.dart';
 import 'package:widget_layout_example2/features/auth/auth.dart';
 import 'package:widget_layout_example2/features/auto_route_demo/presentation/support/auto_route_demo_support.dart';
+import 'package:widget_layout_example2/features/flutter_background_service/flutter_background_service.dart';
+import 'package:widget_layout_example2/features/home_widget/home_widget.dart';
 import 'package:widget_layout_example2/features/hydrated_bloc_demo/hydrated_bloc_demo.dart';
 import 'package:widget_layout_example2/features/text_field_persist/text_field_persist.dart';
 
@@ -28,6 +30,8 @@ Future<void> bootstrapWidgetLayoutApp() async {
   await _ensureExtendedImageCacheDirectory();
   await _initializeRiveNative();
   await _initializeHydratedStorage();
+  await backgroundServiceDemoRepository.initialize();
+  await homeWidgetDemoRepository.initialize();
 }
 
 Widget createWidgetLayoutApp() {
@@ -36,6 +40,10 @@ Widget createWidgetLayoutApp() {
       BlocProvider<AppAuthBloc>.value(value: appAuthBloc),
       BlocProvider<TextPersistenceBloc>.value(value: textPersistenceBloc),
       BlocProvider<HydratedTodoBloc>.value(value: hydratedTodoBloc),
+      BlocProvider<BackgroundServiceDemoBloc>.value(
+        value: backgroundServiceDemoBloc,
+      ),
+      BlocProvider<HomeWidgetDemoBloc>.value(value: homeWidgetDemoBloc),
     ],
     child: MyApp(),
   );

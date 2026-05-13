@@ -4,6 +4,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:widget_layout_example2/features/auth/auth.dart';
+import 'package:widget_layout_example2/features/flutter_background_service/flutter_background_service.dart';
+import 'package:widget_layout_example2/features/home_widget/home_widget.dart';
 import 'package:widget_layout_example2/features/hydrated_bloc_demo/hydrated_bloc_demo.dart';
 import 'package:widget_layout_example2/features/text_field_persist/text_field_persist.dart';
 
@@ -12,6 +14,15 @@ final DemoAuthController demoAuthController = DemoAuthController(appAuthBloc);
 final DemoNavigationLog demoNavigationLog = DemoNavigationLog();
 final TextPersistenceBloc textPersistenceBloc = TextPersistenceBloc();
 final HydratedTodoBloc hydratedTodoBloc = HydratedTodoBloc();
+final FlutterBackgroundServiceDemoRepository backgroundServiceDemoRepository =
+    FlutterBackgroundServiceDemoRepository();
+final BackgroundServiceDemoBloc backgroundServiceDemoBloc =
+    BackgroundServiceDemoBloc(repository: backgroundServiceDemoRepository);
+final HomeWidgetDemoRepository homeWidgetDemoRepository =
+    HomeWidgetDemoRepository();
+final HomeWidgetDemoBloc homeWidgetDemoBloc = HomeWidgetDemoBloc(
+  repository: homeWidgetDemoRepository,
+);
 
 class DemoAuthController extends ChangeNotifier {
   DemoAuthController(this._bloc) {

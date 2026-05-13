@@ -234,6 +234,8 @@ import 'package:widget_layout_example2/features/inherited_widget/presentation/pa
 import 'package:widget_layout_example2/features/flutter_staggered_animations_plus/presentation/pages/flutter_staggered_animations_plus_page.dart';
 import 'package:widget_layout_example2/features/flutter_staggered_grid_view/presentation/pages/flutter_staggered_grid_view_page.dart';
 import 'package:widget_layout_example2/features/internet_connection_checker_plus/presentation/pages/internet_connection_checker_plus_page.dart';
+import 'package:widget_layout_example2/features/flutter_background_service/presentation/pages/flutter_background_service_page.dart';
+import 'package:widget_layout_example2/features/home_widget/presentation/pages/home_widget_page.dart';
 import 'package:widget_layout_example2/features/text_field_controller/presentation/pages/text_field_controller_page.dart';
 import 'package:widget_layout_example2/features/text_field_controller/presentation/pages/text_field_controller_jaspr_page.dart';
 import 'package:widget_layout_example2/features/hydrated_bloc_demo/presentation/pages/hydrated_bloc_demo_page.dart';
@@ -989,6 +991,11 @@ class AppRouter extends RootStackRouter {
       page: FlutterLocalNotificationsRoute.page,
       path: AppRoute.flutterLocalNotifications.path,
     ),
+    AutoRoute(
+      page: FlutterBackgroundServiceRoute.page,
+      path: AppRoute.flutterBackgroundService.path,
+    ),
+    AutoRoute(page: HomeWidgetRoute.page, path: AppRoute.homeWidget.path),
     AutoRoute(
       page: FlutterScreenutilRoute.page,
       path: AppRoute.flutterScreenutil.path,

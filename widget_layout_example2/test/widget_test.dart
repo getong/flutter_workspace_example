@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 import 'package:widget_layout_example2/app_bootstrap.dart';
 import 'package:widget_layout_example2/auto_route_demo_support.dart';
@@ -8,6 +11,19 @@ void main() {
   testWidgets('Login gates the app before showing the home tabs', (
     WidgetTester tester,
   ) async {
+    final Directory hydratedStorageDirectory = await Directory.systemTemp
+        .createTemp('widget_layout_example2_test_');
+    HydratedBloc.storage = await HydratedStorage.build(
+      storageDirectory: HydratedStorageDirectory(
+        hydratedStorageDirectory.path,
+      ),
+    );
+    addTearDown(() async {
+      await HydratedBloc.storage.close();
+      HydratedBloc.storage = null;
+      await hydratedStorageDirectory.delete(recursive: true);
+    });
+
     Future<void> dragUntilTextVisible(String text) async {
       for (int i = 0; i < 20; i += 1) {
         if (find.text(text).evaluate().isNotEmpty) {

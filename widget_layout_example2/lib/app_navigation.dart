@@ -266,6 +266,8 @@ abstract final class RouteName {
   static const flutterZoomDrawer = 'FlutterZoomDrawerRoute';
   static const flutterAnimate = 'FlutterAnimateRoute';
   static const flutterLocalNotifications = 'FlutterLocalNotificationsRoute';
+  static const flutterBackgroundService = 'FlutterBackgroundServiceRoute';
+  static const homeWidget = 'HomeWidgetRoute';
   static const flutterScreenutil = 'FlutterScreenutilRoute';
   static const flutterSecureStorage = 'FlutterSecureStorageRoute';
   static const flutterTimezone = 'FlutterTimezoneRoute';
@@ -715,6 +717,11 @@ enum AppRoute {
     '/flutter-local-notifications-page',
     RouteName.flutterLocalNotifications,
   ),
+  flutterBackgroundService(
+    '/flutter-background-service-page',
+    RouteName.flutterBackgroundService,
+  ),
+  homeWidget('/home-widget-page', RouteName.homeWidget),
   flutterScreenutil('/flutter-screenutil-page', RouteName.flutterScreenutil),
   flutterSecureStorage(
     '/flutter-secure-storage-page',

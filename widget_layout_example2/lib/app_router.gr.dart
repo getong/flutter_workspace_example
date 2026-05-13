@@ -2256,6 +2256,22 @@ class FlutterAutoSizeTextRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterBackgroundServicePage]
+class FlutterBackgroundServiceRoute extends PageRouteInfo<void> {
+  const FlutterBackgroundServiceRoute({List<PageRouteInfo>? children})
+    : super(FlutterBackgroundServiceRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterBackgroundServiceRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterBackgroundServicePage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterBlocEventBusPage]
 class FlutterBlocEventBusRoute extends PageRouteInfo<void> {
   const FlutterBlocEventBusRoute({List<PageRouteInfo>? children})
@@ -2910,6 +2926,22 @@ class HomeRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const HomePage();
+    },
+  );
+}
+
+/// generated route for
+/// [HomeWidgetPage]
+class HomeWidgetRoute extends PageRouteInfo<void> {
+  const HomeWidgetRoute({List<PageRouteInfo>? children})
+    : super(HomeWidgetRoute.name, initialChildren: children);
+
+  static const String name = 'HomeWidgetRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const HomeWidgetPage();
     },
   );
 }
