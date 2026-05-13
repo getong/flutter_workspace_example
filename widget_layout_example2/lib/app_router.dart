@@ -204,6 +204,7 @@ import 'package:widget_layout_example2/features/share_plus/presentation/pages/sh
 import 'package:widget_layout_example2/features/show_dialog/presentation/pages/show_dialog_page.dart';
 import 'package:widget_layout_example2/features/show_general_dialog/presentation/pages/show_general_dialog_page.dart';
 import 'package:widget_layout_example2/features/shimmer/presentation/pages/shimmer_page.dart';
+import 'package:widget_layout_example2/features/segmented_button/presentation/pages/segmented_button_page.dart';
 import 'package:widget_layout_example2/features/sized_box/presentation/pages/sized_box_page.dart';
 import 'package:widget_layout_example2/features/single_child_scroll_view/presentation/pages/single_child_scroll_view_page.dart';
 import 'package:widget_layout_example2/features/single_ticker_provider_state_mixin/presentation/pages/single_ticker_provider_state_mixin_page.dart';
@@ -561,6 +562,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: RadioExampleRoute.page, path: AppRoute.radio.path),
     AutoRoute(page: InputChipRoute.page, path: AppRoute.inputChip.path),
     AutoRoute(page: ChoiceChipRoute.page, path: AppRoute.choiceChip.path),
+    AutoRoute(
+      page: SegmentedButtonRoute.page,
+      path: AppRoute.segmentedButton.path,
+    ),
     AutoRoute(page: FilterChipRoute.page, path: AppRoute.filterChip.path),
     AutoRoute(page: AboutDialogRoute.page, path: AppRoute.aboutDialog.path),
     AutoRoute(

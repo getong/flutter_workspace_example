@@ -4127,6 +4127,22 @@ class ScrollbarRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [SegmentedButtonPage]
+class SegmentedButtonRoute extends PageRouteInfo<void> {
+  const SegmentedButtonRoute({List<PageRouteInfo>? children})
+    : super(SegmentedButtonRoute.name, initialChildren: children);
+
+  static const String name = 'SegmentedButtonRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SegmentedButtonPage();
+    },
+  );
+}
+
+/// generated route for
 /// [SemanticsPage]
 class SemanticsRoute extends PageRouteInfo<void> {
   const SemanticsRoute({List<PageRouteInfo>? children})

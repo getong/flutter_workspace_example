@@ -93,6 +93,7 @@ abstract final class RouteName {
   static const radio = 'RadioExampleRoute';
   static const inputChip = 'InputChipRoute';
   static const choiceChip = 'ChoiceChipRoute';
+  static const segmentedButton = 'SegmentedButtonRoute';
   static const filterChip = 'FilterChipRoute';
   static const aboutDialog = 'AboutDialogRoute';
   static const advancedProgressIndicator = 'AdvancedProgressIndicatorRoute';
@@ -431,6 +432,7 @@ enum AppRoute {
   radio('/radio-page', RouteName.radio),
   inputChip('/input-chip-page', RouteName.inputChip),
   choiceChip('/choice-chip-page', RouteName.choiceChip),
+  segmentedButton('/segmented-button-page', RouteName.segmentedButton),
   filterChip('/filter-chip-page', RouteName.filterChip),
   aboutDialog('/about-dialog-page', RouteName.aboutDialog),
   advancedProgressIndicator(

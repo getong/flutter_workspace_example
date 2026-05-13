@@ -200,6 +200,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(label: 'Checkbox Module', routePath: AppRoute.checkbox.path),
   _ModuleLink(label: 'ChoiceChip Module', routePath: AppRoute.choiceChip.path),
   _ModuleLink(
+    label: 'SegmentedButton Module',
+    routePath: AppRoute.segmentedButton.path,
+  ),
+  _ModuleLink(
     label: 'CircularProgressIndicator Module',
     routePath: AppRoute.circularProgressIndicator.path,
   ),
