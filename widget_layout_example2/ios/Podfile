@@ -1,4 +1,4 @@
-platform :ios, '13.0'
+platform :ios, '14.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -22,6 +22,46 @@ def flutter_root
   raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Generated.xcconfig, then run flutter pub get"
 end
 
+def flutter_app_root
+  File.expand_path('..', __dir__)
+end
+
+def preferred_dart_executable(flutter_root_path)
+  system_dart = `which dart`.strip
+  return system_dart unless system_dart.empty?
+
+  File.expand_path(
+    File.join(flutter_root_path, 'bin', 'cache', 'dart-sdk', 'bin', 'dart'),
+  )
+end
+
+def ensure_rive_native_ios_setup(flutter_root_path)
+  plugin_root = File.expand_path(
+    File.join(__dir__, '.symlinks', 'plugins', 'rive_native'),
+  )
+  return unless Dir.exist?(plugin_root)
+
+  marker = File.join(plugin_root, 'ios', 'rive_marker_ios_setup_complete')
+  return if File.exist?(marker)
+
+  dart_executable = preferred_dart_executable(flutter_root_path)
+  unless File.executable?(dart_executable)
+    raise "Dart executable not found at #{dart_executable}"
+  end
+
+  Dir.chdir(flutter_app_root) do
+    success = system(
+      dart_executable,
+      'run',
+      'rive_native:setup',
+      '--verbose',
+      '--platform',
+      'ios',
+    )
+    raise 'Failed to prebuild rive_native iOS artifacts during pod install.' unless success
+  end
+end
+
 require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
 
 flutter_ios_podfile_setup
@@ -36,6 +76,8 @@ target 'Runner' do
 end
 
 post_install do |installer|
+  ensure_rive_native_ios_setup(flutter_root)
+
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
   end
