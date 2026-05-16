@@ -361,6 +361,108 @@ class _DemoFetchBloc extends Bloc<_DemoFetchEvent, _DemoFetchState> {
 }
 
 // ---------------------------------------------------------------------------
+// Auth + Cart Listener Demo — dispatches CartCleared when Auth logs out
+// ---------------------------------------------------------------------------
+
+abstract class AuthEvent {
+  const AuthEvent();
+}
+
+class AuthLoginRequested extends AuthEvent {
+  const AuthLoginRequested();
+}
+
+class AuthLogoutRequested extends AuthEvent {
+  const AuthLogoutRequested();
+}
+
+abstract class AuthState {
+  const AuthState();
+}
+
+class AuthLoggedOut extends AuthState {
+  const AuthLoggedOut();
+}
+
+class AuthLoggedIn extends AuthState {
+  const AuthLoggedIn(this.userName);
+
+  final String userName;
+}
+
+class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  AuthBloc() : super(const AuthLoggedOut()) {
+    on<AuthLoginRequested>(_onLoginRequested);
+    on<AuthLogoutRequested>(_onLogoutRequested);
+  }
+
+  void _onLoginRequested(AuthLoginRequested event, Emitter<AuthState> emit) {
+    emit(const AuthLoggedIn('bloc_demo_user'));
+  }
+
+  void _onLogoutRequested(AuthLogoutRequested event, Emitter<AuthState> emit) {
+    emit(const AuthLoggedOut());
+  }
+}
+
+abstract class CartEvent {
+  const CartEvent();
+}
+
+class CartItemAdded extends CartEvent {
+  const CartItemAdded(this.itemName);
+
+  final String itemName;
+}
+
+class CartCleared extends CartEvent {
+  const CartCleared();
+}
+
+class CartState {
+  const CartState({required this.items, required this.lastAction});
+
+  const CartState.initial()
+    : items = const <String>[],
+      lastAction = 'Cart is empty.';
+
+  final List<String> items;
+  final String lastAction;
+
+  CartState copyWith({List<String>? items, String? lastAction}) {
+    return CartState(
+      items: items ?? this.items,
+      lastAction: lastAction ?? this.lastAction,
+    );
+  }
+}
+
+class CartBloc extends Bloc<CartEvent, CartState> {
+  CartBloc() : super(const CartState.initial()) {
+    on<CartItemAdded>(_onItemAdded);
+    on<CartCleared>(_onCleared);
+  }
+
+  void _onItemAdded(CartItemAdded event, Emitter<CartState> emit) {
+    emit(
+      state.copyWith(
+        items: <String>[...state.items, event.itemName],
+        lastAction: 'Added ${event.itemName}',
+      ),
+    );
+  }
+
+  void _onCleared(CartCleared event, Emitter<CartState> emit) {
+    emit(
+      const CartState(
+        items: <String>[],
+        lastAction: 'Cart cleared by BlocListener after logout.',
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Scoped Counter Bloc — independent counter for scoped BlocProvider demo
 // ---------------------------------------------------------------------------
 
@@ -491,6 +593,8 @@ class _FlutterBlocView extends StatelessWidget {
                 _MultiBlocWidgetListenerCard(),
                 SizedBox(height: 16),
                 _BlocListenerEffectsCard(),
+                SizedBox(height: 16),
+                _AuthCartListenerCard(),
                 SizedBox(height: 16),
                 _SaveConsumerCard(),
                 SizedBox(height: 16),
@@ -1398,6 +1502,23 @@ MultiRepositoryProvider(
 );
 ''';
 
+    const String authCartCode = r'''
+MultiBlocProvider(
+  providers: [
+    BlocProvider(create: (_) => AuthBloc()),
+    BlocProvider(create: (_) => CartBloc()),
+  ],
+  child: BlocListener<AuthBloc, AuthState>(
+    listener: (context, state) {
+      if (state is AuthLoggedOut) {
+        context.read<CartBloc>().add(CartCleared());
+      }
+    },
+    child: MyAppView(),
+  ),
+);
+''';
+
     return Card(
       clipBehavior: Clip.antiAlias,
       child: Padding(
@@ -1423,6 +1544,38 @@ MultiRepositoryProvider(
               ),
               child: SelectableText(
                 code,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  fontFamily: 'monospace',
+                  height: 1.45,
+                ),
+              ),
+            ),
+            const SizedBox(height: 18),
+            Text(
+              'Cross-Bloc Listener Example',
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'This example uses auth state changes to trigger a cart event. '
+              'When `AuthBloc` emits `AuthLoggedOut`, the listener dispatches '
+              '`CartCleared` to `CartBloc`.',
+              style: theme.textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 12),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                color: colorScheme.surfaceContainerHighest.withValues(
+                  alpha: 0.5,
+                ),
+                borderRadius: BorderRadius.circular(18),
+              ),
+              child: SelectableText(
+                authCartCode,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   fontFamily: 'monospace',
                   height: 1.45,
@@ -2470,6 +2623,186 @@ class _BlocListenerEffectsContentState
           ),
         ],
       ),
+    );
+  }
+}
+
+class _AuthCartListenerCard extends StatelessWidget {
+  const _AuthCartListenerCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'BlocListener<AuthBloc, AuthState>',
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'This demo mirrors the pattern where auth state drives another '
+              'bloc. Logging out triggers a listener that sends `CartCleared` '
+              'to `CartBloc`, so cart state resets as a side effect.',
+            ),
+            const SizedBox(height: 16),
+            MultiBlocProvider(
+              providers: <BlocProvider<dynamic>>[
+                BlocProvider<AuthBloc>(
+                  create: (BuildContext context) => AuthBloc(),
+                ),
+                BlocProvider<CartBloc>(
+                  create: (BuildContext context) => CartBloc(),
+                ),
+              ],
+              child: BlocListener<AuthBloc, AuthState>(
+                listener: (BuildContext context, AuthState state) {
+                  if (state is AuthLoggedOut) {
+                    context.read<CartBloc>().add(const CartCleared());
+                  }
+                },
+                child: const MyAppView(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MyAppView extends StatelessWidget {
+  const MyAppView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final AuthState authState = context.watch<AuthBloc>().state;
+    final CartState cartState = context.watch<CartBloc>().state;
+    final bool isLoggedIn = authState is AuthLoggedIn;
+
+    final String authLabel = switch (authState) {
+      AuthLoggedIn(:final String userName) => 'Logged in as $userName',
+      AuthLoggedOut() => 'Logged out',
+      _ => 'Unknown auth state',
+    };
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: theme.colorScheme.outlineVariant),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            'MyAppView',
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            children: <Widget>[
+              _AuthCartStatusChip(
+                icon: isLoggedIn ? Icons.verified_user : Icons.person_off,
+                label: authLabel,
+              ),
+              _AuthCartStatusChip(
+                icon: Icons.shopping_cart_outlined,
+                label: 'Cart items: ${cartState.items.length}',
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            children: <Widget>[
+              FilledButton.icon(
+                onPressed: isLoggedIn
+                    ? null
+                    : () => context.read<AuthBloc>().add(
+                        const AuthLoginRequested(),
+                      ),
+                icon: const Icon(Icons.login),
+                label: const Text('Log In'),
+              ),
+              FilledButton.tonalIcon(
+                onPressed: isLoggedIn
+                    ? () => context.read<CartBloc>().add(
+                        CartItemAdded(
+                          'Demo Item ${cartState.items.length + 1}',
+                        ),
+                      )
+                    : null,
+                icon: const Icon(Icons.add_shopping_cart),
+                label: const Text('Add Item'),
+              ),
+              OutlinedButton.icon(
+                onPressed: isLoggedIn
+                    ? () => context.read<AuthBloc>().add(
+                        const AuthLogoutRequested(),
+                      )
+                    : null,
+                icon: const Icon(Icons.logout),
+                label: const Text('Log Out'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'Cart state',
+            style: theme.textTheme.titleSmall?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 8),
+          if (cartState.items.isEmpty)
+            Text(
+              'No items in cart. After logout, the listener dispatches CartCleared to keep the cart empty.',
+              style: theme.textTheme.bodyMedium,
+            )
+          else
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: cartState.items
+                  .map((String item) => Chip(label: Text(item)))
+                  .toList(),
+            ),
+          const SizedBox(height: 12),
+          Text(cartState.lastAction, style: theme.textTheme.bodySmall),
+        ],
+      ),
+    );
+  }
+}
+
+class _AuthCartStatusChip extends StatelessWidget {
+  const _AuthCartStatusChip({required this.icon, required this.label});
+
+  final IconData icon;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Chip(
+      avatar: Icon(icon, size: 18),
+      label: Text(label),
+      visualDensity: VisualDensity.compact,
     );
   }
 }
