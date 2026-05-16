@@ -6,7 +6,7 @@ import 'package:desktop_multi_window/desktop_multi_window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:widget_layout_example2/app_navigation.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 
 @RoutePage(name: RouteName.desktopMultiWindow)
 class DesktopMultiWindowPage extends StatelessWidget {

@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:widget_layout_example2/app_navigation.dart';
-import 'package:widget_layout_example2/app_router.dart';
-import 'package:widget_layout_example2/features/auto_route_demo/presentation/support/auto_route_demo_support.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
+import 'package:widget_layout_example2/core/config/router/app_router.dart';
+import 'package:widget_layout_example2/core/support/auto_route_demo_support.dart';
 
 @RoutePage(name: RouteName.autoRouteUsage)
 class AutoRouteUsagePage extends StatelessWidget {

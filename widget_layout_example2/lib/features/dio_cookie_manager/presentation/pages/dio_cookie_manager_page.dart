@@ -8,7 +8,7 @@ import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:widget_layout_example2/app_navigation.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 
 @RoutePage(name: RouteName.dioCookieManager)
 class DioCookieManagerPage extends StatefulWidget {

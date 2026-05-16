@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
-import 'dio_multi_url_module.dart';
-
 // ---------------------------------------------------------------------------
 // Demo class that exercises all three Dio-via-GetIt approaches.
 //

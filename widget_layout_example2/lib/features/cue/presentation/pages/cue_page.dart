@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cue/cue.dart';
 import 'package:flutter/material.dart';
-import 'package:widget_layout_example2/app_navigation.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 
 /// Comprehensive demo of the Cue animation package with physics-first animations
 /// and composable motion patterns.

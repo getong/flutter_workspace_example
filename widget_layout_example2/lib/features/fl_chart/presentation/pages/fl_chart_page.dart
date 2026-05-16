@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:widget_layout_example2/app_navigation.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 import 'package:widget_layout_example2/features/fl_chart/presentation/widgets/bar_chart_widget.dart';
 import 'package:widget_layout_example2/features/fl_chart/domain/entities/price_point.dart';
 import 'package:widget_layout_example2/features/fl_chart/domain/entities/sector.dart';

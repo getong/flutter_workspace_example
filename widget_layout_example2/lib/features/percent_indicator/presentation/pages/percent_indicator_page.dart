@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/multi_segment_linear_indicator.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:widget_layout_example2/app_navigation.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 
 @RoutePage(name: RouteName.percentIndicator)
 class PercentIndicatorPage extends StatefulWidget {

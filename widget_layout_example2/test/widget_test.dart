@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
-import 'package:widget_layout_example2/app_bootstrap.dart';
-import 'package:widget_layout_example2/auto_route_demo_support.dart';
+import 'package:widget_layout_example2/core/config/app_bootstrap.dart';
+import 'package:widget_layout_example2/core/support/auto_route_demo_support.dart';
 
 void main() {
   testWidgets('Login gates the app before showing the home tabs', (

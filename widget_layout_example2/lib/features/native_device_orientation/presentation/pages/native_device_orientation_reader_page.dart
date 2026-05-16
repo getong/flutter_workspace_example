@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:native_device_orientation/native_device_orientation.dart';
 
 import 'package:widget_layout_example2/features/native_device_orientation/presentation/widgets/native_device_orientation_demo_support.dart';
-import 'package:widget_layout_example2/app_navigation.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 
 @RoutePage(name: RouteName.nativeDeviceOrientationReader)
 class NativeDeviceOrientationReaderPage extends StatefulWidget {

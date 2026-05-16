@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import 'package:widget_layout_example2/features/drift_flutter/data/datasources/drift_showcase_database.dart';
-import 'package:widget_layout_example2/app_navigation.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 
 final DriftShowcaseDatabase _driftShowcaseDatabase = DriftShowcaseDatabase();
 

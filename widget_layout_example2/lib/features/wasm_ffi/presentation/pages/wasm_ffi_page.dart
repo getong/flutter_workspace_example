@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:widget_layout_example2/features/wasm_ffi/data/services/wasm_ffi_demo_runtime.dart';
 import 'package:widget_layout_example2/features/wasm_ffi/data/datasources/wasm_library_wrapper.dart';
-import 'package:widget_layout_example2/app_navigation.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 
 @RoutePage(name: RouteName.wasmFfi)
 class WasmFfiPage extends StatefulWidget {

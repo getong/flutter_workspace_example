@@ -5,7 +5,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 
 import 'package:widget_layout_example2/features/built_value/domain/entities/built_value_models.dart';
-import 'package:widget_layout_example2/app_navigation.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 
 @RoutePage(name: RouteName.builtValue)
 class BuiltValuePage extends StatefulWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:patrol/patrol.dart';
-import 'package:widget_layout_example2/app_bootstrap.dart';
-import 'package:widget_layout_example2/auto_route_demo_support.dart';
+import 'package:widget_layout_example2/core/config/app_bootstrap.dart';
+import 'package:widget_layout_example2/core/support/auto_route_demo_support.dart';
 
 void main() {
   patrolTest(

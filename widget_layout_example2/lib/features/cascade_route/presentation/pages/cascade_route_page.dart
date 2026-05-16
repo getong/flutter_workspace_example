@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:widget_layout_example2/app_router.dart';
-import 'package:widget_layout_example2/app_navigation.dart';
+import 'package:widget_layout_example2/core/config/router/app_router.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 
 void _navigateToCascadeHome(BuildContext context) {
   context.router.popUntil((route) => route.settings.name == CascadeRoute.name);

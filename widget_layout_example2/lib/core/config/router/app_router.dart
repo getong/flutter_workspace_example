@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import 'package:widget_layout_example2/app_navigation.dart';
-import 'package:widget_layout_example2/features/auto_route_demo/presentation/support/auto_route_demo_support.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
+import 'package:widget_layout_example2/core/support/auto_route_demo_support.dart';
 import 'package:widget_layout_example2/features/auth/auth.dart';
-import 'package:widget_layout_example2/home_page.dart';
+import 'package:widget_layout_example2/features/home/presentation/pages/home_page.dart';
 import 'package:widget_layout_example2/features/about_dialog/presentation/pages/about_dialog_page.dart';
 import 'package:widget_layout_example2/features/advanced_progress_indicator/presentation/pages/advanced_progress_indicator_page.dart';
 import 'package:widget_layout_example2/features/align/presentation/pages/align_page.dart';

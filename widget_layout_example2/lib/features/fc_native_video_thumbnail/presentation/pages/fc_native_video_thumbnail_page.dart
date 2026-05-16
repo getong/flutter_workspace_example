@@ -5,7 +5,7 @@ import 'package:fc_native_video_thumbnail/fc_native_video_thumbnail.dart';
 import 'package:fc_native_video_thumbnail/fc_native_video_thumbnail_platform_interface.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:widget_layout_example2/app_navigation.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 
 const String _sampleVideoUrl =
     'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4';

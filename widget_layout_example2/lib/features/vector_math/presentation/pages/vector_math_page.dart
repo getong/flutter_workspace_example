@@ -3,7 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:vector_math/vector_math_64.dart' as vm;
-import 'package:widget_layout_example2/app_navigation.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 
 @RoutePage(name: RouteName.vectorMath)
 class VectorMathPage extends StatelessWidget {

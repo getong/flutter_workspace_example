@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:widget_layout_example2/app_navigation.dart';
-import 'package:widget_layout_example2/app_router.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
+import 'package:widget_layout_example2/core/config/router/app_router.dart';
 import 'package:widget_layout_example2/features/auth/presentation/bloc/app_auth_bloc.dart';
 import 'package:widget_layout_example2/features/auth/presentation/bloc/app_auth_event.dart';
 import 'package:widget_layout_example2/features/auth/presentation/bloc/app_auth_state.dart';

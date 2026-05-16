@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:widget_layout_example2/app_navigation.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 import 'package:widget_layout_example2/features/flutter_background_service/domain/entities/background_service_snapshot.dart';
 import 'package:widget_layout_example2/features/flutter_background_service/presentation/bloc/background_service_demo_bloc.dart';
 import 'package:widget_layout_example2/features/flutter_background_service/presentation/bloc/background_service_demo_event.dart';

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:widget_layout_example2/app_navigation.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 import 'package:widget_layout_example2/features/segmented_button/data/repositories/in_memory_segmented_button_repository.dart';
 import 'package:widget_layout_example2/features/segmented_button/domain/entities/segmented_button_demo_snapshot.dart';
 import 'package:widget_layout_example2/features/segmented_button/domain/repositories/segmented_button_repository.dart';

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:widget_layout_example2/video_runtime/flutter_video_caching_fvp_runtime.dart';
-import 'package:widget_layout_example2/app_navigation.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
+import 'package:widget_layout_example2/features/flutter_video_caching_fvp/runtime/flutter_video_caching_fvp_runtime.dart';
 
 @RoutePage(name: RouteName.flutterVideoCachingFvp)
 class FlutterVideoCachingFvpPage extends StatelessWidget {

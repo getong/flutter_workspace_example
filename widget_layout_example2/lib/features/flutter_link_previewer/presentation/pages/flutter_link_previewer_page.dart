@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_core/flutter_chat_core.dart' show LinkPreviewData;
 import 'package:flutter_link_previewer/flutter_link_previewer.dart';
-import 'package:widget_layout_example2/app_navigation.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 
 @RoutePage(name: RouteName.flutterLinkPreviewer)
 class FlutterLinkPreviewerPage extends StatefulWidget {

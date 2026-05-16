@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:widget_layout_example2/app_navigation.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 import 'package:widget_layout_example2/features/text_field_persist/presentation/bloc/text_persistence_bloc.dart';
 import 'package:widget_layout_example2/features/text_field_persist/presentation/bloc/text_persistence_event.dart';
 import 'package:widget_layout_example2/features/text_field_persist/presentation/bloc/text_persistence_state.dart';

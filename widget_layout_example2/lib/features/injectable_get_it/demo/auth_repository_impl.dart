@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:widget_layout_example2/injectable_get_it_demo/auth_repository.dart';
+import 'package:widget_layout_example2/features/injectable_get_it/demo/auth_repository.dart';
 
 @LazySingleton(as: AuthRepository)
 class DemoAuthRepository implements AuthRepository {

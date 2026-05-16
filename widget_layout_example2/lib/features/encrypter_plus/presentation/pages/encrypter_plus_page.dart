@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:auto_route/auto_route.dart';
 import 'package:encrypter_plus/encrypter_plus.dart' as ep;
 import 'package:flutter/material.dart';
-import 'package:widget_layout_example2/app_navigation.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 
 @RoutePage(name: RouteName.encrypterPlus)
 class EncrypterPlusPage extends StatefulWidget {

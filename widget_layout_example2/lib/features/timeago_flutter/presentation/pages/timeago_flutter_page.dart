@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:timeago_flutter/timeago_flutter.dart' as fuzzy;
 // ignore: implementation_imports
 import 'package:timeago_flutter/src/timer_refresh.dart';
-import 'package:widget_layout_example2/app_navigation.dart';
+import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 
 enum _TimeagoLocale { english, shortEnglish }
 
