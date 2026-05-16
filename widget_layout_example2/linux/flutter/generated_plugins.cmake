@@ -14,6 +14,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   irondash_engine_context
   open_file_linux
   rive_native
+  sentry_flutter
   super_native_extensions
   url_launcher_linux
 )
