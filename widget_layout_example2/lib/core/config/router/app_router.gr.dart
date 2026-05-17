@@ -4015,6 +4015,22 @@ class RadioExampleRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [RandomAvatarPage]
+class RandomAvatarRoute extends PageRouteInfo<void> {
+  const RandomAvatarRoute({List<PageRouteInfo>? children})
+    : super(RandomAvatarRoute.name, initialChildren: children);
+
+  static const String name = 'RandomAvatarRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const RandomAvatarPage();
+    },
+  );
+}
+
+/// generated route for
 /// [RefreshIndicatorPage]
 class RefreshIndicatorRoute extends PageRouteInfo<void> {
   const RefreshIndicatorRoute({List<PageRouteInfo>? children})
@@ -5069,6 +5085,22 @@ class WasmFfiRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const WasmFfiPage();
+    },
+  );
+}
+
+/// generated route for
+/// [WebcryptoPage]
+class WebcryptoRoute extends PageRouteInfo<void> {
+  const WebcryptoRoute({List<PageRouteInfo>? children})
+    : super(WebcryptoRoute.name, initialChildren: children);
+
+  static const String name = 'WebcryptoRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const WebcryptoPage();
     },
   );
 }

@@ -183,6 +183,7 @@ import 'package:widget_layout_example2/features/pigeon/presentation/pages/pigeon
 import 'package:widget_layout_example2/features/pop_scope/presentation/pages/pop_scope_page.dart';
 import 'package:widget_layout_example2/features/positioned/presentation/pages/positioned_page.dart';
 import 'package:widget_layout_example2/features/pretty_dio_logger/presentation/pages/pretty_dio_logger_page.dart';
+import 'package:widget_layout_example2/features/random_avatar/presentation/pages/random_avatar_page.dart';
 import 'package:widget_layout_example2/features/flutter_link_previewer/presentation/pages/flutter_link_previewer_page.dart';
 import 'package:widget_layout_example2/features/pull_down_button/presentation/pages/pull_down_button_page.dart';
 import 'package:widget_layout_example2/features/radio/presentation/pages/radio_page.dart';
@@ -256,6 +257,7 @@ import 'package:widget_layout_example2/features/unconstrained_box/presentation/p
 import 'package:widget_layout_example2/features/url_launcher/presentation/pages/url_launcher_page.dart';
 import 'package:widget_layout_example2/features/universal_html/presentation/pages/universal_html_page.dart';
 import 'package:widget_layout_example2/features/wasm_ffi/presentation/pages/wasm_ffi_page.dart';
+import 'package:widget_layout_example2/features/webcrypto/presentation/pages/webcrypto_page.dart';
 import 'package:widget_layout_example2/features/webview_flutter/presentation/pages/webview_flutter_page.dart';
 import 'package:widget_layout_example2/features/wrap/presentation/pages/wrap_page.dart';
 import 'package:widget_layout_example2/features/choice_chip/presentation/pages/choice_chip_page.dart';
@@ -877,6 +879,7 @@ class AppRouter extends RootStackRouter {
       page: PrettyDioLoggerRoute.page,
       path: AppRoute.prettyDioLogger.path,
     ),
+    AutoRoute(page: RandomAvatarRoute.page, path: AppRoute.randomAvatar.path),
     AutoRoute(page: SpeechToTextRoute.page, path: AppRoute.speechToText.path),
     AutoRoute(page: ShimmerRoute.page, path: AppRoute.shimmer.path),
     AutoRoute(page: RetrofitRoute.page, path: AppRoute.retrofit.path),
@@ -1088,5 +1091,6 @@ class AppRouter extends RootStackRouter {
     ),
     AutoRoute(page: VectorMathRoute.page, path: AppRoute.vectorMath.path),
     AutoRoute(page: MobileScannerRoute.page, path: AppRoute.mobileScanner.path),
+    AutoRoute(page: WebcryptoRoute.page, path: AppRoute.webcrypto.path),
   ];
 }

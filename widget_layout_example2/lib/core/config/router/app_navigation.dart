@@ -226,6 +226,7 @@ abstract final class RouteName {
   static const pigeon = 'PigeonRoute';
   static const popScope = 'PopScopeRoute';
   static const prettyDioLogger = 'PrettyDioLoggerRoute';
+  static const randomAvatar = 'RandomAvatarRoute';
   static const speechToText = 'SpeechToTextRoute';
   static const shimmer = 'ShimmerRoute';
   static const retrofit = 'RetrofitRoute';
@@ -303,6 +304,7 @@ abstract final class RouteName {
   static const placeholder = 'PlaceholderExampleRoute';
   static const vectorMath = 'VectorMathRoute';
   static const mobileScanner = 'MobileScannerRoute';
+  static const webcrypto = 'WebcryptoRoute';
 }
 
 enum AppRoute {
@@ -633,6 +635,7 @@ enum AppRoute {
   pigeon('/pigeon-page', RouteName.pigeon),
   popScope('/pop-scope-page', RouteName.popScope),
   prettyDioLogger('/pretty-dio-logger-page', RouteName.prettyDioLogger),
+  randomAvatar('/random-avatar-page', RouteName.randomAvatar),
   speechToText('/speech-to-text-page', RouteName.speechToText),
   shimmer('/shimmer-page', RouteName.shimmer),
   retrofit('/retrofit-page', RouteName.retrofit),
@@ -795,7 +798,8 @@ enum AppRoute {
   divider('/divider-page', RouteName.divider),
   placeholder('/placeholder-page', RouteName.placeholder),
   vectorMath('/vector-math-page', RouteName.vectorMath),
-  mobileScanner('/mobile-scanner-page', RouteName.mobileScanner);
+  mobileScanner('/mobile-scanner-page', RouteName.mobileScanner),
+  webcrypto('/webcrypto-page', RouteName.webcrypto);
 
   final String path;
   final String routeName;

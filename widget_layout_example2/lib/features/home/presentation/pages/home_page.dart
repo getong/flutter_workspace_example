@@ -537,6 +537,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'pretty_dio_logger Module',
     routePath: AppRoute.prettyDioLogger.path,
   ),
+  _ModuleLink(
+    label: 'random_avatar Module',
+    routePath: AppRoute.randomAvatar.path,
+  ),
   _ModuleLink(label: 'Radio Module', routePath: AppRoute.radio.path),
   _ModuleLink(label: 'RichText Module', routePath: AppRoute.richText.path),
   _ModuleLink(label: 'retrofit Module', routePath: AppRoute.retrofit.path),
@@ -690,6 +694,7 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'universal_html Module',
     routePath: AppRoute.universalHtml.path,
   ),
+  _ModuleLink(label: 'webcrypto Module', routePath: AppRoute.webcrypto.path),
   _ModuleLink(
     label: 'url_launcher Module',
     routePath: AppRoute.urlLauncher.path,

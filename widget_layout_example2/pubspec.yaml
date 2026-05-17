@@ -152,6 +152,7 @@ dependencies:
   pinput: ^6.0.2
   pretty_dio_logger: ^1.4.0
   pull_down_button: ^0.10.2
+  random_avatar: ^0.0.8
   retrofit: ^4.9.2
   rive: ^0.14.6
   rive_native: ^0.1.6
@@ -178,6 +179,7 @@ dependencies:
   vector_math: ^2.2.0
   video_player: ^2.11.1
   wasm_ffi: ^2.3.0
+  webcrypto: ^0.6.0
   webview_flutter: ^4.13.1
   youtube_explode_dart: ^3.1.0
 
