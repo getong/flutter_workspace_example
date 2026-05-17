@@ -1,7 +1,152 @@
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
+import 'package:uuid/uuid.dart';
 
 part 'drift_showcase_database.g.dart';
+
+const Uuid _uuid = Uuid();
+final RegExp _offsetDateTimePattern = RegExp(
+  r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?(Z|[+-]\d{2}:\d{2})$',
+);
+
+UuidValue _generateUuidV7() => _parseUuidV7(_uuid.v7());
+
+String _generateUuidV7Sql() => _generateUuidV7().toString();
+
+UuidValue _parseUuidV7(String rawValue) {
+  final UuidValue uuidValue = UuidValue.withValidation(rawValue);
+  if (!uuidValue.isV7) {
+    throw FormatException('Expected a UUID v7 value, got "$rawValue".');
+  }
+  return uuidValue;
+}
+
+String _formatTimeZoneOffset(Duration offset) {
+  if (offset.inSeconds % Duration.secondsPerMinute != 0) {
+    throw ArgumentError.value(
+      offset,
+      'offset',
+      'UTC offsets with second precision are not supported.',
+    );
+  }
+
+  final int totalMinutes = offset.inMinutes;
+  final String sign = totalMinutes < 0 ? '-' : '+';
+  final int absoluteMinutes = totalMinutes.abs();
+  final int hours = absoluteMinutes ~/ Duration.minutesPerHour;
+  final int minutes = absoluteMinutes % Duration.minutesPerHour;
+  return '$sign${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}';
+}
+
+Duration _parseTimeZoneOffset(String rawOffset) {
+  if (rawOffset == 'Z') {
+    return Duration.zero;
+  }
+
+  final int sign = rawOffset.startsWith('-') ? -1 : 1;
+  final List<String> parts = rawOffset.substring(1).split(':');
+  return Duration(
+    hours: sign * int.parse(parts[0]),
+    minutes: sign * int.parse(parts[1]),
+  );
+}
+
+class OffsetDateTimeValue {
+  factory OffsetDateTimeValue({
+    required DateTime utcInstant,
+    required Duration timeZoneOffset,
+  }) {
+    if (timeZoneOffset.inSeconds % Duration.secondsPerMinute != 0) {
+      throw ArgumentError.value(
+        timeZoneOffset,
+        'timeZoneOffset',
+        'UTC offsets with second precision are not supported.',
+      );
+    }
+
+    return OffsetDateTimeValue._(utcInstant.toUtc(), timeZoneOffset);
+  }
+
+  factory OffsetDateTimeValue.nowLocal() {
+    final DateTime now = DateTime.now();
+    return OffsetDateTimeValue(
+      utcInstant: now.toUtc(),
+      timeZoneOffset: now.timeZoneOffset,
+    );
+  }
+
+  factory OffsetDateTimeValue.parse(String rawValue) {
+    final String normalized = rawValue.trim();
+    final Match? match = _offsetDateTimePattern.firstMatch(normalized);
+    if (match == null) {
+      throw FormatException(
+        'Expected an ISO-8601 datetime with an explicit timezone offset, '
+        'got "$rawValue".',
+      );
+    }
+
+    return OffsetDateTimeValue(
+      utcInstant: DateTime.parse(normalized).toUtc(),
+      timeZoneOffset: _parseTimeZoneOffset(match.group(1)!),
+    );
+  }
+
+  const OffsetDateTimeValue._(this.utcInstant, this.timeZoneOffset);
+
+  final DateTime utcInstant;
+  final Duration timeZoneOffset;
+
+  String get offsetLabel => _formatTimeZoneOffset(timeZoneOffset);
+
+  String toIso8601String() {
+    final DateTime shifted = utcInstant.add(timeZoneOffset);
+    final String withoutZone = shifted.toIso8601String().replaceFirst(
+      RegExp(r'Z$'),
+      '',
+    );
+    return '$withoutZone${_formatTimeZoneOffset(timeZoneOffset)}';
+  }
+
+  @override
+  String toString() => toIso8601String();
+
+  @override
+  int get hashCode => Object.hash(utcInstant, timeZoneOffset);
+
+  @override
+  bool operator ==(Object other) {
+    return other is OffsetDateTimeValue &&
+        other.utcInstant == utcInstant &&
+        other.timeZoneOffset == timeZoneOffset;
+  }
+}
+
+String _generateOffsetDateTimeSql() => OffsetDateTimeValue.nowLocal().toString();
+
+class UuidV7ValueConverter extends TypeConverter<UuidValue, String>
+    with JsonTypeConverter<UuidValue, String> {
+  const UuidV7ValueConverter();
+
+  @override
+  UuidValue fromSql(String fromDb) => _parseUuidV7(fromDb);
+
+  @override
+  String toSql(UuidValue value) => _parseUuidV7(value.toString()).toString();
+}
+
+class OffsetDateTimeValueConverter
+    extends TypeConverter<OffsetDateTimeValue, String>
+    with JsonTypeConverter<OffsetDateTimeValue, String> {
+  const OffsetDateTimeValueConverter();
+
+  @override
+  OffsetDateTimeValue fromSql(String fromDb) {
+    return OffsetDateTimeValue.parse(fromDb);
+  }
+
+  @override
+  String toSql(OffsetDateTimeValue value) => value.toIso8601String();
+}
 
 @DataClassName('DriftTodoEntry')
 class DriftTodos extends Table {
@@ -17,8 +162,17 @@ class DriftTodos extends Table {
 
   TextColumn get notes => text().nullable()();
 
+  TextColumn get uuidV7 => text()
+      .withLength(min: 36, max: 36)
+      .map(const UuidV7ValueConverter())
+      .clientDefault(_generateUuidV7Sql)();
+
   DateTimeColumn get createdAt =>
       dateTime().clientDefault(() => DateTime.now())();
+
+  TextColumn get createdAtWithTimezone => text()
+      .map(const OffsetDateTimeValueConverter())
+      .clientDefault(_generateOffsetDateTimeSql)();
 }
 
 class DriftTodoSummary {
@@ -47,13 +201,39 @@ class DriftCategoryCount {
   final int completedCount;
 }
 
+OffsetDateTimeValue _seedOffsetDateTime({
+  required int year,
+  required int month,
+  required int day,
+  required int hour,
+  required int minute,
+  required int offsetHours,
+  int offsetMinutes = 0,
+}) {
+  final Duration offset = Duration(
+    hours: offsetHours,
+    minutes: offsetHours.isNegative ? -offsetMinutes : offsetMinutes,
+  );
+  final DateTime utcInstant = DateTime.utc(
+    year,
+    month,
+    day,
+    hour,
+    minute,
+  ).subtract(offset);
+  return OffsetDateTimeValue(
+    utcInstant: utcInstant,
+    timeZoneOffset: offset,
+  );
+}
+
 @DriftDatabase(tables: <Type>[DriftTodos])
 class DriftShowcaseDatabase extends _$DriftShowcaseDatabase {
   DriftShowcaseDatabase()
     : super(driftDatabase(name: 'widget_layout_example2_drift_showcase'));
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   Future<void> seedDemoData() async {
     final QueryRow row = await customSelect(
@@ -75,6 +255,8 @@ class DriftShowcaseDatabase extends _$DriftShowcaseDatabase {
     required String category,
     required int priority,
     String? notes,
+    UuidValue? uuidV7,
+    OffsetDateTimeValue? createdAtWithTimezone,
   }) {
     return into(driftTodos).insert(
       DriftTodosCompanion.insert(
@@ -82,6 +264,10 @@ class DriftShowcaseDatabase extends _$DriftShowcaseDatabase {
         category: Value(category),
         priority: Value(priority),
         notes: Value(notes?.trim().isEmpty ?? true ? null : notes!.trim()),
+        uuidV7: uuidV7 == null ? const Value.absent() : Value(uuidV7),
+        createdAtWithTimezone: createdAtWithTimezone == null
+            ? const Value.absent()
+            : Value(createdAtWithTimezone),
       ),
     );
   }
@@ -228,18 +414,51 @@ class DriftShowcaseDatabase extends _$DriftShowcaseDatabase {
       notes: Value(
         'Open the module and inspect the generated SQL-backed list.',
       ),
+      uuidV7: Value(_generateUuidV7()),
+      createdAtWithTimezone: Value(
+        _seedOffsetDateTime(
+          year: 2026,
+          month: 5,
+          day: 17,
+          hour: 9,
+          minute: 30,
+          offsetHours: 8,
+        ),
+      ),
     ),
     DriftTodosCompanion.insert(
       title: 'Draft migration checklist',
       category: Value('Planning'),
       priority: Value(4),
       notes: Value('Schema changes, seed data, and app upgrade notes.'),
+      uuidV7: Value(_generateUuidV7()),
+      createdAtWithTimezone: Value(
+        _seedOffsetDateTime(
+          year: 2026,
+          month: 5,
+          day: 17,
+          hour: 11,
+          minute: 15,
+          offsetHours: 8,
+        ),
+      ),
     ),
     DriftTodosCompanion.insert(
       title: 'Polish desktop interactions',
       category: Value('UX'),
       priority: Value(3),
       notes: Value('Verify keyboard and mouse flows on macOS.'),
+      uuidV7: Value(_generateUuidV7()),
+      createdAtWithTimezone: Value(
+        _seedOffsetDateTime(
+          year: 2026,
+          month: 5,
+          day: 16,
+          hour: 18,
+          minute: 45,
+          offsetHours: 9,
+        ),
+      ),
     ),
     DriftTodosCompanion.insert(
       title: 'Archive completed experiments',
@@ -247,6 +466,17 @@ class DriftShowcaseDatabase extends _$DriftShowcaseDatabase {
       priority: Value(2),
       completed: Value(true),
       notes: Value('Use clear completed to remove these rows.'),
+      uuidV7: Value(_generateUuidV7()),
+      createdAtWithTimezone: Value(
+        _seedOffsetDateTime(
+          year: 2026,
+          month: 5,
+          day: 15,
+          hour: 14,
+          minute: 5,
+          offsetHours: -7,
+        ),
+      ),
     ),
   ];
 }

@@ -446,6 +446,12 @@ class _DriftFlutterPageState extends State<DriftFlutterPage> {
                       entry.createdAt.toLocal().toString().split('.').first,
                     ),
                   ),
+                  Chip(label: Text('UUID ${entry.uuidV7.toString()}')),
+                  Chip(
+                    label: Text(
+                      entry.createdAtWithTimezone.toIso8601String(),
+                    ),
+                  ),
                 ],
               ),
               if ((entry.notes ?? '').isNotEmpty) ...<Widget>[

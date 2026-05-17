@@ -83,6 +83,20 @@ class $DriftTodosTable extends DriftTodos
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  @override
+  late final GeneratedColumnWithTypeConverter<UuidValue, String> uuidV7 =
+      GeneratedColumn<String>(
+        'uuid_v7',
+        aliasedName,
+        false,
+        additionalChecks: GeneratedColumn.checkTextLength(
+          minTextLength: 36,
+          maxTextLength: 36,
+        ),
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+        clientDefault: _generateUuidV7Sql,
+      ).withConverter<UuidValue>($DriftTodosTable.$converteruuidV7);
   static const VerificationMeta _createdAtMeta = const VerificationMeta(
     'createdAt',
   );
@@ -96,6 +110,19 @@ class $DriftTodosTable extends DriftTodos
     clientDefault: () => DateTime.now(),
   );
   @override
+  late final GeneratedColumnWithTypeConverter<OffsetDateTimeValue, String>
+  createdAtWithTimezone =
+      GeneratedColumn<String>(
+        'created_at_with_timezone',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+        clientDefault: _generateOffsetDateTimeSql,
+      ).withConverter<OffsetDateTimeValue>(
+        $DriftTodosTable.$convertercreatedAtWithTimezone,
+      );
+  @override
   List<GeneratedColumn> get $columns => [
     id,
     title,
@@ -103,7 +130,9 @@ class $DriftTodosTable extends DriftTodos
     priority,
     completed,
     notes,
+    uuidV7,
     createdAt,
+    createdAtWithTimezone,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -191,10 +220,23 @@ class $DriftTodosTable extends DriftTodos
         DriftSqlType.string,
         data['${effectivePrefix}notes'],
       ),
+      uuidV7: $DriftTodosTable.$converteruuidV7.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}uuid_v7'],
+        )!,
+      ),
       createdAt: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
         data['${effectivePrefix}created_at'],
       )!,
+      createdAtWithTimezone: $DriftTodosTable.$convertercreatedAtWithTimezone
+          .fromSql(
+            attachedDatabase.typeMapping.read(
+              DriftSqlType.string,
+              data['${effectivePrefix}created_at_with_timezone'],
+            )!,
+          ),
     );
   }
 
@@ -202,6 +244,11 @@ class $DriftTodosTable extends DriftTodos
   $DriftTodosTable createAlias(String alias) {
     return $DriftTodosTable(attachedDatabase, alias);
   }
+
+  static JsonTypeConverter2<UuidValue, String, String> $converteruuidV7 =
+      const UuidV7ValueConverter();
+  static JsonTypeConverter2<OffsetDateTimeValue, String, String>
+  $convertercreatedAtWithTimezone = const OffsetDateTimeValueConverter();
 }
 
 class DriftTodoEntry extends DataClass implements Insertable<DriftTodoEntry> {
@@ -211,7 +258,9 @@ class DriftTodoEntry extends DataClass implements Insertable<DriftTodoEntry> {
   final int priority;
   final bool completed;
   final String? notes;
+  final UuidValue uuidV7;
   final DateTime createdAt;
+  final OffsetDateTimeValue createdAtWithTimezone;
   const DriftTodoEntry({
     required this.id,
     required this.title,
@@ -219,7 +268,9 @@ class DriftTodoEntry extends DataClass implements Insertable<DriftTodoEntry> {
     required this.priority,
     required this.completed,
     this.notes,
+    required this.uuidV7,
     required this.createdAt,
+    required this.createdAtWithTimezone,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -232,7 +283,19 @@ class DriftTodoEntry extends DataClass implements Insertable<DriftTodoEntry> {
     if (!nullToAbsent || notes != null) {
       map['notes'] = Variable<String>(notes);
     }
+    {
+      map['uuid_v7'] = Variable<String>(
+        $DriftTodosTable.$converteruuidV7.toSql(uuidV7),
+      );
+    }
     map['created_at'] = Variable<DateTime>(createdAt);
+    {
+      map['created_at_with_timezone'] = Variable<String>(
+        $DriftTodosTable.$convertercreatedAtWithTimezone.toSql(
+          createdAtWithTimezone,
+        ),
+      );
+    }
     return map;
   }
 
@@ -246,7 +309,9 @@ class DriftTodoEntry extends DataClass implements Insertable<DriftTodoEntry> {
       notes: notes == null && nullToAbsent
           ? const Value.absent()
           : Value(notes),
+      uuidV7: Value(uuidV7),
       createdAt: Value(createdAt),
+      createdAtWithTimezone: Value(createdAtWithTimezone),
     );
   }
 
@@ -262,7 +327,12 @@ class DriftTodoEntry extends DataClass implements Insertable<DriftTodoEntry> {
       priority: serializer.fromJson<int>(json['priority']),
       completed: serializer.fromJson<bool>(json['completed']),
       notes: serializer.fromJson<String?>(json['notes']),
+      uuidV7: $DriftTodosTable.$converteruuidV7.fromJson(
+        serializer.fromJson<String>(json['uuidV7']),
+      ),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      createdAtWithTimezone: $DriftTodosTable.$convertercreatedAtWithTimezone
+          .fromJson(serializer.fromJson<String>(json['createdAtWithTimezone'])),
     );
   }
   @override
@@ -275,7 +345,15 @@ class DriftTodoEntry extends DataClass implements Insertable<DriftTodoEntry> {
       'priority': serializer.toJson<int>(priority),
       'completed': serializer.toJson<bool>(completed),
       'notes': serializer.toJson<String?>(notes),
+      'uuidV7': serializer.toJson<String>(
+        $DriftTodosTable.$converteruuidV7.toJson(uuidV7),
+      ),
       'createdAt': serializer.toJson<DateTime>(createdAt),
+      'createdAtWithTimezone': serializer.toJson<String>(
+        $DriftTodosTable.$convertercreatedAtWithTimezone.toJson(
+          createdAtWithTimezone,
+        ),
+      ),
     };
   }
 
@@ -286,7 +364,9 @@ class DriftTodoEntry extends DataClass implements Insertable<DriftTodoEntry> {
     int? priority,
     bool? completed,
     Value<String?> notes = const Value.absent(),
+    UuidValue? uuidV7,
     DateTime? createdAt,
+    OffsetDateTimeValue? createdAtWithTimezone,
   }) => DriftTodoEntry(
     id: id ?? this.id,
     title: title ?? this.title,
@@ -294,7 +374,9 @@ class DriftTodoEntry extends DataClass implements Insertable<DriftTodoEntry> {
     priority: priority ?? this.priority,
     completed: completed ?? this.completed,
     notes: notes.present ? notes.value : this.notes,
+    uuidV7: uuidV7 ?? this.uuidV7,
     createdAt: createdAt ?? this.createdAt,
+    createdAtWithTimezone: createdAtWithTimezone ?? this.createdAtWithTimezone,
   );
   DriftTodoEntry copyWithCompanion(DriftTodosCompanion data) {
     return DriftTodoEntry(
@@ -304,7 +386,11 @@ class DriftTodoEntry extends DataClass implements Insertable<DriftTodoEntry> {
       priority: data.priority.present ? data.priority.value : this.priority,
       completed: data.completed.present ? data.completed.value : this.completed,
       notes: data.notes.present ? data.notes.value : this.notes,
+      uuidV7: data.uuidV7.present ? data.uuidV7.value : this.uuidV7,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      createdAtWithTimezone: data.createdAtWithTimezone.present
+          ? data.createdAtWithTimezone.value
+          : this.createdAtWithTimezone,
     );
   }
 
@@ -317,14 +403,25 @@ class DriftTodoEntry extends DataClass implements Insertable<DriftTodoEntry> {
           ..write('priority: $priority, ')
           ..write('completed: $completed, ')
           ..write('notes: $notes, ')
-          ..write('createdAt: $createdAt')
+          ..write('uuidV7: $uuidV7, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('createdAtWithTimezone: $createdAtWithTimezone')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, title, category, priority, completed, notes, createdAt);
+  int get hashCode => Object.hash(
+    id,
+    title,
+    category,
+    priority,
+    completed,
+    notes,
+    uuidV7,
+    createdAt,
+    createdAtWithTimezone,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -335,7 +432,9 @@ class DriftTodoEntry extends DataClass implements Insertable<DriftTodoEntry> {
           other.priority == this.priority &&
           other.completed == this.completed &&
           other.notes == this.notes &&
-          other.createdAt == this.createdAt);
+          other.uuidV7 == this.uuidV7 &&
+          other.createdAt == this.createdAt &&
+          other.createdAtWithTimezone == this.createdAtWithTimezone);
 }
 
 class DriftTodosCompanion extends UpdateCompanion<DriftTodoEntry> {
@@ -345,7 +444,9 @@ class DriftTodosCompanion extends UpdateCompanion<DriftTodoEntry> {
   final Value<int> priority;
   final Value<bool> completed;
   final Value<String?> notes;
+  final Value<UuidValue> uuidV7;
   final Value<DateTime> createdAt;
+  final Value<OffsetDateTimeValue> createdAtWithTimezone;
   const DriftTodosCompanion({
     this.id = const Value.absent(),
     this.title = const Value.absent(),
@@ -353,7 +454,9 @@ class DriftTodosCompanion extends UpdateCompanion<DriftTodoEntry> {
     this.priority = const Value.absent(),
     this.completed = const Value.absent(),
     this.notes = const Value.absent(),
+    this.uuidV7 = const Value.absent(),
     this.createdAt = const Value.absent(),
+    this.createdAtWithTimezone = const Value.absent(),
   });
   DriftTodosCompanion.insert({
     this.id = const Value.absent(),
@@ -362,7 +465,9 @@ class DriftTodosCompanion extends UpdateCompanion<DriftTodoEntry> {
     this.priority = const Value.absent(),
     this.completed = const Value.absent(),
     this.notes = const Value.absent(),
+    this.uuidV7 = const Value.absent(),
     this.createdAt = const Value.absent(),
+    this.createdAtWithTimezone = const Value.absent(),
   }) : title = Value(title);
   static Insertable<DriftTodoEntry> custom({
     Expression<int>? id,
@@ -371,7 +476,9 @@ class DriftTodosCompanion extends UpdateCompanion<DriftTodoEntry> {
     Expression<int>? priority,
     Expression<bool>? completed,
     Expression<String>? notes,
+    Expression<String>? uuidV7,
     Expression<DateTime>? createdAt,
+    Expression<String>? createdAtWithTimezone,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -380,7 +487,10 @@ class DriftTodosCompanion extends UpdateCompanion<DriftTodoEntry> {
       if (priority != null) 'priority': priority,
       if (completed != null) 'completed': completed,
       if (notes != null) 'notes': notes,
+      if (uuidV7 != null) 'uuid_v7': uuidV7,
       if (createdAt != null) 'created_at': createdAt,
+      if (createdAtWithTimezone != null)
+        'created_at_with_timezone': createdAtWithTimezone,
     });
   }
 
@@ -391,7 +501,9 @@ class DriftTodosCompanion extends UpdateCompanion<DriftTodoEntry> {
     Value<int>? priority,
     Value<bool>? completed,
     Value<String?>? notes,
+    Value<UuidValue>? uuidV7,
     Value<DateTime>? createdAt,
+    Value<OffsetDateTimeValue>? createdAtWithTimezone,
   }) {
     return DriftTodosCompanion(
       id: id ?? this.id,
@@ -400,7 +512,10 @@ class DriftTodosCompanion extends UpdateCompanion<DriftTodoEntry> {
       priority: priority ?? this.priority,
       completed: completed ?? this.completed,
       notes: notes ?? this.notes,
+      uuidV7: uuidV7 ?? this.uuidV7,
       createdAt: createdAt ?? this.createdAt,
+      createdAtWithTimezone:
+          createdAtWithTimezone ?? this.createdAtWithTimezone,
     );
   }
 
@@ -425,8 +540,20 @@ class DriftTodosCompanion extends UpdateCompanion<DriftTodoEntry> {
     if (notes.present) {
       map['notes'] = Variable<String>(notes.value);
     }
+    if (uuidV7.present) {
+      map['uuid_v7'] = Variable<String>(
+        $DriftTodosTable.$converteruuidV7.toSql(uuidV7.value),
+      );
+    }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (createdAtWithTimezone.present) {
+      map['created_at_with_timezone'] = Variable<String>(
+        $DriftTodosTable.$convertercreatedAtWithTimezone.toSql(
+          createdAtWithTimezone.value,
+        ),
+      );
     }
     return map;
   }
@@ -440,7 +567,9 @@ class DriftTodosCompanion extends UpdateCompanion<DriftTodoEntry> {
           ..write('priority: $priority, ')
           ..write('completed: $completed, ')
           ..write('notes: $notes, ')
-          ..write('createdAt: $createdAt')
+          ..write('uuidV7: $uuidV7, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('createdAtWithTimezone: $createdAtWithTimezone')
           ..write(')'))
         .toString();
   }
@@ -466,7 +595,9 @@ typedef $$DriftTodosTableCreateCompanionBuilder =
       Value<int> priority,
       Value<bool> completed,
       Value<String?> notes,
+      Value<UuidValue> uuidV7,
       Value<DateTime> createdAt,
+      Value<OffsetDateTimeValue> createdAtWithTimezone,
     });
 typedef $$DriftTodosTableUpdateCompanionBuilder =
     DriftTodosCompanion Function({
@@ -476,7 +607,9 @@ typedef $$DriftTodosTableUpdateCompanionBuilder =
       Value<int> priority,
       Value<bool> completed,
       Value<String?> notes,
+      Value<UuidValue> uuidV7,
       Value<DateTime> createdAt,
+      Value<OffsetDateTimeValue> createdAtWithTimezone,
     });
 
 class $$DriftTodosTableFilterComposer
@@ -518,9 +651,25 @@ class $$DriftTodosTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnWithTypeConverterFilters<UuidValue, UuidValue, String> get uuidV7 =>
+      $composableBuilder(
+        column: $table.uuidV7,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
   ColumnFilters<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<
+    OffsetDateTimeValue,
+    OffsetDateTimeValue,
+    String
+  >
+  get createdAtWithTimezone => $composableBuilder(
+    column: $table.createdAtWithTimezone,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
   );
 }
 
@@ -563,8 +712,18 @@ class $$DriftTodosTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get uuidV7 => $composableBuilder(
+    column: $table.uuidV7,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get createdAtWithTimezone => $composableBuilder(
+    column: $table.createdAtWithTimezone,
     builder: (column) => ColumnOrderings(column),
   );
 }
@@ -596,8 +755,17 @@ class $$DriftTodosTableAnnotationComposer
   GeneratedColumn<String> get notes =>
       $composableBuilder(column: $table.notes, builder: (column) => column);
 
+  GeneratedColumnWithTypeConverter<UuidValue, String> get uuidV7 =>
+      $composableBuilder(column: $table.uuidV7, builder: (column) => column);
+
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<OffsetDateTimeValue, String>
+  get createdAtWithTimezone => $composableBuilder(
+    column: $table.createdAtWithTimezone,
+    builder: (column) => column,
+  );
 }
 
 class $$DriftTodosTableTableManager
@@ -643,7 +811,10 @@ class $$DriftTodosTableTableManager
                 Value<int> priority = const Value.absent(),
                 Value<bool> completed = const Value.absent(),
                 Value<String?> notes = const Value.absent(),
+                Value<UuidValue> uuidV7 = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
+                Value<OffsetDateTimeValue> createdAtWithTimezone =
+                    const Value.absent(),
               }) => DriftTodosCompanion(
                 id: id,
                 title: title,
@@ -651,7 +822,9 @@ class $$DriftTodosTableTableManager
                 priority: priority,
                 completed: completed,
                 notes: notes,
+                uuidV7: uuidV7,
                 createdAt: createdAt,
+                createdAtWithTimezone: createdAtWithTimezone,
               ),
           createCompanionCallback:
               ({
@@ -661,7 +834,10 @@ class $$DriftTodosTableTableManager
                 Value<int> priority = const Value.absent(),
                 Value<bool> completed = const Value.absent(),
                 Value<String?> notes = const Value.absent(),
+                Value<UuidValue> uuidV7 = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
+                Value<OffsetDateTimeValue> createdAtWithTimezone =
+                    const Value.absent(),
               }) => DriftTodosCompanion.insert(
                 id: id,
                 title: title,
@@ -669,7 +845,9 @@ class $$DriftTodosTableTableManager
                 priority: priority,
                 completed: completed,
                 notes: notes,
+                uuidV7: uuidV7,
                 createdAt: createdAt,
+                createdAtWithTimezone: createdAtWithTimezone,
               ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
