@@ -266,6 +266,7 @@ abstract final class RouteName {
   static const flutterSliderDrawer = 'FlutterSliderDrawerRoute';
   static const flutterZoomDrawer = 'FlutterZoomDrawerRoute';
   static const flutterAnimate = 'FlutterAnimateRoute';
+  static const flutterAdvancedSwitch = 'FlutterAdvancedSwitchRoute';
   static const flutterLocalNotifications = 'FlutterLocalNotificationsRoute';
   static const flutterBackgroundService = 'FlutterBackgroundServiceRoute';
   static const homeWidget = 'HomeWidgetRoute';
@@ -717,6 +718,10 @@ enum AppRoute {
   ),
   flutterZoomDrawer('/flutter-zoom-drawer-page', RouteName.flutterZoomDrawer),
   flutterAnimate('/flutter-animate-page', RouteName.flutterAnimate),
+  flutterAdvancedSwitch(
+    '/flutter-advanced-switch-page',
+    RouteName.flutterAdvancedSwitch,
+  ),
   flutterLocalNotifications(
     '/flutter-local-notifications-page',
     RouteName.flutterLocalNotifications,

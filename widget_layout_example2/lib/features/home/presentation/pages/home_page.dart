@@ -607,6 +607,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
   ),
   _ModuleLink(label: 'Switch Module', routePath: AppRoute.switchExample.path),
   _ModuleLink(
+    label: 'flutter_advanced_switch Module',
+    routePath: AppRoute.flutterAdvancedSwitch.path,
+  ),
+  _ModuleLink(
     label: 'table_calendar Module',
     routePath: AppRoute.tableCalendar.path,
   ),

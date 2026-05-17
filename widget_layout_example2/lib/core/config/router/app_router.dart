@@ -98,6 +98,7 @@ import 'package:widget_layout_example2/features/flutter_auto_size_text/presentat
 import 'package:widget_layout_example2/features/flutter_slider_drawer/presentation/pages/flutter_slider_drawer_page.dart';
 import 'package:widget_layout_example2/features/flutter_zoom_drawer/presentation/pages/flutter_zoom_drawer_page.dart';
 import 'package:widget_layout_example2/features/flutter_animate/presentation/pages/flutter_animate_page.dart';
+import 'package:widget_layout_example2/features/flutter_advanced_switch/presentation/pages/flutter_advanced_switch_page.dart';
 import 'package:widget_layout_example2/features/flutter_bloc/presentation/pages/flutter_bloc_page.dart';
 import 'package:widget_layout_example2/features/flutter_bloc_event_bus/presentation/pages/flutter_bloc_event_bus_page.dart';
 import 'package:widget_layout_example2/features/flutter_card_swiper/presentation/pages/flutter_card_swiper_page.dart';
@@ -990,6 +991,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: FlutterAnimateRoute.page,
       path: AppRoute.flutterAnimate.path,
+    ),
+    AutoRoute(
+      page: FlutterAdvancedSwitchRoute.page,
+      path: AppRoute.flutterAdvancedSwitch.path,
     ),
     AutoRoute(
       page: FlutterLocalNotificationsRoute.page,
