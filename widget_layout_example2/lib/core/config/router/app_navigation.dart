@@ -283,6 +283,7 @@ abstract final class RouteName {
   static const desktopMultiWindow = 'DesktopMultiWindowRoute';
   static const flChart = 'FlChartRoute';
   static const fontAwesomeFlutter = 'FontAwesomeFlutterRoute';
+  static const googleFonts = 'GoogleFontsRoute';
   static const forui = 'ForuiRoute';
   static const materialSymbolsIcons = 'MaterialSymbolsIconsRoute';
   static const imageWidget = 'ImageWidgetRoute';
@@ -755,6 +756,7 @@ enum AppRoute {
     '/font-awesome-flutter-page',
     RouteName.fontAwesomeFlutter,
   ),
+  googleFonts('/google-fonts-page', RouteName.googleFonts),
   forui('/forui-page', RouteName.forui),
   materialSymbolsIcons(
     '/material-symbols-icons-page',

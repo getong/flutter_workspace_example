@@ -2883,6 +2883,22 @@ class GesturedetectorRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [GoogleFontsPage]
+class GoogleFontsRoute extends PageRouteInfo<void> {
+  const GoogleFontsRoute({List<PageRouteInfo>? children})
+    : super(GoogleFontsRoute.name, initialChildren: children);
+
+  static const String name = 'GoogleFontsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const GoogleFontsPage();
+    },
+  );
+}
+
+/// generated route for
 /// [GraphqlFlutterPage]
 class GraphqlFlutterRoute extends PageRouteInfo<void> {
   const GraphqlFlutterRoute({List<PageRouteInfo>? children})

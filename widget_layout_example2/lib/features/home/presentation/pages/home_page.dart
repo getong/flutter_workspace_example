@@ -380,6 +380,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'font_awesome_flutter Module',
     routePath: AppRoute.fontAwesomeFlutter.path,
   ),
+  _ModuleLink(
+    label: 'google_fonts Module',
+    routePath: AppRoute.googleFonts.path,
+  ),
   _ModuleLink(label: 'forui Module', routePath: AppRoute.forui.path),
   _ModuleLink(label: 'Form Module', routePath: AppRoute.form.path),
   _ModuleLink(label: 'FormField Module', routePath: AppRoute.formField.path),

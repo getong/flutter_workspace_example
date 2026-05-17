@@ -127,6 +127,7 @@ import 'package:widget_layout_example2/features/future_builder/presentation/page
 import 'package:widget_layout_example2/features/gal/presentation/pages/gal_page.dart';
 import 'package:widget_layout_example2/features/gesturedetector/presentation/pages/gesturedetector.dart';
 import 'package:widget_layout_example2/features/genui/presentation/pages/genui_page.dart';
+import 'package:widget_layout_example2/features/google_fonts/presentation/pages/google_fonts_page.dart';
 import 'package:widget_layout_example2/features/graphql_flutter/presentation/pages/graphql_flutter_page.dart';
 import 'package:widget_layout_example2/features/hero/presentation/pages/hero_page.dart';
 import 'package:widget_layout_example2/features/hugeicons/presentation/pages/hugeicons_page.dart';
@@ -1040,6 +1041,7 @@ class AppRouter extends RootStackRouter {
       page: FontAwesomeFlutterRoute.page,
       path: AppRoute.fontAwesomeFlutter.path,
     ),
+    AutoRoute(page: GoogleFontsRoute.page, path: AppRoute.googleFonts.path),
     AutoRoute(page: ForuiRoute.page, path: AppRoute.forui.path),
     AutoRoute(
       page: MaterialSymbolsIconsRoute.page,
