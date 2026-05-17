@@ -307,6 +307,7 @@ abstract final class RouteName {
   static const mobileScanner = 'MobileScannerRoute';
   static const webcrypto = 'WebcryptoRoute';
   static const flutterRustBridgeEthereum = 'FlutterRustBridgeEthereumRoute';
+  static const flutterRustBridgeSolana = 'FlutterRustBridgeSolanaRoute';
 }
 
 enum AppRoute {
@@ -809,6 +810,10 @@ enum AppRoute {
   flutterRustBridgeEthereum(
     '/flutter-rust-bridge-ethereum-page',
     RouteName.flutterRustBridgeEthereum,
+  ),
+  flutterRustBridgeSolana(
+    '/flutter-rust-bridge-solana-page',
+    RouteName.flutterRustBridgeSolana,
   );
 
   final String path;

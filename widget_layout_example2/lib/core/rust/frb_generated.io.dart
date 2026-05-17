@@ -4,125 +4,131 @@
 // ignore_for_file: unused_import, unused_element, unnecessary_import, duplicate_ignore, invalid_use_of_internal_member, annotate_overrides, non_constant_identifier_names, curly_braces_in_flow_control_structures, prefer_const_literals_to_create_immutables, unused_field
 
 import 'api/ethereum.dart';
+import 'api/solana.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi' as ffi;
 import 'frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated_io.dart';
 
-abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
-  RustLibApiImplPlatform({
-    required super.handler,
-    required super.wire,
-    required super.generalizedFrbRustBinding,
-    required super.portManager,
-  });
 
-  @protected
-  String dco_decode_String(dynamic raw);
 
-  @protected
-  EthereumDemoRequest dco_decode_box_autoadd_ethereum_demo_request(dynamic raw);
 
-  @protected
-  EthereumDemoRequest dco_decode_ethereum_demo_request(dynamic raw);
+                abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
+                  RustLibApiImplPlatform({
+                    required super.handler,
+                    required super.wire,
+                    required super.generalizedFrbRustBinding,
+                    required super.portManager,
+                  });
 
-  @protected
-  EthereumDemoResult dco_decode_ethereum_demo_result(dynamic raw);
+                  
 
-  @protected
-  Uint8List dco_decode_list_prim_u_8_strict(dynamic raw);
+                  @protected String dco_decode_String(dynamic raw);
 
-  @protected
-  int dco_decode_u_8(dynamic raw);
+@protected EthereumDemoRequest dco_decode_box_autoadd_ethereum_demo_request(dynamic raw);
 
-  @protected
-  void dco_decode_unit(dynamic raw);
+@protected SolanaDemoRequest dco_decode_box_autoadd_solana_demo_request(dynamic raw);
 
-  @protected
-  String sse_decode_String(SseDeserializer deserializer);
+@protected BigInt dco_decode_box_autoadd_u_64(dynamic raw);
 
-  @protected
-  EthereumDemoRequest sse_decode_box_autoadd_ethereum_demo_request(
-    SseDeserializer deserializer,
-  );
+@protected EthereumDemoRequest dco_decode_ethereum_demo_request(dynamic raw);
 
-  @protected
-  EthereumDemoRequest sse_decode_ethereum_demo_request(
-    SseDeserializer deserializer,
-  );
+@protected EthereumDemoResult dco_decode_ethereum_demo_result(dynamic raw);
 
-  @protected
-  EthereumDemoResult sse_decode_ethereum_demo_result(
-    SseDeserializer deserializer,
-  );
+@protected Uint8List dco_decode_list_prim_u_8_strict(dynamic raw);
 
-  @protected
-  Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer);
+@protected BigInt? dco_decode_opt_box_autoadd_u_64(dynamic raw);
 
-  @protected
-  int sse_decode_u_8(SseDeserializer deserializer);
+@protected SolanaDemoRequest dco_decode_solana_demo_request(dynamic raw);
 
-  @protected
-  void sse_decode_unit(SseDeserializer deserializer);
+@protected SolanaDemoResult dco_decode_solana_demo_result(dynamic raw);
 
-  @protected
-  int sse_decode_i_32(SseDeserializer deserializer);
+@protected BigInt dco_decode_u_64(dynamic raw);
 
-  @protected
-  bool sse_decode_bool(SseDeserializer deserializer);
+@protected int dco_decode_u_8(dynamic raw);
 
-  @protected
-  void sse_encode_String(String self, SseSerializer serializer);
+@protected void dco_decode_unit(dynamic raw);
 
-  @protected
-  void sse_encode_box_autoadd_ethereum_demo_request(
-    EthereumDemoRequest self,
-    SseSerializer serializer,
-  );
+@protected String sse_decode_String(SseDeserializer deserializer);
 
-  @protected
-  void sse_encode_ethereum_demo_request(
-    EthereumDemoRequest self,
-    SseSerializer serializer,
-  );
+@protected EthereumDemoRequest sse_decode_box_autoadd_ethereum_demo_request(SseDeserializer deserializer);
 
-  @protected
-  void sse_encode_ethereum_demo_result(
-    EthereumDemoResult self,
-    SseSerializer serializer,
-  );
+@protected SolanaDemoRequest sse_decode_box_autoadd_solana_demo_request(SseDeserializer deserializer);
 
-  @protected
-  void sse_encode_list_prim_u_8_strict(
-    Uint8List self,
-    SseSerializer serializer,
-  );
+@protected BigInt sse_decode_box_autoadd_u_64(SseDeserializer deserializer);
 
-  @protected
-  void sse_encode_u_8(int self, SseSerializer serializer);
+@protected EthereumDemoRequest sse_decode_ethereum_demo_request(SseDeserializer deserializer);
 
-  @protected
-  void sse_encode_unit(void self, SseSerializer serializer);
+@protected EthereumDemoResult sse_decode_ethereum_demo_result(SseDeserializer deserializer);
 
-  @protected
-  void sse_encode_i_32(int self, SseSerializer serializer);
+@protected Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer);
 
-  @protected
-  void sse_encode_bool(bool self, SseSerializer serializer);
-}
+@protected BigInt? sse_decode_opt_box_autoadd_u_64(SseDeserializer deserializer);
+
+@protected SolanaDemoRequest sse_decode_solana_demo_request(SseDeserializer deserializer);
+
+@protected SolanaDemoResult sse_decode_solana_demo_result(SseDeserializer deserializer);
+
+@protected BigInt sse_decode_u_64(SseDeserializer deserializer);
+
+@protected int sse_decode_u_8(SseDeserializer deserializer);
+
+@protected void sse_decode_unit(SseDeserializer deserializer);
+
+@protected int sse_decode_i_32(SseDeserializer deserializer);
+
+@protected bool sse_decode_bool(SseDeserializer deserializer);
+
+@protected void sse_encode_String(String self, SseSerializer serializer);
+
+@protected void sse_encode_box_autoadd_ethereum_demo_request(EthereumDemoRequest self, SseSerializer serializer);
+
+@protected void sse_encode_box_autoadd_solana_demo_request(SolanaDemoRequest self, SseSerializer serializer);
+
+@protected void sse_encode_box_autoadd_u_64(BigInt self, SseSerializer serializer);
+
+@protected void sse_encode_ethereum_demo_request(EthereumDemoRequest self, SseSerializer serializer);
+
+@protected void sse_encode_ethereum_demo_result(EthereumDemoResult self, SseSerializer serializer);
+
+@protected void sse_encode_list_prim_u_8_strict(Uint8List self, SseSerializer serializer);
+
+@protected void sse_encode_opt_box_autoadd_u_64(BigInt? self, SseSerializer serializer);
+
+@protected void sse_encode_solana_demo_request(SolanaDemoRequest self, SseSerializer serializer);
+
+@protected void sse_encode_solana_demo_result(SolanaDemoResult self, SseSerializer serializer);
+
+@protected void sse_encode_u_64(BigInt self, SseSerializer serializer);
+
+@protected void sse_encode_u_8(int self, SseSerializer serializer);
+
+@protected void sse_encode_unit(void self, SseSerializer serializer);
+
+@protected void sse_encode_i_32(int self, SseSerializer serializer);
+
+@protected void sse_encode_bool(bool self, SseSerializer serializer);
+                }
+                
+
 
 // Section: wire_class
 
-class RustLibWire implements BaseWire {
-  factory RustLibWire.fromExternalLibrary(ExternalLibrary lib) =>
-      RustLibWire(lib.ffiDynamicLibrary);
 
-  /// Holds the symbol lookup function.
-  final ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
-  _lookup;
+        class RustLibWire implements BaseWire {
 
-  /// The symbols are looked up in [dynamicLibrary].
-  RustLibWire(ffi.DynamicLibrary dynamicLibrary)
-    : _lookup = dynamicLibrary.lookup;
-}
+            factory RustLibWire.fromExternalLibrary(ExternalLibrary lib) =>
+              RustLibWire(lib.ffiDynamicLibrary);
+        
+            /// Holds the symbol lookup function.
+            final ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
+                _lookup;
+  
+            /// The symbols are looked up in [dynamicLibrary].
+            RustLibWire(ffi.DynamicLibrary dynamicLibrary)
+                : _lookup = dynamicLibrary.lookup;
+
+            
+        }
+        

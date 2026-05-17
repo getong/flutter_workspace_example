@@ -112,6 +112,7 @@ import 'package:widget_layout_example2/features/flutter_inappwebview/presentatio
 import 'package:widget_layout_example2/features/flutter_markdown_plus/presentation/pages/flutter_markdown_plus_page.dart';
 import 'package:widget_layout_example2/features/flutter_local_notifications/presentation/pages/flutter_local_notifications_page.dart';
 import 'package:widget_layout_example2/features/flutter_rust_bridge_ethereum/presentation/pages/flutter_rust_bridge_ethereum_page.dart';
+import 'package:widget_layout_example2/features/flutter_rust_bridge_solana/presentation/pages/flutter_rust_bridge_solana_page.dart';
 import 'package:widget_layout_example2/features/flutter_screenutil/presentation/pages/flutter_screenutil_page.dart';
 import 'package:widget_layout_example2/features/flutter_secure_storage/presentation/pages/flutter_secure_storage_page.dart';
 import 'package:widget_layout_example2/features/flutter_slidable/presentation/pages/flutter_slidable_page.dart';
@@ -1101,6 +1102,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: FlutterRustBridgeEthereumRoute.page,
       path: AppRoute.flutterRustBridgeEthereum.path,
+    ),
+    AutoRoute(
+      page: FlutterRustBridgeSolanaRoute.page,
+      path: AppRoute.flutterRustBridgeSolana.path,
     ),
   ];
 }

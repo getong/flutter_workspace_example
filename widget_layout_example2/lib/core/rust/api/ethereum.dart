@@ -6,93 +6,68 @@
 import '../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-// These functions are ignored because they are not marked as `pub`: `fetch_ethereum_demo_impl`, `format_units`
+
+            // These functions are ignored because they are not marked as `pub`: `fetch_ethereum_demo_impl`, `format_units`
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `clone`, `fmt`, `fmt`
 
-Future<EthereumDemoResult> fetchEthereumDemo({
-  required EthereumDemoRequest request,
-}) => RustLib.instance.api.crateApiEthereumFetchEthereumDemo(request: request);
 
-class EthereumDemoRequest {
-  final String rpcUrl;
-  final String walletAddress;
-  final String erc20TokenAddress;
+            Future<EthereumDemoResult>  fetchEthereumDemo({required EthereumDemoRequest request }) => RustLib.instance.api.crateApiEthereumFetchEthereumDemo(request: request);
 
-  const EthereumDemoRequest({
-    required this.rpcUrl,
-    required this.walletAddress,
-    required this.erc20TokenAddress,
-  });
+            class EthereumDemoRequest  {
+                final String rpcUrl;
+final String walletAddress;
+final String erc20TokenAddress;
 
-  @override
-  int get hashCode =>
-      rpcUrl.hashCode ^ walletAddress.hashCode ^ erc20TokenAddress.hashCode;
+                const EthereumDemoRequest({required this.rpcUrl ,required this.walletAddress ,required this.erc20TokenAddress ,});
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is EthereumDemoRequest &&
-          runtimeType == other.runtimeType &&
-          rpcUrl == other.rpcUrl &&
-          walletAddress == other.walletAddress &&
-          erc20TokenAddress == other.erc20TokenAddress;
-}
+                
+                
 
-class EthereumDemoResult {
-  final String chainRpcUrl;
-  final String walletAddress;
-  final String latestBlockNumber;
-  final String nativeBalanceWei;
-  final String nativeBalanceEth;
-  final String tokenAddress;
-  final String tokenSymbol;
-  final int tokenDecimals;
-  final String tokenBalanceRaw;
-  final String tokenBalanceFormatted;
-  final String explanation;
+                
+        @override
+        int get hashCode => rpcUrl.hashCode^walletAddress.hashCode^erc20TokenAddress.hashCode;
+        
 
-  const EthereumDemoResult({
-    required this.chainRpcUrl,
-    required this.walletAddress,
-    required this.latestBlockNumber,
-    required this.nativeBalanceWei,
-    required this.nativeBalanceEth,
-    required this.tokenAddress,
-    required this.tokenSymbol,
-    required this.tokenDecimals,
-    required this.tokenBalanceRaw,
-    required this.tokenBalanceFormatted,
-    required this.explanation,
-  });
+                
+        @override
+        bool operator ==(Object other) =>
+            identical(this, other) ||
+            other is EthereumDemoRequest &&
+                runtimeType == other.runtimeType
+                && rpcUrl == other.rpcUrl&& walletAddress == other.walletAddress&& erc20TokenAddress == other.erc20TokenAddress;
+        
+            }
 
-  @override
-  int get hashCode =>
-      chainRpcUrl.hashCode ^
-      walletAddress.hashCode ^
-      latestBlockNumber.hashCode ^
-      nativeBalanceWei.hashCode ^
-      nativeBalanceEth.hashCode ^
-      tokenAddress.hashCode ^
-      tokenSymbol.hashCode ^
-      tokenDecimals.hashCode ^
-      tokenBalanceRaw.hashCode ^
-      tokenBalanceFormatted.hashCode ^
-      explanation.hashCode;
+class EthereumDemoResult  {
+                final String chainRpcUrl;
+final String walletAddress;
+final String latestBlockNumber;
+final String nativeBalanceWei;
+final String nativeBalanceEth;
+final String tokenAddress;
+final String tokenSymbol;
+final int tokenDecimals;
+final String tokenBalanceRaw;
+final String tokenBalanceFormatted;
+final String explanation;
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is EthereumDemoResult &&
-          runtimeType == other.runtimeType &&
-          chainRpcUrl == other.chainRpcUrl &&
-          walletAddress == other.walletAddress &&
-          latestBlockNumber == other.latestBlockNumber &&
-          nativeBalanceWei == other.nativeBalanceWei &&
-          nativeBalanceEth == other.nativeBalanceEth &&
-          tokenAddress == other.tokenAddress &&
-          tokenSymbol == other.tokenSymbol &&
-          tokenDecimals == other.tokenDecimals &&
-          tokenBalanceRaw == other.tokenBalanceRaw &&
-          tokenBalanceFormatted == other.tokenBalanceFormatted &&
-          explanation == other.explanation;
-}
+                const EthereumDemoResult({required this.chainRpcUrl ,required this.walletAddress ,required this.latestBlockNumber ,required this.nativeBalanceWei ,required this.nativeBalanceEth ,required this.tokenAddress ,required this.tokenSymbol ,required this.tokenDecimals ,required this.tokenBalanceRaw ,required this.tokenBalanceFormatted ,required this.explanation ,});
+
+                
+                
+
+                
+        @override
+        int get hashCode => chainRpcUrl.hashCode^walletAddress.hashCode^latestBlockNumber.hashCode^nativeBalanceWei.hashCode^nativeBalanceEth.hashCode^tokenAddress.hashCode^tokenSymbol.hashCode^tokenDecimals.hashCode^tokenBalanceRaw.hashCode^tokenBalanceFormatted.hashCode^explanation.hashCode;
+        
+
+                
+        @override
+        bool operator ==(Object other) =>
+            identical(this, other) ||
+            other is EthereumDemoResult &&
+                runtimeType == other.runtimeType
+                && chainRpcUrl == other.chainRpcUrl&& walletAddress == other.walletAddress&& latestBlockNumber == other.latestBlockNumber&& nativeBalanceWei == other.nativeBalanceWei&& nativeBalanceEth == other.nativeBalanceEth&& tokenAddress == other.tokenAddress&& tokenSymbol == other.tokenSymbol&& tokenDecimals == other.tokenDecimals&& tokenBalanceRaw == other.tokenBalanceRaw&& tokenBalanceFormatted == other.tokenBalanceFormatted&& explanation == other.explanation;
+        
+            }
+            
