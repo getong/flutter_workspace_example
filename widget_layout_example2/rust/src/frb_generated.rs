@@ -38,7 +38,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueMoi,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.12.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1233499251;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 4292604;
 
 // Section: executor
 
@@ -113,6 +113,42 @@ fn wire__crate__api__solana__fetch_solana_demo_impl(
                 transform_result_sse::<_, String>(
                     (move || async move {
                         let output_ok = crate::api::solana::fetch_solana_demo(api_request).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__sui__fetch_sui_demo_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "fetch_sui_demo",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_request = <crate::api::sui::SuiDemoRequest>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, String>(
+                    (move || async move {
+                        let output_ok = crate::api::sui::fetch_sui_demo(api_request).await?;
                         Ok(output_ok)
                     })()
                     .await,
@@ -273,6 +309,46 @@ impl SseDecode for crate::api::solana::SolanaDemoResult {
     }
 }
 
+impl SseDecode for crate::api::sui::SuiDemoRequest {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_rpcUrl = <String>::sse_decode(deserializer);
+        let mut var_walletAddress = <String>::sse_decode(deserializer);
+        return crate::api::sui::SuiDemoRequest {
+            rpc_url: var_rpcUrl,
+            wallet_address: var_walletAddress,
+        };
+    }
+}
+
+impl SseDecode for crate::api::sui::SuiDemoResult {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_rpcUrl = <String>::sse_decode(deserializer);
+        let mut var_walletAddress = <String>::sse_decode(deserializer);
+        let mut var_apiVersion = <String>::sse_decode(deserializer);
+        let mut var_rpcMethodsCount = <String>::sse_decode(deserializer);
+        let mut var_currentEpoch = <String>::sse_decode(deserializer);
+        let mut var_referenceGasPrice = <String>::sse_decode(deserializer);
+        let mut var_activeValidators = <String>::sse_decode(deserializer);
+        let mut var_ownedObjectsInPage = <String>::sse_decode(deserializer);
+        let mut var_stakePositionCount = <String>::sse_decode(deserializer);
+        let mut var_explanation = <String>::sse_decode(deserializer);
+        return crate::api::sui::SuiDemoResult {
+            rpc_url: var_rpcUrl,
+            wallet_address: var_walletAddress,
+            api_version: var_apiVersion,
+            rpc_methods_count: var_rpcMethodsCount,
+            current_epoch: var_currentEpoch,
+            reference_gas_price: var_referenceGasPrice,
+            active_validators: var_activeValidators,
+            owned_objects_in_page: var_ownedObjectsInPage,
+            stake_position_count: var_stakePositionCount,
+            explanation: var_explanation,
+        };
+    }
+}
+
 impl SseDecode for u64 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -319,7 +395,8 @@ fn pde_ffi_dispatcher_primary_impl(
             wire__crate__api__ethereum__fetch_ethereum_demo_impl(port, ptr, rust_vec_len, data_len)
         }
         2 => wire__crate__api__solana__fetch_solana_demo_impl(port, ptr, rust_vec_len, data_len),
-        3 => wire__crate__api__ethereum__init_app_impl(port, ptr, rust_vec_len, data_len),
+        3 => wire__crate__api__sui__fetch_sui_demo_impl(port, ptr, rust_vec_len, data_len),
+        4 => wire__crate__api__ethereum__init_app_impl(port, ptr, rust_vec_len, data_len),
         _ => unreachable!(),
     }
 }
@@ -440,6 +517,56 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::solana::SolanaDemoResult>
         self
     }
 }
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::sui::SuiDemoRequest {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.rpc_url.into_into_dart().into_dart(),
+            self.wallet_address.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::sui::SuiDemoRequest
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::sui::SuiDemoRequest>
+    for crate::api::sui::SuiDemoRequest
+{
+    fn into_into_dart(self) -> crate::api::sui::SuiDemoRequest {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::sui::SuiDemoResult {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.rpc_url.into_into_dart().into_dart(),
+            self.wallet_address.into_into_dart().into_dart(),
+            self.api_version.into_into_dart().into_dart(),
+            self.rpc_methods_count.into_into_dart().into_dart(),
+            self.current_epoch.into_into_dart().into_dart(),
+            self.reference_gas_price.into_into_dart().into_dart(),
+            self.active_validators.into_into_dart().into_dart(),
+            self.owned_objects_in_page.into_into_dart().into_dart(),
+            self.stake_position_count.into_into_dart().into_dart(),
+            self.explanation.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::sui::SuiDemoResult
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::sui::SuiDemoResult>
+    for crate::api::sui::SuiDemoResult
+{
+    fn into_into_dart(self) -> crate::api::sui::SuiDemoResult {
+        self
+    }
+}
 
 impl SseEncode for String {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -514,6 +641,30 @@ impl SseEncode for crate::api::solana::SolanaDemoResult {
         <u64>::sse_encode(self.lamports, serializer);
         <String>::sse_encode(self.sol_balance, serializer);
         <String>::sse_encode(self.commitment, serializer);
+        <String>::sse_encode(self.explanation, serializer);
+    }
+}
+
+impl SseEncode for crate::api::sui::SuiDemoRequest {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.rpc_url, serializer);
+        <String>::sse_encode(self.wallet_address, serializer);
+    }
+}
+
+impl SseEncode for crate::api::sui::SuiDemoResult {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.rpc_url, serializer);
+        <String>::sse_encode(self.wallet_address, serializer);
+        <String>::sse_encode(self.api_version, serializer);
+        <String>::sse_encode(self.rpc_methods_count, serializer);
+        <String>::sse_encode(self.current_epoch, serializer);
+        <String>::sse_encode(self.reference_gas_price, serializer);
+        <String>::sse_encode(self.active_validators, serializer);
+        <String>::sse_encode(self.owned_objects_in_page, serializer);
+        <String>::sse_encode(self.stake_position_count, serializer);
         <String>::sse_encode(self.explanation, serializer);
     }
 }

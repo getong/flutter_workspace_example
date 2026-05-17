@@ -2528,6 +2528,22 @@ class FlutterRustBridgeSolanaRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterRustBridgeSuiPage]
+class FlutterRustBridgeSuiRoute extends PageRouteInfo<void> {
+  const FlutterRustBridgeSuiRoute({List<PageRouteInfo>? children})
+    : super(FlutterRustBridgeSuiRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterRustBridgeSuiRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterRustBridgeSuiPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterScreenutilPage]
 class FlutterScreenutilRoute extends PageRouteInfo<void> {
   const FlutterScreenutilRoute({List<PageRouteInfo>? children})

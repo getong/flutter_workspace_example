@@ -1,33 +1,32 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
-import 'package:widget_layout_example2/features/flutter_rust_bridge_solana/data/repositories/frb_solana_bridge_repository.dart';
-import 'package:widget_layout_example2/features/flutter_rust_bridge_solana/domain/entities/solana_demo_snapshot.dart';
-import 'package:widget_layout_example2/features/flutter_rust_bridge_solana/domain/repositories/solana_bridge_repository.dart';
+import 'package:widget_layout_example2/features/flutter_rust_bridge_sui/data/repositories/frb_sui_bridge_repository.dart';
+import 'package:widget_layout_example2/features/flutter_rust_bridge_sui/domain/entities/sui_demo_snapshot.dart';
+import 'package:widget_layout_example2/features/flutter_rust_bridge_sui/domain/repositories/sui_bridge_repository.dart';
 
-@RoutePage(name: RouteName.flutterRustBridgeSolana)
-class FlutterRustBridgeSolanaPage extends StatefulWidget {
-  const FlutterRustBridgeSolanaPage({super.key});
+@RoutePage(name: RouteName.flutterRustBridgeSui)
+class FlutterRustBridgeSuiPage extends StatefulWidget {
+  const FlutterRustBridgeSuiPage({super.key});
 
   @override
-  State<FlutterRustBridgeSolanaPage> createState() =>
-      _FlutterRustBridgeSolanaPageState();
+  State<FlutterRustBridgeSuiPage> createState() =>
+      _FlutterRustBridgeSuiPageState();
 }
 
-class _FlutterRustBridgeSolanaPageState
-    extends State<FlutterRustBridgeSolanaPage> {
-  _FlutterRustBridgeSolanaPageState({SolanaBridgeRepository? repository})
-    : _repository = repository ?? FrbSolanaBridgeRepository();
+class _FlutterRustBridgeSuiPageState extends State<FlutterRustBridgeSuiPage> {
+  _FlutterRustBridgeSuiPageState({SuiBridgeRepository? repository})
+    : _repository = repository ?? FrbSuiBridgeRepository();
 
-  final SolanaBridgeRepository _repository;
+  final SuiBridgeRepository _repository;
   final TextEditingController _rpcController = TextEditingController(
-    text: 'https://api.mainnet-beta.solana.com',
+    text: 'https://fullnode.mainnet.sui.io:443',
   );
   final TextEditingController _walletController = TextEditingController(
-    text: 'Vote111111111111111111111111111111111111111',
+    text: '0x0000000000000000000000000000000000000000000000000000000000000002',
   );
 
-  SolanaDemoSnapshot? _snapshot;
+  SuiDemoSnapshot? _snapshot;
   bool _loading = false;
   String? _error;
 
@@ -51,7 +50,7 @@ class _FlutterRustBridgeSolanaPageState
     });
 
     try {
-      final SolanaDemoSnapshot snapshot = await _repository.fetchSnapshot(
+      final SuiDemoSnapshot snapshot = await _repository.fetchSnapshot(
         rpcUrl: _rpcController.text.trim(),
         walletAddress: _walletController.text.trim(),
       );
@@ -78,19 +77,19 @@ class _FlutterRustBridgeSolanaPageState
     final ThemeData theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('flutter_rust_bridge + solana Module')),
+      appBar: AppBar(title: const Text('flutter_rust_bridge + sui Module')),
       body: ListView(
         padding: const EdgeInsets.all(24),
         children: <Widget>[
           Text(
-            'This module demonstrates a clean-architecture integration where Flutter calls Rust through flutter_rust_bridge, and Rust uses Solana RPC crates to read Solana chain data.',
+            'This module demonstrates a clean-architecture integration where Flutter calls Rust through flutter_rust_bridge, and Rust uses the Sui Rust SDK to read Sui network and account data.',
             style: theme.textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.w800,
             ),
           ),
           const SizedBox(height: 12),
           Text(
-            'The practical effect is similar to the Ethereum example: Flutter keeps UI and feature boundaries, while Rust owns typed blockchain access. This time the target chain is Solana.',
+            'The example is intentionally read-only and low-friction: it fetches API version, current epoch state, gas price, validator count, and basic address-related counts from a Sui fullnode RPC endpoint.',
             style: theme.textTheme.bodyLarge,
           ),
           const SizedBox(height: 24),
@@ -102,21 +101,21 @@ class _FlutterRustBridgeSolanaPageState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Solana read-only demo',
+                    'Sui read-only demo',
                     style: theme.textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.w800,
                     ),
                   ),
                   const SizedBox(height: 8),
                   const Text(
-                    'The Rust side fetches latest slot, block height, epoch, transaction count, and wallet SOL balance from a Solana RPC endpoint.',
+                    'The Rust side creates a Sui client, reads network metadata, governance info, and address-related counts, then returns plain data back to Flutter.',
                   ),
                   const SizedBox(height: 16),
                   TextField(
                     controller: _rpcController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Solana RPC URL',
+                      labelText: 'Sui fullnode RPC URL',
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -124,7 +123,7 @@ class _FlutterRustBridgeSolanaPageState
                     controller: _walletController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Wallet / account address',
+                      labelText: 'Sui address',
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -135,18 +134,16 @@ class _FlutterRustBridgeSolanaPageState
                       FilledButton.icon(
                         onPressed: _loading ? null : _load,
                         icon: const Icon(Icons.cloud_sync_outlined),
-                        label: Text(
-                          _loading ? 'Loading...' : 'Fetch Solana Data',
-                        ),
+                        label: Text(_loading ? 'Loading...' : 'Fetch Sui Data'),
                       ),
                       OutlinedButton.icon(
                         onPressed: _loading
                             ? null
                             : () {
                                 _rpcController.text =
-                                    'https://api.mainnet-beta.solana.com';
+                                    'https://fullnode.mainnet.sui.io:443';
                                 _walletController.text =
-                                    'Vote111111111111111111111111111111111111111';
+                                    '0x0000000000000000000000000000000000000000000000000000000000000002';
                                 _load();
                               },
                         icon: const Icon(Icons.refresh),
@@ -168,37 +165,45 @@ class _FlutterRustBridgeSolanaPageState
             ),
           ),
           const SizedBox(height: 16),
-          const _SolanaInfoCard(),
+          const _SuiInfoCard(),
           if (_snapshot != null) ...<Widget>[
             const SizedBox(height: 16),
             _ResultCard(
-              title: 'Chain state',
+              title: 'Network state',
               rows: <_ResultRow>[
                 _ResultRow(label: 'RPC', value: _snapshot!.rpcUrl),
+                _ResultRow(label: 'API version', value: _snapshot!.apiVersion),
                 _ResultRow(
-                  label: 'Latest slot',
-                  value: '${_snapshot!.latestSlot}',
+                  label: 'RPC methods',
+                  value: _snapshot!.rpcMethodsCount,
                 ),
                 _ResultRow(
-                  label: 'Block height',
-                  value: '${_snapshot!.blockHeight}',
+                  label: 'Current epoch',
+                  value: _snapshot!.currentEpoch,
                 ),
-                _ResultRow(label: 'Epoch', value: '${_snapshot!.epoch}'),
                 _ResultRow(
-                  label: 'Transaction count',
-                  value:
-                      _snapshot!.transactionCount?.toString() ?? 'Unavailable',
+                  label: 'Reference gas price',
+                  value: _snapshot!.referenceGasPrice,
+                ),
+                _ResultRow(
+                  label: 'Active validators',
+                  value: _snapshot!.activeValidators,
                 ),
               ],
             ),
             const SizedBox(height: 16),
             _ResultCard(
-              title: 'Wallet SOL balance',
+              title: 'Address-related counts',
               rows: <_ResultRow>[
-                _ResultRow(label: 'Wallet', value: _snapshot!.walletAddress),
-                _ResultRow(label: 'Lamports', value: '${_snapshot!.lamports}'),
-                _ResultRow(label: 'SOL', value: _snapshot!.solBalance),
-                _ResultRow(label: 'Commitment', value: _snapshot!.commitment),
+                _ResultRow(label: 'Address', value: _snapshot!.walletAddress),
+                _ResultRow(
+                  label: 'Owned objects in page',
+                  value: _snapshot!.ownedObjectsInPage,
+                ),
+                _ResultRow(
+                  label: 'Stake positions',
+                  value: _snapshot!.stakePositionCount,
+                ),
               ],
             ),
             const SizedBox(height: 16),
@@ -220,8 +225,8 @@ class _FlutterRustBridgeSolanaPageState
   }
 }
 
-class _SolanaInfoCard extends StatelessWidget {
-  const _SolanaInfoCard();
+class _SuiInfoCard extends StatelessWidget {
+  const _SuiInfoCard();
 
   @override
   Widget build(BuildContext context) {
@@ -235,7 +240,7 @@ class _SolanaInfoCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Why use flutter_rust_bridge + Rust + Solana crates',
+              'Why use flutter_rust_bridge + Rust + Sui SDK',
               style: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
@@ -247,15 +252,15 @@ class _SolanaInfoCard extends StatelessWidget {
               children: const <Widget>[
                 _UseCaseChip(
                   icon: Icons.hub_outlined,
-                  label: 'Typed Solana RPC access',
+                  label: 'Typed Sui RPC access',
                 ),
                 _UseCaseChip(
-                  icon: Icons.payments_outlined,
-                  label: 'Read SOL balances',
+                  icon: Icons.view_in_ar_outlined,
+                  label: 'Read epoch and validator state',
                 ),
                 _UseCaseChip(
-                  icon: Icons.timeline_outlined,
-                  label: 'Read slot and epoch state',
+                  icon: Icons.inventory_2_outlined,
+                  label: 'Count owned objects and stakes',
                 ),
                 _UseCaseChip(
                   icon: Icons.layers_outlined,
@@ -265,7 +270,7 @@ class _SolanaInfoCard extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             const Text(
-              'In this feature, Flutter owns the page and repository boundary, flutter_rust_bridge owns the FFI glue, and Rust owns the Solana RPC logic and crate integration.',
+              'In this feature, Flutter owns the page and repository boundary, flutter_rust_bridge owns the FFI glue, and Rust owns the Sui SDK integration and RPC reading logic.',
             ),
           ],
         ),

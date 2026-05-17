@@ -708,6 +708,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.flutterRustBridgeSolana.path,
   ),
   _ModuleLink(
+    label: 'flutter_rust_bridge + sui Module',
+    routePath: AppRoute.flutterRustBridgeSui.path,
+  ),
+  _ModuleLink(
     label: 'url_launcher Module',
     routePath: AppRoute.urlLauncher.path,
   ),

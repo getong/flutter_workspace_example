@@ -9,6 +9,7 @@
 
 import 'api/ethereum.dart';
 import 'api/solana.dart';
+import 'api/sui.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'frb_generated.dart';
@@ -33,6 +34,8 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated_web.dart';
 
 @protected SolanaDemoRequest dco_decode_box_autoadd_solana_demo_request(dynamic raw);
 
+@protected SuiDemoRequest dco_decode_box_autoadd_sui_demo_request(dynamic raw);
+
 @protected BigInt dco_decode_box_autoadd_u_64(dynamic raw);
 
 @protected EthereumDemoRequest dco_decode_ethereum_demo_request(dynamic raw);
@@ -47,6 +50,10 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated_web.dart';
 
 @protected SolanaDemoResult dco_decode_solana_demo_result(dynamic raw);
 
+@protected SuiDemoRequest dco_decode_sui_demo_request(dynamic raw);
+
+@protected SuiDemoResult dco_decode_sui_demo_result(dynamic raw);
+
 @protected BigInt dco_decode_u_64(dynamic raw);
 
 @protected int dco_decode_u_8(dynamic raw);
@@ -58,6 +65,8 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated_web.dart';
 @protected EthereumDemoRequest sse_decode_box_autoadd_ethereum_demo_request(SseDeserializer deserializer);
 
 @protected SolanaDemoRequest sse_decode_box_autoadd_solana_demo_request(SseDeserializer deserializer);
+
+@protected SuiDemoRequest sse_decode_box_autoadd_sui_demo_request(SseDeserializer deserializer);
 
 @protected BigInt sse_decode_box_autoadd_u_64(SseDeserializer deserializer);
 
@@ -72,6 +81,10 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated_web.dart';
 @protected SolanaDemoRequest sse_decode_solana_demo_request(SseDeserializer deserializer);
 
 @protected SolanaDemoResult sse_decode_solana_demo_result(SseDeserializer deserializer);
+
+@protected SuiDemoRequest sse_decode_sui_demo_request(SseDeserializer deserializer);
+
+@protected SuiDemoResult sse_decode_sui_demo_result(SseDeserializer deserializer);
 
 @protected BigInt sse_decode_u_64(SseDeserializer deserializer);
 
@@ -89,6 +102,8 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated_web.dart';
 
 @protected void sse_encode_box_autoadd_solana_demo_request(SolanaDemoRequest self, SseSerializer serializer);
 
+@protected void sse_encode_box_autoadd_sui_demo_request(SuiDemoRequest self, SseSerializer serializer);
+
 @protected void sse_encode_box_autoadd_u_64(BigInt self, SseSerializer serializer);
 
 @protected void sse_encode_ethereum_demo_request(EthereumDemoRequest self, SseSerializer serializer);
@@ -102,6 +117,10 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated_web.dart';
 @protected void sse_encode_solana_demo_request(SolanaDemoRequest self, SseSerializer serializer);
 
 @protected void sse_encode_solana_demo_result(SolanaDemoResult self, SseSerializer serializer);
+
+@protected void sse_encode_sui_demo_request(SuiDemoRequest self, SseSerializer serializer);
+
+@protected void sse_encode_sui_demo_result(SuiDemoResult self, SseSerializer serializer);
 
 @protected void sse_encode_u_64(BigInt self, SseSerializer serializer);
 

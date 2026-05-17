@@ -5,6 +5,7 @@
 
 import 'api/ethereum.dart';
 import 'api/solana.dart';
+import 'api/sui.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'frb_generated.dart';
@@ -69,7 +70,7 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
                   String get codegenVersion => '2.12.0';
 
                   @override
-                  int get rustContentHash => -1233499251;
+                  int get rustContentHash => 4292604;
 
                   static const kDefaultExternalLibraryLoaderConfig = ExternalLibraryLoaderConfig(
                     stem: 'rust_lib_widget_layout_example2',
@@ -84,6 +85,8 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
                   Future<EthereumDemoResult> crateApiEthereumFetchEthereumDemo({required EthereumDemoRequest request });
 
 Future<SolanaDemoResult> crateApiSolanaFetchSolanaDemo({required SolanaDemoRequest request });
+
+Future<SuiDemoResult> crateApiSuiFetchSuiDemo({required SuiDemoRequest request });
 
 Future<void> crateApiEthereumInitApp();
 
@@ -149,11 +152,36 @@ Future<void> crateApiEthereumInitApp();
         );
         
 
+@override Future<SuiDemoResult> crateApiSuiFetchSuiDemo({required SuiDemoRequest request })  { return handler.executeNormal(NormalTask(
+            callFfi: (port_) {
+              
+            final serializer = SseSerializer(generalizedFrbRustBinding);sse_encode_box_autoadd_sui_demo_request(request, serializer);
+            pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 3, port: port_);
+            
+            },
+            codec: 
+        SseCodec(
+          decodeSuccessData: sse_decode_sui_demo_result,
+          decodeErrorData: sse_decode_String,
+        )
+        ,
+            constMeta: kCrateApiSuiFetchSuiDemoConstMeta,
+            argValues: [request],
+            apiImpl: this,
+        )); }
+
+
+        TaskConstMeta get kCrateApiSuiFetchSuiDemoConstMeta => const TaskConstMeta(
+            debugName: "fetch_sui_demo",
+            argNames: ["request"],
+        );
+        
+
 @override Future<void> crateApiEthereumInitApp()  { return handler.executeNormal(NormalTask(
             callFfi: (port_) {
               
             final serializer = SseSerializer(generalizedFrbRustBinding);
-            pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 3, port: port_);
+            pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 4, port: port_);
             
             },
             codec: 
@@ -184,6 +212,9 @@ return dco_decode_ethereum_demo_request(raw); }
 
 @protected SolanaDemoRequest dco_decode_box_autoadd_solana_demo_request(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
 return dco_decode_solana_demo_request(raw); }
+
+@protected SuiDemoRequest dco_decode_box_autoadd_sui_demo_request(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
+return dco_decode_sui_demo_request(raw); }
 
 @protected BigInt dco_decode_box_autoadd_u_64(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
 return dco_decode_u_64(raw); }
@@ -236,6 +267,26 @@ solBalance: dco_decode_String(arr[7]),
 commitment: dco_decode_String(arr[8]),
 explanation: dco_decode_String(arr[9]),); }
 
+@protected SuiDemoRequest dco_decode_sui_demo_request(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
+final arr = raw as List<dynamic>;
+                if (arr.length != 2) throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+                return SuiDemoRequest(rpcUrl: dco_decode_String(arr[0]),
+walletAddress: dco_decode_String(arr[1]),); }
+
+@protected SuiDemoResult dco_decode_sui_demo_result(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
+final arr = raw as List<dynamic>;
+                if (arr.length != 10) throw Exception('unexpected arr length: expect 10 but see ${arr.length}');
+                return SuiDemoResult(rpcUrl: dco_decode_String(arr[0]),
+walletAddress: dco_decode_String(arr[1]),
+apiVersion: dco_decode_String(arr[2]),
+rpcMethodsCount: dco_decode_String(arr[3]),
+currentEpoch: dco_decode_String(arr[4]),
+referenceGasPrice: dco_decode_String(arr[5]),
+activeValidators: dco_decode_String(arr[6]),
+ownedObjectsInPage: dco_decode_String(arr[7]),
+stakePositionCount: dco_decode_String(arr[8]),
+explanation: dco_decode_String(arr[9]),); }
+
 @protected BigInt dco_decode_u_64(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
 return dcoDecodeU64(raw); }
 
@@ -254,6 +305,9 @@ return (sse_decode_ethereum_demo_request(deserializer)); }
 
 @protected SolanaDemoRequest sse_decode_box_autoadd_solana_demo_request(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
 return (sse_decode_solana_demo_request(deserializer)); }
+
+@protected SuiDemoRequest sse_decode_box_autoadd_sui_demo_request(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
+return (sse_decode_sui_demo_request(deserializer)); }
 
 @protected BigInt sse_decode_box_autoadd_u_64(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
 return (sse_decode_u_64(deserializer)); }
@@ -309,6 +363,24 @@ var var_commitment = sse_decode_String(deserializer);
 var var_explanation = sse_decode_String(deserializer);
 return SolanaDemoResult(rpcUrl: var_rpcUrl, walletAddress: var_walletAddress, latestSlot: var_latestSlot, blockHeight: var_blockHeight, epoch: var_epoch, transactionCount: var_transactionCount, lamports: var_lamports, solBalance: var_solBalance, commitment: var_commitment, explanation: var_explanation); }
 
+@protected SuiDemoRequest sse_decode_sui_demo_request(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
+var var_rpcUrl = sse_decode_String(deserializer);
+var var_walletAddress = sse_decode_String(deserializer);
+return SuiDemoRequest(rpcUrl: var_rpcUrl, walletAddress: var_walletAddress); }
+
+@protected SuiDemoResult sse_decode_sui_demo_result(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
+var var_rpcUrl = sse_decode_String(deserializer);
+var var_walletAddress = sse_decode_String(deserializer);
+var var_apiVersion = sse_decode_String(deserializer);
+var var_rpcMethodsCount = sse_decode_String(deserializer);
+var var_currentEpoch = sse_decode_String(deserializer);
+var var_referenceGasPrice = sse_decode_String(deserializer);
+var var_activeValidators = sse_decode_String(deserializer);
+var var_ownedObjectsInPage = sse_decode_String(deserializer);
+var var_stakePositionCount = sse_decode_String(deserializer);
+var var_explanation = sse_decode_String(deserializer);
+return SuiDemoResult(rpcUrl: var_rpcUrl, walletAddress: var_walletAddress, apiVersion: var_apiVersion, rpcMethodsCount: var_rpcMethodsCount, currentEpoch: var_currentEpoch, referenceGasPrice: var_referenceGasPrice, activeValidators: var_activeValidators, ownedObjectsInPage: var_ownedObjectsInPage, stakePositionCount: var_stakePositionCount, explanation: var_explanation); }
+
 @protected BigInt sse_decode_u_64(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
 return deserializer.buffer.getBigUint64(); }
 
@@ -332,6 +404,9 @@ sse_encode_ethereum_demo_request(self, serializer); }
 
 @protected void sse_encode_box_autoadd_solana_demo_request(SolanaDemoRequest self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
 sse_encode_solana_demo_request(self, serializer); }
+
+@protected void sse_encode_box_autoadd_sui_demo_request(SuiDemoRequest self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
+sse_encode_sui_demo_request(self, serializer); }
 
 @protected void sse_encode_box_autoadd_u_64(BigInt self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
 sse_encode_u_64(self, serializer); }
@@ -383,6 +458,24 @@ sse_encode_opt_box_autoadd_u_64(self.transactionCount, serializer);
 sse_encode_u_64(self.lamports, serializer);
 sse_encode_String(self.solBalance, serializer);
 sse_encode_String(self.commitment, serializer);
+sse_encode_String(self.explanation, serializer);
+ }
+
+@protected void sse_encode_sui_demo_request(SuiDemoRequest self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
+sse_encode_String(self.rpcUrl, serializer);
+sse_encode_String(self.walletAddress, serializer);
+ }
+
+@protected void sse_encode_sui_demo_result(SuiDemoResult self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
+sse_encode_String(self.rpcUrl, serializer);
+sse_encode_String(self.walletAddress, serializer);
+sse_encode_String(self.apiVersion, serializer);
+sse_encode_String(self.rpcMethodsCount, serializer);
+sse_encode_String(self.currentEpoch, serializer);
+sse_encode_String(self.referenceGasPrice, serializer);
+sse_encode_String(self.activeValidators, serializer);
+sse_encode_String(self.ownedObjectsInPage, serializer);
+sse_encode_String(self.stakePositionCount, serializer);
 sse_encode_String(self.explanation, serializer);
  }
 
