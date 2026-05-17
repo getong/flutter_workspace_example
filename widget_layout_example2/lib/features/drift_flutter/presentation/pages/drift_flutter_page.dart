@@ -442,16 +442,12 @@ class _DriftFlutterPageState extends State<DriftFlutterPage> {
                   Chip(label: Text(entry.category)),
                   Chip(label: Text('Priority ${entry.priority}')),
                   Chip(
-                    label: Text(
-                      entry.createdAt.toLocal().toString().split('.').first,
-                    ),
+                    label: Text('Created ${entry.createdAt.toIso8601String()}'),
+                  ),
+                  Chip(
+                    label: Text('Updated ${entry.updatedAt.toIso8601String()}'),
                   ),
                   Chip(label: Text('UUID ${entry.uuidV7.toString()}')),
-                  Chip(
-                    label: Text(
-                      entry.createdAtWithTimezone.toIso8601String(),
-                    ),
-                  ),
                 ],
               ),
               if ((entry.notes ?? '').isNotEmpty) ...<Widget>[
