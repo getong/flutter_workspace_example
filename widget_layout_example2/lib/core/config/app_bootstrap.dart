@@ -12,6 +12,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:marionette_flutter/marionette_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rive/rive.dart' as rive;
+import 'package:widget_layout_example2/core/rust/frb_generated.dart';
 import 'package:widget_layout_example2/core/config/router/app_router.dart';
 import 'package:widget_layout_example2/core/support/auto_route_demo_support.dart';
 import 'package:widget_layout_example2/features/auth/auth.dart';
@@ -28,6 +29,7 @@ Future<void> bootstrapWidgetLayoutApp() async {
   }
 
   await _ensureExtendedImageCacheDirectory();
+  await RustLib.init();
   await _initializeRiveNative();
   await _initializeHydratedStorage();
   await backgroundServiceDemoRepository.initialize();

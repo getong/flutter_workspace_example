@@ -85,8 +85,8 @@ public class $_javaClass {
 
     return '''
 output:
-  bindings: lib/src/generated/jnigen/
-  symbols: lib/src/generated/jnigen_symbols/
+  bindings: lib/core/generated/jnigen/
+  symbols: lib/core/generated/jnigen_symbols/
 
 classes:
   - $className
@@ -121,7 +121,7 @@ android_sdk_config:
 
     return '''
 import 'package:jni/jni.dart';
-import 'package:widget_layout_example2/src/generated/jnigen/${_javaClass.snakeCase}.dart';
+import 'package:widget_layout_example2/core/generated/jnigen/${_javaClass.snakeCase}.dart';
 import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 
 void runJnigenDemo() {
@@ -151,7 +151,7 @@ Java/Kotlin source of truth:
   $_javaPackage.$_javaClass
 
 Generated Dart wrapper output:
-  lib/src/generated/jnigen/
+  lib/core/generated/jnigen/
 
 Typical workflow:
   1. Define or update the Java/Kotlin API.

@@ -23,7 +23,7 @@ class _FfigenPageState extends State<FfigenPage> {
     super.initState();
     _headerController = TextEditingController(text: 'src/native/device_api.h');
     _outputController = TextEditingController(
-      text: 'lib/src/generated/device_api_bindings.dart',
+      text: 'lib/core/generated/device_api_bindings.dart',
     );
     _libraryController = TextEditingController(text: 'device_api');
   }
@@ -41,7 +41,7 @@ class _FfigenPageState extends State<FfigenPage> {
       : _headerController.text.trim();
 
   String get _outputPath => _outputController.text.trim().isEmpty
-      ? 'lib/src/generated/device_api_bindings.dart'
+      ? 'lib/core/generated/device_api_bindings.dart'
       : _outputController.text.trim();
 
   String get _libraryName => _libraryController.text.trim().isEmpty
@@ -134,7 +134,7 @@ import 'dart:ffi' as ffi;
 import 'dart:io';
 
 import 'package:ffi/ffi.dart';
-import 'package:widget_layout_example2/src/generated/${_outputPath.split('/').last}';
+import 'package:widget_layout_example2/core/generated/${_outputPath.split('/').last}';
 import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 
 ffi.DynamicLibrary loadNativeLibrary() {

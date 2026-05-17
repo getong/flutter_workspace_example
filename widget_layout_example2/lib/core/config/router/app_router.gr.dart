@@ -2496,6 +2496,22 @@ class FlutterMarkdownPlusRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterRustBridgeEthereumPage]
+class FlutterRustBridgeEthereumRoute extends PageRouteInfo<void> {
+  const FlutterRustBridgeEthereumRoute({List<PageRouteInfo>? children})
+    : super(FlutterRustBridgeEthereumRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterRustBridgeEthereumRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterRustBridgeEthereumPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterScreenutilPage]
 class FlutterScreenutilRoute extends PageRouteInfo<void> {
   const FlutterScreenutilRoute({List<PageRouteInfo>? children})
