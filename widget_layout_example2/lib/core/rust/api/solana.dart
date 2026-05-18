@@ -6,66 +6,82 @@
 import '../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-
-            // These functions are ignored because they are not marked as `pub`: `fetch_solana_demo_impl`
+// These functions are ignored because they are not marked as `pub`: `fetch_solana_demo_impl`
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `clone`, `fmt`, `fmt`
 
+Future<SolanaDemoResult> fetchSolanaDemo({
+  required SolanaDemoRequest request,
+}) => RustLib.instance.api.crateApiSolanaFetchSolanaDemo(request: request);
 
-            Future<SolanaDemoResult>  fetchSolanaDemo({required SolanaDemoRequest request }) => RustLib.instance.api.crateApiSolanaFetchSolanaDemo(request: request);
+class SolanaDemoRequest {
+  final String rpcUrl;
+  final String walletAddress;
 
-            class SolanaDemoRequest  {
-                final String rpcUrl;
-final String walletAddress;
+  const SolanaDemoRequest({required this.rpcUrl, required this.walletAddress});
 
-                const SolanaDemoRequest({required this.rpcUrl ,required this.walletAddress ,});
+  @override
+  int get hashCode => rpcUrl.hashCode ^ walletAddress.hashCode;
 
-                
-                
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SolanaDemoRequest &&
+          runtimeType == other.runtimeType &&
+          rpcUrl == other.rpcUrl &&
+          walletAddress == other.walletAddress;
+}
 
-                
-        @override
-        int get hashCode => rpcUrl.hashCode^walletAddress.hashCode;
-        
+class SolanaDemoResult {
+  final String rpcUrl;
+  final String walletAddress;
+  final BigInt latestSlot;
+  final BigInt blockHeight;
+  final BigInt epoch;
+  final BigInt? transactionCount;
+  final BigInt lamports;
+  final String solBalance;
+  final String commitment;
+  final String explanation;
 
-                
-        @override
-        bool operator ==(Object other) =>
-            identical(this, other) ||
-            other is SolanaDemoRequest &&
-                runtimeType == other.runtimeType
-                && rpcUrl == other.rpcUrl&& walletAddress == other.walletAddress;
-        
-            }
+  const SolanaDemoResult({
+    required this.rpcUrl,
+    required this.walletAddress,
+    required this.latestSlot,
+    required this.blockHeight,
+    required this.epoch,
+    this.transactionCount,
+    required this.lamports,
+    required this.solBalance,
+    required this.commitment,
+    required this.explanation,
+  });
 
-class SolanaDemoResult  {
-                final String rpcUrl;
-final String walletAddress;
-final BigInt latestSlot;
-final BigInt blockHeight;
-final BigInt epoch;
-final BigInt? transactionCount;
-final BigInt lamports;
-final String solBalance;
-final String commitment;
-final String explanation;
+  @override
+  int get hashCode =>
+      rpcUrl.hashCode ^
+      walletAddress.hashCode ^
+      latestSlot.hashCode ^
+      blockHeight.hashCode ^
+      epoch.hashCode ^
+      transactionCount.hashCode ^
+      lamports.hashCode ^
+      solBalance.hashCode ^
+      commitment.hashCode ^
+      explanation.hashCode;
 
-                const SolanaDemoResult({required this.rpcUrl ,required this.walletAddress ,required this.latestSlot ,required this.blockHeight ,required this.epoch ,this.transactionCount ,required this.lamports ,required this.solBalance ,required this.commitment ,required this.explanation ,});
-
-                
-                
-
-                
-        @override
-        int get hashCode => rpcUrl.hashCode^walletAddress.hashCode^latestSlot.hashCode^blockHeight.hashCode^epoch.hashCode^transactionCount.hashCode^lamports.hashCode^solBalance.hashCode^commitment.hashCode^explanation.hashCode;
-        
-
-                
-        @override
-        bool operator ==(Object other) =>
-            identical(this, other) ||
-            other is SolanaDemoResult &&
-                runtimeType == other.runtimeType
-                && rpcUrl == other.rpcUrl&& walletAddress == other.walletAddress&& latestSlot == other.latestSlot&& blockHeight == other.blockHeight&& epoch == other.epoch&& transactionCount == other.transactionCount&& lamports == other.lamports&& solBalance == other.solBalance&& commitment == other.commitment&& explanation == other.explanation;
-        
-            }
-            
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SolanaDemoResult &&
+          runtimeType == other.runtimeType &&
+          rpcUrl == other.rpcUrl &&
+          walletAddress == other.walletAddress &&
+          latestSlot == other.latestSlot &&
+          blockHeight == other.blockHeight &&
+          epoch == other.epoch &&
+          transactionCount == other.transactionCount &&
+          lamports == other.lamports &&
+          solBalance == other.solBalance &&
+          commitment == other.commitment &&
+          explanation == other.explanation;
+}

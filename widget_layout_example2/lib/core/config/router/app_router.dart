@@ -114,6 +114,7 @@ import 'package:widget_layout_example2/features/flutter_local_notifications/pres
 import 'package:widget_layout_example2/features/flutter_rust_bridge_ethereum/presentation/pages/flutter_rust_bridge_ethereum_page.dart';
 import 'package:widget_layout_example2/features/flutter_rust_bridge_solana/presentation/pages/flutter_rust_bridge_solana_page.dart';
 import 'package:widget_layout_example2/features/flutter_rust_bridge_sui/presentation/pages/flutter_rust_bridge_sui_page.dart';
+import 'package:widget_layout_example2/features/flutter_webrtc/presentation/pages/flutter_webrtc_page.dart';
 import 'package:widget_layout_example2/features/flutter_screenutil/presentation/pages/flutter_screenutil_page.dart';
 import 'package:widget_layout_example2/features/flutter_secure_storage/presentation/pages/flutter_secure_storage_page.dart';
 import 'package:widget_layout_example2/features/flutter_slidable/presentation/pages/flutter_slidable_page.dart';
@@ -1100,6 +1101,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: VectorMathRoute.page, path: AppRoute.vectorMath.path),
     AutoRoute(page: MobileScannerRoute.page, path: AppRoute.mobileScanner.path),
     AutoRoute(page: WebcryptoRoute.page, path: AppRoute.webcrypto.path),
+    AutoRoute(page: FlutterWebRtcRoute.page, path: AppRoute.flutterWebRtc.path),
     AutoRoute(
       page: FlutterRustBridgeEthereumRoute.page,
       path: AppRoute.flutterRustBridgeEthereum.path,

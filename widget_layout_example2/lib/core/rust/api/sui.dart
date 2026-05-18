@@ -6,66 +6,81 @@
 import '../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-
-            // These functions are ignored because they are not marked as `pub`: `fetch_sui_demo_impl`
+// These functions are ignored because they are not marked as `pub`: `fetch_sui_demo_impl`
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `clone`, `fmt`, `fmt`
 
+Future<SuiDemoResult> fetchSuiDemo({required SuiDemoRequest request}) =>
+    RustLib.instance.api.crateApiSuiFetchSuiDemo(request: request);
 
-            Future<SuiDemoResult>  fetchSuiDemo({required SuiDemoRequest request }) => RustLib.instance.api.crateApiSuiFetchSuiDemo(request: request);
+class SuiDemoRequest {
+  final String rpcUrl;
+  final String walletAddress;
 
-            class SuiDemoRequest  {
-                final String rpcUrl;
-final String walletAddress;
+  const SuiDemoRequest({required this.rpcUrl, required this.walletAddress});
 
-                const SuiDemoRequest({required this.rpcUrl ,required this.walletAddress ,});
+  @override
+  int get hashCode => rpcUrl.hashCode ^ walletAddress.hashCode;
 
-                
-                
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SuiDemoRequest &&
+          runtimeType == other.runtimeType &&
+          rpcUrl == other.rpcUrl &&
+          walletAddress == other.walletAddress;
+}
 
-                
-        @override
-        int get hashCode => rpcUrl.hashCode^walletAddress.hashCode;
-        
+class SuiDemoResult {
+  final String rpcUrl;
+  final String walletAddress;
+  final String apiVersion;
+  final String rpcMethodsCount;
+  final String currentEpoch;
+  final String referenceGasPrice;
+  final String activeValidators;
+  final String ownedObjectsInPage;
+  final String stakePositionCount;
+  final String explanation;
 
-                
-        @override
-        bool operator ==(Object other) =>
-            identical(this, other) ||
-            other is SuiDemoRequest &&
-                runtimeType == other.runtimeType
-                && rpcUrl == other.rpcUrl&& walletAddress == other.walletAddress;
-        
-            }
+  const SuiDemoResult({
+    required this.rpcUrl,
+    required this.walletAddress,
+    required this.apiVersion,
+    required this.rpcMethodsCount,
+    required this.currentEpoch,
+    required this.referenceGasPrice,
+    required this.activeValidators,
+    required this.ownedObjectsInPage,
+    required this.stakePositionCount,
+    required this.explanation,
+  });
 
-class SuiDemoResult  {
-                final String rpcUrl;
-final String walletAddress;
-final String apiVersion;
-final String rpcMethodsCount;
-final String currentEpoch;
-final String referenceGasPrice;
-final String activeValidators;
-final String ownedObjectsInPage;
-final String stakePositionCount;
-final String explanation;
+  @override
+  int get hashCode =>
+      rpcUrl.hashCode ^
+      walletAddress.hashCode ^
+      apiVersion.hashCode ^
+      rpcMethodsCount.hashCode ^
+      currentEpoch.hashCode ^
+      referenceGasPrice.hashCode ^
+      activeValidators.hashCode ^
+      ownedObjectsInPage.hashCode ^
+      stakePositionCount.hashCode ^
+      explanation.hashCode;
 
-                const SuiDemoResult({required this.rpcUrl ,required this.walletAddress ,required this.apiVersion ,required this.rpcMethodsCount ,required this.currentEpoch ,required this.referenceGasPrice ,required this.activeValidators ,required this.ownedObjectsInPage ,required this.stakePositionCount ,required this.explanation ,});
-
-                
-                
-
-                
-        @override
-        int get hashCode => rpcUrl.hashCode^walletAddress.hashCode^apiVersion.hashCode^rpcMethodsCount.hashCode^currentEpoch.hashCode^referenceGasPrice.hashCode^activeValidators.hashCode^ownedObjectsInPage.hashCode^stakePositionCount.hashCode^explanation.hashCode;
-        
-
-                
-        @override
-        bool operator ==(Object other) =>
-            identical(this, other) ||
-            other is SuiDemoResult &&
-                runtimeType == other.runtimeType
-                && rpcUrl == other.rpcUrl&& walletAddress == other.walletAddress&& apiVersion == other.apiVersion&& rpcMethodsCount == other.rpcMethodsCount&& currentEpoch == other.currentEpoch&& referenceGasPrice == other.referenceGasPrice&& activeValidators == other.activeValidators&& ownedObjectsInPage == other.ownedObjectsInPage&& stakePositionCount == other.stakePositionCount&& explanation == other.explanation;
-        
-            }
-            
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SuiDemoResult &&
+          runtimeType == other.runtimeType &&
+          rpcUrl == other.rpcUrl &&
+          walletAddress == other.walletAddress &&
+          apiVersion == other.apiVersion &&
+          rpcMethodsCount == other.rpcMethodsCount &&
+          currentEpoch == other.currentEpoch &&
+          referenceGasPrice == other.referenceGasPrice &&
+          activeValidators == other.activeValidators &&
+          ownedObjectsInPage == other.ownedObjectsInPage &&
+          stakePositionCount == other.stakePositionCount &&
+          explanation == other.explanation;
+}

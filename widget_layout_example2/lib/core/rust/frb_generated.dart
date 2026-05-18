@@ -9,489 +9,759 @@ import 'api/sui.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'frb_generated.dart';
-import 'frb_generated.io.dart' if (dart.library.js_interop) 'frb_generated.web.dart';
+import 'frb_generated.io.dart'
+    if (dart.library.js_interop) 'frb_generated.web.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
+/// Main entrypoint of the Rust API
+class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
+  @internal
+  static final instance = RustLib._();
 
-                /// Main entrypoint of the Rust API
-                class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
-                  @internal
-                  static final instance = RustLib._();
+  RustLib._();
 
-                  RustLib._();
+  /// Initialize flutter_rust_bridge
+  static Future<void> init({
+    RustLibApi? api,
+    BaseHandler? handler,
+    ExternalLibrary? externalLibrary,
+    bool forceSameCodegenVersion = true,
+  }) async {
+    await instance.initImpl(
+      api: api,
+      handler: handler,
+      externalLibrary: externalLibrary,
+      forceSameCodegenVersion: forceSameCodegenVersion,
+    );
+  }
 
-                  /// Initialize flutter_rust_bridge
-                  static Future<void> init({
-                    RustLibApi? api,
-                    BaseHandler? handler,
-                    ExternalLibrary? externalLibrary,
-                    bool forceSameCodegenVersion = true,
-                  }) async {
-                    await instance.initImpl(
-                      api: api,
-                      handler: handler,
-                      externalLibrary: externalLibrary,
-                      forceSameCodegenVersion: forceSameCodegenVersion,
-                    );
-                  }
+  /// Initialize flutter_rust_bridge in mock mode.
+  /// No libraries for FFI are loaded.
+  static void initMock({required RustLibApi api}) {
+    instance.initMockImpl(api: api);
+  }
 
-                  /// Initialize flutter_rust_bridge in mock mode.
-                  /// No libraries for FFI are loaded.
-                  static void initMock({
-                    required RustLibApi api,
-                  }) {
-                    instance.initMockImpl(
-                      api: api,
-                    );
-                  }
+  /// Dispose flutter_rust_bridge
+  ///
+  /// The call to this function is optional, since flutter_rust_bridge (and everything else)
+  /// is automatically disposed when the app stops.
+  static void dispose() => instance.disposeImpl();
 
-                  /// Dispose flutter_rust_bridge
-                  ///
-                  /// The call to this function is optional, since flutter_rust_bridge (and everything else)
-                  /// is automatically disposed when the app stops.
-                  static void dispose() => instance.disposeImpl();
+  @override
+  ApiImplConstructor<RustLibApiImpl, RustLibWire> get apiImplConstructor =>
+      RustLibApiImpl.new;
 
-                  @override
-                  ApiImplConstructor<RustLibApiImpl, RustLibWire> get apiImplConstructor => RustLibApiImpl.new;
+  @override
+  WireConstructor<RustLibWire> get wireConstructor =>
+      RustLibWire.fromExternalLibrary;
 
-                  @override
-                  WireConstructor<RustLibWire> get wireConstructor => RustLibWire.fromExternalLibrary;
+  @override
+  Future<void> executeRustInitializers() async {
+    await api.crateApiEthereumInitApp();
+  }
 
-                  @override
-                  Future<void> executeRustInitializers() async {
-                    await api.crateApiEthereumInitApp();
+  @override
+  ExternalLibraryLoaderConfig get defaultExternalLibraryLoaderConfig =>
+      kDefaultExternalLibraryLoaderConfig;
 
-                  }
+  @override
+  String get codegenVersion => '2.12.0';
 
-                  @override
-                  ExternalLibraryLoaderConfig get defaultExternalLibraryLoaderConfig => kDefaultExternalLibraryLoaderConfig;
+  @override
+  int get rustContentHash => 4292604;
 
-                  @override
-                  String get codegenVersion => '2.12.0';
+  static const kDefaultExternalLibraryLoaderConfig =
+      ExternalLibraryLoaderConfig(
+        stem: 'rust_lib_widget_layout_example2',
+        ioDirectory: 'rust/target/release/',
+        webPrefix: 'pkg/',
+        wasmBindgenName: 'wasm_bindgen',
+      );
+}
 
-                  @override
-                  int get rustContentHash => 4292604;
+abstract class RustLibApi extends BaseApi {
+  Future<EthereumDemoResult> crateApiEthereumFetchEthereumDemo({
+    required EthereumDemoRequest request,
+  });
 
-                  static const kDefaultExternalLibraryLoaderConfig = ExternalLibraryLoaderConfig(
-                    stem: 'rust_lib_widget_layout_example2',
-                    ioDirectory: 'rust/target/release/',
-                    webPrefix: 'pkg/',
-                    wasmBindgenName: 'wasm_bindgen',
-                  );
-                }
-                
+  Future<SolanaDemoResult> crateApiSolanaFetchSolanaDemo({
+    required SolanaDemoRequest request,
+  });
 
-                abstract class RustLibApi extends BaseApi {
-                  Future<EthereumDemoResult> crateApiEthereumFetchEthereumDemo({required EthereumDemoRequest request });
+  Future<SuiDemoResult> crateApiSuiFetchSuiDemo({
+    required SuiDemoRequest request,
+  });
 
-Future<SolanaDemoResult> crateApiSolanaFetchSolanaDemo({required SolanaDemoRequest request });
+  Future<void> crateApiEthereumInitApp();
+}
 
-Future<SuiDemoResult> crateApiSuiFetchSuiDemo({required SuiDemoRequest request });
+class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
+  RustLibApiImpl({
+    required super.handler,
+    required super.wire,
+    required super.generalizedFrbRustBinding,
+    required super.portManager,
+  });
 
-Future<void> crateApiEthereumInitApp();
-
-
-                }
-                
-
-                class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
-                  RustLibApiImpl({
-                    required super.handler,
-                    required super.wire,
-                    required super.generalizedFrbRustBinding,
-                    required super.portManager,
-                  });
-
-                  @override Future<EthereumDemoResult> crateApiEthereumFetchEthereumDemo({required EthereumDemoRequest request })  { return handler.executeNormal(NormalTask(
-            callFfi: (port_) {
-              
-            final serializer = SseSerializer(generalizedFrbRustBinding);sse_encode_box_autoadd_ethereum_demo_request(request, serializer);
-            pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 1, port: port_);
-            
-            },
-            codec: 
-        SseCodec(
+  @override
+  Future<EthereumDemoResult> crateApiEthereumFetchEthereumDemo({
+    required EthereumDemoRequest request,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_box_autoadd_ethereum_demo_request(request, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 1,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
           decodeSuccessData: sse_decode_ethereum_demo_result,
           decodeErrorData: sse_decode_String,
-        )
-        ,
-            constMeta: kCrateApiEthereumFetchEthereumDemoConstMeta,
-            argValues: [request],
-            apiImpl: this,
-        )); }
+        ),
+        constMeta: kCrateApiEthereumFetchEthereumDemoConstMeta,
+        argValues: [request],
+        apiImpl: this,
+      ),
+    );
+  }
 
+  TaskConstMeta get kCrateApiEthereumFetchEthereumDemoConstMeta =>
+      const TaskConstMeta(
+        debugName: "fetch_ethereum_demo",
+        argNames: ["request"],
+      );
 
-        TaskConstMeta get kCrateApiEthereumFetchEthereumDemoConstMeta => const TaskConstMeta(
-            debugName: "fetch_ethereum_demo",
-            argNames: ["request"],
-        );
-        
-
-@override Future<SolanaDemoResult> crateApiSolanaFetchSolanaDemo({required SolanaDemoRequest request })  { return handler.executeNormal(NormalTask(
-            callFfi: (port_) {
-              
-            final serializer = SseSerializer(generalizedFrbRustBinding);sse_encode_box_autoadd_solana_demo_request(request, serializer);
-            pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 2, port: port_);
-            
-            },
-            codec: 
-        SseCodec(
+  @override
+  Future<SolanaDemoResult> crateApiSolanaFetchSolanaDemo({
+    required SolanaDemoRequest request,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_box_autoadd_solana_demo_request(request, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 2,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
           decodeSuccessData: sse_decode_solana_demo_result,
           decodeErrorData: sse_decode_String,
-        )
-        ,
-            constMeta: kCrateApiSolanaFetchSolanaDemoConstMeta,
-            argValues: [request],
-            apiImpl: this,
-        )); }
+        ),
+        constMeta: kCrateApiSolanaFetchSolanaDemoConstMeta,
+        argValues: [request],
+        apiImpl: this,
+      ),
+    );
+  }
 
+  TaskConstMeta get kCrateApiSolanaFetchSolanaDemoConstMeta =>
+      const TaskConstMeta(
+        debugName: "fetch_solana_demo",
+        argNames: ["request"],
+      );
 
-        TaskConstMeta get kCrateApiSolanaFetchSolanaDemoConstMeta => const TaskConstMeta(
-            debugName: "fetch_solana_demo",
-            argNames: ["request"],
-        );
-        
-
-@override Future<SuiDemoResult> crateApiSuiFetchSuiDemo({required SuiDemoRequest request })  { return handler.executeNormal(NormalTask(
-            callFfi: (port_) {
-              
-            final serializer = SseSerializer(generalizedFrbRustBinding);sse_encode_box_autoadd_sui_demo_request(request, serializer);
-            pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 3, port: port_);
-            
-            },
-            codec: 
-        SseCodec(
+  @override
+  Future<SuiDemoResult> crateApiSuiFetchSuiDemo({
+    required SuiDemoRequest request,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_box_autoadd_sui_demo_request(request, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 3,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
           decodeSuccessData: sse_decode_sui_demo_result,
           decodeErrorData: sse_decode_String,
-        )
-        ,
-            constMeta: kCrateApiSuiFetchSuiDemoConstMeta,
-            argValues: [request],
-            apiImpl: this,
-        )); }
+        ),
+        constMeta: kCrateApiSuiFetchSuiDemoConstMeta,
+        argValues: [request],
+        apiImpl: this,
+      ),
+    );
+  }
 
+  TaskConstMeta get kCrateApiSuiFetchSuiDemoConstMeta =>
+      const TaskConstMeta(debugName: "fetch_sui_demo", argNames: ["request"]);
 
-        TaskConstMeta get kCrateApiSuiFetchSuiDemoConstMeta => const TaskConstMeta(
-            debugName: "fetch_sui_demo",
-            argNames: ["request"],
-        );
-        
-
-@override Future<void> crateApiEthereumInitApp()  { return handler.executeNormal(NormalTask(
-            callFfi: (port_) {
-              
-            final serializer = SseSerializer(generalizedFrbRustBinding);
-            pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 4, port: port_);
-            
-            },
-            codec: 
-        SseCodec(
+  @override
+  Future<void> crateApiEthereumInitApp() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 4,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
           decodeSuccessData: sse_decode_unit,
           decodeErrorData: null,
-        )
-        ,
-            constMeta: kCrateApiEthereumInitAppConstMeta,
-            argValues: [],
-            apiImpl: this,
-        )); }
+        ),
+        constMeta: kCrateApiEthereumInitAppConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
 
+  TaskConstMeta get kCrateApiEthereumInitAppConstMeta =>
+      const TaskConstMeta(debugName: "init_app", argNames: []);
 
-        TaskConstMeta get kCrateApiEthereumInitAppConstMeta => const TaskConstMeta(
-            debugName: "init_app",
-            argNames: [],
-        );
-        
+  @protected
+  String dco_decode_String(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as String;
+  }
 
+  @protected
+  EthereumDemoRequest dco_decode_box_autoadd_ethereum_demo_request(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_ethereum_demo_request(raw);
+  }
 
+  @protected
+  SolanaDemoRequest dco_decode_box_autoadd_solana_demo_request(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_solana_demo_request(raw);
+  }
 
-                  @protected String dco_decode_String(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return raw as String; }
+  @protected
+  SuiDemoRequest dco_decode_box_autoadd_sui_demo_request(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_sui_demo_request(raw);
+  }
 
-@protected EthereumDemoRequest dco_decode_box_autoadd_ethereum_demo_request(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return dco_decode_ethereum_demo_request(raw); }
+  @protected
+  BigInt dco_decode_box_autoadd_u_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_u_64(raw);
+  }
 
-@protected SolanaDemoRequest dco_decode_box_autoadd_solana_demo_request(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return dco_decode_solana_demo_request(raw); }
+  @protected
+  EthereumDemoRequest dco_decode_ethereum_demo_request(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return EthereumDemoRequest(
+      rpcUrl: dco_decode_String(arr[0]),
+      walletAddress: dco_decode_String(arr[1]),
+      erc20TokenAddress: dco_decode_String(arr[2]),
+    );
+  }
 
-@protected SuiDemoRequest dco_decode_box_autoadd_sui_demo_request(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return dco_decode_sui_demo_request(raw); }
+  @protected
+  EthereumDemoResult dco_decode_ethereum_demo_result(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 11)
+      throw Exception('unexpected arr length: expect 11 but see ${arr.length}');
+    return EthereumDemoResult(
+      chainRpcUrl: dco_decode_String(arr[0]),
+      walletAddress: dco_decode_String(arr[1]),
+      latestBlockNumber: dco_decode_String(arr[2]),
+      nativeBalanceWei: dco_decode_String(arr[3]),
+      nativeBalanceEth: dco_decode_String(arr[4]),
+      tokenAddress: dco_decode_String(arr[5]),
+      tokenSymbol: dco_decode_String(arr[6]),
+      tokenDecimals: dco_decode_u_8(arr[7]),
+      tokenBalanceRaw: dco_decode_String(arr[8]),
+      tokenBalanceFormatted: dco_decode_String(arr[9]),
+      explanation: dco_decode_String(arr[10]),
+    );
+  }
 
-@protected BigInt dco_decode_box_autoadd_u_64(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return dco_decode_u_64(raw); }
+  @protected
+  Uint8List dco_decode_list_prim_u_8_strict(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as Uint8List;
+  }
 
-@protected EthereumDemoRequest dco_decode_ethereum_demo_request(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-final arr = raw as List<dynamic>;
-                if (arr.length != 3) throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
-                return EthereumDemoRequest(rpcUrl: dco_decode_String(arr[0]),
-walletAddress: dco_decode_String(arr[1]),
-erc20TokenAddress: dco_decode_String(arr[2]),); }
+  @protected
+  BigInt? dco_decode_opt_box_autoadd_u_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_u_64(raw);
+  }
 
-@protected EthereumDemoResult dco_decode_ethereum_demo_result(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-final arr = raw as List<dynamic>;
-                if (arr.length != 11) throw Exception('unexpected arr length: expect 11 but see ${arr.length}');
-                return EthereumDemoResult(chainRpcUrl: dco_decode_String(arr[0]),
-walletAddress: dco_decode_String(arr[1]),
-latestBlockNumber: dco_decode_String(arr[2]),
-nativeBalanceWei: dco_decode_String(arr[3]),
-nativeBalanceEth: dco_decode_String(arr[4]),
-tokenAddress: dco_decode_String(arr[5]),
-tokenSymbol: dco_decode_String(arr[6]),
-tokenDecimals: dco_decode_u_8(arr[7]),
-tokenBalanceRaw: dco_decode_String(arr[8]),
-tokenBalanceFormatted: dco_decode_String(arr[9]),
-explanation: dco_decode_String(arr[10]),); }
+  @protected
+  SolanaDemoRequest dco_decode_solana_demo_request(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return SolanaDemoRequest(
+      rpcUrl: dco_decode_String(arr[0]),
+      walletAddress: dco_decode_String(arr[1]),
+    );
+  }
 
-@protected Uint8List dco_decode_list_prim_u_8_strict(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return raw as Uint8List; }
+  @protected
+  SolanaDemoResult dco_decode_solana_demo_result(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 10)
+      throw Exception('unexpected arr length: expect 10 but see ${arr.length}');
+    return SolanaDemoResult(
+      rpcUrl: dco_decode_String(arr[0]),
+      walletAddress: dco_decode_String(arr[1]),
+      latestSlot: dco_decode_u_64(arr[2]),
+      blockHeight: dco_decode_u_64(arr[3]),
+      epoch: dco_decode_u_64(arr[4]),
+      transactionCount: dco_decode_opt_box_autoadd_u_64(arr[5]),
+      lamports: dco_decode_u_64(arr[6]),
+      solBalance: dco_decode_String(arr[7]),
+      commitment: dco_decode_String(arr[8]),
+      explanation: dco_decode_String(arr[9]),
+    );
+  }
 
-@protected BigInt? dco_decode_opt_box_autoadd_u_64(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return raw == null ? null : dco_decode_box_autoadd_u_64(raw); }
+  @protected
+  SuiDemoRequest dco_decode_sui_demo_request(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return SuiDemoRequest(
+      rpcUrl: dco_decode_String(arr[0]),
+      walletAddress: dco_decode_String(arr[1]),
+    );
+  }
 
-@protected SolanaDemoRequest dco_decode_solana_demo_request(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-final arr = raw as List<dynamic>;
-                if (arr.length != 2) throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
-                return SolanaDemoRequest(rpcUrl: dco_decode_String(arr[0]),
-walletAddress: dco_decode_String(arr[1]),); }
+  @protected
+  SuiDemoResult dco_decode_sui_demo_result(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 10)
+      throw Exception('unexpected arr length: expect 10 but see ${arr.length}');
+    return SuiDemoResult(
+      rpcUrl: dco_decode_String(arr[0]),
+      walletAddress: dco_decode_String(arr[1]),
+      apiVersion: dco_decode_String(arr[2]),
+      rpcMethodsCount: dco_decode_String(arr[3]),
+      currentEpoch: dco_decode_String(arr[4]),
+      referenceGasPrice: dco_decode_String(arr[5]),
+      activeValidators: dco_decode_String(arr[6]),
+      ownedObjectsInPage: dco_decode_String(arr[7]),
+      stakePositionCount: dco_decode_String(arr[8]),
+      explanation: dco_decode_String(arr[9]),
+    );
+  }
 
-@protected SolanaDemoResult dco_decode_solana_demo_result(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-final arr = raw as List<dynamic>;
-                if (arr.length != 10) throw Exception('unexpected arr length: expect 10 but see ${arr.length}');
-                return SolanaDemoResult(rpcUrl: dco_decode_String(arr[0]),
-walletAddress: dco_decode_String(arr[1]),
-latestSlot: dco_decode_u_64(arr[2]),
-blockHeight: dco_decode_u_64(arr[3]),
-epoch: dco_decode_u_64(arr[4]),
-transactionCount: dco_decode_opt_box_autoadd_u_64(arr[5]),
-lamports: dco_decode_u_64(arr[6]),
-solBalance: dco_decode_String(arr[7]),
-commitment: dco_decode_String(arr[8]),
-explanation: dco_decode_String(arr[9]),); }
+  @protected
+  BigInt dco_decode_u_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dcoDecodeU64(raw);
+  }
 
-@protected SuiDemoRequest dco_decode_sui_demo_request(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-final arr = raw as List<dynamic>;
-                if (arr.length != 2) throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
-                return SuiDemoRequest(rpcUrl: dco_decode_String(arr[0]),
-walletAddress: dco_decode_String(arr[1]),); }
+  @protected
+  int dco_decode_u_8(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as int;
+  }
 
-@protected SuiDemoResult dco_decode_sui_demo_result(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-final arr = raw as List<dynamic>;
-                if (arr.length != 10) throw Exception('unexpected arr length: expect 10 but see ${arr.length}');
-                return SuiDemoResult(rpcUrl: dco_decode_String(arr[0]),
-walletAddress: dco_decode_String(arr[1]),
-apiVersion: dco_decode_String(arr[2]),
-rpcMethodsCount: dco_decode_String(arr[3]),
-currentEpoch: dco_decode_String(arr[4]),
-referenceGasPrice: dco_decode_String(arr[5]),
-activeValidators: dco_decode_String(arr[6]),
-ownedObjectsInPage: dco_decode_String(arr[7]),
-stakePositionCount: dco_decode_String(arr[8]),
-explanation: dco_decode_String(arr[9]),); }
+  @protected
+  void dco_decode_unit(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return;
+  }
 
-@protected BigInt dco_decode_u_64(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return dcoDecodeU64(raw); }
+  @protected
+  String sse_decode_String(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_list_prim_u_8_strict(deserializer);
+    return utf8.decoder.convert(inner);
+  }
 
-@protected int dco_decode_u_8(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return raw as int; }
+  @protected
+  EthereumDemoRequest sse_decode_box_autoadd_ethereum_demo_request(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_ethereum_demo_request(deserializer));
+  }
 
-@protected void dco_decode_unit(dynamic raw){ // Codec=Dco (DartCObject based), see doc to use other codecs
-return; }
+  @protected
+  SolanaDemoRequest sse_decode_box_autoadd_solana_demo_request(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_solana_demo_request(deserializer));
+  }
 
-@protected String sse_decode_String(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-var inner = sse_decode_list_prim_u_8_strict(deserializer);
-        return utf8.decoder.convert(inner); }
+  @protected
+  SuiDemoRequest sse_decode_box_autoadd_sui_demo_request(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_sui_demo_request(deserializer));
+  }
 
-@protected EthereumDemoRequest sse_decode_box_autoadd_ethereum_demo_request(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return (sse_decode_ethereum_demo_request(deserializer)); }
+  @protected
+  BigInt sse_decode_box_autoadd_u_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_u_64(deserializer));
+  }
 
-@protected SolanaDemoRequest sse_decode_box_autoadd_solana_demo_request(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return (sse_decode_solana_demo_request(deserializer)); }
+  @protected
+  EthereumDemoRequest sse_decode_ethereum_demo_request(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_rpcUrl = sse_decode_String(deserializer);
+    var var_walletAddress = sse_decode_String(deserializer);
+    var var_erc20TokenAddress = sse_decode_String(deserializer);
+    return EthereumDemoRequest(
+      rpcUrl: var_rpcUrl,
+      walletAddress: var_walletAddress,
+      erc20TokenAddress: var_erc20TokenAddress,
+    );
+  }
 
-@protected SuiDemoRequest sse_decode_box_autoadd_sui_demo_request(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return (sse_decode_sui_demo_request(deserializer)); }
+  @protected
+  EthereumDemoResult sse_decode_ethereum_demo_result(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_chainRpcUrl = sse_decode_String(deserializer);
+    var var_walletAddress = sse_decode_String(deserializer);
+    var var_latestBlockNumber = sse_decode_String(deserializer);
+    var var_nativeBalanceWei = sse_decode_String(deserializer);
+    var var_nativeBalanceEth = sse_decode_String(deserializer);
+    var var_tokenAddress = sse_decode_String(deserializer);
+    var var_tokenSymbol = sse_decode_String(deserializer);
+    var var_tokenDecimals = sse_decode_u_8(deserializer);
+    var var_tokenBalanceRaw = sse_decode_String(deserializer);
+    var var_tokenBalanceFormatted = sse_decode_String(deserializer);
+    var var_explanation = sse_decode_String(deserializer);
+    return EthereumDemoResult(
+      chainRpcUrl: var_chainRpcUrl,
+      walletAddress: var_walletAddress,
+      latestBlockNumber: var_latestBlockNumber,
+      nativeBalanceWei: var_nativeBalanceWei,
+      nativeBalanceEth: var_nativeBalanceEth,
+      tokenAddress: var_tokenAddress,
+      tokenSymbol: var_tokenSymbol,
+      tokenDecimals: var_tokenDecimals,
+      tokenBalanceRaw: var_tokenBalanceRaw,
+      tokenBalanceFormatted: var_tokenBalanceFormatted,
+      explanation: var_explanation,
+    );
+  }
 
-@protected BigInt sse_decode_box_autoadd_u_64(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return (sse_decode_u_64(deserializer)); }
+  @protected
+  Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var len_ = sse_decode_i_32(deserializer);
+    return deserializer.buffer.getUint8List(len_);
+  }
 
-@protected EthereumDemoRequest sse_decode_ethereum_demo_request(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-var var_rpcUrl = sse_decode_String(deserializer);
-var var_walletAddress = sse_decode_String(deserializer);
-var var_erc20TokenAddress = sse_decode_String(deserializer);
-return EthereumDemoRequest(rpcUrl: var_rpcUrl, walletAddress: var_walletAddress, erc20TokenAddress: var_erc20TokenAddress); }
+  @protected
+  BigInt? sse_decode_opt_box_autoadd_u_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
 
-@protected EthereumDemoResult sse_decode_ethereum_demo_result(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-var var_chainRpcUrl = sse_decode_String(deserializer);
-var var_walletAddress = sse_decode_String(deserializer);
-var var_latestBlockNumber = sse_decode_String(deserializer);
-var var_nativeBalanceWei = sse_decode_String(deserializer);
-var var_nativeBalanceEth = sse_decode_String(deserializer);
-var var_tokenAddress = sse_decode_String(deserializer);
-var var_tokenSymbol = sse_decode_String(deserializer);
-var var_tokenDecimals = sse_decode_u_8(deserializer);
-var var_tokenBalanceRaw = sse_decode_String(deserializer);
-var var_tokenBalanceFormatted = sse_decode_String(deserializer);
-var var_explanation = sse_decode_String(deserializer);
-return EthereumDemoResult(chainRpcUrl: var_chainRpcUrl, walletAddress: var_walletAddress, latestBlockNumber: var_latestBlockNumber, nativeBalanceWei: var_nativeBalanceWei, nativeBalanceEth: var_nativeBalanceEth, tokenAddress: var_tokenAddress, tokenSymbol: var_tokenSymbol, tokenDecimals: var_tokenDecimals, tokenBalanceRaw: var_tokenBalanceRaw, tokenBalanceFormatted: var_tokenBalanceFormatted, explanation: var_explanation); }
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_u_64(deserializer));
+    } else {
+      return null;
+    }
+  }
 
-@protected Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-var len_ = sse_decode_i_32(deserializer);
-                return deserializer.buffer.getUint8List(len_); }
+  @protected
+  SolanaDemoRequest sse_decode_solana_demo_request(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_rpcUrl = sse_decode_String(deserializer);
+    var var_walletAddress = sse_decode_String(deserializer);
+    return SolanaDemoRequest(
+      rpcUrl: var_rpcUrl,
+      walletAddress: var_walletAddress,
+    );
+  }
 
-@protected BigInt? sse_decode_opt_box_autoadd_u_64(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
+  @protected
+  SolanaDemoResult sse_decode_solana_demo_result(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_rpcUrl = sse_decode_String(deserializer);
+    var var_walletAddress = sse_decode_String(deserializer);
+    var var_latestSlot = sse_decode_u_64(deserializer);
+    var var_blockHeight = sse_decode_u_64(deserializer);
+    var var_epoch = sse_decode_u_64(deserializer);
+    var var_transactionCount = sse_decode_opt_box_autoadd_u_64(deserializer);
+    var var_lamports = sse_decode_u_64(deserializer);
+    var var_solBalance = sse_decode_String(deserializer);
+    var var_commitment = sse_decode_String(deserializer);
+    var var_explanation = sse_decode_String(deserializer);
+    return SolanaDemoResult(
+      rpcUrl: var_rpcUrl,
+      walletAddress: var_walletAddress,
+      latestSlot: var_latestSlot,
+      blockHeight: var_blockHeight,
+      epoch: var_epoch,
+      transactionCount: var_transactionCount,
+      lamports: var_lamports,
+      solBalance: var_solBalance,
+      commitment: var_commitment,
+      explanation: var_explanation,
+    );
+  }
 
-            if (sse_decode_bool(deserializer)) {
-                return (sse_decode_box_autoadd_u_64(deserializer));
-            } else {
-                return null;
-            }
-             }
+  @protected
+  SuiDemoRequest sse_decode_sui_demo_request(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_rpcUrl = sse_decode_String(deserializer);
+    var var_walletAddress = sse_decode_String(deserializer);
+    return SuiDemoRequest(rpcUrl: var_rpcUrl, walletAddress: var_walletAddress);
+  }
 
-@protected SolanaDemoRequest sse_decode_solana_demo_request(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-var var_rpcUrl = sse_decode_String(deserializer);
-var var_walletAddress = sse_decode_String(deserializer);
-return SolanaDemoRequest(rpcUrl: var_rpcUrl, walletAddress: var_walletAddress); }
+  @protected
+  SuiDemoResult sse_decode_sui_demo_result(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_rpcUrl = sse_decode_String(deserializer);
+    var var_walletAddress = sse_decode_String(deserializer);
+    var var_apiVersion = sse_decode_String(deserializer);
+    var var_rpcMethodsCount = sse_decode_String(deserializer);
+    var var_currentEpoch = sse_decode_String(deserializer);
+    var var_referenceGasPrice = sse_decode_String(deserializer);
+    var var_activeValidators = sse_decode_String(deserializer);
+    var var_ownedObjectsInPage = sse_decode_String(deserializer);
+    var var_stakePositionCount = sse_decode_String(deserializer);
+    var var_explanation = sse_decode_String(deserializer);
+    return SuiDemoResult(
+      rpcUrl: var_rpcUrl,
+      walletAddress: var_walletAddress,
+      apiVersion: var_apiVersion,
+      rpcMethodsCount: var_rpcMethodsCount,
+      currentEpoch: var_currentEpoch,
+      referenceGasPrice: var_referenceGasPrice,
+      activeValidators: var_activeValidators,
+      ownedObjectsInPage: var_ownedObjectsInPage,
+      stakePositionCount: var_stakePositionCount,
+      explanation: var_explanation,
+    );
+  }
 
-@protected SolanaDemoResult sse_decode_solana_demo_result(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-var var_rpcUrl = sse_decode_String(deserializer);
-var var_walletAddress = sse_decode_String(deserializer);
-var var_latestSlot = sse_decode_u_64(deserializer);
-var var_blockHeight = sse_decode_u_64(deserializer);
-var var_epoch = sse_decode_u_64(deserializer);
-var var_transactionCount = sse_decode_opt_box_autoadd_u_64(deserializer);
-var var_lamports = sse_decode_u_64(deserializer);
-var var_solBalance = sse_decode_String(deserializer);
-var var_commitment = sse_decode_String(deserializer);
-var var_explanation = sse_decode_String(deserializer);
-return SolanaDemoResult(rpcUrl: var_rpcUrl, walletAddress: var_walletAddress, latestSlot: var_latestSlot, blockHeight: var_blockHeight, epoch: var_epoch, transactionCount: var_transactionCount, lamports: var_lamports, solBalance: var_solBalance, commitment: var_commitment, explanation: var_explanation); }
+  @protected
+  BigInt sse_decode_u_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getBigUint64();
+  }
 
-@protected SuiDemoRequest sse_decode_sui_demo_request(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-var var_rpcUrl = sse_decode_String(deserializer);
-var var_walletAddress = sse_decode_String(deserializer);
-return SuiDemoRequest(rpcUrl: var_rpcUrl, walletAddress: var_walletAddress); }
+  @protected
+  int sse_decode_u_8(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getUint8();
+  }
 
-@protected SuiDemoResult sse_decode_sui_demo_result(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-var var_rpcUrl = sse_decode_String(deserializer);
-var var_walletAddress = sse_decode_String(deserializer);
-var var_apiVersion = sse_decode_String(deserializer);
-var var_rpcMethodsCount = sse_decode_String(deserializer);
-var var_currentEpoch = sse_decode_String(deserializer);
-var var_referenceGasPrice = sse_decode_String(deserializer);
-var var_activeValidators = sse_decode_String(deserializer);
-var var_ownedObjectsInPage = sse_decode_String(deserializer);
-var var_stakePositionCount = sse_decode_String(deserializer);
-var var_explanation = sse_decode_String(deserializer);
-return SuiDemoResult(rpcUrl: var_rpcUrl, walletAddress: var_walletAddress, apiVersion: var_apiVersion, rpcMethodsCount: var_rpcMethodsCount, currentEpoch: var_currentEpoch, referenceGasPrice: var_referenceGasPrice, activeValidators: var_activeValidators, ownedObjectsInPage: var_ownedObjectsInPage, stakePositionCount: var_stakePositionCount, explanation: var_explanation); }
+  @protected
+  void sse_decode_unit(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+  }
 
-@protected BigInt sse_decode_u_64(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return deserializer.buffer.getBigUint64(); }
+  @protected
+  int sse_decode_i_32(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getInt32();
+  }
 
-@protected int sse_decode_u_8(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return deserializer.buffer.getUint8(); }
+  @protected
+  bool sse_decode_bool(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getUint8() != 0;
+  }
 
-@protected void sse_decode_unit(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
- }
+  @protected
+  void sse_encode_String(String self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_prim_u_8_strict(utf8.encoder.convert(self), serializer);
+  }
 
-@protected int sse_decode_i_32(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return deserializer.buffer.getInt32(); }
+  @protected
+  void sse_encode_box_autoadd_ethereum_demo_request(
+    EthereumDemoRequest self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_ethereum_demo_request(self, serializer);
+  }
 
-@protected bool sse_decode_bool(SseDeserializer deserializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-return deserializer.buffer.getUint8() != 0; }
+  @protected
+  void sse_encode_box_autoadd_solana_demo_request(
+    SolanaDemoRequest self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_solana_demo_request(self, serializer);
+  }
 
-@protected void sse_encode_String(String self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_list_prim_u_8_strict(utf8.encoder.convert(self), serializer); }
+  @protected
+  void sse_encode_box_autoadd_sui_demo_request(
+    SuiDemoRequest self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_sui_demo_request(self, serializer);
+  }
 
-@protected void sse_encode_box_autoadd_ethereum_demo_request(EthereumDemoRequest self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_ethereum_demo_request(self, serializer); }
+  @protected
+  void sse_encode_box_autoadd_u_64(BigInt self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_64(self, serializer);
+  }
 
-@protected void sse_encode_box_autoadd_solana_demo_request(SolanaDemoRequest self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_solana_demo_request(self, serializer); }
+  @protected
+  void sse_encode_ethereum_demo_request(
+    EthereumDemoRequest self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.rpcUrl, serializer);
+    sse_encode_String(self.walletAddress, serializer);
+    sse_encode_String(self.erc20TokenAddress, serializer);
+  }
 
-@protected void sse_encode_box_autoadd_sui_demo_request(SuiDemoRequest self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_sui_demo_request(self, serializer); }
+  @protected
+  void sse_encode_ethereum_demo_result(
+    EthereumDemoResult self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.chainRpcUrl, serializer);
+    sse_encode_String(self.walletAddress, serializer);
+    sse_encode_String(self.latestBlockNumber, serializer);
+    sse_encode_String(self.nativeBalanceWei, serializer);
+    sse_encode_String(self.nativeBalanceEth, serializer);
+    sse_encode_String(self.tokenAddress, serializer);
+    sse_encode_String(self.tokenSymbol, serializer);
+    sse_encode_u_8(self.tokenDecimals, serializer);
+    sse_encode_String(self.tokenBalanceRaw, serializer);
+    sse_encode_String(self.tokenBalanceFormatted, serializer);
+    sse_encode_String(self.explanation, serializer);
+  }
 
-@protected void sse_encode_box_autoadd_u_64(BigInt self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_u_64(self, serializer); }
+  @protected
+  void sse_encode_list_prim_u_8_strict(
+    Uint8List self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    serializer.buffer.putUint8List(self);
+  }
 
-@protected void sse_encode_ethereum_demo_request(EthereumDemoRequest self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_String(self.rpcUrl, serializer);
-sse_encode_String(self.walletAddress, serializer);
-sse_encode_String(self.erc20TokenAddress, serializer);
- }
+  @protected
+  void sse_encode_opt_box_autoadd_u_64(BigInt? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
 
-@protected void sse_encode_ethereum_demo_result(EthereumDemoResult self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_String(self.chainRpcUrl, serializer);
-sse_encode_String(self.walletAddress, serializer);
-sse_encode_String(self.latestBlockNumber, serializer);
-sse_encode_String(self.nativeBalanceWei, serializer);
-sse_encode_String(self.nativeBalanceEth, serializer);
-sse_encode_String(self.tokenAddress, serializer);
-sse_encode_String(self.tokenSymbol, serializer);
-sse_encode_u_8(self.tokenDecimals, serializer);
-sse_encode_String(self.tokenBalanceRaw, serializer);
-sse_encode_String(self.tokenBalanceFormatted, serializer);
-sse_encode_String(self.explanation, serializer);
- }
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_u_64(self, serializer);
+    }
+  }
 
-@protected void sse_encode_list_prim_u_8_strict(Uint8List self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_i_32(self.length, serializer);
-                    serializer.buffer.putUint8List(self); }
+  @protected
+  void sse_encode_solana_demo_request(
+    SolanaDemoRequest self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.rpcUrl, serializer);
+    sse_encode_String(self.walletAddress, serializer);
+  }
 
-@protected void sse_encode_opt_box_autoadd_u_64(BigInt? self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
+  @protected
+  void sse_encode_solana_demo_result(
+    SolanaDemoResult self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.rpcUrl, serializer);
+    sse_encode_String(self.walletAddress, serializer);
+    sse_encode_u_64(self.latestSlot, serializer);
+    sse_encode_u_64(self.blockHeight, serializer);
+    sse_encode_u_64(self.epoch, serializer);
+    sse_encode_opt_box_autoadd_u_64(self.transactionCount, serializer);
+    sse_encode_u_64(self.lamports, serializer);
+    sse_encode_String(self.solBalance, serializer);
+    sse_encode_String(self.commitment, serializer);
+    sse_encode_String(self.explanation, serializer);
+  }
 
-                sse_encode_bool(self != null, serializer);
-                if (self != null) {
-                    sse_encode_box_autoadd_u_64(self, serializer);
-                }
-                 }
+  @protected
+  void sse_encode_sui_demo_request(
+    SuiDemoRequest self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.rpcUrl, serializer);
+    sse_encode_String(self.walletAddress, serializer);
+  }
 
-@protected void sse_encode_solana_demo_request(SolanaDemoRequest self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_String(self.rpcUrl, serializer);
-sse_encode_String(self.walletAddress, serializer);
- }
+  @protected
+  void sse_encode_sui_demo_result(
+    SuiDemoResult self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.rpcUrl, serializer);
+    sse_encode_String(self.walletAddress, serializer);
+    sse_encode_String(self.apiVersion, serializer);
+    sse_encode_String(self.rpcMethodsCount, serializer);
+    sse_encode_String(self.currentEpoch, serializer);
+    sse_encode_String(self.referenceGasPrice, serializer);
+    sse_encode_String(self.activeValidators, serializer);
+    sse_encode_String(self.ownedObjectsInPage, serializer);
+    sse_encode_String(self.stakePositionCount, serializer);
+    sse_encode_String(self.explanation, serializer);
+  }
 
-@protected void sse_encode_solana_demo_result(SolanaDemoResult self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_String(self.rpcUrl, serializer);
-sse_encode_String(self.walletAddress, serializer);
-sse_encode_u_64(self.latestSlot, serializer);
-sse_encode_u_64(self.blockHeight, serializer);
-sse_encode_u_64(self.epoch, serializer);
-sse_encode_opt_box_autoadd_u_64(self.transactionCount, serializer);
-sse_encode_u_64(self.lamports, serializer);
-sse_encode_String(self.solBalance, serializer);
-sse_encode_String(self.commitment, serializer);
-sse_encode_String(self.explanation, serializer);
- }
+  @protected
+  void sse_encode_u_64(BigInt self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putBigUint64(self);
+  }
 
-@protected void sse_encode_sui_demo_request(SuiDemoRequest self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_String(self.rpcUrl, serializer);
-sse_encode_String(self.walletAddress, serializer);
- }
+  @protected
+  void sse_encode_u_8(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putUint8(self);
+  }
 
-@protected void sse_encode_sui_demo_result(SuiDemoResult self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-sse_encode_String(self.rpcUrl, serializer);
-sse_encode_String(self.walletAddress, serializer);
-sse_encode_String(self.apiVersion, serializer);
-sse_encode_String(self.rpcMethodsCount, serializer);
-sse_encode_String(self.currentEpoch, serializer);
-sse_encode_String(self.referenceGasPrice, serializer);
-sse_encode_String(self.activeValidators, serializer);
-sse_encode_String(self.ownedObjectsInPage, serializer);
-sse_encode_String(self.stakePositionCount, serializer);
-sse_encode_String(self.explanation, serializer);
- }
+  @protected
+  void sse_encode_unit(void self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+  }
 
-@protected void sse_encode_u_64(BigInt self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-serializer.buffer.putBigUint64(self); }
+  @protected
+  void sse_encode_i_32(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putInt32(self);
+  }
 
-@protected void sse_encode_u_8(int self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-serializer.buffer.putUint8(self); }
-
-@protected void sse_encode_unit(void self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
- }
-
-@protected void sse_encode_i_32(int self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-serializer.buffer.putInt32(self); }
-
-@protected void sse_encode_bool(bool self, SseSerializer serializer){ // Codec=Sse (Serialization based), see doc to use other codecs
-serializer.buffer.putUint8(self ? 1 : 0); }
-                }
-                
+  @protected
+  void sse_encode_bool(bool self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putUint8(self ? 1 : 0);
+  }
+}

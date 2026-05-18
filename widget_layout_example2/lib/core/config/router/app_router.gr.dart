@@ -2707,6 +2707,22 @@ class FlutterVideoCachingFvpRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterWebRtcPage]
+class FlutterWebRtcRoute extends PageRouteInfo<void> {
+  const FlutterWebRtcRoute({List<PageRouteInfo>? children})
+    : super(FlutterWebRtcRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterWebRtcRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterWebRtcPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterZoomDrawerPage]
 class FlutterZoomDrawerRoute extends PageRouteInfo<void> {
   const FlutterZoomDrawerRoute({List<PageRouteInfo>? children})

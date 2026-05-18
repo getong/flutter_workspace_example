@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/semantics.dart';
 
 import 'package:flash/flash.dart';
 import 'package:flash/flash_helper.dart';
@@ -24,6 +25,7 @@ import 'package:widget_layout_example2/features/text_field_persist/text_field_pe
 Future<void> bootstrapWidgetLayoutApp() async {
   if (kDebugMode) {
     MarionetteBinding.ensureInitialized();
+    SemanticsBinding.instance.ensureSemantics();
   } else {
     WidgetsFlutterBinding.ensureInitialized();
   }

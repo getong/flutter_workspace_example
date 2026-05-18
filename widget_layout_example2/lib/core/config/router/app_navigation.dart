@@ -306,6 +306,7 @@ abstract final class RouteName {
   static const vectorMath = 'VectorMathRoute';
   static const mobileScanner = 'MobileScannerRoute';
   static const webcrypto = 'WebcryptoRoute';
+  static const flutterWebRtc = 'FlutterWebRtcRoute';
   static const flutterRustBridgeEthereum = 'FlutterRustBridgeEthereumRoute';
   static const flutterRustBridgeSolana = 'FlutterRustBridgeSolanaRoute';
   static const flutterRustBridgeSui = 'FlutterRustBridgeSuiRoute';
@@ -808,6 +809,7 @@ enum AppRoute {
   vectorMath('/vector-math-page', RouteName.vectorMath),
   mobileScanner('/mobile-scanner-page', RouteName.mobileScanner),
   webcrypto('/webcrypto-page', RouteName.webcrypto),
+  flutterWebRtc('/flutter-webrtc-page', RouteName.flutterWebRtc),
   flutterRustBridgeEthereum(
     '/flutter-rust-bridge-ethereum-page',
     RouteName.flutterRustBridgeEthereum,

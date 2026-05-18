@@ -700,6 +700,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
   ),
   _ModuleLink(label: 'webcrypto Module', routePath: AppRoute.webcrypto.path),
   _ModuleLink(
+    label: 'flutter_webrtc Module',
+    routePath: AppRoute.flutterWebRtc.path,
+  ),
+  _ModuleLink(
     label: 'flutter_rust_bridge + alloy Module',
     routePath: AppRoute.flutterRustBridgeEthereum.path,
   ),
