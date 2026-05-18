@@ -4,6 +4,7 @@
 // ignore_for_file: unused_import, unused_element, unnecessary_import, duplicate_ignore, invalid_use_of_internal_member, annotate_overrides, non_constant_identifier_names, curly_braces_in_flow_control_structures, prefer_const_literals_to_create_immutables, unused_field
 
 import 'api/ethereum.dart';
+import 'api/libp2p_webrtc.dart';
 import 'api/solana.dart';
 import 'api/sui.dart';
 import 'dart:async';
@@ -27,6 +28,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   EthereumDemoRequest dco_decode_box_autoadd_ethereum_demo_request(dynamic raw);
 
   @protected
+  Libp2pWebRtcDialRequest dco_decode_box_autoadd_libp_2_p_web_rtc_dial_request(
+    dynamic raw,
+  );
+
+  @protected
   SolanaDemoRequest dco_decode_box_autoadd_solana_demo_request(dynamic raw);
 
   @protected
@@ -40,6 +46,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   EthereumDemoResult dco_decode_ethereum_demo_result(dynamic raw);
+
+  @protected
+  Libp2pWebRtcDialRequest dco_decode_libp_2_p_web_rtc_dial_request(dynamic raw);
+
+  @protected
+  Libp2pWebRtcDialResult dco_decode_libp_2_p_web_rtc_dial_result(dynamic raw);
 
   @protected
   Uint8List dco_decode_list_prim_u_8_strict(dynamic raw);
@@ -60,6 +72,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   SuiDemoResult dco_decode_sui_demo_result(dynamic raw);
 
   @protected
+  int dco_decode_u_32(dynamic raw);
+
+  @protected
   BigInt dco_decode_u_64(dynamic raw);
 
   @protected
@@ -73,6 +88,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   EthereumDemoRequest sse_decode_box_autoadd_ethereum_demo_request(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  Libp2pWebRtcDialRequest sse_decode_box_autoadd_libp_2_p_web_rtc_dial_request(
     SseDeserializer deserializer,
   );
 
@@ -100,6 +120,16 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  Libp2pWebRtcDialRequest sse_decode_libp_2_p_web_rtc_dial_request(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  Libp2pWebRtcDialResult sse_decode_libp_2_p_web_rtc_dial_result(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer);
 
   @protected
@@ -118,6 +148,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   SuiDemoResult sse_decode_sui_demo_result(SseDeserializer deserializer);
+
+  @protected
+  int sse_decode_u_32(SseDeserializer deserializer);
 
   @protected
   BigInt sse_decode_u_64(SseDeserializer deserializer);
@@ -140,6 +173,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   void sse_encode_box_autoadd_ethereum_demo_request(
     EthereumDemoRequest self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_box_autoadd_libp_2_p_web_rtc_dial_request(
+    Libp2pWebRtcDialRequest self,
     SseSerializer serializer,
   );
 
@@ -167,6 +206,18 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   void sse_encode_ethereum_demo_result(
     EthereumDemoResult self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_libp_2_p_web_rtc_dial_request(
+    Libp2pWebRtcDialRequest self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_libp_2_p_web_rtc_dial_result(
+    Libp2pWebRtcDialResult self,
     SseSerializer serializer,
   );
 
@@ -199,6 +250,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_sui_demo_result(SuiDemoResult self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_u_32(int self, SseSerializer serializer);
 
   @protected
   void sse_encode_u_64(BigInt self, SseSerializer serializer);

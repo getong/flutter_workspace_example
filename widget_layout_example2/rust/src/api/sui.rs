@@ -1,6 +1,6 @@
 use anyhow::Result;
 use std::str::FromStr;
-use sui_sdk::{types::base_types::SuiAddress, SuiClientBuilder};
+use sui_sdk::{SuiClientBuilder, types::base_types::SuiAddress};
 
 #[derive(Debug, Clone)]
 pub struct SuiDemoRequest {
@@ -32,7 +32,10 @@ async fn fetch_sui_demo_impl(request: SuiDemoRequest) -> Result<SuiDemoResult> {
     let address = SuiAddress::from_str(&request.wallet_address)?;
     let client = SuiClientBuilder::default().build(&request.rpc_url).await?;
 
-    let system_state = client.governance_api().get_latest_sui_system_state().await?;
+    let system_state = client
+        .governance_api()
+        .get_latest_sui_system_state()
+        .await?;
     let reference_gas_price = client.governance_api().get_reference_gas_price().await?;
     let owned_objects = client
         .read_api()

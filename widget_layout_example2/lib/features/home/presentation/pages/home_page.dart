@@ -704,6 +704,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.flutterWebRtc.path,
   ),
   _ModuleLink(
+    label: 'flutter_rust_bridge + libp2p-webrtc Module',
+    routePath: AppRoute.flutterRustBridgeLibp2pWebRtc.path,
+  ),
+  _ModuleLink(
     label: 'flutter_rust_bridge + alloy Module',
     routePath: AppRoute.flutterRustBridgeEthereum.path,
   ),

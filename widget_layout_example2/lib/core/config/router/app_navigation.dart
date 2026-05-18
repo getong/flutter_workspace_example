@@ -307,6 +307,8 @@ abstract final class RouteName {
   static const mobileScanner = 'MobileScannerRoute';
   static const webcrypto = 'WebcryptoRoute';
   static const flutterWebRtc = 'FlutterWebRtcRoute';
+  static const flutterRustBridgeLibp2pWebRtc =
+      'FlutterRustBridgeLibp2pWebRtcRoute';
   static const flutterRustBridgeEthereum = 'FlutterRustBridgeEthereumRoute';
   static const flutterRustBridgeSolana = 'FlutterRustBridgeSolanaRoute';
   static const flutterRustBridgeSui = 'FlutterRustBridgeSuiRoute';
@@ -810,6 +812,10 @@ enum AppRoute {
   mobileScanner('/mobile-scanner-page', RouteName.mobileScanner),
   webcrypto('/webcrypto-page', RouteName.webcrypto),
   flutterWebRtc('/flutter-webrtc-page', RouteName.flutterWebRtc),
+  flutterRustBridgeLibp2pWebRtc(
+    '/flutter-rust-bridge-libp2p-webrtc-page',
+    RouteName.flutterRustBridgeLibp2pWebRtc,
+  ),
   flutterRustBridgeEthereum(
     '/flutter-rust-bridge-ethereum-page',
     RouteName.flutterRustBridgeEthereum,

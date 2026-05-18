@@ -24,9 +24,7 @@ pub struct SolanaDemoResult {
     pub explanation: String,
 }
 
-pub async fn fetch_solana_demo(
-    request: SolanaDemoRequest,
-) -> Result<SolanaDemoResult, String> {
+pub async fn fetch_solana_demo(request: SolanaDemoRequest) -> Result<SolanaDemoResult, String> {
     fetch_solana_demo_impl(request)
         .await
         .map_err(|error| error.to_string())

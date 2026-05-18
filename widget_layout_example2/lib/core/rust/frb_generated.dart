@@ -4,6 +4,7 @@
 // ignore_for_file: unused_import, unused_element, unnecessary_import, duplicate_ignore, invalid_use_of_internal_member, annotate_overrides, non_constant_identifier_names, curly_braces_in_flow_control_structures, prefer_const_literals_to_create_immutables, unused_field
 
 import 'api/ethereum.dart';
+import 'api/libp2p_webrtc.dart';
 import 'api/solana.dart';
 import 'api/sui.dart';
 import 'dart:async';
@@ -68,7 +69,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.12.0';
 
   @override
-  int get rustContentHash => 4292604;
+  int get rustContentHash => 1962147472;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -80,6 +81,10 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
 }
 
 abstract class RustLibApi extends BaseApi {
+  Future<Libp2pWebRtcDialResult> crateApiLibp2PWebrtcDialLibp2PWebrtcServer({
+    required Libp2pWebRtcDialRequest request,
+  });
+
   Future<EthereumDemoResult> crateApiEthereumFetchEthereumDemo({
     required EthereumDemoRequest request,
   });
@@ -104,6 +109,42 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   });
 
   @override
+  Future<Libp2pWebRtcDialResult> crateApiLibp2PWebrtcDialLibp2PWebrtcServer({
+    required Libp2pWebRtcDialRequest request,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_box_autoadd_libp_2_p_web_rtc_dial_request(
+            request,
+            serializer,
+          );
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 1,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_libp_2_p_web_rtc_dial_result,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiLibp2PWebrtcDialLibp2PWebrtcServerConstMeta,
+        argValues: [request],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiLibp2PWebrtcDialLibp2PWebrtcServerConstMeta =>
+      const TaskConstMeta(
+        debugName: "dial_libp2p_webrtc_server",
+        argNames: ["request"],
+      );
+
+  @override
   Future<EthereumDemoResult> crateApiEthereumFetchEthereumDemo({
     required EthereumDemoRequest request,
   }) {
@@ -115,7 +156,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 1,
+            funcId: 2,
             port: port_,
           );
         },
@@ -148,7 +189,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 2,
+            funcId: 3,
             port: port_,
           );
         },
@@ -181,7 +222,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 3,
+            funcId: 4,
             port: port_,
           );
         },
@@ -208,7 +249,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 4,
+            funcId: 5,
             port: port_,
           );
         },
@@ -238,6 +279,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_ethereum_demo_request(raw);
+  }
+
+  @protected
+  Libp2pWebRtcDialRequest dco_decode_box_autoadd_libp_2_p_web_rtc_dial_request(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_libp_2_p_web_rtc_dial_request(raw);
   }
 
   @protected
@@ -289,6 +338,39 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       tokenBalanceRaw: dco_decode_String(arr[8]),
       tokenBalanceFormatted: dco_decode_String(arr[9]),
       explanation: dco_decode_String(arr[10]),
+    );
+  }
+
+  @protected
+  Libp2pWebRtcDialRequest dco_decode_libp_2_p_web_rtc_dial_request(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return Libp2pWebRtcDialRequest(
+      serverMultiaddr: dco_decode_String(arr[0]),
+      timeoutSeconds: dco_decode_u_32(arr[1]),
+      message: dco_decode_String(arr[2]),
+    );
+  }
+
+  @protected
+  Libp2pWebRtcDialResult dco_decode_libp_2_p_web_rtc_dial_result(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 8)
+      throw Exception('unexpected arr length: expect 8 but see ${arr.length}');
+    return Libp2pWebRtcDialResult(
+      localPeerId: dco_decode_String(arr[0]),
+      remotePeerId: dco_decode_String(arr[1]),
+      dialedMultiaddr: dco_decode_String(arr[2]),
+      sentMessage: dco_decode_String(arr[3]),
+      echoedMessage: dco_decode_String(arr[4]),
+      serverTimestamp: dco_decode_String(arr[5]),
+      statusMessage: dco_decode_String(arr[6]),
+      explanation: dco_decode_String(arr[7]),
     );
   }
 
@@ -369,6 +451,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  int dco_decode_u_32(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as int;
+  }
+
+  @protected
   BigInt dco_decode_u_64(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dcoDecodeU64(raw);
@@ -399,6 +487,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_ethereum_demo_request(deserializer));
+  }
+
+  @protected
+  Libp2pWebRtcDialRequest sse_decode_box_autoadd_libp_2_p_web_rtc_dial_request(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_libp_2_p_web_rtc_dial_request(deserializer));
   }
 
   @protected
@@ -465,6 +561,46 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       tokenDecimals: var_tokenDecimals,
       tokenBalanceRaw: var_tokenBalanceRaw,
       tokenBalanceFormatted: var_tokenBalanceFormatted,
+      explanation: var_explanation,
+    );
+  }
+
+  @protected
+  Libp2pWebRtcDialRequest sse_decode_libp_2_p_web_rtc_dial_request(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_serverMultiaddr = sse_decode_String(deserializer);
+    var var_timeoutSeconds = sse_decode_u_32(deserializer);
+    var var_message = sse_decode_String(deserializer);
+    return Libp2pWebRtcDialRequest(
+      serverMultiaddr: var_serverMultiaddr,
+      timeoutSeconds: var_timeoutSeconds,
+      message: var_message,
+    );
+  }
+
+  @protected
+  Libp2pWebRtcDialResult sse_decode_libp_2_p_web_rtc_dial_result(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_localPeerId = sse_decode_String(deserializer);
+    var var_remotePeerId = sse_decode_String(deserializer);
+    var var_dialedMultiaddr = sse_decode_String(deserializer);
+    var var_sentMessage = sse_decode_String(deserializer);
+    var var_echoedMessage = sse_decode_String(deserializer);
+    var var_serverTimestamp = sse_decode_String(deserializer);
+    var var_statusMessage = sse_decode_String(deserializer);
+    var var_explanation = sse_decode_String(deserializer);
+    return Libp2pWebRtcDialResult(
+      localPeerId: var_localPeerId,
+      remotePeerId: var_remotePeerId,
+      dialedMultiaddr: var_dialedMultiaddr,
+      sentMessage: var_sentMessage,
+      echoedMessage: var_echoedMessage,
+      serverTimestamp: var_serverTimestamp,
+      statusMessage: var_statusMessage,
       explanation: var_explanation,
     );
   }
@@ -563,6 +699,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  int sse_decode_u_32(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getUint32();
+  }
+
+  @protected
   BigInt sse_decode_u_64(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return deserializer.buffer.getBigUint64();
@@ -604,6 +746,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_ethereum_demo_request(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_libp_2_p_web_rtc_dial_request(
+    Libp2pWebRtcDialRequest self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_libp_2_p_web_rtc_dial_request(self, serializer);
   }
 
   @protected
@@ -657,6 +808,33 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_u_8(self.tokenDecimals, serializer);
     sse_encode_String(self.tokenBalanceRaw, serializer);
     sse_encode_String(self.tokenBalanceFormatted, serializer);
+    sse_encode_String(self.explanation, serializer);
+  }
+
+  @protected
+  void sse_encode_libp_2_p_web_rtc_dial_request(
+    Libp2pWebRtcDialRequest self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.serverMultiaddr, serializer);
+    sse_encode_u_32(self.timeoutSeconds, serializer);
+    sse_encode_String(self.message, serializer);
+  }
+
+  @protected
+  void sse_encode_libp_2_p_web_rtc_dial_result(
+    Libp2pWebRtcDialResult self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.localPeerId, serializer);
+    sse_encode_String(self.remotePeerId, serializer);
+    sse_encode_String(self.dialedMultiaddr, serializer);
+    sse_encode_String(self.sentMessage, serializer);
+    sse_encode_String(self.echoedMessage, serializer);
+    sse_encode_String(self.serverTimestamp, serializer);
+    sse_encode_String(self.statusMessage, serializer);
     sse_encode_String(self.explanation, serializer);
   }
 
@@ -734,6 +912,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_String(self.ownedObjectsInPage, serializer);
     sse_encode_String(self.stakePositionCount, serializer);
     sse_encode_String(self.explanation, serializer);
+  }
+
+  @protected
+  void sse_encode_u_32(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putUint32(self);
   }
 
   @protected
