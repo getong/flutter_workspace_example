@@ -16,9 +16,23 @@ class _DatePickerDialogPageState extends State<DatePickerDialogPage> {
   late final DateTime _lastDate = DateTime(_today.year + 2, 12, 31);
 
   late DateTime _selectedDate = _today.add(const Duration(days: 2));
-  late DateTime _inputModeDate = _today.add(const Duration(days: 14));
+  late DateTime _inputModeDate = _firstSelectableDateOnOrAfter(
+    _today.add(const Duration(days: 14)),
+  );
   DatePickerEntryMode _entryMode = DatePickerEntryMode.calendar;
   String _latestResult = 'No DatePickerDialog result yet.';
+
+  bool _isSelectableDay(DateTime date) {
+    return date.weekday != DateTime.sunday;
+  }
+
+  DateTime _firstSelectableDateOnOrAfter(DateTime date) {
+    DateTime candidate = DateUtils.dateOnly(date);
+    while (!_isSelectableDay(candidate)) {
+      candidate = candidate.add(const Duration(days: 1));
+    }
+    return candidate;
+  }
 
   Future<void> _openCalendarDialog() async {
     final DateTime? result = await showDialog<DateTime>(
@@ -65,9 +79,7 @@ class _DatePickerDialogPageState extends State<DatePickerDialogPage> {
           initialEntryMode: DatePickerEntryMode.input,
           fieldHintText: 'mm/dd/yyyy',
           fieldLabelText: 'Launch date',
-          selectableDayPredicate: (DateTime value) {
-            return value.weekday != DateTime.sunday;
-          },
+          selectableDayPredicate: _isSelectableDay,
           onDatePickerModeChange: (DatePickerEntryMode mode) {
             setState(() {
               _entryMode = mode;

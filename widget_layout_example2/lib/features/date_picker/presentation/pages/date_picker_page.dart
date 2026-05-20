@@ -15,10 +15,24 @@ class _DatePickerPageState extends State<DatePickerPage> {
   late final DateTime _firstDate = DateTime(_today.year - 1, 1, 1);
   late final DateTime _lastDate = DateTime(_today.year + 2, 12, 31);
 
-  late DateTime _selectedDate = _today.add(const Duration(days: 3));
+  late DateTime _selectedDate = _firstSelectableDateOnOrAfter(
+    _today.add(const Duration(days: 3)),
+  );
   late DateTime _calendarDate = _selectedDate;
   DateTime? _typedDate;
   DateTimeRange? _selectedRange;
+
+  bool _isSelectableDay(DateTime date) {
+    return date.weekday != DateTime.sunday;
+  }
+
+  DateTime _firstSelectableDateOnOrAfter(DateTime date) {
+    DateTime candidate = DateUtils.dateOnly(date);
+    while (!_isSelectableDay(candidate)) {
+      candidate = candidate.add(const Duration(days: 1));
+    }
+    return candidate;
+  }
 
   Future<void> _pickDate() async {
     final DateTime? pickedDate = await showDatePicker(
@@ -28,9 +42,7 @@ class _DatePickerPageState extends State<DatePickerPage> {
       lastDate: _lastDate,
       helpText: 'Select release date',
       confirmText: 'Save',
-      selectableDayPredicate: (DateTime date) {
-        return date.weekday != DateTime.sunday;
-      },
+      selectableDayPredicate: _isSelectableDay,
     );
 
     if (!mounted || pickedDate == null) {
