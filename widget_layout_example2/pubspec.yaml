@@ -50,7 +50,7 @@ dependencies:
   clipboard: ^3.0.14
   cookie_jar: ^4.0.9
   crypto: ^3.0.7
-  cue: ^0.3.0
+  cue: ^0.3.1
   cupertino_icons: ^1.0.9
   dash_chat_3: ^1.0.1
   desktop_multi_window: ^0.3.0
@@ -63,7 +63,7 @@ dependencies:
   dynamic_color: ^1.8.1
   encrypter_plus: ^5.1.0
   extended_image: ^10.0.1
-  fc_native_video_thumbnail: ^2.1.1
+  fc_native_video_thumbnail: ^2.2.0
   ffigen: ^20.1.1
   fl_chart: ^1.2.0
   flash: ^3.1.1
@@ -159,8 +159,8 @@ dependencies:
   pull_down_button: ^0.10.2
   random_avatar: ^0.0.8
   retrofit: ^4.9.2
-  rive: ^0.14.6
-  rive_native: ^0.1.6
+  rive: ^0.14.7
+  rive_native: ^0.1.7
   sensors_plus: ^7.0.0
   sentry_flutter: ^9.20.0
   shadcn_ui: ^0.54.0
@@ -170,7 +170,7 @@ dependencies:
   shimmer: ^3.0.0
   sliver_snap: ^2.1.1
   smooth_page_indicator: ^2.0.1
-  speech_to_text: ^7.4.0-beta.8
+  speech_to_text: ^7.4.0
   sqlite3_flutter_libs: ^0.6.0+eol
   super_clipboard: ^0.9.1
   syncfusion_flutter_charts: ^33.2.7
