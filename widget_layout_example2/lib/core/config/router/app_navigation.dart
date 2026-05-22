@@ -174,6 +174,7 @@ abstract final class RouteName {
   static const flutterTts = 'FlutterTtsRoute';
   static const freezedAnnotation = 'FreezedAnnotationRoute';
   static const graphqlFlutter = 'GraphqlFlutterRoute';
+  static const grpcDemo = 'GrpcDemoRoute';
   static const hero = 'HeroRoute';
   static const hugeicons = 'HugeiconsRoute';
   static const imageCropper = 'ImageCropperRoute';
@@ -569,6 +570,7 @@ enum AppRoute {
   flutterTts('/flutter-tts-page', RouteName.flutterTts),
   freezedAnnotation('/freezed-annotation-page', RouteName.freezedAnnotation),
   graphqlFlutter('/graphql-flutter-page', RouteName.graphqlFlutter),
+  grpcDemo('/grpc-demo-page', RouteName.grpcDemo),
   hero('/hero-page', RouteName.hero),
   hugeicons('/hugeicons-page', RouteName.hugeicons),
   imageCropper('/image-cropper-page', RouteName.imageCropper),

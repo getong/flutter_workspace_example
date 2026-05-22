@@ -3011,6 +3011,22 @@ class GraphqlFlutterRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [GrpcDemoPage]
+class GrpcDemoRoute extends PageRouteInfo<void> {
+  const GrpcDemoRoute({List<PageRouteInfo>? children})
+    : super(GrpcDemoRoute.name, initialChildren: children);
+
+  static const String name = 'GrpcDemoRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const GrpcDemoPage();
+    },
+  );
+}
+
+/// generated route for
 /// [HeroPage]
 class HeroRoute extends PageRouteInfo<void> {
   const HeroRoute({List<PageRouteInfo>? children})

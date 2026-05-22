@@ -268,6 +268,7 @@ import 'package:widget_layout_example2/features/webview_flutter/presentation/pag
 import 'package:widget_layout_example2/features/wrap/presentation/pages/wrap_page.dart';
 import 'package:widget_layout_example2/features/choice_chip/presentation/pages/choice_chip_page.dart';
 import 'package:widget_layout_example2/features/divider/presentation/pages/divider_page.dart';
+import 'package:widget_layout_example2/features/grpc_demo/presentation/pages/grpc_demo_page.dart';
 import 'package:widget_layout_example2/features/mobile_scanner/presentation/pages/mobile_scanner_page.dart';
 import 'package:widget_layout_example2/features/multi_split_view/presentation/pages/multi_split_view_page.dart';
 import 'package:widget_layout_example2/features/placeholder/presentation/pages/placeholder_page.dart';
@@ -770,6 +771,7 @@ class AppRouter extends RootStackRouter {
       page: GraphqlFlutterRoute.page,
       path: AppRoute.graphqlFlutter.path,
     ),
+    AutoRoute(page: GrpcDemoRoute.page, path: AppRoute.grpcDemo.path),
     AutoRoute(page: HeroRoute.page, path: AppRoute.hero.path),
     AutoRoute(page: IconlyRoute.page, path: AppRoute.iconly.path),
     AutoRoute(

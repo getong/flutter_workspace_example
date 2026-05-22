@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package widget_layout_example2.grpc_demo;
+
+service GrpcDemoService {
+  rpc UnaryProfile(ProfileRequest) returns (ProfileReply);
+  rpc WatchBuild(BuildRequest) returns (stream BuildEvent);
+}
+
+message ProfileRequest {
+  string user_id = 1;
+  string preferred_role = 2;
+}
+
+message ProfileReply {
+  string user_id = 1;
+  string display_name = 2;
+  string role = 3;
+  string server_time_iso = 4;
+  repeated string capabilities = 5;
+}
+
+message BuildRequest {
+  string target = 1;
+  int32 steps = 2;
+}
+
+message BuildEvent {
+  int32 step = 1;
+  string phase = 2;
+  string detail = 3;
+  bool done = 4;
+}
