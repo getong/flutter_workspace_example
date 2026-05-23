@@ -338,6 +338,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.flutterHooks.path,
   ),
   _ModuleLink(
+    label: 'flutter_image_compress Module',
+    routePath: AppRoute.flutterImageCompress.path,
+  ),
+  _ModuleLink(
     label: 'flutter_inappwebview Module',
     routePath: AppRoute.flutterInappwebview.path,
   ),
@@ -444,6 +448,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
   _ModuleLink(
     label: 'KeyboardListener Module',
     routePath: AppRoute.keyboardListener.path,
+  ),
+  _ModuleLink(
+    label: 'leak_tracker Module',
+    routePath: AppRoute.leakTracker.path,
   ),
   _ModuleLink(
     label: 'LinearProgressIndicator Module',
@@ -593,6 +601,7 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'speech_to_text Module',
     routePath: AppRoute.speechToText.path,
   ),
+  _ModuleLink(label: 'squadron Module', routePath: AppRoute.squadron.path),
   _ModuleLink(
     label: 'syncfusion_flutter_charts Module',
     routePath: AppRoute.syncfusionFlutterCharts.path,

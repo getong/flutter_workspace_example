@@ -169,6 +169,7 @@ abstract final class RouteName {
   static const flutterDebounceThrottle = 'FlutterDebounceThrottleRoute';
   static const flutterDotenv = 'FlutterDotenvRoute';
   static const flutterHooks = 'FlutterHooksRoute';
+  static const flutterImageCompress = 'FlutterImageCompressRoute';
   static const flutterInappwebview = 'FlutterInappwebviewRoute';
   static const interactiveCard = 'InteractiveCardRoute';
   static const flutterTts = 'FlutterTtsRoute';
@@ -193,6 +194,7 @@ abstract final class RouteName {
   static const extendedImage = 'ExtendedImageRoute';
   static const fluttertoast = 'FluttertoastRoute';
   static const keyboardListener = 'KeyboardListenerRoute';
+  static const leakTracker = 'LeakTrackerRoute';
   static const inkWidgets = 'InkWidgetsRoute';
   static const mediaQuery = 'MediaQueryRoute';
   static const mouseRegion = 'MouseRegionRoute';
@@ -229,6 +231,7 @@ abstract final class RouteName {
   static const prettyDioLogger = 'PrettyDioLoggerRoute';
   static const randomAvatar = 'RandomAvatarRoute';
   static const speechToText = 'SpeechToTextRoute';
+  static const squadron = 'SquadronRoute';
   static const shimmer = 'ShimmerRoute';
   static const retrofit = 'RetrofitRoute';
   static const syncfusionFlutterCharts = 'SyncfusionFlutterChartsRoute';
@@ -562,6 +565,10 @@ enum AppRoute {
   ),
   flutterDotenv('/flutter-dotenv-page', RouteName.flutterDotenv),
   flutterHooks('/flutter-hooks-page', RouteName.flutterHooks),
+  flutterImageCompress(
+    '/flutter-image-compress-page',
+    RouteName.flutterImageCompress,
+  ),
   flutterInappwebview(
     '/flutter-inappwebview-page',
     RouteName.flutterInappwebview,
@@ -595,6 +602,7 @@ enum AppRoute {
   extendedImage('/extended-image-page', RouteName.extendedImage),
   fluttertoast('/fluttertoast-page', RouteName.fluttertoast),
   keyboardListener('/keyboard-listener-page', RouteName.keyboardListener),
+  leakTracker('/leak-tracker-page', RouteName.leakTracker),
   inkWidgets('/ink-widgets-page', RouteName.inkWidgets),
   mediaQuery('/media-query-page', RouteName.mediaQuery),
   mouseRegion('/mouse-region-page', RouteName.mouseRegion),
@@ -646,6 +654,7 @@ enum AppRoute {
   prettyDioLogger('/pretty-dio-logger-page', RouteName.prettyDioLogger),
   randomAvatar('/random-avatar-page', RouteName.randomAvatar),
   speechToText('/speech-to-text-page', RouteName.speechToText),
+  squadron('/squadron-page', RouteName.squadron),
   shimmer('/shimmer-page', RouteName.shimmer),
   retrofit('/retrofit-page', RouteName.retrofit),
   syncfusionFlutterCharts(

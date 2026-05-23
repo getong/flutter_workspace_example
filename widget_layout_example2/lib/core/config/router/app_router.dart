@@ -108,6 +108,7 @@ import 'package:widget_layout_example2/features/flutter_debounce_throttle/presen
 import 'package:widget_layout_example2/features/flutter_dotenv/presentation/pages/flutter_dotenv_page.dart';
 import 'package:widget_layout_example2/features/flutter_gen_ai_chat_ui/presentation/pages/flutter_gen_ai_chat_ui_page.dart';
 import 'package:widget_layout_example2/features/flutter_hooks/presentation/pages/flutter_hooks_page.dart';
+import 'package:widget_layout_example2/features/flutter_image_compress/presentation/pages/flutter_image_compress_page.dart';
 import 'package:widget_layout_example2/features/flutter_inappwebview/presentation/pages/flutter_inappwebview_page.dart';
 import 'package:widget_layout_example2/features/flutter_markdown_plus/presentation/pages/flutter_markdown_plus_page.dart';
 import 'package:widget_layout_example2/features/flutter_local_notifications/presentation/pages/flutter_local_notifications_page.dart';
@@ -155,6 +156,7 @@ import 'package:widget_layout_example2/features/json_annotation/presentation/pag
 import 'package:widget_layout_example2/features/keyboard_listener/presentation/pages/keyboard_listener_page.dart';
 import 'package:widget_layout_example2/features/layout_builder/presentation/pages/layout_builder_page.dart';
 import 'package:widget_layout_example2/features/layout_builder_vs_stack/presentation/pages/layout_builder_vs_stack_page.dart';
+import 'package:widget_layout_example2/features/leak_tracker/presentation/pages/leak_tracker_page.dart';
 import 'package:widget_layout_example2/features/linear_progress_indicator/presentation/pages/linear_progress_indicator_page.dart';
 import 'package:widget_layout_example2/features/local_auth/presentation/pages/local_auth_page.dart';
 import 'package:widget_layout_example2/features/loot_reel/presentation/pages/loot_reel_page.dart';
@@ -227,6 +229,7 @@ import 'package:widget_layout_example2/features/sliver_snap/presentation/pages/s
 import 'package:widget_layout_example2/features/snack_bar/presentation/pages/snack_bar_page.dart';
 import 'package:widget_layout_example2/features/smooth_page_indicator/presentation/pages/smooth_page_indicator_page.dart';
 import 'package:widget_layout_example2/features/speech_to_text/presentation/pages/speech_to_text_page.dart';
+import 'package:widget_layout_example2/features/squadron/presentation/pages/squadron_page.dart';
 import 'package:widget_layout_example2/features/spacer/presentation/pages/spacer_page.dart';
 import 'package:widget_layout_example2/features/stack/presentation/pages/stack_page.dart';
 import 'package:widget_layout_example2/features/stream_builder/presentation/pages/stream_builder_page.dart';
@@ -755,6 +758,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: FlutterDotenvRoute.page, path: AppRoute.flutterDotenv.path),
     AutoRoute(page: FlutterHooksRoute.page, path: AppRoute.flutterHooks.path),
     AutoRoute(
+      page: FlutterImageCompressRoute.page,
+      path: AppRoute.flutterImageCompress.path,
+    ),
+    AutoRoute(
       page: FlutterInappwebviewRoute.page,
       path: AppRoute.flutterInappwebview.path,
     ),
@@ -805,6 +812,7 @@ class AppRouter extends RootStackRouter {
       page: KeyboardListenerRoute.page,
       path: AppRoute.keyboardListener.path,
     ),
+    AutoRoute(page: LeakTrackerRoute.page, path: AppRoute.leakTracker.path),
     AutoRoute(page: InkWidgetsRoute.page, path: AppRoute.inkWidgets.path),
     AutoRoute(page: MediaQueryRoute.page, path: AppRoute.mediaQuery.path),
     AutoRoute(page: MouseRegionRoute.page, path: AppRoute.mouseRegion.path),
@@ -889,6 +897,7 @@ class AppRouter extends RootStackRouter {
     ),
     AutoRoute(page: RandomAvatarRoute.page, path: AppRoute.randomAvatar.path),
     AutoRoute(page: SpeechToTextRoute.page, path: AppRoute.speechToText.path),
+    AutoRoute(page: SquadronRoute.page, path: AppRoute.squadron.path),
     AutoRoute(page: ShimmerRoute.page, path: AppRoute.shimmer.path),
     AutoRoute(page: RetrofitRoute.page, path: AppRoute.retrofit.path),
     AutoRoute(

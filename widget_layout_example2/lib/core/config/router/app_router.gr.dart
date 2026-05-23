@@ -2432,6 +2432,22 @@ class FlutterHooksRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterImageCompressPage]
+class FlutterImageCompressRoute extends PageRouteInfo<void> {
+  const FlutterImageCompressRoute({List<PageRouteInfo>? children})
+    : super(FlutterImageCompressRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterImageCompressRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterImageCompressPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterInappwebviewPage]
 class FlutterInappwebviewRoute extends PageRouteInfo<void> {
   const FlutterInappwebviewRoute({List<PageRouteInfo>? children})
@@ -3438,6 +3454,22 @@ class LayoutTabRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const LayoutTabPage();
+    },
+  );
+}
+
+/// generated route for
+/// [LeakTrackerPage]
+class LeakTrackerRoute extends PageRouteInfo<void> {
+  const LeakTrackerRoute({List<PageRouteInfo>? children})
+    : super(LeakTrackerRoute.name, initialChildren: children);
+
+  static const String name = 'LeakTrackerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const LeakTrackerPage();
     },
   );
 }
@@ -4733,6 +4765,22 @@ class SpeechToTextRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const SpeechToTextPage();
+    },
+  );
+}
+
+/// generated route for
+/// [SquadronPage]
+class SquadronRoute extends PageRouteInfo<void> {
+  const SquadronRoute({List<PageRouteInfo>? children})
+    : super(SquadronRoute.name, initialChildren: children);
+
+  static const String name = 'SquadronRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SquadronPage();
     },
   );
 }
