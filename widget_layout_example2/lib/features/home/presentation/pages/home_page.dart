@@ -214,6 +214,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'DataTable + PaginatedDataTable Module',
     routePath: AppRoute.dataTable.path,
   ),
+  _ModuleLink(
+    label: 'dart_code_metrics_presets Module',
+    routePath: AppRoute.dartCodeMetricsPresets.path,
+  ),
   _ModuleLink(label: 'DatePicker Module', routePath: AppRoute.datePicker.path),
   _ModuleLink(
     label: 'DatePickerDialog Module',

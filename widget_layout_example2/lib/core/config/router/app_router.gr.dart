@@ -1600,6 +1600,22 @@ class CustomScrollViewSplitRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [DartCodeMetricsPresetsPage]
+class DartCodeMetricsPresetsRoute extends PageRouteInfo<void> {
+  const DartCodeMetricsPresetsRoute({List<PageRouteInfo>? children})
+    : super(DartCodeMetricsPresetsRoute.name, initialChildren: children);
+
+  static const String name = 'DartCodeMetricsPresetsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DartCodeMetricsPresetsPage();
+    },
+  );
+}
+
+/// generated route for
 /// [DashChat3Page]
 class DashChat3Route extends PageRouteInfo<void> {
   const DashChat3Route({List<PageRouteInfo>? children})

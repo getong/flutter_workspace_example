@@ -286,6 +286,7 @@ abstract final class RouteName {
   static const flutterVideoCachingFvp = 'FlutterVideoCachingFvpRoute';
   static const cachedNetworkImageCe = 'CachedNetworkImageCeRoute';
   static const dataTable = 'DataTableRoute';
+  static const dartCodeMetricsPresets = 'DartCodeMetricsPresetsRoute';
   static const desktopMultiWindow = 'DesktopMultiWindowRoute';
   static const flChart = 'FlChartRoute';
   static const fontAwesomeFlutter = 'FontAwesomeFlutterRoute';
@@ -772,6 +773,10 @@ enum AppRoute {
     RouteName.cachedNetworkImageCe,
   ),
   dataTable('/data-table-page', RouteName.dataTable),
+  dartCodeMetricsPresets(
+    '/dart-code-metrics-presets-page',
+    RouteName.dartCodeMetricsPresets,
+  ),
   desktopMultiWindow(
     '/desktop-multi-window-page',
     RouteName.desktopMultiWindow,

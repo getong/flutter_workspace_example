@@ -54,6 +54,7 @@ import 'package:widget_layout_example2/features/crypto/presentation/pages/crypto
 import 'package:widget_layout_example2/features/cue/presentation/pages/cue_page.dart';
 import 'package:widget_layout_example2/features/dash_chat_3/presentation/pages/dash_chat_3_page.dart';
 import 'package:widget_layout_example2/features/data_table/presentation/pages/data_table_page.dart';
+import 'package:widget_layout_example2/features/dart_code_metrics_presets/presentation/pages/dart_code_metrics_presets_page.dart';
 import 'package:widget_layout_example2/features/desktop_multi_window/presentation/pages/desktop_multi_window_page.dart';
 import 'package:widget_layout_example2/features/date_picker_dialog/presentation/pages/date_picker_dialog_page.dart';
 import 'package:widget_layout_example2/features/decorated_box/presentation/pages/decorated_box_page.dart';
@@ -1056,6 +1057,10 @@ class AppRouter extends RootStackRouter {
       path: AppRoute.cachedNetworkImageCe.path,
     ),
     AutoRoute(page: DataTableRoute.page, path: AppRoute.dataTable.path),
+    AutoRoute(
+      page: DartCodeMetricsPresetsRoute.page,
+      path: AppRoute.dartCodeMetricsPresets.path,
+    ),
     AutoRoute(
       page: DesktopMultiWindowRoute.page,
       path: AppRoute.desktopMultiWindow.path,
