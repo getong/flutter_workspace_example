@@ -102,6 +102,7 @@ import 'package:widget_layout_example2/features/flutter_animate/presentation/pag
 import 'package:widget_layout_example2/features/flutter_advanced_switch/presentation/pages/flutter_advanced_switch_page.dart';
 import 'package:widget_layout_example2/features/flutter_bloc/presentation/pages/flutter_bloc_page.dart';
 import 'package:widget_layout_example2/features/flutter_bloc_event_bus/presentation/pages/flutter_bloc_event_bus_page.dart';
+import 'package:widget_layout_example2/features/flutter_ai_ui_kit/presentation/pages/flutter_ai_ui_kit_page.dart';
 import 'package:widget_layout_example2/features/flutter_card_swiper/presentation/pages/flutter_card_swiper_page.dart';
 import 'package:widget_layout_example2/features/flutter_chat_ui/presentation/pages/flutter_chat_ui_page.dart';
 import 'package:widget_layout_example2/features/flutter_custom_tabs/presentation/pages/flutter_custom_tabs_page.dart';
@@ -921,6 +922,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: ScaffoldDemoRoute.page, path: AppRoute.scaffoldDemo.path),
     AutoRoute(page: DashChat3Route.page, path: AppRoute.dashChat3.path),
     AutoRoute(page: FlutterChatUiRoute.page, path: AppRoute.flutterChatUi.path),
+    AutoRoute(
+      page: FlutterAiUiKitRoute.page,
+      path: AppRoute.flutterAiUiKit.path,
+    ),
     AutoRoute(
       page: FlutterGenAiChatUiRoute.page,
       path: AppRoute.flutterGenAiChatUi.path,

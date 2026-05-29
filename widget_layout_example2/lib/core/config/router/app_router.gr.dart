@@ -2256,6 +2256,22 @@ class FlutterAdvancedSwitchRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterAiUiKitPage]
+class FlutterAiUiKitRoute extends PageRouteInfo<void> {
+  const FlutterAiUiKitRoute({List<PageRouteInfo>? children})
+    : super(FlutterAiUiKitRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterAiUiKitRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterAiUiKitPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterAnimatePage]
 class FlutterAnimateRoute extends PageRouteInfo<void> {
   const FlutterAnimateRoute({List<PageRouteInfo>? children})

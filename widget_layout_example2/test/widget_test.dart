@@ -14,9 +14,7 @@ void main() {
     final Directory hydratedStorageDirectory = await Directory.systemTemp
         .createTemp('widget_layout_example2_test_');
     HydratedBloc.storage = await HydratedStorage.build(
-      storageDirectory: HydratedStorageDirectory(
-        hydratedStorageDirectory.path,
-      ),
+      storageDirectory: HydratedStorageDirectory(hydratedStorageDirectory.path),
     );
     addTearDown(() async {
       await HydratedBloc.storage.close();

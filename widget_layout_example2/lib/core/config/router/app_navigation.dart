@@ -242,6 +242,7 @@ abstract final class RouteName {
   static const scaffoldDemo = 'ScaffoldDemoRoute';
   static const dashChat3 = 'DashChat3Route';
   static const flutterChatUi = 'FlutterChatUiRoute';
+  static const flutterAiUiKit = 'FlutterAiUiKitRoute';
   static const flutterGenAiChatUi = 'FlutterGenAiChatUiRoute';
   static const gal = 'GalRoute';
   static const photoView = 'PhotoViewRoute';
@@ -672,6 +673,7 @@ enum AppRoute {
   scaffoldDemo('/scaffold-demo-page', RouteName.scaffoldDemo),
   dashChat3('/dash-chat-3-page', RouteName.dashChat3),
   flutterChatUi('/flutter-chat-ui-page', RouteName.flutterChatUi),
+  flutterAiUiKit('/flutter-ai-ui-kit-page', RouteName.flutterAiUiKit),
   flutterGenAiChatUi(
     '/flutter-gen-ai-chat-ui-page',
     RouteName.flutterGenAiChatUi,
