@@ -262,7 +262,7 @@ class _ChatPreviewCard extends StatelessWidget {
                   appBarTitle: 'Clean Architecture Assistant',
                   appBarSubtitle: 'flutter_ai_ui_kit preview',
                   inputHintText: 'Ask about package responsibility...',
-                  enableStreaming: true,
+                  enableStreaming: false,
                   streamingSpeed: const Duration(milliseconds: 18),
                   emptyStateTitle: 'Ask about AI UI',
                   emptyStateSubtitle:
@@ -294,19 +294,45 @@ class _ChatPreviewCard extends StatelessWidget {
     if (turn.isUser) {
       return ChatMessage.user(
         id: turn.id,
-        text: turn.text,
+        text: _plainChatPreviewText(turn.text),
         senderName: 'Flutter App',
       );
     }
 
     return ChatMessage.assistant(
       id: turn.id,
-      text: turn.text,
+      text: _plainChatPreviewText(turn.text),
       senderName: 'UI Kit Assistant',
-      contentType: turn.isStreaming
-          ? MessageContentType.streaming
-          : MessageContentType.text,
+      contentType: MessageContentType.text,
     );
+  }
+
+  String _plainChatPreviewText(String text) {
+    return text
+        .replaceAllMapped(RegExp(r'```[\s\S]*?```'), (Match match) {
+          return match.group(0)!.replaceAll('```', '');
+        })
+        .replaceAllMapped(
+          RegExp(r'^\s*[-*+]\s+', multiLine: true),
+          (_) => 'Item: ',
+        )
+        .replaceAllMapped(RegExp(r'^#{1,6}\s+', multiLine: true), (_) => '')
+        .replaceAllMapped(
+          RegExp(r'\[(.*?)\]\((.*?)\)'),
+          (Match match) => '${match.group(1)} (${match.group(2)})',
+        )
+        .replaceAllMapped(
+          RegExp(r'`([^`]*)`'),
+          (Match match) => match.group(1)!,
+        )
+        .replaceAllMapped(
+          RegExp(r'\*\*([^*]*)\*\*'),
+          (Match match) => match.group(1)!,
+        )
+        .replaceAllMapped(
+          RegExp(r'\*([^*]*)\*'),
+          (Match match) => match.group(1)!,
+        );
   }
 }
 
@@ -357,6 +383,7 @@ class _WidgetShowcaseCard extends StatelessWidget {
                       text: viewModel.selectedCapability.role,
                       speed: const Duration(milliseconds: 14),
                       charsPerTick: 3,
+                      useMarkdown: false,
                     ),
                   ),
                   _ShowcasePanel(

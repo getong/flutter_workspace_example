@@ -91,19 +91,26 @@ Direct emoji works: 😀 🎉 👍
               title: 'Rendered Example',
               description:
                   'This sample shows headings, bold, code, block quotes, tables, links, and emoji using one Markdown string.',
-              child: Container(
-                constraints: const BoxConstraints(maxHeight: 420),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: theme.dividerColor),
-                ),
-                child: Markdown(
-                  data: _markdownSource,
-                  selectable: true,
-                  onTapLink: (String text, String? href, String title) =>
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Tapped link: ${href ?? text}')),
-                      ),
+              child: SizedBox(
+                height: 420,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: theme.dividerColor),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Markdown(
+                      data: _markdownSource,
+                      selectable: true,
+                      onTapLink: (String text, String? href, String title) =>
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Tapped link: ${href ?? text}'),
+                            ),
+                          ),
+                    ),
+                  ),
                 ),
               ),
             ),
