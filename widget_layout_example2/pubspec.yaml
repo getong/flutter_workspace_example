@@ -53,7 +53,7 @@ dependencies:
   built_value: ^8.12.6
   cached_network_image_ce: ^4.6.4
   characters: ^1.4.1
-  chat_bubbles: ^1.9.3
+  chat_bubbles: ^1.10.0
   chopper: ^8.6.0
   clipboard: ^3.0.14
   cookie_jar: ^4.0.9
@@ -91,7 +91,7 @@ dependencies:
   flutter_custom_tabs: ^2.5.0
   flutter_debounce_throttle: ^2.4.6
   flutter_dotenv: ^6.0.1
-  flutter_gen_ai_chat_ui: ^2.11.1
+  flutter_gen_ai_chat_ui: ^2.14.0
   flutter_hooks: ^0.21.3+1
   flutter_image_compress: ^2.4.0
   flutter_launcher_icons: ^0.14.4
@@ -133,7 +133,7 @@ dependencies:
   image_picker: ^1.2.2
   infinite_scroll_pagination: ^5.1.1
   injectable: ^3.0.0
-  internet_connection_checker_plus: ^3.0.0
+  internet_connection_checker_plus: ^3.0.1
   intl: ^0.20.2
   introduction_screen: ^4.0.0
   jaspr: ^0.23.1
@@ -152,14 +152,14 @@ dependencies:
   material_symbols_icons: ^4.2928.1
   mobile_scanner: ^7.2.0
   multi_split_view: ^3.6.2
-  native_device_orientation: ^2.1.0
+  native_device_orientation: ^2.1.1
   onboarding_overlay: ^3.2.3
   open_file: ^3.5.11
   package_info_plus: ^9.0.1
   path_provider: ^2.1.5
   pedantic_mono: ^1.37.0
   percent_indicator: ^4.2.5
-  permission_handler: ^12.0.2
+  permission_handler: ^12.0.3
   photo_view: ^0.15.0
   pigeon: ^26.3.4
   pinput: ^6.0.2
