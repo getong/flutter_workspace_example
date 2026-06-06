@@ -22,6 +22,85 @@ def flutter_root
   raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Flutter-Generated.xcconfig, then run \"flutter pub get\""
 end
 
+def flutter_app_root
+  File.expand_path('..', __dir__)
+end
+
+def flutter_executable(flutter_root_path)
+  File.expand_path(File.join(flutter_root_path, 'bin', 'flutter'))
+end
+
+def ensure_rive_native_macos_setup(flutter_root_path)
+  plugin_root = File.expand_path(
+    File.join(__dir__, 'Flutter', 'ephemeral', '.symlinks', 'plugins', 'rive_native'),
+  )
+  return unless Dir.exist?(plugin_root)
+
+  marker = File.join(plugin_root, 'macos', 'rive_marker_macos_setup_complete')
+  development_marker = File.join(plugin_root, 'macos', 'rive_marker_macos_development')
+  return if File.exist?(marker) || File.exist?(development_marker)
+
+  flutter = flutter_executable(flutter_root_path)
+  raise "Flutter executable not found at #{flutter}" unless File.executable?(flutter)
+
+  Dir.chdir(flutter_app_root) do
+    success = system(
+      flutter,
+      'pub',
+      'run',
+      'rive_native:setup',
+      '--verbose',
+      '--platform',
+      'macos',
+    )
+    raise 'Failed to prebuild rive_native macOS artifacts during pod install.' unless success
+  end
+end
+
+def patch_rive_native_macos_script_phase(installer)
+  script = <<-'SCRIPT'
+  #!/bin/sh
+  set -e
+
+  MARKER="${PODS_TARGET_SRCROOT}/rive_marker_macos_setup_complete"
+  DEV_MARKER="${PODS_TARGET_SRCROOT}/rive_marker_macos_development"
+
+  if [ -f "$MARKER" ] || [ -f "$DEV_MARKER" ]; then
+    echo "[rive_native] Setup already complete. Skipping."
+  else
+    echo "[rive_native] Setup marker not found. Running setup script..."
+    echo "[rive_native] You can run the setup manually with:"
+    echo "  flutter pub run rive_native:setup --verbose --platform macos"
+
+    GENERATED_XCCONFIG="${SRCROOT}/../Flutter/ephemeral/Flutter-Generated.xcconfig"
+    if [ -f "$GENERATED_XCCONFIG" ]; then
+      FLUTTER_ROOT=$(grep FLUTTER_ROOT "$GENERATED_XCCONFIG" | cut -d '=' -f2 | tr -d '[:space:]')
+    fi
+
+    if [ -n "$FLUTTER_ROOT" ] && [ -x "$FLUTTER_ROOT/bin/flutter" ]; then
+      echo "[rive_native] Using flutter from FLUTTER_ROOT: $FLUTTER_ROOT"
+      "$FLUTTER_ROOT/bin/flutter" pub run rive_native:setup --verbose --platform macos
+    elif command -v flutter >/dev/null 2>&1; then
+      echo "[rive_native] FLUTTER_ROOT not set or flutter not found in FLUTTER_ROOT. Using system flutter..."
+      flutter pub run rive_native:setup --verbose --platform macos
+    else
+      echo "[rive_native] Flutter executable not found. Run flutter pub get and retry." >&2
+      exit 1
+    fi
+  fi
+  SCRIPT
+
+  installer.pods_project.targets.each do |target|
+    next unless target.name == 'rive_native'
+
+    target.shell_script_build_phases.each do |phase|
+      next unless phase.name == '[CP-User] Rive Native Compile'
+
+      phase.shell_script = script
+    end
+  end
+end
+
 require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
 
 flutter_macos_podfile_setup
@@ -36,6 +115,9 @@ target 'Runner' do
 end
 
 post_install do |installer|
+  ensure_rive_native_macos_setup(flutter_root)
+  patch_rive_native_macos_script_phase(installer)
+
   installer.pods_project.targets.each do |target|
     flutter_additional_macos_build_settings(target)
     target.build_configurations.each do |config|
