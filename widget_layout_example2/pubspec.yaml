@@ -51,7 +51,7 @@ dependencies:
   bloc: ^9.2.1
   built_collection: ^5.1.1
   built_value: ^8.12.6
-  cached_network_image_ce: ^4.7.0
+  cached_network_image_ce: ^4.9.0
   characters: ^1.4.1
   chat_bubbles: ^1.10.1
   chopper: ^8.6.0
@@ -109,13 +109,13 @@ dependencies:
   flutter_svg: ^2.3.0
   flutter_timezone: ^5.1.0
   flutter_tts: ^4.2.5
-  flutter_video_caching: ^1.1.3
-  flutter_webrtc: ^1.5.1
+  flutter_video_caching: ^1.1.4
+  flutter_webrtc: ^1.5.2
   flutter_zoom_drawer: ^3.2.0
   fluttertoast: ^9.1.0
   font_awesome_flutter: ^11.0.0
   formz: ^0.8.0
-  forui: ^0.22.3
+  forui: ^0.23.0
   freezed: ^3.2.5
   freezed_annotation: ^3.1.0
   fvp: ^0.37.2
@@ -133,7 +133,7 @@ dependencies:
   image_picker: ^1.2.2
   infinite_scroll_pagination: ^5.1.1
   injectable: ^3.0.0
-  internet_connection_checker_plus: ^3.0.1
+  internet_connection_checker_plus: ^3.1.0
   intl: ^0.20.2
   introduction_screen: ^4.0.0
   jaspr: ^0.23.1
@@ -149,14 +149,14 @@ dependencies:
   macos_ui: ^2.2.2
   marionette_flutter: ^0.5.0
   material_color_utilities: ^0.13.0
-  material_symbols_icons: ^4.2928.1
+  material_symbols_icons: ^4.2951.0
   mobile_scanner: ^7.2.0
   multi_split_view: ^3.6.2
   native_device_orientation: ^2.1.1
   onboarding_overlay: ^3.2.3
   open_file: ^4.0.0
   package_info_plus: ^9.0.1
-  path_provider: ^2.1.5
+  path_provider: ^2.1.6
   pedantic_mono: ^1.37.0
   percent_indicator: ^4.2.5
   permission_handler: ^12.0.3
@@ -168,11 +168,11 @@ dependencies:
   pull_down_button: ^0.10.2
   random_avatar: ^0.0.8
   retrofit: ^4.9.2
-  rive: ^0.14.8
-  rive_native: ^0.1.8
+  rive: ^0.14.9
+  rive_native: ^0.1.9
   sensors_plus: ^7.0.0
   sentry_flutter: 8.14.2
-  shadcn_ui: ^0.54.0
+  shadcn_ui: ^0.55.0
   shader_graph: ^0.1.3
   share_plus: ^12.0.2
   shared_preferences: ^2.5.5
@@ -183,7 +183,7 @@ dependencies:
   sqlite3_flutter_libs: ^0.6.0+eol
   squadron: ^7.4.3
   super_clipboard: ^0.9.1
-  syncfusion_flutter_charts: ^33.2.12
+  syncfusion_flutter_charts: ^33.2.13+1
   table_calendar: ^3.2.0
   timeago_flutter: ^3.7.0
   toggle_switch: ^2.3.0
@@ -209,14 +209,14 @@ dev_dependencies:
   auto_route_generator: ^10.5.0
   build_runner: ^2.15.0
   built_value_generator: ^8.12.5
-  dart_code_metrics_presets: ^2.31.0
+  dart_code_metrics_presets: ^2.32.0
   drift_dev: ^2.34.0
   flutter_lints: ^6.0.0
   injectable_generator: ^3.0.2
   json_serializable: ^6.14.0
   leak_tracker_flutter_testing: ^3.0.10
   mockito: ^5.6.4
-  retrofit_generator: ^10.2.6
+  retrofit_generator: ^10.2.7
 
 dependency_overrides:
   # Deprecated local overrides from third_party. Keep the directories for now,
