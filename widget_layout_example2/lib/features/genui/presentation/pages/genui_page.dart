@@ -1142,9 +1142,7 @@ Map<String, Object?> _messageToJson(a2ui.A2uiMessage message) {
 }
 
 List<Map<String, dynamic>> _componentsToJson(List<Component> components) {
-  return components
-      .map((Component component) => component.toJson())
-      .toList();
+  return components.map((Component component) => component.toJson()).toList();
 }
 
 String _timeLabel() {

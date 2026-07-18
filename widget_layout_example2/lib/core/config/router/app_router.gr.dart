@@ -807,6 +807,22 @@ class BinarySerializableRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ByteDataPage]
+class ByteDataRoute extends PageRouteInfo<void> {
+  const ByteDataRoute({List<PageRouteInfo>? children})
+    : super(ByteDataRoute.name, initialChildren: children);
+
+  static const String name = 'ByteDataRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ByteDataPage();
+    },
+  );
+}
+
+/// generated route for
 /// [BlockSemanticsPage]
 class BlockSemanticsRoute extends PageRouteInfo<void> {
   const BlockSemanticsRoute({List<PageRouteInfo>? children})
