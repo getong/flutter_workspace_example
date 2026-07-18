@@ -51,8 +51,8 @@ class _ForuiPageState extends State<ForuiPage> {
 
   FThemeData get _previewTheme {
     final FPlatformThemeData palette = _darkPreview
-        ? FThemes.blue.dark
-        : FThemes.blue.light;
+        ? FTheme.neutral.dark
+        : FTheme.neutral.light;
     return _platform.desktop ? palette.desktop : palette.touch;
   }
 
@@ -130,27 +130,72 @@ class _ForuiPageState extends State<ForuiPage> {
             return FDialog.adaptive(
               style: style,
               animation: animation,
-              title: const Text('Ship the Forui module?'),
-              body: const Text(
-                'This dialog uses `showFDialog` and `FDialog.adaptive` so the '
-                'package handles its own transition and layout.',
-              ),
-              actions: <Widget>[
-                FButton(
-                  onPress: () => Navigator.of(context).pop(),
-                  variant: FButtonVariant.secondary,
-                  child: const Text('Not yet'),
-                ),
-                FButton(
-                  onPress: () {
-                    Navigator.of(context).pop();
-                    _log('Confirmed the preview dialog action.');
-                  },
-                  child: const Text('Ship it'),
-                ),
-              ],
+              horizontalBuilder: (BuildContext context, FDialogStyle style) =>
+                  _buildDialogContent(context, style, vertical: false),
+              verticalBuilder: (BuildContext context, FDialogStyle style) =>
+                  _buildDialogContent(context, style, vertical: true),
             );
           },
+    );
+  }
+
+  Widget _buildDialogContent(
+    BuildContext context,
+    FDialogStyle style, {
+    required bool vertical,
+  }) {
+    final Widget cancelButton = FButton(
+      onPress: () => Navigator.of(context).pop(),
+      variant: FButtonVariant.secondary,
+      child: const Text('Not yet'),
+    );
+    final Widget confirmButton = FButton(
+      onPress: () {
+        Navigator.of(context).pop();
+        _log('Confirmed the preview dialog action.');
+      },
+      child: const Text('Ship it'),
+    );
+
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          DefaultTextStyle.merge(
+            style: style.titleTextStyle,
+            child: const Text('Ship the Forui module?'),
+          ),
+          const SizedBox(height: 8),
+          DefaultTextStyle.merge(
+            style: style.bodyTextStyle,
+            child: const Text(
+              'This dialog uses `showFDialog` and `FDialog.adaptive` so the '
+              'package handles its own transition and layout.',
+            ),
+          ),
+          const SizedBox(height: 20),
+          if (vertical)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                confirmButton,
+                const SizedBox(height: 8),
+                cancelButton,
+              ],
+            )
+          else
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                cancelButton,
+                const SizedBox(width: 8),
+                confirmButton,
+              ],
+            ),
+        ],
+      ),
     );
   }
 
@@ -327,7 +372,7 @@ class _ForuiPageState extends State<ForuiPage> {
             builder: (BuildContext context, BoxConstraints constraints) {
               final bool stacked = constraints.maxWidth < 760;
               final List<Widget> cards = <Widget>[
-                FCard(
+                _ForuiCard(
                   title: const Text('Release cockpit'),
                   subtitle: const Text(
                     'Card, avatar, progress, and button variants together.',
@@ -405,7 +450,7 @@ class _ForuiPageState extends State<ForuiPage> {
                     ],
                   ),
                 ),
-                FCard(
+                _ForuiCard(
                   title: const Text('Quick actions'),
                   subtitle: const Text(
                     'Icon buttons, ghost actions, and event logging.',
@@ -506,7 +551,7 @@ class _ForuiPageState extends State<ForuiPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          FCard(
+          _ForuiCard(
             title: const Text('Form controls'),
             subtitle: const Text(
               'Lifted state with `FTextField`, `FSelect`, and multiline input.',
@@ -584,7 +629,7 @@ class _ForuiPageState extends State<ForuiPage> {
             ),
           ),
           const SizedBox(height: 16),
-          FCard(
+          _ForuiCard(
             title: const Text('Toggles and validation states'),
             subtitle: const Text(
               'Checkboxes and switches stay visually consistent with the same theme tokens.',
@@ -659,7 +704,7 @@ class _ForuiPageState extends State<ForuiPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          FCard(
+          _ForuiCard(
             title: const Text('Tabs and contextual summaries'),
             subtitle: const Text(
               'The tab widget can host compact status panels without leaving the page.',
@@ -706,7 +751,7 @@ class _ForuiPageState extends State<ForuiPage> {
             ),
           ),
           const SizedBox(height: 16),
-          FCard(
+          _ForuiCard(
             title: const Text('Dialogs and toasts'),
             subtitle: const Text(
               'Overlay widgets stay inside the local Forui theme surface.',
@@ -752,7 +797,7 @@ class _ForuiPageState extends State<ForuiPage> {
             ),
           ),
           const SizedBox(height: 16),
-          FCard(
+          _ForuiCard(
             title: const Text('Accordion, pagination, and tooltips'),
             subtitle: const Text(
               'These examples are adapted from the upstream docs snippets and demonstrate common higher-level interaction patterns.',
@@ -1061,6 +1106,43 @@ FSelect<String>.rich(
           ],
         );
       },
+    );
+  }
+}
+
+class _ForuiCard extends StatelessWidget {
+  const _ForuiCard({
+    required this.title,
+    required this.subtitle,
+    required this.child,
+  });
+
+  final Widget title;
+  final Widget subtitle;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return FCard(
+      builder: (BuildContext context, FCardStyle style, Widget? child) {
+        return Padding(
+          padding: style.padding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              DefaultTextStyle.merge(style: style.titleTextStyle, child: title),
+              const SizedBox(height: 4),
+              DefaultTextStyle.merge(
+                style: style.subtitleTextStyle,
+                child: subtitle,
+              ),
+              child!,
+            ],
+          ),
+        );
+      },
+      child: child,
     );
   }
 }

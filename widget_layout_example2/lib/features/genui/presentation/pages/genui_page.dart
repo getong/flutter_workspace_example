@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:a2ui_core/a2ui_core.dart' as a2ui;
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:genui/genui.dart';
@@ -224,7 +225,7 @@ class _SurfaceControllerCardState extends State<_SurfaceControllerCard> {
 
   void _loadProfileSurface() {
     _controller.handleMessage(
-      const UpdateDataModel(
+      a2ui.UpdateDataModelMessage(
         surfaceId: _surfaceId,
         value: <String, Object?>{
           'summary':
@@ -234,10 +235,13 @@ class _SurfaceControllerCardState extends State<_SurfaceControllerCard> {
       ),
     );
     _controller.handleMessage(
-      UpdateComponents(surfaceId: _surfaceId, components: _profileComponents()),
+      a2ui.UpdateComponentsMessage(
+        surfaceId: _surfaceId,
+        components: _componentsToJson(_profileComponents()),
+      ),
     );
     _controller.handleMessage(
-      const CreateSurface(
+      a2ui.CreateSurfaceMessage(
         surfaceId: _surfaceId,
         catalogId: basicCatalogId,
         sendDataModel: true,
@@ -250,7 +254,7 @@ class _SurfaceControllerCardState extends State<_SurfaceControllerCard> {
 
   void _loadStatusSurface() {
     _controller.handleMessage(
-      const UpdateDataModel(
+      a2ui.UpdateDataModelMessage(
         surfaceId: _surfaceId,
         value: <String, Object?>{
           'headline': 'Agent-ready release checklist',
@@ -261,10 +265,13 @@ class _SurfaceControllerCardState extends State<_SurfaceControllerCard> {
       ),
     );
     _controller.handleMessage(
-      UpdateComponents(surfaceId: _surfaceId, components: _statusComponents()),
+      a2ui.UpdateComponentsMessage(
+        surfaceId: _surfaceId,
+        components: _componentsToJson(_statusComponents()),
+      ),
     );
     _controller.handleMessage(
-      const CreateSurface(
+      a2ui.CreateSurfaceMessage(
         surfaceId: _surfaceId,
         catalogId: basicCatalogId,
         sendDataModel: true,
@@ -275,9 +282,9 @@ class _SurfaceControllerCardState extends State<_SurfaceControllerCard> {
 
   void _updateSummary() {
     _controller.handleMessage(
-      UpdateDataModel(
+      a2ui.UpdateDataModelMessage(
         surfaceId: _surfaceId,
-        path: DataPath('/summary'),
+        path: '/summary',
         value:
             'Updated at ${DateTime.now().toIso8601String()}. The bound `Text` '
             'widget rebuilt from the data model change.',
@@ -308,13 +315,17 @@ class _SurfaceControllerCardState extends State<_SurfaceControllerCard> {
         : DataPath('/checks/docsReady');
 
     _controller.handleMessage(
-      UpdateDataModel(surfaceId: _surfaceId, path: path, value: !current),
+      a2ui.UpdateDataModelMessage(
+        surfaceId: _surfaceId,
+        path: path.toString(),
+        value: !current,
+      ),
     );
     _appendLog('Toggled `${path.toString()}` through `UpdateDataModel`.');
   }
 
   void _deleteSurface() {
-    _controller.handleMessage(const DeleteSurface(surfaceId: _surfaceId));
+    _controller.handleMessage(a2ui.DeleteSurfaceMessage(surfaceId: _surfaceId));
     _appendLog('Deleted the surface.');
   }
 
@@ -553,7 +564,7 @@ class _ConversationCardState extends State<_ConversationCard> {
   }
 
   void _clearConversationSurface() {
-    _controller.handleMessage(const DeleteSurface(surfaceId: _surfaceId));
+    _controller.handleMessage(a2ui.DeleteSurfaceMessage(surfaceId: _surfaceId));
   }
 
   @override
@@ -1126,13 +1137,14 @@ String _prettyJson(Object value) {
   return const JsonEncoder.withIndent('  ').convert(value);
 }
 
-Map<String, Object?> _messageToJson(A2uiMessage message) {
-  return switch (message) {
-    CreateSurface() => message.toJson(),
-    UpdateComponents() => message.toJson(),
-    UpdateDataModel() => message.toJson(),
-    DeleteSurface() => message.toJson(),
-  };
+Map<String, Object?> _messageToJson(a2ui.A2uiMessage message) {
+  return message.toJson();
+}
+
+List<Map<String, dynamic>> _componentsToJson(List<Component> components) {
+  return components
+      .map((Component component) => component.toJson())
+      .toList();
 }
 
 String _timeLabel() {
