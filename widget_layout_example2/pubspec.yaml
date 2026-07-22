@@ -41,7 +41,7 @@ dependencies:
   # flutter_inappwebview: ^6.2.0-beta.3
   # iconly: ^1.0.1
   # tdesign_flutter: ^0.1.5
-  a2ui_core: ^0.0.1-wip002
+  a2ui_core: ^0.1.0
   animate_do: ^5.1.0
   animated_text_kit: ^4.3.0
   animated_toggle_switch: ^0.8.7
@@ -116,12 +116,12 @@ dependencies:
   fluttertoast: ^9.1.0
   font_awesome_flutter: ^11.0.0
   formz: ^0.8.0
-  forui: ^0.24.1
+  forui: ^0.24.2
   freezed: ^3.2.5
   freezed_annotation: ^3.1.0
   fvp: ^0.37.3
   gal: ^2.3.2
-  genui: ^0.10.0
+  genui: ^0.10.1
   get_it: ^9.2.1
   google_fonts: ^8.2.0
   graphql_flutter: ^5.3.0
@@ -162,15 +162,15 @@ dependencies:
   percent_indicator: ^4.2.5
   permission_handler: ^12.0.3
   photo_view: ^0.15.0
-  pigeon: ^27.2.0
+  pigeon: ^27.3.0
   pinput: ^6.0.2
   pretty_dio_logger: ^1.4.0
   protobuf: ^6.0.0
   pull_down_button: ^0.10.2
   random_avatar: ^0.0.8
   retrofit: ^4.9.2
-  rive: ^0.14.9
-  rive_native: ^0.1.9
+  rive: ^0.14.10
+  rive_native: ^0.1.10
   sensors_plus: ^7.1.0
   sentry_flutter: 8.14.2
   shadcn_ui: ^0.55.0
@@ -184,7 +184,7 @@ dependencies:
   sqlite3_flutter_libs: ^0.6.0+eol
   squadron: ^7.4.3
   super_clipboard: ^0.9.1
-  syncfusion_flutter_charts: ^34.1.31
+  syncfusion_flutter_charts: ^34.1.32
   table_calendar: ^3.2.0
   timeago_flutter: ^3.7.0
   toggle_switch: ^2.3.0
@@ -217,7 +217,7 @@ dev_dependencies:
   json_serializable: ^6.14.0
   leak_tracker_flutter_testing: ^3.0.10
   mockito: ^5.6.4
-  retrofit_generator: ^10.2.7
+  retrofit_generator: ^10.2.8
 
 dependency_overrides:
   # Deprecated local overrides from third_party. Keep the directories for now,
