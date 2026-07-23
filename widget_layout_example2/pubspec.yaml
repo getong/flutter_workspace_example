@@ -197,6 +197,7 @@ dependencies:
   webcrypto: ^0.6.1
   webview_flutter: ^4.14.1
   youtube_explode_dart: ^3.1.0
+  flutter_scene: ^0.15.0
 
 dev_dependencies:
   flutter_test:
@@ -229,6 +230,9 @@ dependency_overrides:
   # tdesign_flutter:
   #   path: third_party/tdesign_flutter
   # gpt_markdown: 1.1.6
+  # sqlparser 0.44.6 removed DartPlaceholder.when, which drift_dev 2.34.0
+  # still calls; pin until a compatible drift_dev version is available.
+  sqlparser: 0.44.5
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

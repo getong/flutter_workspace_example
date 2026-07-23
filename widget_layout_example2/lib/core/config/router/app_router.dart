@@ -212,6 +212,7 @@ import 'package:widget_layout_example2/features/sensors_plus/presentation/pages/
 import 'package:widget_layout_example2/features/semantics/presentation/pages/semantics_page.dart';
 import 'package:widget_layout_example2/features/shadcn_ui/presentation/pages/shadcn_ui_page.dart';
 import 'package:widget_layout_example2/features/shader_graph/presentation/pages/shader_graph_page.dart';
+import 'package:widget_layout_example2/features/flutter_scene_demo/presentation/pages/flutter_scene_page.dart';
 import 'package:widget_layout_example2/features/shared_preferences/presentation/pages/shared_preferences_page.dart';
 import 'package:widget_layout_example2/features/share_plus/presentation/pages/share_plus_page.dart';
 import 'package:widget_layout_example2/features/show_dialog/presentation/pages/show_dialog_page.dart';
@@ -643,6 +644,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: SensorsPlusRoute.page, path: AppRoute.sensorsPlus.path),
     AutoRoute(page: ShadcnUiRoute.page, path: AppRoute.shadcnUi.path),
     AutoRoute(page: ShaderGraphRoute.page, path: AppRoute.shaderGraph.path),
+    AutoRoute(page: FlutterSceneRoute.page, path: AppRoute.flutterScene.path),
     AutoRoute(page: DatePickerRoute.page, path: AppRoute.datePicker.path),
     AutoRoute(
       page: DatePickerDialogRoute.page,

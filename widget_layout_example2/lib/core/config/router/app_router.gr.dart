@@ -807,22 +807,6 @@ class BinarySerializableRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [ByteDataPage]
-class ByteDataRoute extends PageRouteInfo<void> {
-  const ByteDataRoute({List<PageRouteInfo>? children})
-    : super(ByteDataRoute.name, initialChildren: children);
-
-  static const String name = 'ByteDataRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const ByteDataPage();
-    },
-  );
-}
-
-/// generated route for
 /// [BlockSemanticsPage]
 class BlockSemanticsRoute extends PageRouteInfo<void> {
   const BlockSemanticsRoute({List<PageRouteInfo>? children})
@@ -882,6 +866,22 @@ class ButtonShowcaseRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const ButtonShowcasePage();
+    },
+  );
+}
+
+/// generated route for
+/// [ByteDataPage]
+class ByteDataRoute extends PageRouteInfo<void> {
+  const ByteDataRoute({List<PageRouteInfo>? children})
+    : super(ByteDataRoute.name, initialChildren: children);
+
+  static const String name = 'ByteDataRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ByteDataPage();
     },
   );
 }
@@ -2619,6 +2619,22 @@ class FlutterRustBridgeSuiRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const FlutterRustBridgeSuiPage();
+    },
+  );
+}
+
+/// generated route for
+/// [FlutterScenePage]
+class FlutterSceneRoute extends PageRouteInfo<void> {
+  const FlutterSceneRoute({List<PageRouteInfo>? children})
+    : super(FlutterSceneRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterSceneRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterScenePage();
     },
   );
 }

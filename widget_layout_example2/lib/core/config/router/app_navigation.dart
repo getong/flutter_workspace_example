@@ -121,6 +121,7 @@ abstract final class RouteName {
   static const sensorsPlus = 'SensorsPlusRoute';
   static const shadcnUi = 'ShadcnUiRoute';
   static const shaderGraph = 'ShaderGraphRoute';
+  static const flutterScene = 'FlutterSceneRoute';
   static const datePicker = 'DatePickerRoute';
   static const datePickerDialog = 'DatePickerDialogRoute';
   static const timePicker = 'TimePickerRoute';
@@ -496,6 +497,7 @@ enum AppRoute {
   sensorsPlus('/sensors-plus-page', RouteName.sensorsPlus),
   shadcnUi('/shadcn-ui-page', RouteName.shadcnUi),
   shaderGraph('/shader-graph-page', RouteName.shaderGraph),
+  flutterScene('/flutter-scene-page', RouteName.flutterScene),
   datePicker('/date-picker-page', RouteName.datePicker),
   datePickerDialog('/date-picker-dialog-page', RouteName.datePickerDialog),
   timeagoFlutter('/timeago-flutter-page', RouteName.timeagoFlutter),

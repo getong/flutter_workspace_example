@@ -790,6 +790,10 @@ final List<_ModuleLink> _animationModules = <_ModuleLink>[
   _ModuleLink(label: 'shimmer Module', routePath: AppRoute.shimmer.path),
   _ModuleLink(label: 'rive Module', routePath: AppRoute.rive.path),
   _ModuleLink(
+    label: 'flutter_scene Module',
+    routePath: AppRoute.flutterScene.path,
+  ),
+  _ModuleLink(
     label: 'SingleTickerProviderStateMixin Module',
     routePath: AppRoute.singleTickerProviderStateMixin.path,
   ),

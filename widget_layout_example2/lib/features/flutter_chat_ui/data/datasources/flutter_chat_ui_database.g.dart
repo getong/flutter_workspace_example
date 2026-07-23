@@ -971,14 +971,13 @@ final class $$FlutterChatSessionsTableReferences
     $FlutterChatMessagesTable,
     List<FlutterChatMessageEntry>
   >
-  _flutterChatMessagesRefsTable(_$FlutterChatUiDatabase db) =>
-      MultiTypedResultKey.fromTable(
-        db.flutterChatMessages,
-        aliasName: $_aliasNameGenerator(
-          db.flutterChatSessions.sessionId,
-          db.flutterChatMessages.sessionId,
-        ),
-      );
+  _flutterChatMessagesRefsTable(
+    _$FlutterChatUiDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.flutterChatMessages,
+    aliasName:
+        'flutter_chat_sessions__session_id__flutter_chat_messages__session_id',
+  );
 
   $$FlutterChatMessagesTableProcessedTableManager get flutterChatMessagesRefs {
     final manager =
@@ -1296,10 +1295,7 @@ final class $$FlutterChatMessagesTableReferences
   static $FlutterChatSessionsTable _sessionIdTable(
     _$FlutterChatUiDatabase db,
   ) => db.flutterChatSessions.createAlias(
-    $_aliasNameGenerator(
-      db.flutterChatMessages.sessionId,
-      db.flutterChatSessions.sessionId,
-    ),
+    'flutter_chat_messages__session_id__flutter_chat_sessions__session_id',
   );
 
   $$FlutterChatSessionsTableProcessedTableManager get sessionId {
