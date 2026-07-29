@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 
 import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 import 'package:widget_layout_example2/features/flutter_scene_demo/domain/entities/scene_shape.dart';
+import 'package:widget_layout_example2/features/flutter_scene_demo/example_app/gallery_page.dart';
+import 'package:widget_layout_example2/features/flutter_scene_demo/presentation/widgets/scene_explosion_demo.dart';
+import 'package:widget_layout_example2/features/flutter_scene_demo/presentation/widgets/scene_lights_demo.dart';
 import 'package:widget_layout_example2/features/flutter_scene_demo/presentation/widgets/scene_viewport.dart';
 
 const String _viewportSource = r'''
@@ -60,6 +63,15 @@ class _FlutterScenePageState extends State<FlutterScenePage> {
   double _cameraDistance = 6;
   double _metallic = 1;
   double _roughness = 0.2;
+
+  void _openGallery(BuildContext context, {String? example}) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) =>
+            SceneGalleryPage(initialExample: example),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,6 +156,75 @@ class _FlutterScenePageState extends State<FlutterScenePage> {
                 ),
               ],
             ),
+          ),
+          const SizedBox(height: 16),
+          _SectionCard(
+            title: 'Full example gallery',
+            description:
+                'The complete flutter_scene example app, copied from the '
+                'upstream repository: 30 examples covering glTF models and '
+                'skeletal animation, the campfire particle showcase, toon '
+                'and custom .fmat materials, Gaussian splats, DICOM volume '
+                'rendering, custom skyboxes, post-processing (bloom, god '
+                'rays, depth of field, color grading), physics-free stress '
+                'tests, and more — with the shared settings sidebar. '
+                'Examples needing native physics (Rapier/box3d), the SoLoud '
+                'audio backend, or the multiplayer stack are omitted.',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                FilledButton.icon(
+                  onPressed: () => _openGallery(context),
+                  icon: const Icon(Icons.view_in_ar),
+                  label: const Text('Open example gallery'),
+                ),
+                const SizedBox(height: 12),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: <Widget>[
+                    for (final String name in galleryExamples.keys)
+                      ActionChip(
+                        avatar: const Icon(Icons.play_arrow, size: 16),
+                        label: Text(name),
+                        onPressed: () => _openGallery(context, example: name),
+                      ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          const _SectionCard(
+            title: 'Animated point lights',
+            description:
+                'Copied from the flutter_scene example app (example_lights): '
+                'a 5×5 grid of colored point lights, each bobbing via a '
+                'Component attached to its Node, over spheres sweeping '
+                'metallic/roughness across the grid. Every light has a '
+                'finite range, so per-object light culling keeps fragments '
+                'cheap, and screen-space reflections mirror the lit scene '
+                'off the tiled floor. Rendered with the declarative '
+                'SceneView widget and a cameraBuilder that orbits per frame.',
+            child: SizedBox(
+              height: 320,
+              width: double.infinity,
+              child: ClipRect(child: SceneLightsDemo()),
+            ),
+          ),
+          const SizedBox(height: 16),
+          const _SectionCard(
+            title: 'Particle explosion',
+            description:
+                'Copied from the flutter_scene example app '
+                '(example_explosion): a repeating stylized explosion using '
+                'every particle renderer at once — a flipbook fireball baked '
+                'from fbm noise, velocity-stretched sparks, soft smoke, an '
+                'expanding unlit shockwave ring, tumbling instanced mesh '
+                'debris, and hero chunks that arc away under gravity with '
+                'additive ribbon trails. A director Component sequences the '
+                'cycle and pulses a point light on each detonation.',
+            child: SceneExplosionDemo(),
           ),
           const SizedBox(height: 16),
           _SectionCard(

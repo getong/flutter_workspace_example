@@ -46,6 +46,7 @@ dependencies:
   animated_text_kit: ^4.3.0
   animated_toggle_switch: ^0.8.7
   animations: ^2.2.0
+  archive: ^4.0.7
   auto_route: ^11.1.0
   binarize: ^2.0.0
   binary_serializable: ^0.4.0
@@ -93,6 +94,7 @@ dependencies:
   flutter_debounce_throttle: ^2.4.6
   flutter_dotenv: ^6.0.1
   flutter_gen_ai_chat_ui: ^2.15.0
+  flutter_gpu_shaders: ^0.5.1
   flutter_hooks: ^0.21.3+1
   flutter_image_compress: ^2.5.1
   flutter_launcher_icons: ^0.14.4
@@ -128,6 +130,7 @@ dependencies:
   graphql_flutter: ^5.3.0
   grpc: ^5.1.0
   home_widget: ^0.9.3
+  hooks: ^2.0.0
   http: ^1.6.0
   hugeicons: ^1.1.7
   hydrated_bloc: ^11.0.0
@@ -249,6 +252,15 @@ flutter:
     - assets/svg/
     - assets/images/
     - assets/wasm/wasm_ffi/
+    # flutter_scene example gallery: environment map + glb corpus for the
+    # runtime importer examples. Preprocessed scenes/textures/materials are
+    # registered by hook/build.dart (DataAssets when available, falling back
+    # to the legacy build/shaderbundles files below).
+    - assets/little_paris_eiffel_tower.png
+    - assets_src/
+    - build/shaderbundles/example.shaderbundle
+    - build/shaderbundles/materials.shaderbundle
+    - build/shaderbundles/materials.fmat.json
 
   shaders:
     - shaders/shader_graph/aurora_auto.frag

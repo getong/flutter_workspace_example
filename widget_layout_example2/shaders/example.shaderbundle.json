@@ -1,0 +1,10 @@
+{
+    "ToonFragment": {
+        "type": "fragment",
+        "file": "shaders/example_toon.frag"
+    },
+    "WaveFragment": {
+        "type": "fragment",
+        "file": "shaders/example_wave.frag"
+    }
+}

@@ -1,0 +1,58 @@
+// Wireframe stage of the Materialize example. Rendered over a
+// LineSegmentsGeometry built from MeshData.extractEdges, which expands each
+// edge into a camera-facing ribbon on the GPU, so this material only shades,
+// no vertex block needed.
+//
+// All gating compares world-space height (the model only spins about the
+// world up axis, so height is stable), with shared simplex noise wobbling
+// the boundary so the sweep reads organic.
+
+material {
+  name: "MaterializeWireframe",
+  shading_model: unlit,
+  blending: alpha,
+  culling: none,
+
+  parameters: [
+    // Sweep fronts (world-space heights), driven per tick.
+    { type: float, name: wire_front, default: 10.0 },
+    { type: float, name: solid_front, default: -10.0 },
+    // Height of the fade band around each front.
+    { type: float, name: band, default: 0.08 },
+    { type: vec4, name: wire_color, hint: source_color, default: [0.25, 0.85, 1.0, 0.85] },
+    { type: float, name: glow_strength, hint: range(0, 30, 0.1), default: 8.0 },
+    // Boundary noise, shared with the glass and shell stages.
+    { type: vec3, name: noise_scale, default: [8.0, 8.0, 8.0] },
+    { type: float, name: noise_amp, default: 0.0 },
+  ],
+}
+
+fragment {
+#include <noise.glsl>
+
+  void Surface(inout MaterialInputs material) {
+    vec3 world = GetWorldPosition();
+    float band = max(material_params.band, 1e-4);
+    float n = NoiseSimplex3(world * material_params.noise_scale, 7) *
+        material_params.noise_amp;
+    float wire_front = material_params.wire_front + n;
+    float solid_front = material_params.solid_front + n;
+
+    // 1 below the wire front, easing to 0 above it.
+    float reveal = 1.0 - smoothstep(wire_front - band, wire_front, world.y);
+    // 0 below the solid front (the opaque surface owns that region now).
+    float takeover = smoothstep(solid_front - band, solid_front + band, world.y);
+    float alpha = reveal * takeover * material_params.wire_color.a;
+    if (alpha <= 0.003) {
+      discard;
+    }
+
+    // Hot pulse at the leading edge.
+    float edge = 1.0 - clamp(abs(world.y - wire_front) / (band * 2.0), 0.0, 1.0);
+    vec3 color = material_params.wire_color.rgb *
+        (1.0 + material_params.glow_strength * edge * edge);
+
+    material.base_color = vec4(color, alpha);
+    PrepareMaterial(material);
+  }
+}
