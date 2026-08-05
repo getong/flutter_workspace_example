@@ -105,10 +105,7 @@ Future<ui.Image> bakeFireballAtlas() async {
         final double density = radial * (0.4 + 0.6 * n) * 1.5;
         final double value = ((density - erosion) / 0.25).clamp(0.0, 1.0);
 
-        final double temp = (value * (0.7 + 0.6 * n) * cooling).clamp(
-          0.0,
-          1.0,
-        );
+        final double temp = (value * (0.7 + 0.6 * n) * cooling).clamp(0.0, 1.0);
         final (double cr, double cg, double cb) = vfxBlackbody(temp);
         final double alpha = (value * 1.5).clamp(0.0, 1.0);
         final int o = rowBase + px * 4;

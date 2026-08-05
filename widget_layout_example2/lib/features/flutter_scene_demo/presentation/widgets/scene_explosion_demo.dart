@@ -293,9 +293,9 @@ class _SceneExplosionDemoState extends State<SceneExplosionDemo> {
     final ParticleSystem system = ParticleSystem(
       maxParticles: 24,
       shape: const SphereEmitterShape(radius: 0.12),
-      spawner: Spawner(bursts: const <ParticleBurst>[
-        ParticleBurst(time: 0.02, count: 13),
-      ]),
+      spawner: Spawner(
+        bursts: const <ParticleBurst>[ParticleBurst(time: 0.02, count: 13)],
+      ),
       looping: false,
       duration: 2.0,
       lifetime: const UniformFloat(0.55, 0.85),
@@ -328,14 +328,12 @@ class _SceneExplosionDemoState extends State<SceneExplosionDemo> {
     );
     final SpriteMaterial material = SpriteMaterial(colorTexture: atlas)
       ..blendMode = SpriteBlendMode.additive;
-    final ParticleEmitterComponent emitter = ParticleEmitterComponent(
-      system: system,
-      material: material,
-    )
-      ..flipbookColumns = 8
-      ..flipbookRows = 8
-      ..flipbookBlend = true
-      ..randomFlipX = true;
+    final ParticleEmitterComponent emitter =
+        ParticleEmitterComponent(system: system, material: material)
+          ..flipbookColumns = 8
+          ..flipbookRows = 8
+          ..flipbookBlend = true
+          ..randomFlipX = true;
     scene.add(
       Node()
         ..localTransform = vm.Matrix4.translation(vm.Vector3(0, 0.7, 0))
@@ -350,9 +348,9 @@ class _SceneExplosionDemoState extends State<SceneExplosionDemo> {
     final ParticleSystem system = ParticleSystem(
       maxParticles: 96,
       shape: const SphereEmitterShape(radius: 0.05),
-      spawner: Spawner(bursts: const <ParticleBurst>[
-        ParticleBurst(time: 0.0, count: 70),
-      ]),
+      spawner: Spawner(
+        bursts: const <ParticleBurst>[ParticleBurst(time: 0.0, count: 70)],
+      ),
       looping: false,
       duration: 2.0,
       lifetime: const UniformFloat(0.5, 1.1),
@@ -378,12 +376,10 @@ class _SceneExplosionDemoState extends State<SceneExplosionDemo> {
     );
     final SpriteMaterial material = SpriteMaterial(colorTexture: dot)
       ..blendMode = SpriteBlendMode.additive;
-    final ParticleEmitterComponent emitter = ParticleEmitterComponent(
-      system: system,
-      material: material,
-    )
-      ..facing = BillboardFacing.velocityStretched
-      ..velocityStretch = 0.05;
+    final ParticleEmitterComponent emitter =
+        ParticleEmitterComponent(system: system, material: material)
+          ..facing = BillboardFacing.velocityStretched
+          ..velocityStretch = 0.05;
     scene.add(
       Node()
         ..localTransform = vm.Matrix4.translation(vm.Vector3(0, 0.6, 0))
@@ -398,9 +394,9 @@ class _SceneExplosionDemoState extends State<SceneExplosionDemo> {
     final ParticleSystem system = ParticleSystem(
       maxParticles: 24,
       shape: const ConeEmitterShape(angle: 0.5, radius: 0.4),
-      spawner: Spawner(bursts: const <ParticleBurst>[
-        ParticleBurst(time: 0.22, count: 10),
-      ]),
+      spawner: Spawner(
+        bursts: const <ParticleBurst>[ParticleBurst(time: 0.22, count: 10)],
+      ),
       looping: false,
       duration: 2.0,
       lifetime: const UniformFloat(2.0, 3.2),
@@ -437,14 +433,12 @@ class _SceneExplosionDemoState extends State<SceneExplosionDemo> {
     final SpriteMaterial material = SpriteMaterial(colorTexture: atlas)
       ..blendMode = SpriteBlendMode.alpha
       ..softDepthFade = 0.7;
-    final ParticleEmitterComponent emitter = ParticleEmitterComponent(
-      system: system,
-      material: material,
-    )
-      ..flipbookColumns = 4
-      ..flipbookRows = 4
-      ..flipbookBlend = true
-      ..randomFlipX = true;
+    final ParticleEmitterComponent emitter =
+        ParticleEmitterComponent(system: system, material: material)
+          ..flipbookColumns = 4
+          ..flipbookRows = 4
+          ..flipbookBlend = true
+          ..randomFlipX = true;
     scene.add(
       Node()
         ..localTransform = vm.Matrix4.translation(vm.Vector3(0, 0.9, 0))
@@ -459,9 +453,9 @@ class _SceneExplosionDemoState extends State<SceneExplosionDemo> {
     final ParticleSystem system = ParticleSystem(
       maxParticles: 40,
       shape: const ConeEmitterShape(angle: 0.55, radius: 0.15),
-      spawner: Spawner(bursts: const <ParticleBurst>[
-        ParticleBurst(time: 0.0, count: 26),
-      ]),
+      spawner: Spawner(
+        bursts: const <ParticleBurst>[ParticleBurst(time: 0.0, count: 26)],
+      ),
       looping: false,
       duration: 2.0,
       lifetime: const UniformFloat(1.5, 2.2),

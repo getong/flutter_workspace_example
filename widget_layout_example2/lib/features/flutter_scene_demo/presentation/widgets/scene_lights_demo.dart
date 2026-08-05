@@ -104,8 +104,12 @@ class _SceneLightsDemoState extends State<SceneLightsDemo> {
         // A colored point light above the cell. Its range (7) reaches only
         // the neighboring cells, so no shape is lit by more than a handful
         // of the grid's lights even though the whole grid has many.
-        final Color color = HSVColor.fromAHSV(1.0, t * 360.0, 0.9, 1.0)
-            .toColor();
+        final Color color = HSVColor.fromAHSV(
+          1.0,
+          t * 360.0,
+          0.9,
+          1.0,
+        ).toColor();
         final vm.Vector3 rgb = vm.Vector3(
           color.r.toDouble(),
           color.g.toDouble(),
