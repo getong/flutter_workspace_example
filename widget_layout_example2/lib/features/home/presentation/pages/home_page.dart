@@ -315,6 +315,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.flutterScreenutil.path,
   ),
   _ModuleLink(
+    label: 'bloc_signals_flutter Module',
+    routePath: AppRoute.blocSignalsFlutter.path,
+  ),
+  _ModuleLink(
     label: 'flutter_bloc Module',
     routePath: AppRoute.flutterBloc.path,
   ),

@@ -164,6 +164,7 @@ abstract final class RouteName {
   static const drawer = 'DrawerRoute';
   static const futureBuilder = 'FutureBuilderRoute';
   static const genui = 'GenuiRoute';
+  static const blocSignalsFlutter = 'BlocSignalsFlutterRoute';
   static const flutterBloc = 'FlutterBlocRoute';
   static const flutterBlocEventBus = 'FlutterBlocEventBusRoute';
   static const flutterCardSwiper = 'FlutterCardSwiperRoute';
@@ -558,6 +559,10 @@ enum AppRoute {
   drawer('/drawer-page', RouteName.drawer),
   futureBuilder('/future-builder-page', RouteName.futureBuilder),
   genui('/genui-page', RouteName.genui),
+  blocSignalsFlutter(
+    '/bloc-signals-flutter-page',
+    RouteName.blocSignalsFlutter,
+  ),
   flutterBloc('/flutter-bloc-page', RouteName.flutterBloc),
   flutterBlocEventBus(
     '/flutter-bloc-event-bus-page',

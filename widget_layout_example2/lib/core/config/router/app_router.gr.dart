@@ -807,6 +807,22 @@ class BinarySerializableRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [BlocSignalsFlutterPage]
+class BlocSignalsFlutterRoute extends PageRouteInfo<void> {
+  const BlocSignalsFlutterRoute({List<PageRouteInfo>? children})
+    : super(BlocSignalsFlutterRoute.name, initialChildren: children);
+
+  static const String name = 'BlocSignalsFlutterRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const BlocSignalsFlutterPage();
+    },
+  );
+}
+
+/// generated route for
 /// [BlockSemanticsPage]
 class BlockSemanticsRoute extends PageRouteInfo<void> {
   const BlockSemanticsRoute({List<PageRouteInfo>? children})

@@ -101,6 +101,7 @@ import 'package:widget_layout_example2/features/flutter_slider_drawer/presentati
 import 'package:widget_layout_example2/features/flutter_zoom_drawer/presentation/pages/flutter_zoom_drawer_page.dart';
 import 'package:widget_layout_example2/features/flutter_animate/presentation/pages/flutter_animate_page.dart';
 import 'package:widget_layout_example2/features/flutter_advanced_switch/presentation/pages/flutter_advanced_switch_page.dart';
+import 'package:widget_layout_example2/features/bloc_signals_flutter/presentation/pages/bloc_signals_flutter_page.dart';
 import 'package:widget_layout_example2/features/flutter_bloc/presentation/pages/flutter_bloc_page.dart';
 import 'package:widget_layout_example2/features/flutter_bloc_event_bus/presentation/pages/flutter_bloc_event_bus_page.dart';
 import 'package:widget_layout_example2/features/flutter_ai_ui_kit/presentation/pages/flutter_ai_ui_kit_page.dart';
@@ -744,6 +745,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: DrawerRoute.page, path: AppRoute.drawer.path),
     AutoRoute(page: FutureBuilderRoute.page, path: AppRoute.futureBuilder.path),
     AutoRoute(page: GenuiRoute.page, path: AppRoute.genui.path),
+    AutoRoute(
+      page: BlocSignalsFlutterRoute.page,
+      path: AppRoute.blocSignalsFlutter.path,
+    ),
     AutoRoute(page: FlutterBlocRoute.page, path: AppRoute.flutterBloc.path),
     AutoRoute(
       page: FlutterBlocEventBusRoute.page,
