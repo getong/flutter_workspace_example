@@ -327,6 +327,10 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.flutterBlocEventBus.path,
   ),
   _ModuleLink(
+    label: 'flutter_riverpod Module',
+    routePath: AppRoute.flutterRiverpod.path,
+  ),
+  _ModuleLink(
     label: 'flutter_card_swiper Module',
     routePath: AppRoute.flutterCardSwiper.path,
   ),

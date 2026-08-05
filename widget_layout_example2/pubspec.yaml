@@ -53,7 +53,7 @@ dependencies:
   bloc: ^9.2.1
   bloc_signals_flutter: ^0.9.0
   built_collection: ^5.1.1
-  built_value: ^8.12.6
+  built_value: ^8.12.7
   cached_network_image_ce: ^4.10.0
   characters: ^1.4.1
   chat_bubbles: ^1.10.1
@@ -102,6 +102,7 @@ dependencies:
   flutter_link_previewer: ^4.2.0
   flutter_local_notifications: ^22.2.0
   flutter_markdown_plus: ^1.0.12
+  flutter_riverpod: ^3.4.1
   flutter_rust_bridge: ^2.12.0
   flutter_scene: ^0.20.0
   flutter_screenutil: ^6.0.0-alpha.1
@@ -189,7 +190,7 @@ dependencies:
   sqlite3_flutter_libs: ^0.6.0+eol
   squadron: ^7.4.3
   super_clipboard: ^0.9.1
-  syncfusion_flutter_charts: ^34.1.33
+  syncfusion_flutter_charts: ^34.2.2
   table_calendar: ^3.2.0
   timeago_flutter: ^3.7.0
   toggle_switch: ^2.3.0

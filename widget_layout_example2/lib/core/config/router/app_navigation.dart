@@ -167,6 +167,7 @@ abstract final class RouteName {
   static const blocSignalsFlutter = 'BlocSignalsFlutterRoute';
   static const flutterBloc = 'FlutterBlocRoute';
   static const flutterBlocEventBus = 'FlutterBlocEventBusRoute';
+  static const flutterRiverpod = 'FlutterRiverpodRoute';
   static const flutterCardSwiper = 'FlutterCardSwiperRoute';
   static const flutterCustomTabs = 'FlutterCustomTabsRoute';
   static const flutterDebounceThrottle = 'FlutterDebounceThrottleRoute';
@@ -568,6 +569,7 @@ enum AppRoute {
     '/flutter-bloc-event-bus-page',
     RouteName.flutterBlocEventBus,
   ),
+  flutterRiverpod('/flutter-riverpod-page', RouteName.flutterRiverpod),
   flutterCardSwiper('/flutter-card-swiper-page', RouteName.flutterCardSwiper),
   flutterCustomTabs('/flutter-custom-tabs-page', RouteName.flutterCustomTabs),
   flutterDebounceThrottle(

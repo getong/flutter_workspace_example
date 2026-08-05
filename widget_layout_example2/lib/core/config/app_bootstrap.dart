@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/semantics.dart';
 
 import 'package:flash/flash.dart';
@@ -39,17 +40,21 @@ Future<void> bootstrapWidgetLayoutApp() async {
 }
 
 Widget createWidgetLayoutApp() {
-  return MultiBlocProvider(
-    providers: <BlocProvider<dynamic>>[
-      BlocProvider<AppAuthBloc>.value(value: appAuthBloc),
-      BlocProvider<TextPersistenceBloc>.value(value: textPersistenceBloc),
-      BlocProvider<HydratedTodoBloc>.value(value: hydratedTodoBloc),
-      BlocProvider<BackgroundServiceDemoBloc>.value(
-        value: backgroundServiceDemoBloc,
-      ),
-      BlocProvider<HomeWidgetDemoBloc>.value(value: homeWidgetDemoBloc),
-    ],
-    child: MyApp(),
+  // ProviderScope 是 Riverpod 的状态容器，负责保存 Provider 状态、管理生命周期，
+  // 并为测试提供 override 入口；它与现有 Bloc providers 可以并存。
+  return ProviderScope(
+    child: MultiBlocProvider(
+      providers: <BlocProvider<dynamic>>[
+        BlocProvider<AppAuthBloc>.value(value: appAuthBloc),
+        BlocProvider<TextPersistenceBloc>.value(value: textPersistenceBloc),
+        BlocProvider<HydratedTodoBloc>.value(value: hydratedTodoBloc),
+        BlocProvider<BackgroundServiceDemoBloc>.value(
+          value: backgroundServiceDemoBloc,
+        ),
+        BlocProvider<HomeWidgetDemoBloc>.value(value: homeWidgetDemoBloc),
+      ],
+      child: MyApp(),
+    ),
   );
 }
 

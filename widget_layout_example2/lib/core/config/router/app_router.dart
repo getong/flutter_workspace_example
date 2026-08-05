@@ -114,6 +114,7 @@ import 'package:widget_layout_example2/features/flutter_gen_ai_chat_ui/presentat
 import 'package:widget_layout_example2/features/flutter_hooks/presentation/pages/flutter_hooks_page.dart';
 import 'package:widget_layout_example2/features/flutter_image_compress/presentation/pages/flutter_image_compress_page.dart';
 import 'package:widget_layout_example2/features/flutter_inappwebview/presentation/pages/flutter_inappwebview_page.dart';
+import 'package:widget_layout_example2/features/flutter_riverpod/presentation/pages/flutter_riverpod_page.dart';
 import 'package:widget_layout_example2/features/flutter_markdown_plus/presentation/pages/flutter_markdown_plus_page.dart';
 import 'package:widget_layout_example2/features/flutter_local_notifications/presentation/pages/flutter_local_notifications_page.dart';
 import 'package:widget_layout_example2/features/flutter_rust_bridge_libp2p_webrtc/presentation/pages/flutter_rust_bridge_libp2p_webrtc_page.dart';
@@ -753,6 +754,10 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: FlutterBlocEventBusRoute.page,
       path: AppRoute.flutterBlocEventBus.path,
+    ),
+    AutoRoute(
+      page: FlutterRiverpodRoute.page,
+      path: AppRoute.flutterRiverpod.path,
     ),
     AutoRoute(
       page: FlutterCardSwiperRoute.page,

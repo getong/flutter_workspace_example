@@ -2576,6 +2576,22 @@ class FlutterMarkdownPlusRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FlutterRiverpodPage]
+class FlutterRiverpodRoute extends PageRouteInfo<void> {
+  const FlutterRiverpodRoute({List<PageRouteInfo>? children})
+    : super(FlutterRiverpodRoute.name, initialChildren: children);
+
+  static const String name = 'FlutterRiverpodRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FlutterRiverpodPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FlutterRustBridgeEthereumPage]
 class FlutterRustBridgeEthereumRoute extends PageRouteInfo<void> {
   const FlutterRustBridgeEthereumRoute({List<PageRouteInfo>? children})
