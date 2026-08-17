@@ -21,4 +21,4 @@ CODE_SIGNING_REQUIRED = NO
 PRODUCT_COPYRIGHT = Copyright © 2026 com.example. All rights reserved.
 
 // Minimum macOS version required by speech_to_text and related plugins.
-MACOSX_DEPLOYMENT_TARGET = 11.0
+MACOSX_DEPLOYMENT_TARGET = 12.0
