@@ -10,7 +10,7 @@ crate-type = ["cdylib", "staticlib"]
 alloy = { version = "2.0.4", features = ["providers", "provider-http", "contract", "rpc-types", "sol-types"] }
 allocative = "=0.3.4" # Keep starlark_map 0.13 compatible with hashbrown 0.14.
 anyhow = "1.0.102"
-flutter_rust_bridge = "=2.12.0"
+flutter_rust_bridge = "=2.13.0"
 futures = "0.3.32"
 libp2p = { version = "0.56", features = ["ed25519", "macros", "request-response", "tokio"] }
 libp2p-request-response = { version = "0.29.0", features = ["cbor"] }

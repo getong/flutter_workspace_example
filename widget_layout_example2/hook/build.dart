@@ -21,7 +21,7 @@ void main(List<String> args) {
       buildInput: config,
       buildOutput: output,
       inputFilePaths: corpus,
-      assetMode: SceneAssetMode.dataAssetsIfAvailable,
+      assetMode: SceneAssetMode.generatedTree,
       // Store imported textures as compressed KTX2 block payloads so the
       // import -> compress -> render path is exercised in the app (dash's
       // textures shrink the most).
@@ -34,7 +34,7 @@ void main(List<String> args) {
       buildInput: config,
       buildOutput: output,
       textures: ['assets/ground_grid.png'],
-      assetMode: TextureAssetMode.dataAssetsIfAvailable,
+      assetMode: TextureAssetMode.generatedTree,
     );
     await buildShaderBundleJson(
       buildInput: config,
@@ -45,14 +45,12 @@ void main(List<String> args) {
     );
     // Compile .fmat custom materials into a bundle plus a parameter sidecar,
     // consumed through loadFmatMaterial. With no explicit list,
-    // assets/**/*.fmat is auto-discovered. dataAssetsIfAvailable registers
-    // the bundle, sidecar, and index as DataAssets (so materials resolve by
-    // source path and hot reload), falling back to the legacy
-    // build/shaderbundles/* files otherwise.
+    // assets/**/*.fmat is auto-discovered. Generated outputs resolve by source
+    // path and support hot reload through flutter_scene_generated/.
     await buildMaterials(
       buildInput: config,
       buildOutput: output,
-      assetMode: MaterialAssetMode.dataAssetsIfAvailable,
+      assetMode: MaterialAssetMode.generatedTree,
     );
   });
 }
