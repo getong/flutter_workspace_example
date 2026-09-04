@@ -4223,17 +4223,17 @@ class ProfileRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [PullDownButtonPage]
-class PullDownButtonRoute extends PageRouteInfo<void> {
-  const PullDownButtonRoute({List<PageRouteInfo>? children})
-    : super(PullDownButtonRoute.name, initialChildren: children);
+/// [CupertinoUiPage]
+class CupertinoUiRoute extends PageRouteInfo<void> {
+  const CupertinoUiRoute({List<PageRouteInfo>? children})
+    : super(CupertinoUiRoute.name, initialChildren: children);
 
-  static const String name = 'PullDownButtonRoute';
+  static const String name = 'CupertinoUiRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const PullDownButtonPage();
+      return const CupertinoUiPage();
     },
   );
 }

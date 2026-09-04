@@ -252,7 +252,7 @@ abstract final class RouteName {
   static const photoView = 'PhotoViewRoute';
   static const flutterMarkdownPlus = 'FlutterMarkdownPlusRoute';
   static const flutterLinkPreviewer = 'FlutterLinkPreviewerRoute';
-  static const pullDownButton = 'PullDownButtonRoute';
+  static const cupertinoUi = 'CupertinoUiRoute';
   static const pageView = 'PageViewRoute';
   static const tabBarView = 'TabBarViewRoute';
   static const inheritedWidget = 'InheritedWidgetRoute';
@@ -699,7 +699,7 @@ enum AppRoute {
     '/flutter-link-previewer-page',
     RouteName.flutterLinkPreviewer,
   ),
-  pullDownButton('/pull-down-button-page', RouteName.pullDownButton),
+  cupertinoUi('/cupertino-ui-page', RouteName.cupertinoUi),
   pageView('/page-view-page', RouteName.pageView),
   tabBarView('/tab-bar-view-page', RouteName.tabBarView),
   inheritedWidget('/inherited-widget-page', RouteName.inheritedWidget),

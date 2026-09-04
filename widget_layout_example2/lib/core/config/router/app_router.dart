@@ -198,7 +198,7 @@ import 'package:widget_layout_example2/features/positioned/presentation/pages/po
 import 'package:widget_layout_example2/features/pretty_dio_logger/presentation/pages/pretty_dio_logger_page.dart';
 import 'package:widget_layout_example2/features/random_avatar/presentation/pages/random_avatar_page.dart';
 import 'package:widget_layout_example2/features/flutter_link_previewer/presentation/pages/flutter_link_previewer_page.dart';
-import 'package:widget_layout_example2/features/pull_down_button/presentation/pages/pull_down_button_page.dart';
+import 'package:widget_layout_example2/features/cupertino_ui/presentation/pages/cupertino_ui_page.dart';
 import 'package:widget_layout_example2/features/radio/presentation/pages/radio_page.dart';
 import 'package:widget_layout_example2/features/refresh_indicator/presentation/pages/refresh_indicator_page.dart';
 import 'package:widget_layout_example2/features/responsive_container/presentation/pages/responsive_container_page.dart';
@@ -955,8 +955,8 @@ class AppRouter extends RootStackRouter {
       path: AppRoute.flutterLinkPreviewer.path,
     ),
     AutoRoute(
-      page: PullDownButtonRoute.page,
-      path: AppRoute.pullDownButton.path,
+      page: CupertinoUiRoute.page,
+      path: AppRoute.cupertinoUi.path,
     ),
     AutoRoute(page: PageViewRoute.page, path: AppRoute.pageView.path),
     AutoRoute(page: TabBarViewRoute.page, path: AppRoute.tabBarView.path),

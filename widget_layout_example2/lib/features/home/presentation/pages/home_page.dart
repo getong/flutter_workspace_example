@@ -654,8 +654,8 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.flutterLinkPreviewer.path,
   ),
   _ModuleLink(
-    label: 'pull_down_button Module',
-    routePath: AppRoute.pullDownButton.path,
+    label: 'cupertino_ui Module',
+    routePath: AppRoute.cupertinoUi.path,
   ),
   _ModuleLink(
     label: 'InheritedWidget Module',

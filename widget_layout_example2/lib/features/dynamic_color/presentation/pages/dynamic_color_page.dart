@@ -3,7 +3,63 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
+import 'package:material_ui/material_ui.dart' as material_ui;
 import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
+
+// dynamic_color 2.x hands the builder a `material_ui` ColorScheme, which is a
+// separate type from the SDK `ColorScheme` used by the rest of this page.
+// Copy the fields over so the preview keeps rendering through flutter/material.
+ColorScheme _toFlutterColorScheme(material_ui.ColorScheme from) {
+  return ColorScheme(
+    brightness: from.brightness,
+    primary: from.primary,
+    onPrimary: from.onPrimary,
+    primaryContainer: from.primaryContainer,
+    onPrimaryContainer: from.onPrimaryContainer,
+    primaryFixed: from.primaryFixed,
+    primaryFixedDim: from.primaryFixedDim,
+    onPrimaryFixed: from.onPrimaryFixed,
+    onPrimaryFixedVariant: from.onPrimaryFixedVariant,
+    secondary: from.secondary,
+    onSecondary: from.onSecondary,
+    secondaryContainer: from.secondaryContainer,
+    onSecondaryContainer: from.onSecondaryContainer,
+    secondaryFixed: from.secondaryFixed,
+    secondaryFixedDim: from.secondaryFixedDim,
+    onSecondaryFixed: from.onSecondaryFixed,
+    onSecondaryFixedVariant: from.onSecondaryFixedVariant,
+    tertiary: from.tertiary,
+    onTertiary: from.onTertiary,
+    tertiaryContainer: from.tertiaryContainer,
+    onTertiaryContainer: from.onTertiaryContainer,
+    tertiaryFixed: from.tertiaryFixed,
+    tertiaryFixedDim: from.tertiaryFixedDim,
+    onTertiaryFixed: from.onTertiaryFixed,
+    onTertiaryFixedVariant: from.onTertiaryFixedVariant,
+    error: from.error,
+    onError: from.onError,
+    errorContainer: from.errorContainer,
+    onErrorContainer: from.onErrorContainer,
+    surface: from.surface,
+    onSurface: from.onSurface,
+    surfaceDim: from.surfaceDim,
+    surfaceBright: from.surfaceBright,
+    surfaceContainerLowest: from.surfaceContainerLowest,
+    surfaceContainerLow: from.surfaceContainerLow,
+    surfaceContainer: from.surfaceContainer,
+    surfaceContainerHigh: from.surfaceContainerHigh,
+    surfaceContainerHighest: from.surfaceContainerHighest,
+    onSurfaceVariant: from.onSurfaceVariant,
+    outline: from.outline,
+    outlineVariant: from.outlineVariant,
+    shadow: from.shadow,
+    scrim: from.scrim,
+    inverseSurface: from.inverseSurface,
+    onInverseSurface: from.onInverseSurface,
+    inversePrimary: from.inversePrimary,
+    surfaceTint: from.surfaceTint,
+  );
+}
 
 enum _BrandPreset { coral, teal, amber }
 
@@ -134,7 +190,10 @@ class _DynamicColorPageState extends State<DynamicColorPage> {
   @override
   Widget build(BuildContext context) {
     return DynamicColorBuilder(
-      builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+      builder: (
+        material_ui.ColorScheme? lightDynamic,
+        material_ui.ColorScheme? darkDynamic,
+      ) {
         final bool hasDynamicColor =
             lightDynamic != null || darkDynamic != null || _accentColor != null;
         final ColorScheme fallbackLight = ColorScheme.fromSeed(
@@ -144,8 +203,12 @@ class _DynamicColorPageState extends State<DynamicColorPage> {
           seedColor: _brandColor,
           brightness: Brightness.dark,
         );
-        final ColorScheme lightScheme = lightDynamic ?? fallbackLight;
-        final ColorScheme darkScheme = darkDynamic ?? fallbackDark;
+        final ColorScheme lightScheme = lightDynamic == null
+            ? fallbackLight
+            : _toFlutterColorScheme(lightDynamic);
+        final ColorScheme darkScheme = darkDynamic == null
+            ? fallbackDark
+            : _toFlutterColorScheme(darkDynamic);
         final Color harmonizedBrand = _brandColor.harmonizeWith(
           lightScheme.primary,
         );

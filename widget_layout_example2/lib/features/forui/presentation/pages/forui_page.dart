@@ -56,6 +56,29 @@ class _ForuiPageState extends State<ForuiPage> {
     return _platform.desktop ? palette.desktop : palette.touch;
   }
 
+  // forui 0.26 returns a `material_ui` ThemeData from
+  // `toApproximateMaterialTheme()`, which is a separate type from the SDK
+  // `ThemeData` this page's `Theme` widget expects. Build the SDK Material
+  // approximation directly from the Forui palette instead.
+  ThemeData _approximateMaterialTheme(FThemeData theme) {
+    final colors = theme.colors;
+    return ThemeData(
+      colorScheme: ColorScheme(
+        brightness: colors.brightness,
+        primary: colors.primary,
+        onPrimary: colors.primaryForeground,
+        secondary: colors.secondary,
+        onSecondary: colors.secondaryForeground,
+        secondaryContainer: colors.secondary,
+        onSecondaryContainer: colors.secondaryForeground,
+        error: colors.error,
+        onError: colors.errorForeground,
+        surface: colors.background,
+        onSurface: colors.foreground,
+      ),
+    );
+  }
+
   void _togglePlatform() {
     setState(() {
       _platform = _platform.desktop
@@ -259,7 +282,7 @@ class _ForuiPageState extends State<ForuiPage> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(32),
         child: Theme(
-          data: previewTheme.toApproximateMaterialTheme(),
+          data: _approximateMaterialTheme(previewTheme),
           child: FTheme(
             data: previewTheme,
             platform: _platform,
