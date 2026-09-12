@@ -483,8 +483,14 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
-    final ChatTheme chatTheme = ChatTheme.fromThemeData(theme).copyWith(
-      colors: ChatColors.fromThemeData(theme).copyWith(
+    final TextTheme textTheme = theme.textTheme;
+    // flutter_chat_core >= 2.9.1 builds its `fromThemeData` factories against
+    // `package:material_ui`'s ThemeData, which is a different type from the
+    // SDK's `package:flutter/material.dart` ThemeData used by this app. Build
+    // ChatTheme directly from the ColorScheme/TextTheme instead of going
+    // through those factories.
+    final ChatTheme chatTheme = ChatTheme(
+      colors: ChatColors(
         primary: colorScheme.primary,
         onPrimary: colorScheme.onPrimary,
         surface: colorScheme.surface,
@@ -492,6 +498,14 @@ class _FlutterChatUiPageState extends State<FlutterChatUiPage> {
         surfaceContainer: colorScheme.surfaceContainer,
         surfaceContainerLow: colorScheme.surfaceContainerLow,
         surfaceContainerHigh: colorScheme.surfaceContainerHigh,
+      ),
+      typography: ChatTypography(
+        bodyLarge: textTheme.bodyLarge!,
+        bodyMedium: textTheme.bodyMedium!,
+        bodySmall: textTheme.bodySmall!,
+        labelLarge: textTheme.labelLarge!,
+        labelMedium: textTheme.labelMedium!,
+        labelSmall: textTheme.labelSmall!,
       ),
       shape: const BorderRadius.all(Radius.circular(18)),
     );
