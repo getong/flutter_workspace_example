@@ -1,11 +1,21 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 
 @RoutePage(name: RouteName.flexSeedScheme)
-class FlexSeedSchemePage extends StatefulWidget {
+class FlexSeedSchemePage extends StatefulWidget implements AutoRouteWrapper {
   const FlexSeedSchemePage({super.key});
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    // Standalone Material UI needs its own localizations and messenger.
+    return Localizations.override(
+      context: context,
+      delegates: const [DefaultMaterialLocalizations.delegate],
+      child: ScaffoldMessenger(child: this),
+    );
+  }
 
   @override
   State<FlexSeedSchemePage> createState() => _FlexSeedSchemePageState();

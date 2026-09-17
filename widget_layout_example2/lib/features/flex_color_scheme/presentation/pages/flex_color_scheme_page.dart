@@ -1,11 +1,21 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 
 @RoutePage(name: RouteName.flexColorScheme)
-class FlexColorSchemePage extends StatefulWidget {
+class FlexColorSchemePage extends StatefulWidget implements AutoRouteWrapper {
   const FlexColorSchemePage({super.key});
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    // The host app uses Flutter Material; Flex 9 uses standalone Material UI.
+    return Localizations.override(
+      context: context,
+      delegates: const [DefaultMaterialLocalizations.delegate],
+      child: ScaffoldMessenger(child: this),
+    );
+  }
 
   @override
   State<FlexColorSchemePage> createState() => _FlexColorSchemePageState();
