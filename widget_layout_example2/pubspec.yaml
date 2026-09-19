@@ -135,7 +135,7 @@ dependencies:
   home_widget: ^0.10.0
   hooks: ^2.2.0
   http: ^1.6.0
-  hugeicons: ^1.1.7
+  hugeicons: ^1.2.0
   hydrated_bloc: ^11.0.0
   image_cropper: ^12.2.1
   image_picker: ^1.2.3
@@ -198,7 +198,7 @@ dependencies:
   universal_html: ^2.3.0
   url_launcher: ^6.3.2
   uuid: ^4.6.0
-  vector_math: ^2.4.2
+  vector_math: ^2.4.3
   video_player: ^2.14.0
   wasm_ffi: ^2.4.0
   webcrypto: ^0.6.0
