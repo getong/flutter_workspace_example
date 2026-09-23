@@ -47,7 +47,7 @@ dependencies:
   animated_toggle_switch: ^0.8.7
   animations: ^3.0.0
   archive: ^4.3.0
-  auto_route: ^11.1.0
+  auto_route: ^11.2.0
   binarize: ^2.0.0
   binary_serializable: ^0.4.0
   bloc: ^9.2.1
@@ -63,7 +63,7 @@ dependencies:
   crypto: ^3.0.7
   cue: ^0.4.0
   cupertino_icons: ^1.0.9
-  cupertino_ui: ^1.1.0
+  cupertino_ui: ^1.1.1
   dash_chat_3: ^1.0.1
   desktop_multi_window: ^0.3.1
   dio: ^5.11.1
@@ -122,13 +122,13 @@ dependencies:
   fluttertoast: ^10.0.0
   font_awesome_flutter: ^11.0.0
   formz: ^0.8.1
-  forui: ^0.26.0
+  forui: ^0.27.0
   freezed: ^4.0.1
   freezed_annotation: ^3.1.0
   fvp: ^0.38.1
   gal: ^2.3.3
   genui: ^0.10.3
-  get_it: ^9.2.1
+  get_it: ^9.3.0
   google_fonts: ^8.2.1
   graphql_flutter: ^5.3.0
   grpc: ^5.1.0
@@ -158,7 +158,7 @@ dependencies:
   marionette_flutter: ^0.6.0
   material_color_utilities: ^0.13.0
   material_symbols_icons: ^4.2960.0
-  material_ui: ^1.3.0
+  material_ui: ^1.4.0
   mobile_scanner: ^7.4.2
   multi_split_view: ^3.6.2
   native_device_orientation: ^2.1.3
@@ -179,7 +179,7 @@ dependencies:
   rive: ^0.14.11
   rive_native: ^0.1.11
   sensors_plus: ^7.1.0
-  sentry_flutter: ^10.0.0-alpha.6
+  sentry_flutter: ^10.0.0-alpha.7
   shadcn_ui: ^0.57.0
   shader_graph: ^0.1.3
   share_plus: ^12.0.2
@@ -189,9 +189,9 @@ dependencies:
   smooth_page_indicator: ^3.0.0
   speech_to_text: ^7.5.0
   sqlite3_flutter_libs: ^0.6.0+eol
-  squadron: ^7.4.3
+  squadron: ^7.4.4
   super_clipboard: ^0.9.1
-  syncfusion_flutter_charts: ^34.2.8
+  syncfusion_flutter_charts: ^34.2.9
   table_calendar: ^3.2.1
   timeago_flutter: ^3.7.0
   toggle_switch: ^2.3.0
