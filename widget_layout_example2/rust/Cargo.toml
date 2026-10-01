@@ -22,7 +22,9 @@ solana-client = "3.1.14"
 solana-commitment-config = "3.1.1"
 solana-native-token = "3.0.0"
 solana-pubkey = "4.2.0"
-sui-sdk = { git = "https://github.com/mystenlabs/sui", package = "sui-sdk" }
+# Keep the JSON-RPC API used by src/api/sui.rs. Upstream removed
+# SuiClientBuilder in e4eac81f31; pin its parent instead of following HEAD.
+sui-sdk = { git = "https://github.com/mystenlabs/sui", rev = "611e8e7eacc29eee487fee4422ff58a065185a86", package = "sui-sdk" }
 tokio = { version = "=1.52.1", features = ["rt-multi-thread", "time"] }
 tracing = "0.1.44"
 url = "2.5.8"

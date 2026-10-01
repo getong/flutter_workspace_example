@@ -720,7 +720,7 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.timePickerDialog.path,
   ),
   _ModuleLink(
-    label: 'toggle_switch Module',
+    label: 'toggle_switch (Deprecated · alternatives)',
     routePath: AppRoute.toggleSwitch.path,
   ),
   _ModuleLink(label: 'Tooltip Module', routePath: AppRoute.tooltip.path),

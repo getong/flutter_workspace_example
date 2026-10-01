@@ -194,7 +194,7 @@ dependencies:
   syncfusion_flutter_charts: ^35.1.37
   table_calendar: ^3.2.1
   timeago_flutter: ^3.7.0
-  toggle_switch: ^2.3.0
+  # toggle_switch retired; use animated_toggle_switch or Flutter SegmentedButton.
   universal_html: ^2.3.0
   url_launcher: ^6.3.2
   uuid: ^4.6.0
@@ -227,6 +227,8 @@ dev_dependencies:
   retrofit_generator: ^10.2.11
 
 dependency_overrides:
+  # 1.0.4 generates JNI 1.1 bindings, but sentry_flutter currently requires JNI <1.1.
+  jni_flutter: 1.0.3
   # a2ui_core 0.1.0 still constrains preact_signals to 1.x, while
   # bloc_signals_flutter requires the compatible 7.x signals stack.
   preact_signals: ^7.0.0
