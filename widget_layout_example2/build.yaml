@@ -1,0 +1,22 @@
+targets:
+  $default:
+    # build_runner's default sources plus env/**, so envied_generator can read
+    # env files through the build graph and rebuilds when they change.
+    sources:
+      - $package$
+      - assets/**
+      - benchmark/**
+      - bin/**
+      - CHANGELOG*
+      - env/**
+      - example/**
+      - integration_test/**
+      - lib/**
+      - LICENSE*
+      - node/**
+      - pubspec.lock
+      - pubspec.yaml
+      - README*
+      - test/**
+      - tool/**
+      - web/**

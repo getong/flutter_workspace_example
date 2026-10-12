@@ -9,6 +9,22 @@ A new Flutter project.
 selection and asynchronous changes, or the `SegmentedButton` demo for Material
 single/multiple selection. The old route links to both replacements.
 
+## 环境变量（envied）
+
+`flutter_dotenv` 已移除，改用 `envied` 在构建期把 `env/*.env` 生成为类型安全的
+Dart 字段（`lib/features/envied/data/config/envied_demo_env.dart`）。旧的
+`flutter_dotenv` 路由保留为跳转页。
+
+修改 env 文件后重新生成：
+
+```sh
+puro flutter pub run build_runner build
+```
+
+`build.yaml` 在 build_runner 默认 sources 的基础上加入了 `env/**`，否则生成器读
+不到 env 文件。`env/` 里只有演示用的假值；真实项目应把含密钥的 env 文件和生成的
+`*.g.dart` 加入 `.gitignore`。`obfuscate: true` 只是混淆，客户端里的值仍可被还原。
+
 ## macOS SwiftPM 下载超时
 
 如果 `puro flutter run -d macos` 在下载 Sentry / MDK 的 GitHub Release

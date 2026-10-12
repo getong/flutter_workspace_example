@@ -1532,6 +1532,22 @@ class CueRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CupertinoUiPage]
+class CupertinoUiRoute extends PageRouteInfo<void> {
+  const CupertinoUiRoute({List<PageRouteInfo>? children})
+    : super(CupertinoUiRoute.name, initialChildren: children);
+
+  static const String name = 'CupertinoUiRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CupertinoUiPage();
+    },
+  );
+}
+
+/// generated route for
 /// [CustomClipperExamplePage]
 class CustomClipperExampleRoute extends PageRouteInfo<void> {
   const CustomClipperExampleRoute({List<PageRouteInfo>? children})
@@ -1952,6 +1968,22 @@ class EncrypterPlusRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [EnviedPage]
+class EnviedRoute extends PageRouteInfo<void> {
+  const EnviedRoute({List<PageRouteInfo>? children})
+    : super(EnviedRoute.name, initialChildren: children);
+
+  static const String name = 'EnviedRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const EnviedPage();
+    },
+  );
+}
+
+/// generated route for
 /// [ExcludeSemanticsPage]
 class ExcludeSemanticsRoute extends PageRouteInfo<void> {
   const ExcludeSemanticsRoute({List<PageRouteInfo>? children})
@@ -2186,7 +2218,7 @@ class FlexColorSchemeRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const FlexColorSchemePage();
+      return WrappedRoute(child: const FlexColorSchemePage());
     },
   );
 }
@@ -2202,7 +2234,7 @@ class FlexSeedSchemeRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const FlexSeedSchemePage();
+      return WrappedRoute(child: const FlexSeedSchemePage());
     },
   );
 }
@@ -4218,22 +4250,6 @@ class ProfileRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const ProfilePage();
-    },
-  );
-}
-
-/// generated route for
-/// [CupertinoUiPage]
-class CupertinoUiRoute extends PageRouteInfo<void> {
-  const CupertinoUiRoute({List<PageRouteInfo>? children})
-    : super(CupertinoUiRoute.name, initialChildren: children);
-
-  static const String name = 'CupertinoUiRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const CupertinoUiPage();
     },
   );
 }

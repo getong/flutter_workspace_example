@@ -261,6 +261,7 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     label: 'encrypter_plus Module',
     routePath: AppRoute.encrypterPlus.path,
   ),
+  _ModuleLink(label: 'envied Module', routePath: AppRoute.envied.path),
   _ModuleLink(
     label: 'ExpandableSection Module',
     routePath: AppRoute.expandableSection.path,
@@ -343,7 +344,7 @@ final List<_ModuleLink> _contentModules = <_ModuleLink>[
     routePath: AppRoute.flutterDebounceThrottle.path,
   ),
   _ModuleLink(
-    label: 'flutter_dotenv Module',
+    label: 'flutter_dotenv (Deprecated · alternatives)',
     routePath: AppRoute.flutterDotenv.path,
   ),
   _ModuleLink(

@@ -69,12 +69,17 @@ void main() {
     expect(find.text('dynamic_color Module'), findsOneWidget);
     await dragUntilTextVisible('encrypter_plus Module');
     expect(find.text('encrypter_plus Module'), findsOneWidget);
+    await dragUntilTextVisible('envied Module');
+    expect(find.text('envied Module'), findsOneWidget);
     await dragUntilTextVisible('ExpansionPanelList Module');
     expect(find.text('ExpansionPanelList Module'), findsOneWidget);
     await dragUntilTextVisible('flutter_bloc Module');
     expect(find.text('flutter_bloc Module'), findsOneWidget);
-    await dragUntilTextVisible('flutter_dotenv Module');
-    expect(find.text('flutter_dotenv Module'), findsOneWidget);
+    await dragUntilTextVisible('flutter_dotenv (Deprecated · alternatives)');
+    expect(
+      find.text('flutter_dotenv (Deprecated · alternatives)'),
+      findsOneWidget,
+    );
     await dragUntilTextVisible('flutter_hooks Module');
     expect(find.text('flutter_hooks Module'), findsOneWidget);
     await dragUntilTextVisible('flutter_inappwebview Module');

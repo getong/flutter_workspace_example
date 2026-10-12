@@ -195,6 +195,7 @@ abstract final class RouteName {
   static const driftFlutter = 'DriftFlutterRoute';
   static const dynamicColor = 'DynamicColorRoute';
   static const encrypterPlus = 'EncrypterPlusRoute';
+  static const envied = 'EnviedRoute';
   static const extendedImage = 'ExtendedImageRoute';
   static const fluttertoast = 'FluttertoastRoute';
   static const keyboardListener = 'KeyboardListenerRoute';
@@ -612,6 +613,7 @@ enum AppRoute {
   driftFlutter('/drift-flutter-page', RouteName.driftFlutter),
   dynamicColor('/dynamic-color-page', RouteName.dynamicColor),
   encrypterPlus('/encrypter-plus-page', RouteName.encrypterPlus),
+  envied('/envied-page', RouteName.envied),
   extendedImage('/extended-image-page', RouteName.extendedImage),
   fluttertoast('/fluttertoast-page', RouteName.fluttertoast),
   keyboardListener('/keyboard-listener-page', RouteName.keyboardListener),
