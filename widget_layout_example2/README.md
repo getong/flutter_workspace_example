@@ -27,6 +27,20 @@ puro flutter pub run build_runner build
 
 ## macOS SwiftPM 下载超时
 
+如果报 `Couldn’t fetch updates from remote repositories`，这是 Git 仓库更新
+失败，下面的二进制缓存脚本不能解决。先确认本机代理已启动，再为 GitHub 的
+Git HTTPS 请求配置代理（当前用户全局生效，Xcode/SwiftPM 也会使用）：
+
+```sh
+git config --global http.https://github.com/.proxy http://127.0.0.1:7890
+git ls-remote https://github.com/mattgallagher/CwlCatchException.git HEAD
+git ls-remote https://github.com/getsentry/sentry-cocoa HEAD
+puro flutter run -d macos
+```
+
+将端口替换为实际代理端口；运行时需要保持代理开启。如果以后恢复直连，移除
+此配置：`git config --global --unset http.https://github.com/.proxy`。
+
 如果 `puro flutter run -d macos` 在下载 Sentry / MDK 的 GitHub Release
 时超时，可以先通过可用代理预填充 SwiftPM 缓存：
 
