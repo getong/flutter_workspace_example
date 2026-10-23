@@ -436,7 +436,8 @@ class _FluentUiPageState extends State<FluentUiPage> {
   }
 
   Widget _buildSettingsPage() {
-    return fluent.ScaffoldPage.withPadding(
+    return fluent.ScaffoldPage(
+      padding: const EdgeInsets.all(24),
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
