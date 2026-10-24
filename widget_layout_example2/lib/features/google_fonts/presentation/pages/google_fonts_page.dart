@@ -21,33 +21,30 @@ class GoogleFontsPage extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final TextTheme textTheme = theme.textTheme;
     final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme previewTextTheme = GoogleFonts.latoTextTheme(textTheme)
-        .copyWith(
-          headlineSmall: GoogleFonts.playfairDisplay(
-            textStyle: textTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.w700,
-              color: colorScheme.onSurface,
-            ),
-          ),
-          titleMedium: GoogleFonts.oswald(
-            textStyle: textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w600,
-              letterSpacing: 0.8,
-              color: colorScheme.primary,
-            ),
-          ),
-          bodyLarge: GoogleFonts.lora(
-            textStyle: textTheme.bodyLarge?.copyWith(
-              height: 1.6,
-              color: colorScheme.onSurface,
-            ),
-          ),
-          labelLarge: GoogleFonts.robotoMono(
-            textStyle: textTheme.labelLarge?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        );
+    final TextTheme previewTextTheme = _latoTextTheme(textTheme).copyWith(
+      headlineSmall: GoogleFonts.playfairDisplay(
+        textStyle: textTheme.headlineSmall?.copyWith(
+          fontWeight: FontWeight.w700,
+          color: colorScheme.onSurface,
+        ),
+      ),
+      titleMedium: GoogleFonts.oswald(
+        textStyle: textTheme.titleMedium?.copyWith(
+          fontWeight: FontWeight.w600,
+          letterSpacing: 0.8,
+          color: colorScheme.primary,
+        ),
+      ),
+      bodyLarge: GoogleFonts.lora(
+        textStyle: textTheme.bodyLarge?.copyWith(
+          height: 1.6,
+          color: colorScheme.onSurface,
+        ),
+      ),
+      labelLarge: GoogleFonts.robotoMono(
+        textStyle: textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w600),
+      ),
+    );
 
     return Scaffold(
       appBar: AppBar(title: const Text('google_fonts Module')),
@@ -295,6 +292,24 @@ class _SectionCard extends StatelessWidget {
   }
 }
 
+TextTheme _latoTextTheme(TextTheme theme) => theme.copyWith(
+  displayLarge: GoogleFonts.lato(textStyle: theme.displayLarge),
+  displayMedium: GoogleFonts.lato(textStyle: theme.displayMedium),
+  displaySmall: GoogleFonts.lato(textStyle: theme.displaySmall),
+  headlineLarge: GoogleFonts.lato(textStyle: theme.headlineLarge),
+  headlineMedium: GoogleFonts.lato(textStyle: theme.headlineMedium),
+  headlineSmall: GoogleFonts.lato(textStyle: theme.headlineSmall),
+  titleLarge: GoogleFonts.lato(textStyle: theme.titleLarge),
+  titleMedium: GoogleFonts.lato(textStyle: theme.titleMedium),
+  titleSmall: GoogleFonts.lato(textStyle: theme.titleSmall),
+  bodyLarge: GoogleFonts.lato(textStyle: theme.bodyLarge),
+  bodyMedium: GoogleFonts.lato(textStyle: theme.bodyMedium),
+  bodySmall: GoogleFonts.lato(textStyle: theme.bodySmall),
+  labelLarge: GoogleFonts.lato(textStyle: theme.labelLarge),
+  labelMedium: GoogleFonts.lato(textStyle: theme.labelMedium),
+  labelSmall: GoogleFonts.lato(textStyle: theme.labelSmall),
+);
+
 class _CodeSampleCard extends StatelessWidget {
   const _CodeSampleCard();
 
@@ -307,8 +322,10 @@ Text(
   ),
 );
 
-final textTheme = GoogleFonts.latoTextTheme(
-  Theme.of(context).textTheme,
+final theme = Theme.of(context);
+final textTheme = theme.textTheme.copyWith(
+  bodyLarge: GoogleFonts.lato(textStyle: theme.textTheme.bodyLarge),
+  titleMedium: GoogleFonts.lato(textStyle: theme.textTheme.titleMedium),
 );
 
 Theme(
