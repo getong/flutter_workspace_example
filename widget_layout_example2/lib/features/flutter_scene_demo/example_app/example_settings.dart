@@ -219,18 +219,9 @@ class ExampleSettings {
         -math.sin(elevation),
         horizontal * math.sin(azimuth),
       );
-      // Reuse the scene's directional light component, or attach one. The
-      // light's node has no transform, so its world direction is the
-      // direction set here.
-      final existing = scene.root.getComponents<DirectionalLightComponent>();
-      final DirectionalLightComponent component;
-      if (existing.isEmpty) {
-        component = DirectionalLightComponent(DirectionalLight());
-        scene.root.addComponent(component);
-      } else {
-        component = existing.first;
-      }
-      final light = component.light;
+      // The scene-level light reads direction directly. Authored light
+      // components instead take their direction from their owning node.
+      final light = scene.directionalLight ??= DirectionalLight();
       light.direction = direction;
       light.intensity = lightIntensity;
       light.color.setFrom(lightColor);
@@ -246,10 +237,7 @@ class ExampleSettings {
       light.shadowAmbientStrength = shadowAmbientStrength;
       light.shadowCasterFaces = shadowCasterFaces;
     } else {
-      for (final component
-          in scene.root.getComponents<DirectionalLightComponent>().toList()) {
-        scene.root.removeComponent(component);
-      }
+      scene.directionalLight = null;
     }
 
     final wave = waveEffect;
