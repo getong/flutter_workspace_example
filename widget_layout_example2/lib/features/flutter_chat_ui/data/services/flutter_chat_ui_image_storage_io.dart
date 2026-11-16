@@ -75,9 +75,9 @@ String? localChatImagePath(String source) {
 
 Future<String> _saveImageToPhotoLibrary(String localPath) async {
   try {
-    final bool hasAccess = await Gal.hasAccess();
+    final bool hasAccess = await Gal.hasPermission();
     if (!hasAccess) {
-      final bool granted = await Gal.requestAccess();
+      final bool granted = await Gal.requestPermission();
       if (!granted) {
         return 'Saving to the system photo library was denied.';
       }

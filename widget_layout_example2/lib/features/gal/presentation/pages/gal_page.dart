@@ -22,7 +22,7 @@ class _GalPageState extends State<GalPage> {
       'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wn2wS8AAAAASUVORK5CYII=';
 
   Future<void> _checkAccess({bool toAlbum = false}) async {
-    final bool hasAccess = await Gal.hasAccess(toAlbum: toAlbum);
+    final bool hasAccess = await Gal.hasPermission(toAlbum: toAlbum);
     if (!mounted) {
       return;
     }
@@ -35,7 +35,7 @@ class _GalPageState extends State<GalPage> {
   }
 
   Future<void> _requestAccess({bool toAlbum = false}) async {
-    await Gal.requestAccess(toAlbum: toAlbum);
+    await Gal.requestPermission(toAlbum: toAlbum);
     await _checkAccess(toAlbum: toAlbum);
   }
 
@@ -119,7 +119,7 @@ class _GalPageState extends State<GalPage> {
                   ),
                   Text('• `Gal.putVideo(path)` saves an existing video file.'),
                   Text(
-                    '• `Gal.hasAccess()` and `Gal.requestAccess()` handle permission checks.',
+                    '• `Gal.hasPermission()` and `Gal.requestPermission()` handle permission checks.',
                   ),
                   Text(
                     '• `album:` lets you save into a named album when the platform supports it.',
@@ -213,9 +213,9 @@ class _GalPageState extends State<GalPage> {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: const Text(
-                  'final hasAccess = await Gal.hasAccess();\n'
+                  'final hasAccess = await Gal.hasPermission();\n'
                   'if (!hasAccess) {\n'
-                  '  await Gal.requestAccess();\n'
+                  '  await Gal.requestPermission();\n'
                   '}\n'
                   'await Gal.putImageBytes(bytes, album: \'Exports\');',
                 ),
