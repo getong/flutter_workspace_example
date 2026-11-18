@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons_weights.dart';
 import 'package:widget_layout_example2/core/config/router/app_navigation.dart';
 
 @RoutePage(name: RouteName.lucideIconsFlutter)
@@ -239,19 +240,19 @@ class _LucideIconsFlutterPageState extends State<LucideIconsFlutterPage> {
                   ),
                   const SizedBox(height: 8),
                   const Text(
-                    'The package publishes separate font families such as `activity100` through `activity600`, which gives direct control over stroke thickness.',
+                    'The package publishes separate font families through `LucideIcons100.activity` to `LucideIcons600.activity`, which gives direct control over stroke thickness.',
                   ),
                   const SizedBox(height: 16),
                   Wrap(
                     spacing: 12,
                     runSpacing: 12,
                     children: const <Widget>[
-                      _WeightChip(label: '100', icon: LucideIcons.activity100),
-                      _WeightChip(label: '200', icon: LucideIcons.activity200),
-                      _WeightChip(label: '300', icon: LucideIcons.activity300),
-                      _WeightChip(label: '400', icon: LucideIcons.activity400),
-                      _WeightChip(label: '500', icon: LucideIcons.activity500),
-                      _WeightChip(label: '600', icon: LucideIcons.activity600),
+                      _WeightChip(label: '100', icon: LucideIcons100.activity),
+                      _WeightChip(label: '200', icon: LucideIcons200.activity),
+                      _WeightChip(label: '300', icon: LucideIcons300.activity),
+                      _WeightChip(label: '400', icon: LucideIcons400.activity),
+                      _WeightChip(label: '500', icon: LucideIcons500.activity),
+                      _WeightChip(label: '600', icon: LucideIcons600.activity),
                     ],
                   ),
                 ],
